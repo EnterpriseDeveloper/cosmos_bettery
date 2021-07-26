@@ -37,7 +37,6 @@ func (k msgServer) UpdateCreatePrivEvents(goCtx context.Context, msg *types.MsgU
 	var createPrivEvents = types.CreatePrivEvents{
 		Creator:  msg.Creator,
 		Id:       msg.Id,
-		PrivId:   msg.PrivId,
 		Question: msg.Question,
 		Answers:  msg.Answers,
 		Winner:   msg.Winner,

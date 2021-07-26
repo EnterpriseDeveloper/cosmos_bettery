@@ -21,7 +21,6 @@ export interface MsgCreateCreatePrivEventsResponse {
 export interface MsgUpdateCreatePrivEvents {
   creator: string
   id: number
-  privId: number
   question: string
   answers: string[]
   winner: string
@@ -239,7 +238,7 @@ export const MsgCreateCreatePrivEventsResponse = {
   }
 }
 
-const baseMsgUpdateCreatePrivEvents: object = { creator: '', id: 0, privId: 0, question: '', answers: '', winner: '', loser: '' }
+const baseMsgUpdateCreatePrivEvents: object = { creator: '', id: 0, question: '', answers: '', winner: '', loser: '' }
 
 export const MsgUpdateCreatePrivEvents = {
   encode(message: MsgUpdateCreatePrivEvents, writer: Writer = Writer.create()): Writer {
@@ -248,9 +247,6 @@ export const MsgUpdateCreatePrivEvents = {
     }
     if (message.id !== 0) {
       writer.uint32(16).uint64(message.id)
-    }
-    if (message.privId !== 0) {
-      writer.uint32(24).uint64(message.privId)
     }
     if (message.question !== '') {
       writer.uint32(34).string(message.question)
@@ -280,9 +276,6 @@ export const MsgUpdateCreatePrivEvents = {
           break
         case 2:
           message.id = longToNumber(reader.uint64() as Long)
-          break
-        case 3:
-          message.privId = longToNumber(reader.uint64() as Long)
           break
         case 4:
           message.question = reader.string()
@@ -317,11 +310,6 @@ export const MsgUpdateCreatePrivEvents = {
     } else {
       message.id = 0
     }
-    if (object.privId !== undefined && object.privId !== null) {
-      message.privId = Number(object.privId)
-    } else {
-      message.privId = 0
-    }
     if (object.question !== undefined && object.question !== null) {
       message.question = String(object.question)
     } else {
@@ -349,7 +337,6 @@ export const MsgUpdateCreatePrivEvents = {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
     message.id !== undefined && (obj.id = message.id)
-    message.privId !== undefined && (obj.privId = message.privId)
     message.question !== undefined && (obj.question = message.question)
     if (message.answers) {
       obj.answers = message.answers.map((e) => e)
@@ -373,11 +360,6 @@ export const MsgUpdateCreatePrivEvents = {
       message.id = object.id
     } else {
       message.id = 0
-    }
-    if (object.privId !== undefined && object.privId !== null) {
-      message.privId = object.privId
-    } else {
-      message.privId = 0
     }
     if (object.question !== undefined && object.question !== null) {
       message.question = object.question

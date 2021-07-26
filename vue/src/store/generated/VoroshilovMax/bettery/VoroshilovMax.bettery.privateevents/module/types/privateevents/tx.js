@@ -205,7 +205,7 @@ export const MsgCreateCreatePrivEventsResponse = {
         return message;
     }
 };
-const baseMsgUpdateCreatePrivEvents = { creator: '', id: 0, privId: 0, question: '', answers: '', winner: '', loser: '' };
+const baseMsgUpdateCreatePrivEvents = { creator: '', id: 0, question: '', answers: '', winner: '', loser: '' };
 export const MsgUpdateCreatePrivEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -213,9 +213,6 @@ export const MsgUpdateCreatePrivEvents = {
         }
         if (message.id !== 0) {
             writer.uint32(16).uint64(message.id);
-        }
-        if (message.privId !== 0) {
-            writer.uint32(24).uint64(message.privId);
         }
         if (message.question !== '') {
             writer.uint32(34).string(message.question);
@@ -244,9 +241,6 @@ export const MsgUpdateCreatePrivEvents = {
                     break;
                 case 2:
                     message.id = longToNumber(reader.uint64());
-                    break;
-                case 3:
-                    message.privId = longToNumber(reader.uint64());
                     break;
                 case 4:
                     message.question = reader.string();
@@ -282,12 +276,6 @@ export const MsgUpdateCreatePrivEvents = {
         else {
             message.id = 0;
         }
-        if (object.privId !== undefined && object.privId !== null) {
-            message.privId = Number(object.privId);
-        }
-        else {
-            message.privId = 0;
-        }
         if (object.question !== undefined && object.question !== null) {
             message.question = String(object.question);
         }
@@ -317,7 +305,6 @@ export const MsgUpdateCreatePrivEvents = {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
         message.id !== undefined && (obj.id = message.id);
-        message.privId !== undefined && (obj.privId = message.privId);
         message.question !== undefined && (obj.question = message.question);
         if (message.answers) {
             obj.answers = message.answers.map((e) => e);
@@ -343,12 +330,6 @@ export const MsgUpdateCreatePrivEvents = {
         }
         else {
             message.id = 0;
-        }
-        if (object.privId !== undefined && object.privId !== null) {
-            message.privId = object.privId;
-        }
-        else {
-            message.privId = 0;
         }
         if (object.question !== undefined && object.question !== null) {
             message.question = object.question;

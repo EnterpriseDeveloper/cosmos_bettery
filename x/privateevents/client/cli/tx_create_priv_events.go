@@ -63,29 +63,25 @@ func CmdUpdateCreatePrivEvents() *cobra.Command {
 		Short: "Update a createPrivEvents",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			id, err := strconv.ParseUint(args[0], 10, 64)
+
+			argsPrivId, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
 				return err
 			}
 
-			argsPrivId, err := strconv.ParseUint(args[1], 10, 64)
+			argsQuestion, err := cast.ToStringE(args[1])
 			if err != nil {
 				return err
 			}
 
-			argsQuestion, err := cast.ToStringE(args[2])
+			argsAnswers := args[2:len(args)]
+
+			argsWinner, err := cast.ToStringE(args[3])
 			if err != nil {
 				return err
 			}
 
-			argsAnswers := args[3:len(args)]
-
-			argsWinner, err := cast.ToStringE(args[4])
-			if err != nil {
-				return err
-			}
-
-			argsLoser, err := cast.ToStringE(args[5])
+			argsLoser, err := cast.ToStringE(args[4])
 			if err != nil {
 				return err
 			}
@@ -95,7 +91,7 @@ func CmdUpdateCreatePrivEvents() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgUpdateCreatePrivEvents(clientCtx.GetFromAddress().String(), id, argsPrivId, argsQuestion, argsAnswers, argsWinner, argsLoser)
+			msg := types.NewMsgUpdateCreatePrivEvents(clientCtx.GetFromAddress().String(), argsPrivId, argsQuestion, argsAnswers, argsWinner, argsLoser)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

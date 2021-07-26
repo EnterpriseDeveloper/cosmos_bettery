@@ -15,7 +15,6 @@ export interface MsgCreateCreatePrivEventsResponse {
 export interface MsgUpdateCreatePrivEvents {
     creator: string;
     id: number;
-    privId: number;
     question: string;
     answers: string[];
     winner: string;

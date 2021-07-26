@@ -49,11 +49,10 @@ func (msg *MsgCreateCreatePrivEvents) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateCreatePrivEvents{}
 
-func NewMsgUpdateCreatePrivEvents(creator string, id uint64, privId uint64, question string, answers []string, winner string, loser string) *MsgUpdateCreatePrivEvents {
+func NewMsgUpdateCreatePrivEvents(creator string, id uint64, question string, answers []string, winner string, loser string) *MsgUpdateCreatePrivEvents {
 	return &MsgUpdateCreatePrivEvents{
 		Id:       id,
 		Creator:  creator,
-		PrivId:   privId,
 		Question: question,
 		Answers:  answers,
 		Winner:   winner,
