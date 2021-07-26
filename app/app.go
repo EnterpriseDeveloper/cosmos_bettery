@@ -84,6 +84,9 @@ import (
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
+	privateeventsmodule "github.com/VoroshilovMax/bettery/x/privateevents"
+	privateeventsmodulekeeper "github.com/VoroshilovMax/bettery/x/privateevents/keeper"
+	privateeventsmoduletypes "github.com/VoroshilovMax/bettery/x/privateevents/types"
 
 	"github.com/tendermint/spm/cosmoscmd"
 )
@@ -135,6 +138,7 @@ var (
 		transfer.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
+		privateeventsmodule.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -203,6 +207,8 @@ type App struct {
 
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
+	PrivateeventsKeeper privateeventsmodulekeeper.Keeper
+
 	// the module manager
 	mm *module.Manager
 }
@@ -236,6 +242,7 @@ func New(
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
+		privateeventsmoduletypes.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
@@ -331,6 +338,13 @@ func New(
 		&stakingKeeper, govRouter,
 	)
 
+	app.PrivateeventsKeeper = *privateeventsmodulekeeper.NewKeeper(
+		appCodec,
+		keys[privateeventsmoduletypes.StoreKey],
+		keys[privateeventsmoduletypes.MemStoreKey],
+	)
+	privateeventsModule := privateeventsmodule.NewAppModule(appCodec, app.PrivateeventsKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
@@ -369,6 +383,7 @@ func New(
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
+		privateeventsModule,
 	)
 
 	// During begin block slashing happens after distr.BeginBlocker so that
@@ -402,6 +417,7 @@ func New(
 		evidencetypes.ModuleName,
 		ibctransfertypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
+		privateeventsmoduletypes.ModuleName,
 	)
 
 	app.mm.RegisterInvariants(&app.CrisisKeeper)
@@ -589,6 +605,7 @@ func initParamsKeeper(appCodec codec.BinaryMarshaler, legacyAmino *codec.LegacyA
 	paramsKeeper.Subspace(ibctransfertypes.ModuleName)
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
+	paramsKeeper.Subspace(privateeventsmoduletypes.ModuleName)
 
 	return paramsKeeper
 }
