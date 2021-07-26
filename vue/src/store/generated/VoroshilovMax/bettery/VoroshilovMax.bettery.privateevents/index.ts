@@ -287,48 +287,18 @@ export default {
 		},
 		
 		
-		async sendMsgCreatePartPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgCreateValidPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreatePartPrivEvents(value)
+				const msg = await txClient.msgCreateValidPrivEvents(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgCreatePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgCreateValidPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgCreatePartPrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgUpdatePartPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdatePartPrivEvents(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgUpdatePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgUpdatePartPrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgUpdateCreatePrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateCreatePrivEvents(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgUpdateCreatePrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgUpdateCreatePrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgCreateValidPrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -347,33 +317,33 @@ export default {
 				}
 			}
 		},
-		async sendMsgDeletePartPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgCreatePartPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeletePartPrivEvents(value)
+				const msg = await txClient.msgCreatePartPrivEvents(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgDeletePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgCreatePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgDeletePartPrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgCreatePartPrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
-		async sendMsgUpdateValidPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgUpdateCreatePrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateValidPrivEvents(value)
+				const msg = await txClient.msgUpdateCreatePrivEvents(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgUpdateValidPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgUpdateCreatePrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgUpdateValidPrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgUpdateCreatePrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -392,18 +362,18 @@ export default {
 				}
 			}
 		},
-		async sendMsgCreateValidPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgUpdateValidPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateValidPrivEvents(value)
+				const msg = await txClient.msgUpdateValidPrivEvents(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgCreateValidPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgUpdateValidPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgCreateValidPrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgUpdateValidPrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -422,45 +392,47 @@ export default {
 				}
 			}
 		},
-		
-		async MsgCreatePartPrivEvents({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreatePartPrivEvents(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgCreatePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgCreatePartPrivEvents:Create', 'Could not create message: ' + e.message)
-					
-				}
-			}
-		},
-		async MsgUpdatePartPrivEvents({ rootGetters }, { value }) {
+		async sendMsgUpdatePartPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgUpdatePartPrivEvents(value)
-				return msg
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
 					throw new SpVuexError('TxClient:MsgUpdatePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgUpdatePartPrivEvents:Create', 'Could not create message: ' + e.message)
-					
+					throw new SpVuexError('TxClient:MsgUpdatePartPrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
-		async MsgUpdateCreatePrivEvents({ rootGetters }, { value }) {
+		async sendMsgDeletePartPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateCreatePrivEvents(value)
+				const msg = await txClient.msgDeletePartPrivEvents(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgDeletePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgDeletePartPrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		
+		async MsgCreateValidPrivEvents({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateValidPrivEvents(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgUpdateCreatePrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgCreateValidPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgUpdateCreatePrivEvents:Create', 'Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgCreateValidPrivEvents:Create', 'Could not create message: ' + e.message)
 					
 				}
 			}
@@ -479,30 +451,30 @@ export default {
 				}
 			}
 		},
-		async MsgDeletePartPrivEvents({ rootGetters }, { value }) {
+		async MsgCreatePartPrivEvents({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeletePartPrivEvents(value)
+				const msg = await txClient.msgCreatePartPrivEvents(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgDeletePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgCreatePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgDeletePartPrivEvents:Create', 'Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgCreatePartPrivEvents:Create', 'Could not create message: ' + e.message)
 					
 				}
 			}
 		},
-		async MsgUpdateValidPrivEvents({ rootGetters }, { value }) {
+		async MsgUpdateCreatePrivEvents({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateValidPrivEvents(value)
+				const msg = await txClient.msgUpdateCreatePrivEvents(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgUpdateValidPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgUpdateCreatePrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgUpdateValidPrivEvents:Create', 'Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgUpdateCreatePrivEvents:Create', 'Could not create message: ' + e.message)
 					
 				}
 			}
@@ -521,16 +493,16 @@ export default {
 				}
 			}
 		},
-		async MsgCreateValidPrivEvents({ rootGetters }, { value }) {
+		async MsgUpdateValidPrivEvents({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateValidPrivEvents(value)
+				const msg = await txClient.msgUpdateValidPrivEvents(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgCreateValidPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgUpdateValidPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgCreateValidPrivEvents:Create', 'Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgUpdateValidPrivEvents:Create', 'Could not create message: ' + e.message)
 					
 				}
 			}
@@ -545,6 +517,34 @@ export default {
 					throw new SpVuexError('TxClient:MsgDeleteCreatePrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgDeleteCreatePrivEvents:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgUpdatePartPrivEvents({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUpdatePartPrivEvents(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgUpdatePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgUpdatePartPrivEvents:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgDeletePartPrivEvents({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeletePartPrivEvents(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgDeletePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgDeletePartPrivEvents:Create', 'Could not create message: ' + e.message)
 					
 				}
 			}
