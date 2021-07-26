@@ -142,14 +142,11 @@ export const MsgCreateValidPrivEventsResponse = {
         return message;
     }
 };
-const baseMsgUpdateValidPrivEvents = { creator: '', id: 0, privId: 0, answer: '' };
+const baseMsgUpdateValidPrivEvents = { creator: '', privId: 0, answer: '' };
 export const MsgUpdateValidPrivEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
-        }
-        if (message.id !== 0) {
-            writer.uint32(16).uint64(message.id);
         }
         if (message.privId !== 0) {
             writer.uint32(24).uint64(message.privId);
@@ -168,9 +165,6 @@ export const MsgUpdateValidPrivEvents = {
             switch (tag >>> 3) {
                 case 1:
                     message.creator = reader.string();
-                    break;
-                case 2:
-                    message.id = longToNumber(reader.uint64());
                     break;
                 case 3:
                     message.privId = longToNumber(reader.uint64());
@@ -193,12 +187,6 @@ export const MsgUpdateValidPrivEvents = {
         else {
             message.creator = '';
         }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = Number(object.id);
-        }
-        else {
-            message.id = 0;
-        }
         if (object.privId !== undefined && object.privId !== null) {
             message.privId = Number(object.privId);
         }
@@ -216,7 +204,6 @@ export const MsgUpdateValidPrivEvents = {
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
-        message.id !== undefined && (obj.id = message.id);
         message.privId !== undefined && (obj.privId = message.privId);
         message.answer !== undefined && (obj.answer = message.answer);
         return obj;
@@ -228,12 +215,6 @@ export const MsgUpdateValidPrivEvents = {
         }
         else {
             message.creator = '';
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = 0;
         }
         if (object.privId !== undefined && object.privId !== null) {
             message.privId = object.privId;

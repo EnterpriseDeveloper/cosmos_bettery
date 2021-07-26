@@ -11,7 +11,6 @@ export interface MsgCreateValidPrivEventsResponse {
 }
 export interface MsgUpdateValidPrivEvents {
     creator: string;
-    id: number;
     privId: number;
     answer: string;
 }

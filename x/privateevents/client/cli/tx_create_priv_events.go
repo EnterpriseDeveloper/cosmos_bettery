@@ -59,7 +59,7 @@ func CmdCreateCreatePrivEvents() *cobra.Command {
 
 func CmdUpdateCreatePrivEvents() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-create-priv-events [id] [privId] [question] [answers] [winner] [loser]",
+		Use:   "update-create-priv-events [privId] [question] [answers] [winner] [loser]",
 		Short: "Update a createPrivEvents",
 		Args:  cobra.ExactArgs(6),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -106,7 +106,7 @@ func CmdUpdateCreatePrivEvents() *cobra.Command {
 
 func CmdDeleteCreatePrivEvents() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "delete-create-priv-events [id]",
+		Use:   "delete-create-priv-events [privId]",
 		Short: "Delete a createPrivEvents by id",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

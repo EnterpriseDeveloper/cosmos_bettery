@@ -48,7 +48,7 @@ func CmdCreateValidPrivEvents() *cobra.Command {
 
 func CmdUpdateValidPrivEvents() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-valid-priv-events [id] [privId] [answer]",
+		Use:   "update-valid-priv-events [privId] [answer]",
 		Short: "Update a validPrivEvents",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -83,7 +83,7 @@ func CmdUpdateValidPrivEvents() *cobra.Command {
 
 func CmdDeleteValidPrivEvents() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "delete-valid-priv-events [id]",
+		Use:   "delete-valid-priv-events [privId]",
 		Short: "Delete a validPrivEvents by id",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {

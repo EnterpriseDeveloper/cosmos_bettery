@@ -35,7 +35,6 @@ message MsgCreateValidPrivEventsResponse {
 
 message MsgUpdateValidPrivEvents {
   string creator = 1;
-  uint64 id = 2;
   uint64 privId = 3;
   string answer = 4;
 }

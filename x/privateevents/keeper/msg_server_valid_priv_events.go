@@ -38,12 +38,12 @@ func (k msgServer) UpdateValidPrivEvents(goCtx context.Context, msg *types.MsgUp
 	}
 
 	// Checks that the element exists
-	if !k.HasValidPrivEvents(ctx, msg.Id) {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+	if !k.HasValidPrivEvents(ctx, msg.PrivId) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.PrivId))
 	}
 
 	// Checks if the the msg sender is the same as the current owner
-	if msg.Creator != k.GetValidPrivEventsOwner(ctx, msg.Id) {
+	if msg.Creator != k.GetValidPrivEventsOwner(ctx, msg.PrivId) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 
