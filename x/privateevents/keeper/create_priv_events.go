@@ -13,22 +13,18 @@ func (k Keeper) AppendCreatePrivEvents(
 	ctx sdk.Context,
 	createPrivEvents types.CreatePrivEvents,
 ) uint64 {
-
-	id := createPrivEvents.PrivId
-	createPrivEvents.Id = id
-
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePrivEventsKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&createPrivEvents)
-	store.Set(GetCreatePrivEventsIDBytes(createPrivEvents.Id), appendedValue)
+	store.Set(GetCreatePrivEventsIDBytes(createPrivEvents.PrivId), appendedValue)
 
-	return id
+	return createPrivEvents.PrivId
 }
 
 // SetCreatePrivEvents set a specific createPrivEvents in the store
 func (k Keeper) SetCreatePrivEvents(ctx sdk.Context, createPrivEvents types.CreatePrivEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePrivEventsKey))
 	b := k.cdc.MustMarshalBinaryBare(&createPrivEvents)
-	store.Set(GetCreatePrivEventsIDBytes(createPrivEvents.Id), b)
+	store.Set(GetCreatePrivEventsIDBytes(createPrivEvents.PrivId), b)
 }
 
 // GetCreatePrivEvents returns a createPrivEvents from its id

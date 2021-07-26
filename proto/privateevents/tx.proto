@@ -25,7 +25,7 @@ service Msg {
 // this line is used by starport scaffolding # proto/tx/message
 message MsgCreateValidPrivEvents {
   string creator = 1;
-  string privId = 2;
+  uint64 privId = 2;
   string answer = 3;
 }
 
@@ -36,7 +36,7 @@ message MsgCreateValidPrivEventsResponse {
 message MsgUpdateValidPrivEvents {
   string creator = 1;
   uint64 id = 2;
-  string privId = 3;
+  uint64 privId = 3;
   string answer = 4;
 }
 
@@ -51,7 +51,7 @@ message MsgDeleteValidPrivEventsResponse { }
 
 message MsgCreatePartPrivEvents {
   string creator = 1;
-  string privId = 2;
+  uint64 privId = 2;
   string answer = 3;
 }
 
@@ -61,9 +61,8 @@ message MsgCreatePartPrivEventsResponse {
 
 message MsgUpdatePartPrivEvents {
   string creator = 1;
-  uint64 id = 2;
-  string privId = 3;
-  string answer = 4;
+  uint64 privId = 2;
+  string answer = 3;
 }
 
 message MsgUpdatePartPrivEventsResponse { }
@@ -90,7 +89,7 @@ message MsgCreateCreatePrivEventsResponse {
 
 message MsgUpdateCreatePrivEvents {
   string creator = 1;
-  uint64 id = 2;
+  uint64 privId = 2;
   string question = 4;
   repeated string answers = 5;
   string winner = 6;

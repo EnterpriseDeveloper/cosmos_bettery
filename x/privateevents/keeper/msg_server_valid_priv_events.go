@@ -33,7 +33,6 @@ func (k msgServer) UpdateValidPrivEvents(goCtx context.Context, msg *types.MsgUp
 
 	var validPrivEvents = types.ValidPrivEvents{
 		Creator: msg.Creator,
-		Id:      msg.Id,
 		PrivId:  msg.PrivId,
 		Answer:  msg.Answer,
 	}

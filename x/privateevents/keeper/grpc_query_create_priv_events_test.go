@@ -26,12 +26,12 @@ func TestCreatePrivEventsQuerySingle(t *testing.T) {
 	}{
 		{
 			desc:     "First",
-			request:  &types.QueryGetCreatePrivEventsRequest{Id: msgs[0].Id},
+			request:  &types.QueryGetCreatePrivEventsRequest{Id: msgs[0].PrivId},
 			response: &types.QueryGetCreatePrivEventsResponse{CreatePrivEvents: &msgs[0]},
 		},
 		{
 			desc:     "Second",
-			request:  &types.QueryGetCreatePrivEventsRequest{Id: msgs[1].Id},
+			request:  &types.QueryGetCreatePrivEventsRequest{Id: msgs[1].PrivId},
 			response: &types.QueryGetCreatePrivEventsResponse{CreatePrivEvents: &msgs[1]},
 		},
 		{

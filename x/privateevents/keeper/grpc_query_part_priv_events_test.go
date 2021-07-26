@@ -26,12 +26,12 @@ func TestPartPrivEventsQuerySingle(t *testing.T) {
 	}{
 		{
 			desc:     "First",
-			request:  &types.QueryGetPartPrivEventsRequest{Id: msgs[0].Id},
+			request:  &types.QueryGetPartPrivEventsRequest{Id: msgs[0].PrivId},
 			response: &types.QueryGetPartPrivEventsResponse{PartPrivEvents: &msgs[0]},
 		},
 		{
 			desc:     "Second",
-			request:  &types.QueryGetPartPrivEventsRequest{Id: msgs[1].Id},
+			request:  &types.QueryGetPartPrivEventsRequest{Id: msgs[1].PrivId},
 			response: &types.QueryGetPartPrivEventsResponse{PartPrivEvents: &msgs[1]},
 		},
 		{

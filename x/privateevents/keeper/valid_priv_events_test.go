@@ -12,7 +12,7 @@ func createNValidPrivEvents(keeper *Keeper, ctx sdk.Context, n int) []types.Vali
 	items := make([]types.ValidPrivEvents, n)
 	for i := range items {
 		items[i].Creator = "any"
-		items[i].Id = keeper.AppendValidPrivEvents(ctx, items[i])
+		items[i].PrivId = keeper.AppendValidPrivEvents(ctx, items[i])
 	}
 	return items
 }
@@ -21,7 +21,7 @@ func TestValidPrivEventsGet(t *testing.T) {
 	keeper, ctx := setupKeeper(t)
 	items := createNValidPrivEvents(keeper, ctx, 10)
 	for _, item := range items {
-		assert.Equal(t, item, keeper.GetValidPrivEvents(ctx, item.Id))
+		assert.Equal(t, item, keeper.GetValidPrivEvents(ctx, item.PrivId))
 	}
 }
 
@@ -29,7 +29,7 @@ func TestValidPrivEventsExist(t *testing.T) {
 	keeper, ctx := setupKeeper(t)
 	items := createNValidPrivEvents(keeper, ctx, 10)
 	for _, item := range items {
-		assert.True(t, keeper.HasValidPrivEvents(ctx, item.Id))
+		assert.True(t, keeper.HasValidPrivEvents(ctx, item.PrivId))
 	}
 }
 
@@ -37,8 +37,8 @@ func TestValidPrivEventsRemove(t *testing.T) {
 	keeper, ctx := setupKeeper(t)
 	items := createNValidPrivEvents(keeper, ctx, 10)
 	for _, item := range items {
-		keeper.RemoveValidPrivEvents(ctx, item.Id)
-		assert.False(t, keeper.HasValidPrivEvents(ctx, item.Id))
+		keeper.RemoveValidPrivEvents(ctx, item.PrivId)
+		assert.False(t, keeper.HasValidPrivEvents(ctx, item.PrivId))
 	}
 }
 
@@ -46,11 +46,4 @@ func TestValidPrivEventsGetAll(t *testing.T) {
 	keeper, ctx := setupKeeper(t)
 	items := createNValidPrivEvents(keeper, ctx, 10)
 	assert.Equal(t, items, keeper.GetAllValidPrivEvents(ctx))
-}
-
-func TestValidPrivEventsCount(t *testing.T) {
-	keeper, ctx := setupKeeper(t)
-	items := createNValidPrivEvents(keeper, ctx, 10)
-	count := uint64(len(items))
-	assert.Equal(t, count, keeper.GetValidPrivEventsCount(ctx))
 }

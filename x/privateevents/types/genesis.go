@@ -29,28 +29,28 @@ func (gs GenesisState) Validate() error {
 	validPrivEventsIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.ValidPrivEventsList {
-		if _, ok := validPrivEventsIdMap[elem.Id]; ok {
+		if _, ok := validPrivEventsIdMap[elem.PrivId]; ok {
 			return fmt.Errorf("duplicated id for validPrivEvents")
 		}
-		validPrivEventsIdMap[elem.Id] = true
+		validPrivEventsIdMap[elem.PrivId] = true
 	}
 	// Check for duplicated ID in partPrivEvents
 	partPrivEventsIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.PartPrivEventsList {
-		if _, ok := partPrivEventsIdMap[elem.Id]; ok {
+		if _, ok := partPrivEventsIdMap[elem.PrivId]; ok {
 			return fmt.Errorf("duplicated id for partPrivEvents")
 		}
-		partPrivEventsIdMap[elem.Id] = true
+		partPrivEventsIdMap[elem.PrivId] = true
 	}
 	// Check for duplicated ID in createPrivEvents
 	createPrivEventsIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.CreatePrivEventsList {
-		if _, ok := createPrivEventsIdMap[elem.Id]; ok {
+		if _, ok := createPrivEventsIdMap[elem.PrivId]; ok {
 			return fmt.Errorf("duplicated id for createPrivEvents")
 		}
-		createPrivEventsIdMap[elem.Id] = true
+		createPrivEventsIdMap[elem.PrivId] = true
 	}
 
 	return nil

@@ -39,7 +39,7 @@ func TestCreatePrivEventsMsgServerUpdate(t *testing.T) {
 		},
 		{
 			desc:    "Unauthorized",
-			request: &types.MsgUpdateCreatePrivEvents{Creator: creator, Id: 10},
+			request: &types.MsgUpdateCreatePrivEvents{Creator: creator, PrivId: 10},
 			err:     sdkerrors.ErrKeyNotFound,
 		},
 	} {

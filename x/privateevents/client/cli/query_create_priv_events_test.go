@@ -24,7 +24,7 @@ func networkWithCreatePrivEventsObjects(t *testing.T, n int) (*network.Network, 
 	require.NoError(t, cfg.Codec.UnmarshalJSON(cfg.GenesisState[types.ModuleName], &state))
 
 	for i := 0; i < n; i++ {
-		state.CreatePrivEventsList = append(state.CreatePrivEventsList, &types.CreatePrivEvents{Creator: "ANY", Id: uint64(i)})
+		state.CreatePrivEventsList = append(state.CreatePrivEventsList, &types.CreatePrivEvents{Creator: "ANY", PrivId: uint64(i)})
 	}
 	buf, err := cfg.Codec.MarshalJSON(&state)
 	require.NoError(t, err)
@@ -48,7 +48,7 @@ func TestShowCreatePrivEvents(t *testing.T) {
 	}{
 		{
 			desc: "found",
-			id:   fmt.Sprintf("%d", objs[0].Id),
+			id:   fmt.Sprintf("%d", objs[0].PrivId),
 			args: common,
 			obj:  objs[0],
 		},

@@ -19492,9 +19492,6 @@ paths:
                   properties:
                     creator:
                       type: string
-                    id:
-                      type: string
-                      format: uint64
                     privId:
                       type: string
                       format: uint64
@@ -19619,9 +19616,6 @@ paths:
                 properties:
                   creator:
                     type: string
-                  id:
-                    type: string
-                    format: uint64
                   privId:
                     type: string
                     format: uint64
@@ -19680,11 +19674,9 @@ paths:
                   properties:
                     creator:
                       type: string
-                    id:
-                      type: string
-                      format: uint64
                     privId:
                       type: string
+                      format: uint64
                     answer:
                       type: string
               pagination:
@@ -19798,11 +19790,9 @@ paths:
                 properties:
                   creator:
                     type: string
-                  id:
-                    type: string
-                    format: uint64
                   privId:
                     type: string
+                    format: uint64
                   answer:
                     type: string
         default:
@@ -19850,11 +19840,9 @@ paths:
                   properties:
                     creator:
                       type: string
-                    id:
-                      type: string
-                      format: uint64
                     privId:
                       type: string
+                      format: uint64
                     answer:
                       type: string
               pagination:
@@ -19968,11 +19956,9 @@ paths:
                 properties:
                   creator:
                     type: string
-                  id:
-                    type: string
-                    format: uint64
                   privId:
                     type: string
+                    format: uint64
                   answer:
                     type: string
         default:
@@ -30294,9 +30280,6 @@ definitions:
     properties:
       creator:
         type: string
-      id:
-        type: string
-        format: uint64
       privId:
         type: string
         format: uint64
@@ -30345,11 +30328,9 @@ definitions:
     properties:
       creator:
         type: string
-      id:
-        type: string
-        format: uint64
       privId:
         type: string
+        format: uint64
       answer:
         type: string
   VoroshilovMax.bettery.privateevents.QueryAllCreatePrivEventsResponse:
@@ -30362,9 +30343,6 @@ definitions:
           properties:
             creator:
               type: string
-            id:
-              type: string
-              format: uint64
             privId:
               type: string
               format: uint64
@@ -30413,11 +30391,9 @@ definitions:
           properties:
             creator:
               type: string
-            id:
-              type: string
-              format: uint64
             privId:
               type: string
+              format: uint64
             answer:
               type: string
       pagination:
@@ -30455,11 +30431,9 @@ definitions:
           properties:
             creator:
               type: string
-            id:
-              type: string
-              format: uint64
             privId:
               type: string
+              format: uint64
             answer:
               type: string
       pagination:
@@ -30495,9 +30469,6 @@ definitions:
         properties:
           creator:
             type: string
-          id:
-            type: string
-            format: uint64
           privId:
             type: string
             format: uint64
@@ -30519,11 +30490,9 @@ definitions:
         properties:
           creator:
             type: string
-          id:
-            type: string
-            format: uint64
           privId:
             type: string
+            format: uint64
           answer:
             type: string
   VoroshilovMax.bettery.privateevents.QueryGetValidPrivEventsResponse:
@@ -30534,11 +30503,9 @@ definitions:
         properties:
           creator:
             type: string
-          id:
-            type: string
-            format: uint64
           privId:
             type: string
+            format: uint64
           answer:
             type: string
   VoroshilovMax.bettery.privateevents.ValidPrivEvents:
@@ -30546,10 +30513,8 @@ definitions:
     properties:
       creator:
         type: string
-      id:
-        type: string
-        format: uint64
       privId:
         type: string
+        format: uint64
       answer:
         type: string

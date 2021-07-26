@@ -39,7 +39,7 @@ func TestPartPrivEventsMsgServerUpdate(t *testing.T) {
 		},
 		{
 			desc:    "Unauthorized",
-			request: &types.MsgUpdatePartPrivEvents{Creator: creator, Id: 10},
+			request: &types.MsgUpdatePartPrivEvents{Creator: creator, PrivId: 10},
 			err:     sdkerrors.ErrKeyNotFound,
 		},
 	} {

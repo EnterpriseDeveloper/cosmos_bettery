@@ -7,7 +7,7 @@ export const protobufPackage = 'VoroshilovMax.bettery.privateevents'
 /** this line is used by starport scaffolding # proto/tx/message */
 export interface MsgCreateValidPrivEvents {
   creator: string
-  privId: string
+  privId: number
   answer: string
 }
 
@@ -18,7 +18,7 @@ export interface MsgCreateValidPrivEventsResponse {
 export interface MsgUpdateValidPrivEvents {
   creator: string
   id: number
-  privId: string
+  privId: number
   answer: string
 }
 
@@ -33,7 +33,7 @@ export interface MsgDeleteValidPrivEventsResponse {}
 
 export interface MsgCreatePartPrivEvents {
   creator: string
-  privId: string
+  privId: number
   answer: string
 }
 
@@ -43,8 +43,7 @@ export interface MsgCreatePartPrivEventsResponse {
 
 export interface MsgUpdatePartPrivEvents {
   creator: string
-  id: number
-  privId: string
+  privId: number
   answer: string
 }
 
@@ -72,7 +71,7 @@ export interface MsgCreateCreatePrivEventsResponse {
 
 export interface MsgUpdateCreatePrivEvents {
   creator: string
-  id: number
+  privId: number
   question: string
   answers: string[]
   winner: string
@@ -88,15 +87,15 @@ export interface MsgDeleteCreatePrivEvents {
 
 export interface MsgDeleteCreatePrivEventsResponse {}
 
-const baseMsgCreateValidPrivEvents: object = { creator: '', privId: '', answer: '' }
+const baseMsgCreateValidPrivEvents: object = { creator: '', privId: 0, answer: '' }
 
 export const MsgCreateValidPrivEvents = {
   encode(message: MsgCreateValidPrivEvents, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
-    if (message.privId !== '') {
-      writer.uint32(18).string(message.privId)
+    if (message.privId !== 0) {
+      writer.uint32(16).uint64(message.privId)
     }
     if (message.answer !== '') {
       writer.uint32(26).string(message.answer)
@@ -115,7 +114,7 @@ export const MsgCreateValidPrivEvents = {
           message.creator = reader.string()
           break
         case 2:
-          message.privId = reader.string()
+          message.privId = longToNumber(reader.uint64() as Long)
           break
         case 3:
           message.answer = reader.string()
@@ -136,9 +135,9 @@ export const MsgCreateValidPrivEvents = {
       message.creator = ''
     }
     if (object.privId !== undefined && object.privId !== null) {
-      message.privId = String(object.privId)
+      message.privId = Number(object.privId)
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.answer !== undefined && object.answer !== null) {
       message.answer = String(object.answer)
@@ -166,7 +165,7 @@ export const MsgCreateValidPrivEvents = {
     if (object.privId !== undefined && object.privId !== null) {
       message.privId = object.privId
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.answer !== undefined && object.answer !== null) {
       message.answer = object.answer
@@ -232,7 +231,7 @@ export const MsgCreateValidPrivEventsResponse = {
   }
 }
 
-const baseMsgUpdateValidPrivEvents: object = { creator: '', id: 0, privId: '', answer: '' }
+const baseMsgUpdateValidPrivEvents: object = { creator: '', id: 0, privId: 0, answer: '' }
 
 export const MsgUpdateValidPrivEvents = {
   encode(message: MsgUpdateValidPrivEvents, writer: Writer = Writer.create()): Writer {
@@ -242,8 +241,8 @@ export const MsgUpdateValidPrivEvents = {
     if (message.id !== 0) {
       writer.uint32(16).uint64(message.id)
     }
-    if (message.privId !== '') {
-      writer.uint32(26).string(message.privId)
+    if (message.privId !== 0) {
+      writer.uint32(24).uint64(message.privId)
     }
     if (message.answer !== '') {
       writer.uint32(34).string(message.answer)
@@ -265,7 +264,7 @@ export const MsgUpdateValidPrivEvents = {
           message.id = longToNumber(reader.uint64() as Long)
           break
         case 3:
-          message.privId = reader.string()
+          message.privId = longToNumber(reader.uint64() as Long)
           break
         case 4:
           message.answer = reader.string()
@@ -291,9 +290,9 @@ export const MsgUpdateValidPrivEvents = {
       message.id = 0
     }
     if (object.privId !== undefined && object.privId !== null) {
-      message.privId = String(object.privId)
+      message.privId = Number(object.privId)
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.answer !== undefined && object.answer !== null) {
       message.answer = String(object.answer)
@@ -327,7 +326,7 @@ export const MsgUpdateValidPrivEvents = {
     if (object.privId !== undefined && object.privId !== null) {
       message.privId = object.privId
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.answer !== undefined && object.answer !== null) {
       message.answer = object.answer
@@ -486,15 +485,15 @@ export const MsgDeleteValidPrivEventsResponse = {
   }
 }
 
-const baseMsgCreatePartPrivEvents: object = { creator: '', privId: '', answer: '' }
+const baseMsgCreatePartPrivEvents: object = { creator: '', privId: 0, answer: '' }
 
 export const MsgCreatePartPrivEvents = {
   encode(message: MsgCreatePartPrivEvents, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
-    if (message.privId !== '') {
-      writer.uint32(18).string(message.privId)
+    if (message.privId !== 0) {
+      writer.uint32(16).uint64(message.privId)
     }
     if (message.answer !== '') {
       writer.uint32(26).string(message.answer)
@@ -513,7 +512,7 @@ export const MsgCreatePartPrivEvents = {
           message.creator = reader.string()
           break
         case 2:
-          message.privId = reader.string()
+          message.privId = longToNumber(reader.uint64() as Long)
           break
         case 3:
           message.answer = reader.string()
@@ -534,9 +533,9 @@ export const MsgCreatePartPrivEvents = {
       message.creator = ''
     }
     if (object.privId !== undefined && object.privId !== null) {
-      message.privId = String(object.privId)
+      message.privId = Number(object.privId)
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.answer !== undefined && object.answer !== null) {
       message.answer = String(object.answer)
@@ -564,7 +563,7 @@ export const MsgCreatePartPrivEvents = {
     if (object.privId !== undefined && object.privId !== null) {
       message.privId = object.privId
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.answer !== undefined && object.answer !== null) {
       message.answer = object.answer
@@ -630,21 +629,18 @@ export const MsgCreatePartPrivEventsResponse = {
   }
 }
 
-const baseMsgUpdatePartPrivEvents: object = { creator: '', id: 0, privId: '', answer: '' }
+const baseMsgUpdatePartPrivEvents: object = { creator: '', privId: 0, answer: '' }
 
 export const MsgUpdatePartPrivEvents = {
   encode(message: MsgUpdatePartPrivEvents, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
-    if (message.id !== 0) {
-      writer.uint32(16).uint64(message.id)
-    }
-    if (message.privId !== '') {
-      writer.uint32(26).string(message.privId)
+    if (message.privId !== 0) {
+      writer.uint32(16).uint64(message.privId)
     }
     if (message.answer !== '') {
-      writer.uint32(34).string(message.answer)
+      writer.uint32(26).string(message.answer)
     }
     return writer
   },
@@ -660,12 +656,9 @@ export const MsgUpdatePartPrivEvents = {
           message.creator = reader.string()
           break
         case 2:
-          message.id = longToNumber(reader.uint64() as Long)
+          message.privId = longToNumber(reader.uint64() as Long)
           break
         case 3:
-          message.privId = reader.string()
-          break
-        case 4:
           message.answer = reader.string()
           break
         default:
@@ -683,15 +676,10 @@ export const MsgUpdatePartPrivEvents = {
     } else {
       message.creator = ''
     }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Number(object.id)
-    } else {
-      message.id = 0
-    }
     if (object.privId !== undefined && object.privId !== null) {
-      message.privId = String(object.privId)
+      message.privId = Number(object.privId)
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.answer !== undefined && object.answer !== null) {
       message.answer = String(object.answer)
@@ -704,7 +692,6 @@ export const MsgUpdatePartPrivEvents = {
   toJSON(message: MsgUpdatePartPrivEvents): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
-    message.id !== undefined && (obj.id = message.id)
     message.privId !== undefined && (obj.privId = message.privId)
     message.answer !== undefined && (obj.answer = message.answer)
     return obj
@@ -717,15 +704,10 @@ export const MsgUpdatePartPrivEvents = {
     } else {
       message.creator = ''
     }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id
-    } else {
-      message.id = 0
-    }
     if (object.privId !== undefined && object.privId !== null) {
       message.privId = object.privId
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.answer !== undefined && object.answer !== null) {
       message.answer = object.answer
@@ -1086,15 +1068,15 @@ export const MsgCreateCreatePrivEventsResponse = {
   }
 }
 
-const baseMsgUpdateCreatePrivEvents: object = { creator: '', id: 0, question: '', answers: '', winner: '', loser: '' }
+const baseMsgUpdateCreatePrivEvents: object = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '' }
 
 export const MsgUpdateCreatePrivEvents = {
   encode(message: MsgUpdateCreatePrivEvents, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
-    if (message.id !== 0) {
-      writer.uint32(16).uint64(message.id)
+    if (message.privId !== 0) {
+      writer.uint32(16).uint64(message.privId)
     }
     if (message.question !== '') {
       writer.uint32(34).string(message.question)
@@ -1123,7 +1105,7 @@ export const MsgUpdateCreatePrivEvents = {
           message.creator = reader.string()
           break
         case 2:
-          message.id = longToNumber(reader.uint64() as Long)
+          message.privId = longToNumber(reader.uint64() as Long)
           break
         case 4:
           message.question = reader.string()
@@ -1153,10 +1135,10 @@ export const MsgUpdateCreatePrivEvents = {
     } else {
       message.creator = ''
     }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Number(object.id)
+    if (object.privId !== undefined && object.privId !== null) {
+      message.privId = Number(object.privId)
     } else {
-      message.id = 0
+      message.privId = 0
     }
     if (object.question !== undefined && object.question !== null) {
       message.question = String(object.question)
@@ -1184,7 +1166,7 @@ export const MsgUpdateCreatePrivEvents = {
   toJSON(message: MsgUpdateCreatePrivEvents): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
-    message.id !== undefined && (obj.id = message.id)
+    message.privId !== undefined && (obj.privId = message.privId)
     message.question !== undefined && (obj.question = message.question)
     if (message.answers) {
       obj.answers = message.answers.map((e) => e)
@@ -1204,10 +1186,10 @@ export const MsgUpdateCreatePrivEvents = {
     } else {
       message.creator = ''
     }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id
+    if (object.privId !== undefined && object.privId !== null) {
+      message.privId = object.privId
     } else {
-      message.id = 0
+      message.privId = 0
     }
     if (object.question !== undefined && object.question !== null) {
       message.question = object.question

@@ -6,26 +6,22 @@ export const protobufPackage = 'VoroshilovMax.bettery.privateevents'
 
 export interface PartPrivEvents {
   creator: string
-  id: number
-  privId: string
+  privId: number
   answer: string
 }
 
-const basePartPrivEvents: object = { creator: '', id: 0, privId: '', answer: '' }
+const basePartPrivEvents: object = { creator: '', privId: 0, answer: '' }
 
 export const PartPrivEvents = {
   encode(message: PartPrivEvents, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
-    if (message.id !== 0) {
-      writer.uint32(16).uint64(message.id)
-    }
-    if (message.privId !== '') {
-      writer.uint32(26).string(message.privId)
+    if (message.privId !== 0) {
+      writer.uint32(16).uint64(message.privId)
     }
     if (message.answer !== '') {
-      writer.uint32(34).string(message.answer)
+      writer.uint32(26).string(message.answer)
     }
     return writer
   },
@@ -41,12 +37,9 @@ export const PartPrivEvents = {
           message.creator = reader.string()
           break
         case 2:
-          message.id = longToNumber(reader.uint64() as Long)
+          message.privId = longToNumber(reader.uint64() as Long)
           break
         case 3:
-          message.privId = reader.string()
-          break
-        case 4:
           message.answer = reader.string()
           break
         default:
@@ -64,15 +57,10 @@ export const PartPrivEvents = {
     } else {
       message.creator = ''
     }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Number(object.id)
-    } else {
-      message.id = 0
-    }
     if (object.privId !== undefined && object.privId !== null) {
-      message.privId = String(object.privId)
+      message.privId = Number(object.privId)
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.answer !== undefined && object.answer !== null) {
       message.answer = String(object.answer)
@@ -85,7 +73,6 @@ export const PartPrivEvents = {
   toJSON(message: PartPrivEvents): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
-    message.id !== undefined && (obj.id = message.id)
     message.privId !== undefined && (obj.privId = message.privId)
     message.answer !== undefined && (obj.answer = message.answer)
     return obj
@@ -98,15 +85,10 @@ export const PartPrivEvents = {
     } else {
       message.creator = ''
     }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id
-    } else {
-      message.id = 0
-    }
     if (object.privId !== undefined && object.privId !== null) {
       message.privId = object.privId
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.answer !== undefined && object.answer !== null) {
       message.answer = object.answer

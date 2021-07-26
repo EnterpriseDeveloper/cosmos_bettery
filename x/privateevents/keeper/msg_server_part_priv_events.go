@@ -33,18 +33,17 @@ func (k msgServer) UpdatePartPrivEvents(goCtx context.Context, msg *types.MsgUpd
 
 	var partPrivEvents = types.PartPrivEvents{
 		Creator: msg.Creator,
-		Id:      msg.Id,
 		PrivId:  msg.PrivId,
 		Answer:  msg.Answer,
 	}
 
 	// Checks that the element exists
-	if !k.HasPartPrivEvents(ctx, msg.Id) {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.Id))
+	if !k.HasPartPrivEvents(ctx, msg.PrivId) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("key %d doesn't exist", msg.PrivId))
 	}
 
 	// Checks if the the msg sender is the same as the current owner
-	if msg.Creator != k.GetPartPrivEventsOwner(ctx, msg.Id) {
+	if msg.Creator != k.GetPartPrivEventsOwner(ctx, msg.PrivId) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrUnauthorized, "incorrect owner")
 	}
 

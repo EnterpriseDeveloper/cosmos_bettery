@@ -1,8 +1,6 @@
 export interface PrivateeventsCreatePrivEvents {
     creator?: string;
     /** @format uint64 */
-    id?: string;
-    /** @format uint64 */
     privId?: string;
     question?: string;
     answers?: string[];
@@ -30,7 +28,6 @@ export declare type PrivateeventsMsgUpdateValidPrivEventsResponse = object;
 export interface PrivateeventsPartPrivEvents {
     creator?: string;
     /** @format uint64 */
-    id?: string;
     privId?: string;
     answer?: string;
 }
@@ -85,7 +82,6 @@ export interface PrivateeventsQueryGetValidPrivEventsResponse {
 export interface PrivateeventsValidPrivEvents {
     creator?: string;
     /** @format uint64 */
-    id?: string;
     privId?: string;
     answer?: string;
 }

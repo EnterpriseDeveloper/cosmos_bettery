@@ -19,7 +19,7 @@ func CmdCreatePartPrivEvents() *cobra.Command {
 		Short: "Create a new partPrivEvents",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			argsPrivId, err := cast.ToStringE(args[0])
+			argsPrivId, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
 				return err
 			}
@@ -52,17 +52,13 @@ func CmdUpdatePartPrivEvents() *cobra.Command {
 		Short: "Update a partPrivEvents",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			id, err := strconv.ParseUint(args[0], 10, 64)
+
+			argsPrivId, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
 				return err
 			}
 
-			argsPrivId, err := cast.ToStringE(args[1])
-			if err != nil {
-				return err
-			}
-
-			argsAnswer, err := cast.ToStringE(args[2])
+			argsAnswer, err := cast.ToStringE(args[1])
 			if err != nil {
 				return err
 			}
@@ -72,7 +68,7 @@ func CmdUpdatePartPrivEvents() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgUpdatePartPrivEvents(clientCtx.GetFromAddress().String(), id, argsPrivId, argsAnswer)
+			msg := types.NewMsgUpdatePartPrivEvents(clientCtx.GetFromAddress().String(), argsPrivId, argsAnswer)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

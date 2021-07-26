@@ -7,7 +7,6 @@ import "gogoproto/gogo.proto";
 
 message ValidPrivEvents {
   string creator = 1;
-  uint64 id = 2;
-  string privId = 3; 
-  string answer = 4; 
+  uint64 privId = 2; 
+  string answer = 3; 
 }

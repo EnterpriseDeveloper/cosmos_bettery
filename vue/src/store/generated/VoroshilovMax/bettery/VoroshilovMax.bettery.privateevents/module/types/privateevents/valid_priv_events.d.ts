@@ -2,8 +2,7 @@ import { Writer, Reader } from 'protobufjs/minimal';
 export declare const protobufPackage = "VoroshilovMax.bettery.privateevents";
 export interface ValidPrivEvents {
     creator: string;
-    id: number;
-    privId: string;
+    privId: number;
     answer: string;
 }
 export declare const ValidPrivEvents: {
