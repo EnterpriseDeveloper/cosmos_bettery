@@ -5,6 +5,32 @@ import * as Long from 'long'
 export const protobufPackage = 'VoroshilovMax.bettery.privateevents'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateValidPrivEvents {
+  creator: string
+  privId: string
+  answer: string
+}
+
+export interface MsgCreateValidPrivEventsResponse {
+  id: number
+}
+
+export interface MsgUpdateValidPrivEvents {
+  creator: string
+  id: number
+  privId: string
+  answer: string
+}
+
+export interface MsgUpdateValidPrivEventsResponse {}
+
+export interface MsgDeleteValidPrivEvents {
+  creator: string
+  id: number
+}
+
+export interface MsgDeleteValidPrivEventsResponse {}
+
 export interface MsgCreatePartPrivEvents {
   creator: string
   privId: string
@@ -61,6 +87,404 @@ export interface MsgDeleteCreatePrivEvents {
 }
 
 export interface MsgDeleteCreatePrivEventsResponse {}
+
+const baseMsgCreateValidPrivEvents: object = { creator: '', privId: '', answer: '' }
+
+export const MsgCreateValidPrivEvents = {
+  encode(message: MsgCreateValidPrivEvents, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.privId !== '') {
+      writer.uint32(18).string(message.privId)
+    }
+    if (message.answer !== '') {
+      writer.uint32(26).string(message.answer)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateValidPrivEvents {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateValidPrivEvents } as MsgCreateValidPrivEvents
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.privId = reader.string()
+          break
+        case 3:
+          message.answer = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateValidPrivEvents {
+    const message = { ...baseMsgCreateValidPrivEvents } as MsgCreateValidPrivEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.privId !== undefined && object.privId !== null) {
+      message.privId = String(object.privId)
+    } else {
+      message.privId = ''
+    }
+    if (object.answer !== undefined && object.answer !== null) {
+      message.answer = String(object.answer)
+    } else {
+      message.answer = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateValidPrivEvents): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.privId !== undefined && (obj.privId = message.privId)
+    message.answer !== undefined && (obj.answer = message.answer)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateValidPrivEvents>): MsgCreateValidPrivEvents {
+    const message = { ...baseMsgCreateValidPrivEvents } as MsgCreateValidPrivEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.privId !== undefined && object.privId !== null) {
+      message.privId = object.privId
+    } else {
+      message.privId = ''
+    }
+    if (object.answer !== undefined && object.answer !== null) {
+      message.answer = object.answer
+    } else {
+      message.answer = ''
+    }
+    return message
+  }
+}
+
+const baseMsgCreateValidPrivEventsResponse: object = { id: 0 }
+
+export const MsgCreateValidPrivEventsResponse = {
+  encode(message: MsgCreateValidPrivEventsResponse, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateValidPrivEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateValidPrivEventsResponse } as MsgCreateValidPrivEventsResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateValidPrivEventsResponse {
+    const message = { ...baseMsgCreateValidPrivEventsResponse } as MsgCreateValidPrivEventsResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateValidPrivEventsResponse): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateValidPrivEventsResponse>): MsgCreateValidPrivEventsResponse {
+    const message = { ...baseMsgCreateValidPrivEventsResponse } as MsgCreateValidPrivEventsResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateValidPrivEvents: object = { creator: '', id: 0, privId: '', answer: '' }
+
+export const MsgUpdateValidPrivEvents = {
+  encode(message: MsgUpdateValidPrivEvents, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    if (message.privId !== '') {
+      writer.uint32(26).string(message.privId)
+    }
+    if (message.answer !== '') {
+      writer.uint32(34).string(message.answer)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateValidPrivEvents {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateValidPrivEvents } as MsgUpdateValidPrivEvents
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 3:
+          message.privId = reader.string()
+          break
+        case 4:
+          message.answer = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgUpdateValidPrivEvents {
+    const message = { ...baseMsgUpdateValidPrivEvents } as MsgUpdateValidPrivEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    if (object.privId !== undefined && object.privId !== null) {
+      message.privId = String(object.privId)
+    } else {
+      message.privId = ''
+    }
+    if (object.answer !== undefined && object.answer !== null) {
+      message.answer = String(object.answer)
+    } else {
+      message.answer = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgUpdateValidPrivEvents): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    message.privId !== undefined && (obj.privId = message.privId)
+    message.answer !== undefined && (obj.answer = message.answer)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateValidPrivEvents>): MsgUpdateValidPrivEvents {
+    const message = { ...baseMsgUpdateValidPrivEvents } as MsgUpdateValidPrivEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    if (object.privId !== undefined && object.privId !== null) {
+      message.privId = object.privId
+    } else {
+      message.privId = ''
+    }
+    if (object.answer !== undefined && object.answer !== null) {
+      message.answer = object.answer
+    } else {
+      message.answer = ''
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateValidPrivEventsResponse: object = {}
+
+export const MsgUpdateValidPrivEventsResponse = {
+  encode(_: MsgUpdateValidPrivEventsResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateValidPrivEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateValidPrivEventsResponse } as MsgUpdateValidPrivEventsResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgUpdateValidPrivEventsResponse {
+    const message = { ...baseMsgUpdateValidPrivEventsResponse } as MsgUpdateValidPrivEventsResponse
+    return message
+  },
+
+  toJSON(_: MsgUpdateValidPrivEventsResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateValidPrivEventsResponse>): MsgUpdateValidPrivEventsResponse {
+    const message = { ...baseMsgUpdateValidPrivEventsResponse } as MsgUpdateValidPrivEventsResponse
+    return message
+  }
+}
+
+const baseMsgDeleteValidPrivEvents: object = { creator: '', id: 0 }
+
+export const MsgDeleteValidPrivEvents = {
+  encode(message: MsgDeleteValidPrivEvents, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteValidPrivEvents {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteValidPrivEvents } as MsgDeleteValidPrivEvents
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgDeleteValidPrivEvents {
+    const message = { ...baseMsgDeleteValidPrivEvents } as MsgDeleteValidPrivEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgDeleteValidPrivEvents): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteValidPrivEvents>): MsgDeleteValidPrivEvents {
+    const message = { ...baseMsgDeleteValidPrivEvents } as MsgDeleteValidPrivEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgDeleteValidPrivEventsResponse: object = {}
+
+export const MsgDeleteValidPrivEventsResponse = {
+  encode(_: MsgDeleteValidPrivEventsResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteValidPrivEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteValidPrivEventsResponse } as MsgDeleteValidPrivEventsResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgDeleteValidPrivEventsResponse {
+    const message = { ...baseMsgDeleteValidPrivEventsResponse } as MsgDeleteValidPrivEventsResponse
+    return message
+  },
+
+  toJSON(_: MsgDeleteValidPrivEventsResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteValidPrivEventsResponse>): MsgDeleteValidPrivEventsResponse {
+    const message = { ...baseMsgDeleteValidPrivEventsResponse } as MsgDeleteValidPrivEventsResponse
+    return message
+  }
+}
 
 const baseMsgCreatePartPrivEvents: object = { creator: '', privId: '', answer: '' }
 
@@ -960,6 +1384,9 @@ export const MsgDeleteCreatePrivEventsResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateValidPrivEvents(request: MsgCreateValidPrivEvents): Promise<MsgCreateValidPrivEventsResponse>
+  UpdateValidPrivEvents(request: MsgUpdateValidPrivEvents): Promise<MsgUpdateValidPrivEventsResponse>
+  DeleteValidPrivEvents(request: MsgDeleteValidPrivEvents): Promise<MsgDeleteValidPrivEventsResponse>
   CreatePartPrivEvents(request: MsgCreatePartPrivEvents): Promise<MsgCreatePartPrivEventsResponse>
   UpdatePartPrivEvents(request: MsgUpdatePartPrivEvents): Promise<MsgUpdatePartPrivEventsResponse>
   DeletePartPrivEvents(request: MsgDeletePartPrivEvents): Promise<MsgDeletePartPrivEventsResponse>
@@ -973,6 +1400,24 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  CreateValidPrivEvents(request: MsgCreateValidPrivEvents): Promise<MsgCreateValidPrivEventsResponse> {
+    const data = MsgCreateValidPrivEvents.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.privateevents.Msg', 'CreateValidPrivEvents', data)
+    return promise.then((data) => MsgCreateValidPrivEventsResponse.decode(new Reader(data)))
+  }
+
+  UpdateValidPrivEvents(request: MsgUpdateValidPrivEvents): Promise<MsgUpdateValidPrivEventsResponse> {
+    const data = MsgUpdateValidPrivEvents.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.privateevents.Msg', 'UpdateValidPrivEvents', data)
+    return promise.then((data) => MsgUpdateValidPrivEventsResponse.decode(new Reader(data)))
+  }
+
+  DeleteValidPrivEvents(request: MsgDeleteValidPrivEvents): Promise<MsgDeleteValidPrivEventsResponse> {
+    const data = MsgDeleteValidPrivEvents.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.privateevents.Msg', 'DeleteValidPrivEvents', data)
+    return promise.then((data) => MsgDeleteValidPrivEventsResponse.decode(new Reader(data)))
+  }
+
   CreatePartPrivEvents(request: MsgCreatePartPrivEvents): Promise<MsgCreatePartPrivEventsResponse> {
     const data = MsgCreatePartPrivEvents.encode(request).finish()
     const promise = this.rpc.request('VoroshilovMax.bettery.privateevents.Msg', 'CreatePartPrivEvents', data)

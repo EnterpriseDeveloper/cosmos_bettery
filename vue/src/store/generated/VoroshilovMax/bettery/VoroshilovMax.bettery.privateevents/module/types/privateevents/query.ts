@@ -1,13 +1,31 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal'
 import * as Long from 'long'
-import { PartPrivEvents } from '../privateevents/part_priv_events'
+import { ValidPrivEvents } from '../privateevents/valid_priv_events'
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
+import { PartPrivEvents } from '../privateevents/part_priv_events'
 import { CreatePrivEvents } from '../privateevents/create_priv_events'
 
 export const protobufPackage = 'VoroshilovMax.bettery.privateevents'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetValidPrivEventsRequest {
+  id: number
+}
+
+export interface QueryGetValidPrivEventsResponse {
+  ValidPrivEvents: ValidPrivEvents | undefined
+}
+
+export interface QueryAllValidPrivEventsRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllValidPrivEventsResponse {
+  ValidPrivEvents: ValidPrivEvents[]
+  pagination: PageResponse | undefined
+}
+
 export interface QueryGetPartPrivEventsRequest {
   id: number
 }
@@ -40,6 +58,250 @@ export interface QueryAllCreatePrivEventsRequest {
 export interface QueryAllCreatePrivEventsResponse {
   CreatePrivEvents: CreatePrivEvents[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryGetValidPrivEventsRequest: object = { id: 0 }
+
+export const QueryGetValidPrivEventsRequest = {
+  encode(message: QueryGetValidPrivEventsRequest, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetValidPrivEventsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetValidPrivEventsRequest } as QueryGetValidPrivEventsRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetValidPrivEventsRequest {
+    const message = { ...baseQueryGetValidPrivEventsRequest } as QueryGetValidPrivEventsRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetValidPrivEventsRequest): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetValidPrivEventsRequest>): QueryGetValidPrivEventsRequest {
+    const message = { ...baseQueryGetValidPrivEventsRequest } as QueryGetValidPrivEventsRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseQueryGetValidPrivEventsResponse: object = {}
+
+export const QueryGetValidPrivEventsResponse = {
+  encode(message: QueryGetValidPrivEventsResponse, writer: Writer = Writer.create()): Writer {
+    if (message.ValidPrivEvents !== undefined) {
+      ValidPrivEvents.encode(message.ValidPrivEvents, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetValidPrivEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetValidPrivEventsResponse } as QueryGetValidPrivEventsResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.ValidPrivEvents = ValidPrivEvents.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetValidPrivEventsResponse {
+    const message = { ...baseQueryGetValidPrivEventsResponse } as QueryGetValidPrivEventsResponse
+    if (object.ValidPrivEvents !== undefined && object.ValidPrivEvents !== null) {
+      message.ValidPrivEvents = ValidPrivEvents.fromJSON(object.ValidPrivEvents)
+    } else {
+      message.ValidPrivEvents = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetValidPrivEventsResponse): unknown {
+    const obj: any = {}
+    message.ValidPrivEvents !== undefined && (obj.ValidPrivEvents = message.ValidPrivEvents ? ValidPrivEvents.toJSON(message.ValidPrivEvents) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetValidPrivEventsResponse>): QueryGetValidPrivEventsResponse {
+    const message = { ...baseQueryGetValidPrivEventsResponse } as QueryGetValidPrivEventsResponse
+    if (object.ValidPrivEvents !== undefined && object.ValidPrivEvents !== null) {
+      message.ValidPrivEvents = ValidPrivEvents.fromPartial(object.ValidPrivEvents)
+    } else {
+      message.ValidPrivEvents = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllValidPrivEventsRequest: object = {}
+
+export const QueryAllValidPrivEventsRequest = {
+  encode(message: QueryAllValidPrivEventsRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllValidPrivEventsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllValidPrivEventsRequest } as QueryAllValidPrivEventsRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllValidPrivEventsRequest {
+    const message = { ...baseQueryAllValidPrivEventsRequest } as QueryAllValidPrivEventsRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllValidPrivEventsRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllValidPrivEventsRequest>): QueryAllValidPrivEventsRequest {
+    const message = { ...baseQueryAllValidPrivEventsRequest } as QueryAllValidPrivEventsRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllValidPrivEventsResponse: object = {}
+
+export const QueryAllValidPrivEventsResponse = {
+  encode(message: QueryAllValidPrivEventsResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.ValidPrivEvents) {
+      ValidPrivEvents.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllValidPrivEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllValidPrivEventsResponse } as QueryAllValidPrivEventsResponse
+    message.ValidPrivEvents = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.ValidPrivEvents.push(ValidPrivEvents.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllValidPrivEventsResponse {
+    const message = { ...baseQueryAllValidPrivEventsResponse } as QueryAllValidPrivEventsResponse
+    message.ValidPrivEvents = []
+    if (object.ValidPrivEvents !== undefined && object.ValidPrivEvents !== null) {
+      for (const e of object.ValidPrivEvents) {
+        message.ValidPrivEvents.push(ValidPrivEvents.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllValidPrivEventsResponse): unknown {
+    const obj: any = {}
+    if (message.ValidPrivEvents) {
+      obj.ValidPrivEvents = message.ValidPrivEvents.map((e) => (e ? ValidPrivEvents.toJSON(e) : undefined))
+    } else {
+      obj.ValidPrivEvents = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllValidPrivEventsResponse>): QueryAllValidPrivEventsResponse {
+    const message = { ...baseQueryAllValidPrivEventsResponse } as QueryAllValidPrivEventsResponse
+    message.ValidPrivEvents = []
+    if (object.ValidPrivEvents !== undefined && object.ValidPrivEvents !== null) {
+      for (const e of object.ValidPrivEvents) {
+        message.ValidPrivEvents.push(ValidPrivEvents.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryGetPartPrivEventsRequest: object = { id: 0 }
@@ -532,6 +794,10 @@ export const QueryAllCreatePrivEventsResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a validPrivEvents by id. */
+  ValidPrivEvents(request: QueryGetValidPrivEventsRequest): Promise<QueryGetValidPrivEventsResponse>
+  /** Queries a list of validPrivEvents items. */
+  ValidPrivEventsAll(request: QueryAllValidPrivEventsRequest): Promise<QueryAllValidPrivEventsResponse>
   /** Queries a partPrivEvents by id. */
   PartPrivEvents(request: QueryGetPartPrivEventsRequest): Promise<QueryGetPartPrivEventsResponse>
   /** Queries a list of partPrivEvents items. */
@@ -547,6 +813,18 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  ValidPrivEvents(request: QueryGetValidPrivEventsRequest): Promise<QueryGetValidPrivEventsResponse> {
+    const data = QueryGetValidPrivEventsRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.privateevents.Query', 'ValidPrivEvents', data)
+    return promise.then((data) => QueryGetValidPrivEventsResponse.decode(new Reader(data)))
+  }
+
+  ValidPrivEventsAll(request: QueryAllValidPrivEventsRequest): Promise<QueryAllValidPrivEventsResponse> {
+    const data = QueryAllValidPrivEventsRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.privateevents.Query', 'ValidPrivEventsAll', data)
+    return promise.then((data) => QueryAllValidPrivEventsResponse.decode(new Reader(data)))
+  }
+
   PartPrivEvents(request: QueryGetPartPrivEventsRequest): Promise<QueryGetPartPrivEventsResponse> {
     const data = QueryGetPartPrivEventsRequest.encode(request).finish()
     const promise = this.rpc.request('VoroshilovMax.bettery.privateevents.Query', 'PartPrivEvents', data)

@@ -2,6 +2,7 @@
 	<div>
 		<div class="container">
 			<!-- this line is used by starport scaffolding # 4 -->
+		<SpType modulePath="VoroshilovMax.bettery.privateevents" moduleType="ValidPrivEvents"  />
 		<SpType modulePath="VoroshilovMax.bettery.privateevents" moduleType="PartPrivEvents"  />
 		<SpType modulePath="VoroshilovMax.bettery.privateevents" moduleType="CreatePrivEvents"  />
 		</div>

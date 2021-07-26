@@ -1,9 +1,23 @@
 import { Reader, Writer } from 'protobufjs/minimal';
-import { PartPrivEvents } from '../privateevents/part_priv_events';
+import { ValidPrivEvents } from '../privateevents/valid_priv_events';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { PartPrivEvents } from '../privateevents/part_priv_events';
 import { CreatePrivEvents } from '../privateevents/create_priv_events';
 export declare const protobufPackage = "VoroshilovMax.bettery.privateevents";
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetValidPrivEventsRequest {
+    id: number;
+}
+export interface QueryGetValidPrivEventsResponse {
+    ValidPrivEvents: ValidPrivEvents | undefined;
+}
+export interface QueryAllValidPrivEventsRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllValidPrivEventsResponse {
+    ValidPrivEvents: ValidPrivEvents[];
+    pagination: PageResponse | undefined;
+}
 export interface QueryGetPartPrivEventsRequest {
     id: number;
 }
@@ -30,6 +44,34 @@ export interface QueryAllCreatePrivEventsResponse {
     CreatePrivEvents: CreatePrivEvents[];
     pagination: PageResponse | undefined;
 }
+export declare const QueryGetValidPrivEventsRequest: {
+    encode(message: QueryGetValidPrivEventsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetValidPrivEventsRequest;
+    fromJSON(object: any): QueryGetValidPrivEventsRequest;
+    toJSON(message: QueryGetValidPrivEventsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetValidPrivEventsRequest>): QueryGetValidPrivEventsRequest;
+};
+export declare const QueryGetValidPrivEventsResponse: {
+    encode(message: QueryGetValidPrivEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetValidPrivEventsResponse;
+    fromJSON(object: any): QueryGetValidPrivEventsResponse;
+    toJSON(message: QueryGetValidPrivEventsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetValidPrivEventsResponse>): QueryGetValidPrivEventsResponse;
+};
+export declare const QueryAllValidPrivEventsRequest: {
+    encode(message: QueryAllValidPrivEventsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllValidPrivEventsRequest;
+    fromJSON(object: any): QueryAllValidPrivEventsRequest;
+    toJSON(message: QueryAllValidPrivEventsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllValidPrivEventsRequest>): QueryAllValidPrivEventsRequest;
+};
+export declare const QueryAllValidPrivEventsResponse: {
+    encode(message: QueryAllValidPrivEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllValidPrivEventsResponse;
+    fromJSON(object: any): QueryAllValidPrivEventsResponse;
+    toJSON(message: QueryAllValidPrivEventsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllValidPrivEventsResponse>): QueryAllValidPrivEventsResponse;
+};
 export declare const QueryGetPartPrivEventsRequest: {
     encode(message: QueryGetPartPrivEventsRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryGetPartPrivEventsRequest;
@@ -88,6 +130,10 @@ export declare const QueryAllCreatePrivEventsResponse: {
 };
 /** Query defines the gRPC querier service. */
 export interface Query {
+    /** Queries a validPrivEvents by id. */
+    ValidPrivEvents(request: QueryGetValidPrivEventsRequest): Promise<QueryGetValidPrivEventsResponse>;
+    /** Queries a list of validPrivEvents items. */
+    ValidPrivEventsAll(request: QueryAllValidPrivEventsRequest): Promise<QueryAllValidPrivEventsResponse>;
     /** Queries a partPrivEvents by id. */
     PartPrivEvents(request: QueryGetPartPrivEventsRequest): Promise<QueryGetPartPrivEventsResponse>;
     /** Queries a list of partPrivEvents items. */
@@ -100,6 +146,8 @@ export interface Query {
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
+    ValidPrivEvents(request: QueryGetValidPrivEventsRequest): Promise<QueryGetValidPrivEventsResponse>;
+    ValidPrivEventsAll(request: QueryAllValidPrivEventsRequest): Promise<QueryAllValidPrivEventsResponse>;
     PartPrivEvents(request: QueryGetPartPrivEventsRequest): Promise<QueryGetPartPrivEventsResponse>;
     PartPrivEventsAll(request: QueryAllPartPrivEventsRequest): Promise<QueryAllPartPrivEventsResponse>;
     CreatePrivEvents(request: QueryGetCreatePrivEventsRequest): Promise<QueryGetCreatePrivEventsResponse>;

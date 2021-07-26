@@ -17,10 +17,16 @@ export interface PrivateeventsMsgCreatePartPrivEventsResponse {
     /** @format uint64 */
     id?: string;
 }
+export interface PrivateeventsMsgCreateValidPrivEventsResponse {
+    /** @format uint64 */
+    id?: string;
+}
 export declare type PrivateeventsMsgDeleteCreatePrivEventsResponse = object;
 export declare type PrivateeventsMsgDeletePartPrivEventsResponse = object;
+export declare type PrivateeventsMsgDeleteValidPrivEventsResponse = object;
 export declare type PrivateeventsMsgUpdateCreatePrivEventsResponse = object;
 export declare type PrivateeventsMsgUpdatePartPrivEventsResponse = object;
+export declare type PrivateeventsMsgUpdateValidPrivEventsResponse = object;
 export interface PrivateeventsPartPrivEvents {
     creator?: string;
     /** @format uint64 */
@@ -54,11 +60,34 @@ export interface PrivateeventsQueryAllPartPrivEventsResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface PrivateeventsQueryAllValidPrivEventsResponse {
+    ValidPrivEvents?: PrivateeventsValidPrivEvents[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface PrivateeventsQueryGetCreatePrivEventsResponse {
     CreatePrivEvents?: PrivateeventsCreatePrivEvents;
 }
 export interface PrivateeventsQueryGetPartPrivEventsResponse {
     PartPrivEvents?: PrivateeventsPartPrivEvents;
+}
+export interface PrivateeventsQueryGetValidPrivEventsResponse {
+    ValidPrivEvents?: PrivateeventsValidPrivEvents;
+}
+export interface PrivateeventsValidPrivEvents {
+    creator?: string;
+    /** @format uint64 */
+    id?: string;
+    privId?: string;
+    answer?: string;
 }
 export interface ProtobufAny {
     typeUrl?: string;
@@ -225,5 +254,28 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/VoroshilovMax/bettery/privateevents/partPrivEvents/{id}
      */
     queryPartPrivEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryGetPartPrivEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryValidPrivEventsAll
+     * @summary Queries a list of validPrivEvents items.
+     * @request GET:/VoroshilovMax/bettery/privateevents/validPrivEvents
+     */
+    queryValidPrivEventsAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryAllValidPrivEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryValidPrivEvents
+     * @summary Queries a validPrivEvents by id.
+     * @request GET:/VoroshilovMax/bettery/privateevents/validPrivEvents/{id}
+     */
+    queryValidPrivEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryGetValidPrivEventsResponse, RpcStatus>>;
 }
 export {};

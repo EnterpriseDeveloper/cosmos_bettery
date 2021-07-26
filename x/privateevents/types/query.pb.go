@@ -30,6 +30,190 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // this line is used by starport scaffolding # 3
+type QueryGetValidPrivEventsRequest struct {
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *QueryGetValidPrivEventsRequest) Reset()         { *m = QueryGetValidPrivEventsRequest{} }
+func (m *QueryGetValidPrivEventsRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetValidPrivEventsRequest) ProtoMessage()    {}
+func (*QueryGetValidPrivEventsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_22507769cae3c14c, []int{0}
+}
+func (m *QueryGetValidPrivEventsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetValidPrivEventsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetValidPrivEventsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetValidPrivEventsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetValidPrivEventsRequest.Merge(m, src)
+}
+func (m *QueryGetValidPrivEventsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetValidPrivEventsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetValidPrivEventsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetValidPrivEventsRequest proto.InternalMessageInfo
+
+func (m *QueryGetValidPrivEventsRequest) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type QueryGetValidPrivEventsResponse struct {
+	ValidPrivEvents *ValidPrivEvents `protobuf:"bytes,1,opt,name=ValidPrivEvents,proto3" json:"ValidPrivEvents,omitempty"`
+}
+
+func (m *QueryGetValidPrivEventsResponse) Reset()         { *m = QueryGetValidPrivEventsResponse{} }
+func (m *QueryGetValidPrivEventsResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetValidPrivEventsResponse) ProtoMessage()    {}
+func (*QueryGetValidPrivEventsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_22507769cae3c14c, []int{1}
+}
+func (m *QueryGetValidPrivEventsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetValidPrivEventsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetValidPrivEventsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetValidPrivEventsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetValidPrivEventsResponse.Merge(m, src)
+}
+func (m *QueryGetValidPrivEventsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetValidPrivEventsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetValidPrivEventsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetValidPrivEventsResponse proto.InternalMessageInfo
+
+func (m *QueryGetValidPrivEventsResponse) GetValidPrivEvents() *ValidPrivEvents {
+	if m != nil {
+		return m.ValidPrivEvents
+	}
+	return nil
+}
+
+type QueryAllValidPrivEventsRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllValidPrivEventsRequest) Reset()         { *m = QueryAllValidPrivEventsRequest{} }
+func (m *QueryAllValidPrivEventsRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllValidPrivEventsRequest) ProtoMessage()    {}
+func (*QueryAllValidPrivEventsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_22507769cae3c14c, []int{2}
+}
+func (m *QueryAllValidPrivEventsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllValidPrivEventsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllValidPrivEventsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllValidPrivEventsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllValidPrivEventsRequest.Merge(m, src)
+}
+func (m *QueryAllValidPrivEventsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllValidPrivEventsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllValidPrivEventsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllValidPrivEventsRequest proto.InternalMessageInfo
+
+func (m *QueryAllValidPrivEventsRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllValidPrivEventsResponse struct {
+	ValidPrivEvents []*ValidPrivEvents  `protobuf:"bytes,1,rep,name=ValidPrivEvents,proto3" json:"ValidPrivEvents,omitempty"`
+	Pagination      *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllValidPrivEventsResponse) Reset()         { *m = QueryAllValidPrivEventsResponse{} }
+func (m *QueryAllValidPrivEventsResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllValidPrivEventsResponse) ProtoMessage()    {}
+func (*QueryAllValidPrivEventsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_22507769cae3c14c, []int{3}
+}
+func (m *QueryAllValidPrivEventsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllValidPrivEventsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllValidPrivEventsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllValidPrivEventsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllValidPrivEventsResponse.Merge(m, src)
+}
+func (m *QueryAllValidPrivEventsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllValidPrivEventsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllValidPrivEventsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllValidPrivEventsResponse proto.InternalMessageInfo
+
+func (m *QueryAllValidPrivEventsResponse) GetValidPrivEvents() []*ValidPrivEvents {
+	if m != nil {
+		return m.ValidPrivEvents
+	}
+	return nil
+}
+
+func (m *QueryAllValidPrivEventsResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 type QueryGetPartPrivEventsRequest struct {
 	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 }
@@ -38,7 +222,7 @@ func (m *QueryGetPartPrivEventsRequest) Reset()         { *m = QueryGetPartPrivE
 func (m *QueryGetPartPrivEventsRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetPartPrivEventsRequest) ProtoMessage()    {}
 func (*QueryGetPartPrivEventsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{0}
+	return fileDescriptor_22507769cae3c14c, []int{4}
 }
 func (m *QueryGetPartPrivEventsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -82,7 +266,7 @@ func (m *QueryGetPartPrivEventsResponse) Reset()         { *m = QueryGetPartPriv
 func (m *QueryGetPartPrivEventsResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetPartPrivEventsResponse) ProtoMessage()    {}
 func (*QueryGetPartPrivEventsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{1}
+	return fileDescriptor_22507769cae3c14c, []int{5}
 }
 func (m *QueryGetPartPrivEventsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -126,7 +310,7 @@ func (m *QueryAllPartPrivEventsRequest) Reset()         { *m = QueryAllPartPrivE
 func (m *QueryAllPartPrivEventsRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllPartPrivEventsRequest) ProtoMessage()    {}
 func (*QueryAllPartPrivEventsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{2}
+	return fileDescriptor_22507769cae3c14c, []int{6}
 }
 func (m *QueryAllPartPrivEventsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -171,7 +355,7 @@ func (m *QueryAllPartPrivEventsResponse) Reset()         { *m = QueryAllPartPriv
 func (m *QueryAllPartPrivEventsResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllPartPrivEventsResponse) ProtoMessage()    {}
 func (*QueryAllPartPrivEventsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{3}
+	return fileDescriptor_22507769cae3c14c, []int{7}
 }
 func (m *QueryAllPartPrivEventsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -222,7 +406,7 @@ func (m *QueryGetCreatePrivEventsRequest) Reset()         { *m = QueryGetCreateP
 func (m *QueryGetCreatePrivEventsRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetCreatePrivEventsRequest) ProtoMessage()    {}
 func (*QueryGetCreatePrivEventsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{4}
+	return fileDescriptor_22507769cae3c14c, []int{8}
 }
 func (m *QueryGetCreatePrivEventsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -266,7 +450,7 @@ func (m *QueryGetCreatePrivEventsResponse) Reset()         { *m = QueryGetCreate
 func (m *QueryGetCreatePrivEventsResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetCreatePrivEventsResponse) ProtoMessage()    {}
 func (*QueryGetCreatePrivEventsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{5}
+	return fileDescriptor_22507769cae3c14c, []int{9}
 }
 func (m *QueryGetCreatePrivEventsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -310,7 +494,7 @@ func (m *QueryAllCreatePrivEventsRequest) Reset()         { *m = QueryAllCreateP
 func (m *QueryAllCreatePrivEventsRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllCreatePrivEventsRequest) ProtoMessage()    {}
 func (*QueryAllCreatePrivEventsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{6}
+	return fileDescriptor_22507769cae3c14c, []int{10}
 }
 func (m *QueryAllCreatePrivEventsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -355,7 +539,7 @@ func (m *QueryAllCreatePrivEventsResponse) Reset()         { *m = QueryAllCreate
 func (m *QueryAllCreatePrivEventsResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllCreatePrivEventsResponse) ProtoMessage()    {}
 func (*QueryAllCreatePrivEventsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{7}
+	return fileDescriptor_22507769cae3c14c, []int{11}
 }
 func (m *QueryAllCreatePrivEventsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -399,6 +583,10 @@ func (m *QueryAllCreatePrivEventsResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
+	proto.RegisterType((*QueryGetValidPrivEventsRequest)(nil), "VoroshilovMax.bettery.privateevents.QueryGetValidPrivEventsRequest")
+	proto.RegisterType((*QueryGetValidPrivEventsResponse)(nil), "VoroshilovMax.bettery.privateevents.QueryGetValidPrivEventsResponse")
+	proto.RegisterType((*QueryAllValidPrivEventsRequest)(nil), "VoroshilovMax.bettery.privateevents.QueryAllValidPrivEventsRequest")
+	proto.RegisterType((*QueryAllValidPrivEventsResponse)(nil), "VoroshilovMax.bettery.privateevents.QueryAllValidPrivEventsResponse")
 	proto.RegisterType((*QueryGetPartPrivEventsRequest)(nil), "VoroshilovMax.bettery.privateevents.QueryGetPartPrivEventsRequest")
 	proto.RegisterType((*QueryGetPartPrivEventsResponse)(nil), "VoroshilovMax.bettery.privateevents.QueryGetPartPrivEventsResponse")
 	proto.RegisterType((*QueryAllPartPrivEventsRequest)(nil), "VoroshilovMax.bettery.privateevents.QueryAllPartPrivEventsRequest")
@@ -412,43 +600,50 @@ func init() {
 func init() { proto.RegisterFile("privateevents/query.proto", fileDescriptor_22507769cae3c14c) }
 
 var fileDescriptor_22507769cae3c14c = []byte{
-	// 561 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x95, 0xcf, 0x6b, 0x13, 0x41,
-	0x14, 0xc7, 0x33, 0xa9, 0x3f, 0x60, 0x84, 0xa2, 0xe3, 0x45, 0x83, 0xae, 0x65, 0x95, 0x2a, 0x1e,
-	0x66, 0x48, 0x43, 0x54, 0xaa, 0x82, 0x49, 0x5b, 0x7b, 0x12, 0x62, 0x0e, 0x1e, 0xf4, 0x50, 0x66,
-	0x93, 0x61, 0x3b, 0xb0, 0xdd, 0xd9, 0xee, 0x4c, 0x96, 0x16, 0xe9, 0x45, 0xf0, 0xe4, 0x45, 0xf0,
-	0x7f, 0x12, 0x4f, 0x52, 0xf0, 0xa2, 0x78, 0xd1, 0xc4, 0x3f, 0x44, 0x32, 0x33, 0xa5, 0xdd, 0xdd,
-	0x6c, 0x9a, 0xb4, 0x7b, 0xdd, 0x79, 0xef, 0xfb, 0xde, 0xe7, 0xfb, 0x66, 0xde, 0xc2, 0x9b, 0x51,
-	0xcc, 0x13, 0xaa, 0x18, 0x4b, 0x58, 0xa8, 0x24, 0xd9, 0x1d, 0xb0, 0x78, 0x1f, 0x47, 0xb1, 0x50,
-	0x02, 0xdd, 0x7d, 0x23, 0x62, 0x21, 0xb7, 0x79, 0x20, 0x92, 0x57, 0x74, 0x0f, 0x7b, 0x4c, 0x29,
-	0x73, 0x78, 0x22, 0xa1, 0x76, 0xcb, 0x17, 0xc2, 0x0f, 0x18, 0xa1, 0x11, 0x27, 0x34, 0x0c, 0x85,
-	0xa2, 0x8a, 0x8b, 0x50, 0x1a, 0x89, 0xda, 0xc3, 0x9e, 0x90, 0x3b, 0x42, 0x12, 0x8f, 0x4a, 0x66,
-	0xb4, 0x49, 0x52, 0xf7, 0x98, 0xa2, 0x75, 0x12, 0x51, 0x9f, 0x87, 0x3a, 0xd8, 0xc6, 0xde, 0x4b,
-	0x77, 0x12, 0xd1, 0x58, 0x6d, 0x8d, 0x3f, 0x6d, 0x99, 0x0f, 0x36, 0x6a, 0x39, 0x1d, 0xd5, 0x8b,
-	0x19, 0x55, 0x2c, 0x1f, 0xe7, 0x12, 0x78, 0xfb, 0xf5, 0xb8, 0xde, 0x26, 0x53, 0x1d, 0x1a, 0xab,
-	0x4e, 0xcc, 0x93, 0x0d, 0x7d, 0xde, 0x65, 0xbb, 0x03, 0x26, 0x15, 0x5a, 0x84, 0x55, 0xde, 0xbf,
-	0x01, 0x96, 0xc0, 0x83, 0x0b, 0xdd, 0x2a, 0xef, 0xbb, 0x07, 0xd0, 0x29, 0x4a, 0x90, 0x91, 0x08,
-	0x25, 0x43, 0xef, 0xe0, 0x62, 0xfa, 0x44, 0x67, 0x5f, 0x59, 0x69, 0xe0, 0x19, 0x8c, 0xc2, 0x19,
-	0xd1, 0x8c, 0x94, 0xeb, 0xdb, 0x7e, 0x5b, 0x41, 0x30, 0xb9, 0xdf, 0x97, 0x10, 0x1e, 0x5b, 0x66,
-	0x2b, 0x2f, 0x63, 0xe3, 0x2f, 0x1e, 0xfb, 0x8b, 0xcd, 0xec, 0xac, 0xbf, 0xb8, 0x43, 0x7d, 0x66,
-	0x73, 0xbb, 0x27, 0x32, 0xdd, 0xaf, 0xc0, 0x82, 0x4e, 0xa8, 0x34, 0x05, 0x74, 0xa1, 0x24, 0x50,
-	0xb4, 0x99, 0xe2, 0xa8, 0x6a, 0x8e, 0xfb, 0xa7, 0x72, 0x98, 0xce, 0x52, 0x20, 0x75, 0x78, 0xe7,
-	0x68, 0x60, 0x6b, 0xfa, 0x16, 0x9c, 0x3e, 0xe3, 0x8f, 0x00, 0x2e, 0x15, 0xe7, 0x58, 0x7a, 0x0a,
-	0xaf, 0x66, 0xcf, 0xac, 0xdd, 0xcd, 0x99, 0xf8, 0x73, 0xc2, 0x39, 0x39, 0x97, 0xdb, 0xd6, 0x5b,
-	0x41, 0x50, 0xd4, 0x7a, 0x59, 0xe3, 0xfe, 0x7e, 0x84, 0x3c, 0xb1, 0xd6, 0x54, 0xe4, 0x85, 0x12,
-	0x91, 0x4b, 0x1b, 0xfb, 0xca, 0xa7, 0xcb, 0xf0, 0xa2, 0x06, 0x42, 0xbf, 0x41, 0xf6, 0x9e, 0xa2,
-	0xf6, 0x4c, 0xed, 0x4e, 0x5d, 0x0c, 0xb5, 0xb5, 0x73, 0x69, 0x98, 0x8e, 0xdd, 0x17, 0x1f, 0x7e,
-	0xfc, 0xfb, 0x52, 0x5d, 0x45, 0x4f, 0x48, 0x4a, 0x8c, 0x58, 0x31, 0x92, 0xdf, 0x75, 0xc7, 0x22,
-	0xe4, 0x3d, 0xef, 0x1f, 0xa0, 0x5f, 0x00, 0x5e, 0x4b, 0x8b, 0xb7, 0x82, 0x60, 0x1e, 0xc0, 0xa2,
-	0x4d, 0x32, 0x0f, 0x60, 0xe1, 0x8e, 0x70, 0x9f, 0x6a, 0xc0, 0x26, 0x6a, 0x9c, 0x01, 0x10, 0x8d,
-	0x40, 0xfe, 0xc2, 0xa1, 0xf5, 0xb9, 0x7c, 0x2f, 0x78, 0x37, 0xb5, 0x8d, 0x73, 0xaa, 0x58, 0xbc,
-	0xb6, 0xc6, 0x7b, 0x86, 0x56, 0x67, 0xc2, 0xeb, 0x65, 0x64, 0xcc, 0x04, 0xff, 0x02, 0x78, 0x3d,
-	0x5b, 0x60, 0x3c, 0xc3, 0xf5, 0xb9, 0xfc, 0x2f, 0x01, 0x74, 0xca, 0xd3, 0x77, 0x9f, 0x6b, 0xd0,
-	0xc7, 0xa8, 0x79, 0x26, 0xd0, 0x76, 0xe7, 0xdb, 0xd0, 0x01, 0x87, 0x43, 0x07, 0xfc, 0x19, 0x3a,
-	0xe0, 0xf3, 0xc8, 0xa9, 0x1c, 0x8e, 0x9c, 0xca, 0xcf, 0x91, 0x53, 0x79, 0xfb, 0xc8, 0xe7, 0x6a,
-	0x7b, 0xe0, 0xe1, 0x9e, 0xd8, 0x29, 0x90, 0xde, 0xcb, 0x88, 0xab, 0xfd, 0x88, 0x49, 0xef, 0x92,
-	0xfe, 0x7f, 0x37, 0xfe, 0x07, 0x00, 0x00, 0xff, 0xff, 0xa4, 0x7f, 0x95, 0x6f, 0x99, 0x08, 0x00,
-	0x00,
+	// 676 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0x4f, 0x6f, 0xd3, 0x4c,
+	0x10, 0xc6, 0xbb, 0xe9, 0xfb, 0x72, 0x58, 0xa4, 0x02, 0xcb, 0x05, 0x22, 0x30, 0x95, 0x81, 0x82,
+	0x38, 0xd8, 0xf4, 0x2f, 0xd0, 0x16, 0x89, 0xa4, 0x94, 0x9e, 0x90, 0x42, 0x0f, 0x3d, 0x80, 0x44,
+	0xb5, 0x49, 0x56, 0xee, 0x4a, 0xae, 0xd7, 0xb5, 0x37, 0x56, 0x2b, 0xd4, 0x03, 0x48, 0xdc, 0x91,
+	0xf8, 0x4e, 0x08, 0x21, 0x81, 0x2a, 0x71, 0x01, 0x21, 0x04, 0x24, 0x7c, 0x10, 0xe4, 0xf5, 0x46,
+	0xae, 0x37, 0x76, 0x62, 0x27, 0xbe, 0x66, 0x67, 0x9e, 0x9d, 0xdf, 0x3c, 0x9e, 0xd9, 0xc0, 0xcb,
+	0xae, 0x47, 0x03, 0xcc, 0x09, 0x09, 0x88, 0xc3, 0x7d, 0xf3, 0xa0, 0x43, 0xbc, 0x23, 0xc3, 0xf5,
+	0x18, 0x67, 0xe8, 0xfa, 0x0e, 0xf3, 0x98, 0xbf, 0x47, 0x6d, 0x16, 0x3c, 0xc5, 0x87, 0x46, 0x93,
+	0x70, 0x1e, 0x1d, 0x9e, 0x4a, 0xa8, 0x5e, 0xb1, 0x18, 0xb3, 0x6c, 0x62, 0x62, 0x97, 0x9a, 0xd8,
+	0x71, 0x18, 0xc7, 0x9c, 0x32, 0xc7, 0x8f, 0x24, 0xaa, 0x77, 0x5a, 0xcc, 0xdf, 0x67, 0xbe, 0xd9,
+	0xc4, 0x3e, 0x89, 0xb4, 0xcd, 0x60, 0xbe, 0x49, 0x38, 0x9e, 0x37, 0x5d, 0x6c, 0x51, 0x47, 0x04,
+	0xcb, 0xd8, 0x9b, 0xc9, 0x4a, 0x02, 0x6c, 0xd3, 0xf6, 0x6e, 0xf8, 0xdb, 0x6e, 0xf4, 0x8b, 0x0c,
+	0xbb, 0x91, 0x0c, 0x73, 0xb1, 0xc7, 0x53, 0xa2, 0xe6, 0x92, 0x51, 0x2d, 0x8f, 0x60, 0x4e, 0x06,
+	0xe3, 0xf4, 0xbb, 0x50, 0x7b, 0x16, 0x96, 0xb5, 0x45, 0xf8, 0x4e, 0x78, 0x61, 0xc3, 0xa3, 0xc1,
+	0xa6, 0x08, 0xd8, 0x26, 0x07, 0x1d, 0xe2, 0x73, 0x34, 0x03, 0x2b, 0xb4, 0x7d, 0x09, 0xcc, 0x82,
+	0xdb, 0xff, 0x6d, 0x57, 0x68, 0x5b, 0x7f, 0x0d, 0xe0, 0xb5, 0xcc, 0x14, 0xdf, 0x65, 0x8e, 0x4f,
+	0xd0, 0x4b, 0x78, 0x4e, 0x39, 0x12, 0x02, 0x67, 0x17, 0x96, 0x8c, 0x1c, 0x3d, 0x35, 0x54, 0x59,
+	0x55, 0x4c, 0xdf, 0x93, 0x55, 0xd7, 0x6c, 0x3b, 0xa3, 0xea, 0x27, 0x10, 0xc6, 0x0d, 0x96, 0x97,
+	0xcf, 0x19, 0x91, 0x1b, 0x46, 0xe8, 0x86, 0x11, 0x39, 0x2d, 0xdd, 0x30, 0x1a, 0xd8, 0x22, 0x32,
+	0x77, 0xfb, 0x54, 0xa6, 0xfe, 0xa9, 0x4f, 0x9b, 0x76, 0xd5, 0x30, 0xda, 0xe9, 0xd2, 0x68, 0xd1,
+	0x56, 0x82, 0xa5, 0x22, 0x58, 0x6e, 0x8d, 0x64, 0x89, 0x8a, 0x4b, 0xc0, 0x98, 0xf0, 0x6a, 0xdf,
+	0xb9, 0x06, 0xf6, 0xf8, 0x68, 0xaf, 0x8f, 0xe3, 0xaf, 0x43, 0x4d, 0x90, 0xec, 0x2f, 0xe0, 0x4c,
+	0xf2, 0x44, 0xf6, 0x7a, 0x31, 0x17, 0xba, 0x22, 0xaa, 0x48, 0xe9, 0x96, 0xac, 0xb7, 0x66, 0xdb,
+	0xe9, 0xf5, 0x96, 0xe5, 0xf2, 0x07, 0x10, 0x7f, 0x50, 0x05, 0x40, 0xa7, 0x4b, 0x02, 0x2d, 0xcf,
+	0xe1, 0xf9, 0x78, 0x36, 0x37, 0xc4, 0xc8, 0x8f, 0xf6, 0xf8, 0x2d, 0x80, 0xb3, 0xd9, 0x39, 0x92,
+	0x1e, 0xc3, 0xf3, 0xea, 0x99, 0x6c, 0xf7, 0x72, 0x2e, 0xfe, 0x01, 0xe1, 0x01, 0x39, 0x9d, 0xc6,
+	0x83, 0x96, 0x55, 0x7a, 0x59, 0x76, 0x7f, 0xe9, 0x23, 0xa7, 0xde, 0x35, 0x14, 0x79, 0xba, 0x44,
+	0xe4, 0xd2, 0x6c, 0x5f, 0xf8, 0x0c, 0xe1, 0xff, 0x02, 0x08, 0xfd, 0x02, 0x03, 0xcb, 0x08, 0x6d,
+	0xe4, 0xaa, 0x77, 0xf8, 0x33, 0x50, 0x7d, 0x3c, 0x99, 0x48, 0x54, 0xb4, 0x5e, 0x7b, 0xf3, 0xf5,
+	0xef, 0xfb, 0xca, 0x1a, 0x7a, 0x60, 0x26, 0xd4, 0x4c, 0xa9, 0x66, 0xa6, 0x3c, 0x81, 0xb1, 0x8a,
+	0xf9, 0x8a, 0xb6, 0x8f, 0xd1, 0x4f, 0x00, 0x91, 0x22, 0x5f, 0xb3, 0xed, 0x22, 0x90, 0x99, 0xaf,
+	0x46, 0x11, 0xc8, 0xec, 0xf7, 0x40, 0x5f, 0x17, 0x90, 0x2b, 0x68, 0x69, 0x1c, 0x48, 0xf4, 0x03,
+	0xa8, 0x9b, 0x06, 0xd5, 0x0b, 0xf5, 0x3e, 0x75, 0x55, 0x56, 0x37, 0x26, 0xd2, 0x90, 0x64, 0x8f,
+	0x04, 0xd9, 0x2a, 0xba, 0x9f, 0x8b, 0xcc, 0x4d, 0x88, 0x44, 0xee, 0x7d, 0x07, 0xf0, 0x42, 0x52,
+	0x3c, 0x34, 0xaf, 0x5e, 0xa8, 0xef, 0x13, 0x03, 0x66, 0x6e, 0x79, 0x7d, 0x4d, 0x00, 0x2e, 0xa3,
+	0xc5, 0x31, 0x00, 0x51, 0x0f, 0x0c, 0xae, 0x0c, 0x54, 0x6c, 0x6e, 0x32, 0x36, 0x5f, 0x75, 0x73,
+	0x42, 0x15, 0x89, 0x57, 0x17, 0x78, 0xeb, 0x68, 0x35, 0x17, 0x5e, 0x4b, 0x91, 0x89, 0x1c, 0xfc,
+	0x03, 0xe0, 0x45, 0xf5, 0x82, 0xd0, 0xc3, 0x62, 0xb3, 0x53, 0x02, 0xe8, 0x90, 0xe5, 0xad, 0x3f,
+	0x14, 0xa0, 0xf7, 0xd0, 0xf2, 0x58, 0xa0, 0xf5, 0xc6, 0xc7, 0xae, 0x06, 0x4e, 0xba, 0x1a, 0xf8,
+	0xdd, 0xd5, 0xc0, 0xbb, 0x9e, 0x36, 0x75, 0xd2, 0xd3, 0xa6, 0xbe, 0xf5, 0xb4, 0xa9, 0xe7, 0x2b,
+	0x16, 0xe5, 0x7b, 0x9d, 0xa6, 0xd1, 0x62, 0xfb, 0x19, 0xd2, 0x87, 0x8a, 0x38, 0x3f, 0x72, 0x89,
+	0xdf, 0x3c, 0x23, 0xfe, 0x6e, 0x2f, 0xfe, 0x0b, 0x00, 0x00, 0xff, 0xff, 0xc9, 0xca, 0x87, 0xeb,
+	0x6f, 0x0c, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -463,6 +658,10 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
+	// Queries a validPrivEvents by id.
+	ValidPrivEvents(ctx context.Context, in *QueryGetValidPrivEventsRequest, opts ...grpc.CallOption) (*QueryGetValidPrivEventsResponse, error)
+	// Queries a list of validPrivEvents items.
+	ValidPrivEventsAll(ctx context.Context, in *QueryAllValidPrivEventsRequest, opts ...grpc.CallOption) (*QueryAllValidPrivEventsResponse, error)
 	// Queries a partPrivEvents by id.
 	PartPrivEvents(ctx context.Context, in *QueryGetPartPrivEventsRequest, opts ...grpc.CallOption) (*QueryGetPartPrivEventsResponse, error)
 	// Queries a list of partPrivEvents items.
@@ -479,6 +678,24 @@ type queryClient struct {
 
 func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 	return &queryClient{cc}
+}
+
+func (c *queryClient) ValidPrivEvents(ctx context.Context, in *QueryGetValidPrivEventsRequest, opts ...grpc.CallOption) (*QueryGetValidPrivEventsResponse, error) {
+	out := new(QueryGetValidPrivEventsResponse)
+	err := c.cc.Invoke(ctx, "/VoroshilovMax.bettery.privateevents.Query/ValidPrivEvents", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) ValidPrivEventsAll(ctx context.Context, in *QueryAllValidPrivEventsRequest, opts ...grpc.CallOption) (*QueryAllValidPrivEventsResponse, error) {
+	out := new(QueryAllValidPrivEventsResponse)
+	err := c.cc.Invoke(ctx, "/VoroshilovMax.bettery.privateevents.Query/ValidPrivEventsAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *queryClient) PartPrivEvents(ctx context.Context, in *QueryGetPartPrivEventsRequest, opts ...grpc.CallOption) (*QueryGetPartPrivEventsResponse, error) {
@@ -519,6 +736,10 @@ func (c *queryClient) CreatePrivEventsAll(ctx context.Context, in *QueryAllCreat
 
 // QueryServer is the server API for Query service.
 type QueryServer interface {
+	// Queries a validPrivEvents by id.
+	ValidPrivEvents(context.Context, *QueryGetValidPrivEventsRequest) (*QueryGetValidPrivEventsResponse, error)
+	// Queries a list of validPrivEvents items.
+	ValidPrivEventsAll(context.Context, *QueryAllValidPrivEventsRequest) (*QueryAllValidPrivEventsResponse, error)
 	// Queries a partPrivEvents by id.
 	PartPrivEvents(context.Context, *QueryGetPartPrivEventsRequest) (*QueryGetPartPrivEventsResponse, error)
 	// Queries a list of partPrivEvents items.
@@ -533,6 +754,12 @@ type QueryServer interface {
 type UnimplementedQueryServer struct {
 }
 
+func (*UnimplementedQueryServer) ValidPrivEvents(ctx context.Context, req *QueryGetValidPrivEventsRequest) (*QueryGetValidPrivEventsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidPrivEvents not implemented")
+}
+func (*UnimplementedQueryServer) ValidPrivEventsAll(ctx context.Context, req *QueryAllValidPrivEventsRequest) (*QueryAllValidPrivEventsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidPrivEventsAll not implemented")
+}
 func (*UnimplementedQueryServer) PartPrivEvents(ctx context.Context, req *QueryGetPartPrivEventsRequest) (*QueryGetPartPrivEventsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PartPrivEvents not implemented")
 }
@@ -548,6 +775,42 @@ func (*UnimplementedQueryServer) CreatePrivEventsAll(ctx context.Context, req *Q
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 	s.RegisterService(&_Query_serviceDesc, srv)
+}
+
+func _Query_ValidPrivEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetValidPrivEventsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ValidPrivEvents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VoroshilovMax.bettery.privateevents.Query/ValidPrivEvents",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ValidPrivEvents(ctx, req.(*QueryGetValidPrivEventsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_ValidPrivEventsAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllValidPrivEventsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ValidPrivEventsAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VoroshilovMax.bettery.privateevents.Query/ValidPrivEventsAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ValidPrivEventsAll(ctx, req.(*QueryAllValidPrivEventsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Query_PartPrivEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -627,6 +890,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "ValidPrivEvents",
+			Handler:    _Query_ValidPrivEvents_Handler,
+		},
+		{
+			MethodName: "ValidPrivEventsAll",
+			Handler:    _Query_ValidPrivEventsAll_Handler,
+		},
+		{
 			MethodName: "PartPrivEvents",
 			Handler:    _Query_PartPrivEvents_Handler,
 		},
@@ -645,6 +916,153 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "privateevents/query.proto",
+}
+
+func (m *QueryGetValidPrivEventsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetValidPrivEventsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetValidPrivEventsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetValidPrivEventsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetValidPrivEventsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetValidPrivEventsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.ValidPrivEvents != nil {
+		{
+			size, err := m.ValidPrivEvents.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllValidPrivEventsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllValidPrivEventsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllValidPrivEventsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllValidPrivEventsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllValidPrivEventsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllValidPrivEventsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.ValidPrivEvents) > 0 {
+		for iNdEx := len(m.ValidPrivEvents) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ValidPrivEvents[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *QueryGetPartPrivEventsRequest) Marshal() (dAtA []byte, err error) {
@@ -952,6 +1370,63 @@ func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *QueryGetValidPrivEventsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != 0 {
+		n += 1 + sovQuery(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *QueryGetValidPrivEventsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.ValidPrivEvents != nil {
+		l = m.ValidPrivEvents.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllValidPrivEventsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllValidPrivEventsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.ValidPrivEvents) > 0 {
+		for _, e := range m.ValidPrivEvents {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
 func (m *QueryGetPartPrivEventsRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -1071,6 +1546,367 @@ func sovQuery(x uint64) (n int) {
 }
 func sozQuery(x uint64) (n int) {
 	return sovQuery(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *QueryGetValidPrivEventsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetValidPrivEventsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetValidPrivEventsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetValidPrivEventsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetValidPrivEventsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetValidPrivEventsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidPrivEvents", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ValidPrivEvents == nil {
+				m.ValidPrivEvents = &ValidPrivEvents{}
+			}
+			if err := m.ValidPrivEvents.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllValidPrivEventsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllValidPrivEventsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllValidPrivEventsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllValidPrivEventsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllValidPrivEventsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllValidPrivEventsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValidPrivEvents", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ValidPrivEvents = append(m.ValidPrivEvents, &ValidPrivEvents{})
+			if err := m.ValidPrivEvents[len(m.ValidPrivEvents)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *QueryGetPartPrivEventsRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)

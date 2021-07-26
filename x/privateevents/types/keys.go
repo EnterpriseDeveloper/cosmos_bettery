@@ -34,3 +34,8 @@ const (
 	PartPrivEventsKey      = "PartPrivEvents-value-"
 	PartPrivEventsCountKey = "PartPrivEvents-count-"
 )
+
+const (
+	ValidPrivEventsKey      = "ValidPrivEvents-value-"
+	ValidPrivEventsCountKey = "ValidPrivEvents-count-"
+)

@@ -4,6 +4,7 @@ package VoroshilovMax.bettery.privateevents;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "privateevents/valid_priv_events.proto";
 import "privateevents/part_priv_events.proto";
 import "privateevents/create_priv_events.proto";
 
@@ -12,6 +13,17 @@ option go_package = "github.com/VoroshilovMax/bettery/x/privateevents/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a validPrivEvents by id.
+	rpc ValidPrivEvents(QueryGetValidPrivEventsRequest) returns (QueryGetValidPrivEventsResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/privateevents/validPrivEvents/{id}";
+	}
+
+	// Queries a list of validPrivEvents items.
+	rpc ValidPrivEventsAll(QueryAllValidPrivEventsRequest) returns (QueryAllValidPrivEventsResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/privateevents/validPrivEvents";
+	}
+
 
 	// Queries a partPrivEvents by id.
 	rpc PartPrivEvents(QueryGetPartPrivEventsRequest) returns (QueryGetPartPrivEventsResponse) {
@@ -37,6 +49,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetValidPrivEventsRequest {
+	uint64 id = 1;
+}
+
+message QueryGetValidPrivEventsResponse {
+	ValidPrivEvents ValidPrivEvents = 1;
+}
+
+message QueryAllValidPrivEventsRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllValidPrivEventsResponse {
+	repeated ValidPrivEvents ValidPrivEvents = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetPartPrivEventsRequest {
 	uint64 id = 1;
 }

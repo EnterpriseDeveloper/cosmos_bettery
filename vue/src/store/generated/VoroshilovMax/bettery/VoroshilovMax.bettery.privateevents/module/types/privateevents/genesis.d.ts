@@ -1,10 +1,15 @@
 import { Writer, Reader } from 'protobufjs/minimal';
+import { ValidPrivEvents } from '../privateevents/valid_priv_events';
 import { PartPrivEvents } from '../privateevents/part_priv_events';
 import { CreatePrivEvents } from '../privateevents/create_priv_events';
 export declare const protobufPackage = "VoroshilovMax.bettery.privateevents";
 /** GenesisState defines the privateevents module's genesis state. */
 export interface GenesisState {
     /** this line is used by starport scaffolding # genesis/proto/state */
+    validPrivEventsList: ValidPrivEvents[];
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
+    validPrivEventsCount: number;
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
     partPrivEventsList: PartPrivEvents[];
     /** this line is used by starport scaffolding # genesis/proto/stateField */
     partPrivEventsCount: number;

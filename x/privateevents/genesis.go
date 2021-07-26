@@ -10,6 +10,14 @@ import (
 // state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// this line is used by starport scaffolding # genesis/module/init
+	// Set all the validPrivEvents
+	for _, elem := range genState.ValidPrivEventsList {
+		k.SetValidPrivEvents(ctx, *elem)
+	}
+
+	// Set validPrivEvents count
+	k.SetValidPrivEventsCount(ctx, genState.ValidPrivEventsCount)
+
 	// Set all the partPrivEvents
 	for _, elem := range genState.PartPrivEventsList {
 		k.SetPartPrivEvents(ctx, *elem)
@@ -31,6 +39,16 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	// this line is used by starport scaffolding # genesis/module/export
+	// Get all validPrivEvents
+	validPrivEventsList := k.GetAllValidPrivEvents(ctx)
+	for _, elem := range validPrivEventsList {
+		elem := elem
+		genesis.ValidPrivEventsList = append(genesis.ValidPrivEventsList, &elem)
+	}
+
+	// Set the current count
+	genesis.ValidPrivEventsCount = k.GetValidPrivEventsCount(ctx)
+
 	// Get all partPrivEvents
 	partPrivEventsList := k.GetAllPartPrivEvents(ctx)
 	for _, elem := range partPrivEventsList {

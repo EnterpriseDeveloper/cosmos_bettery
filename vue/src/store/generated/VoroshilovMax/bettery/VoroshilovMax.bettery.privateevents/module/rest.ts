@@ -33,13 +33,22 @@ export interface PrivateeventsMsgCreatePartPrivEventsResponse {
   id?: string;
 }
 
+export interface PrivateeventsMsgCreateValidPrivEventsResponse {
+  /** @format uint64 */
+  id?: string;
+}
+
 export type PrivateeventsMsgDeleteCreatePrivEventsResponse = object;
 
 export type PrivateeventsMsgDeletePartPrivEventsResponse = object;
 
+export type PrivateeventsMsgDeleteValidPrivEventsResponse = object;
+
 export type PrivateeventsMsgUpdateCreatePrivEventsResponse = object;
 
 export type PrivateeventsMsgUpdatePartPrivEventsResponse = object;
+
+export type PrivateeventsMsgUpdateValidPrivEventsResponse = object;
 
 export interface PrivateeventsPartPrivEvents {
   creator?: string;
@@ -80,12 +89,40 @@ export interface PrivateeventsQueryAllPartPrivEventsResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface PrivateeventsQueryAllValidPrivEventsResponse {
+  ValidPrivEvents?: PrivateeventsValidPrivEvents[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface PrivateeventsQueryGetCreatePrivEventsResponse {
   CreatePrivEvents?: PrivateeventsCreatePrivEvents;
 }
 
 export interface PrivateeventsQueryGetPartPrivEventsResponse {
   PartPrivEvents?: PrivateeventsPartPrivEvents;
+}
+
+export interface PrivateeventsQueryGetValidPrivEventsResponse {
+  ValidPrivEvents?: PrivateeventsValidPrivEvents;
+}
+
+export interface PrivateeventsValidPrivEvents {
+  creator?: string;
+
+  /** @format uint64 */
+  id?: string;
+  privId?: string;
+  answer?: string;
 }
 
 export interface ProtobufAny {
@@ -431,6 +468,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryPartPrivEvents = (id: string, params: RequestParams = {}) =>
     this.request<PrivateeventsQueryGetPartPrivEventsResponse, RpcStatus>({
       path: `/VoroshilovMax/bettery/privateevents/partPrivEvents/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryValidPrivEventsAll
+   * @summary Queries a list of validPrivEvents items.
+   * @request GET:/VoroshilovMax/bettery/privateevents/validPrivEvents
+   */
+  queryValidPrivEventsAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<PrivateeventsQueryAllValidPrivEventsResponse, RpcStatus>({
+      path: `/VoroshilovMax/bettery/privateevents/validPrivEvents`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryValidPrivEvents
+   * @summary Queries a validPrivEvents by id.
+   * @request GET:/VoroshilovMax/bettery/privateevents/validPrivEvents/{id}
+   */
+  queryValidPrivEvents = (id: string, params: RequestParams = {}) =>
+    this.request<PrivateeventsQueryGetValidPrivEventsResponse, RpcStatus>({
+      path: `/VoroshilovMax/bettery/privateevents/validPrivEvents/${id}`,
       method: "GET",
       format: "json",
       ...params,
