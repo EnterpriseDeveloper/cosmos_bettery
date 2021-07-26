@@ -7,14 +7,14 @@ export const protobufPackage = 'VoroshilovMax.bettery.privateevents'
 export interface CreatePrivEvents {
   creator: string
   id: number
-  privId: string
+  privId: number
   question: string
   answers: string[]
   winner: string
   loser: string
 }
 
-const baseCreatePrivEvents: object = { creator: '', id: 0, privId: '', question: '', answers: '', winner: '', loser: '' }
+const baseCreatePrivEvents: object = { creator: '', id: 0, privId: 0, question: '', answers: '', winner: '', loser: '' }
 
 export const CreatePrivEvents = {
   encode(message: CreatePrivEvents, writer: Writer = Writer.create()): Writer {
@@ -24,8 +24,8 @@ export const CreatePrivEvents = {
     if (message.id !== 0) {
       writer.uint32(16).uint64(message.id)
     }
-    if (message.privId !== '') {
-      writer.uint32(26).string(message.privId)
+    if (message.privId !== 0) {
+      writer.uint32(24).uint64(message.privId)
     }
     if (message.question !== '') {
       writer.uint32(34).string(message.question)
@@ -57,7 +57,7 @@ export const CreatePrivEvents = {
           message.id = longToNumber(reader.uint64() as Long)
           break
         case 3:
-          message.privId = reader.string()
+          message.privId = longToNumber(reader.uint64() as Long)
           break
         case 4:
           message.question = reader.string()
@@ -93,9 +93,9 @@ export const CreatePrivEvents = {
       message.id = 0
     }
     if (object.privId !== undefined && object.privId !== null) {
-      message.privId = String(object.privId)
+      message.privId = Number(object.privId)
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.question !== undefined && object.question !== null) {
       message.question = String(object.question)
@@ -152,7 +152,7 @@ export const CreatePrivEvents = {
     if (object.privId !== undefined && object.privId !== null) {
       message.privId = object.privId
     } else {
-      message.privId = ''
+      message.privId = 0
     }
     if (object.question !== undefined && object.question !== null) {
       message.question = object.question

@@ -47,10 +47,3 @@ func TestCreatePrivEventsGetAll(t *testing.T) {
 	items := createNCreatePrivEvents(keeper, ctx, 10)
 	assert.Equal(t, items, keeper.GetAllCreatePrivEvents(ctx))
 }
-
-func TestCreatePrivEventsCount(t *testing.T) {
-	keeper, ctx := setupKeeper(t)
-	items := createNCreatePrivEvents(keeper, ctx, 10)
-	count := uint64(len(items))
-	assert.Equal(t, count, keeper.GetCreatePrivEventsCount(ctx))
-}

@@ -3,7 +3,7 @@ export declare const protobufPackage = "VoroshilovMax.bettery.privateevents";
 /** this line is used by starport scaffolding # proto/tx/message */
 export interface MsgCreateCreatePrivEvents {
     creator: string;
-    privId: string;
+    privId: number;
     question: string;
     answers: string[];
     winner: string;
@@ -15,7 +15,7 @@ export interface MsgCreateCreatePrivEventsResponse {
 export interface MsgUpdateCreatePrivEvents {
     creator: string;
     id: number;
-    privId: string;
+    privId: number;
     question: string;
     answers: string[];
     winner: string;

@@ -14,6 +14,8 @@ export interface PrivateeventsCreatePrivEvents {
 
   /** @format uint64 */
   id?: string;
+
+  /** @format uint64 */
   privId?: string;
   question?: string;
   answers?: string[];

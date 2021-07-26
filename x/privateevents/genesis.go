@@ -15,9 +15,6 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetCreatePrivEvents(ctx, *elem)
 	}
 
-	// Set createPrivEvents count
-	k.SetCreatePrivEventsCount(ctx, genState.CreatePrivEventsCount)
-
 	// this line is used by starport scaffolding # ibc/genesis/init
 }
 
@@ -32,9 +29,6 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		elem := elem
 		genesis.CreatePrivEventsList = append(genesis.CreatePrivEventsList, &elem)
 	}
-
-	// Set the current count
-	genesis.CreatePrivEventsCount = k.GetCreatePrivEventsCount(ctx)
 
 	// this line is used by starport scaffolding # ibc/genesis/export
 

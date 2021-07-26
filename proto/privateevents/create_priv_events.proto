@@ -8,7 +8,7 @@ import "gogoproto/gogo.proto";
 message CreatePrivEvents {
   string creator = 1;
   uint64 id = 2;
-  string privId = 3; 
+  uint64 privId = 3; 
   string question = 4; 
   repeated string answers = 5; 
   string winner = 6; 

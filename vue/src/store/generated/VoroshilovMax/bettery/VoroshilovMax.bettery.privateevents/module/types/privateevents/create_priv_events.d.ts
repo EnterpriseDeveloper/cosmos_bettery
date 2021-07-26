@@ -3,7 +3,7 @@ export declare const protobufPackage = "VoroshilovMax.bettery.privateevents";
 export interface CreatePrivEvents {
     creator: string;
     id: number;
-    privId: string;
+    privId: number;
     question: string;
     answers: string[];
     winner: string;

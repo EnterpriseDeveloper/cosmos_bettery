@@ -2,60 +2,26 @@ package keeper
 
 import (
 	"encoding/binary"
+
 	"github.com/VoroshilovMax/bettery/x/privateevents/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"strconv"
 )
-
-// GetCreatePrivEventsCount get the total number of TypeName.LowerCamel
-func (k Keeper) GetCreatePrivEventsCount(ctx sdk.Context) uint64 {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePrivEventsCountKey))
-	byteKey := types.KeyPrefix(types.CreatePrivEventsCountKey)
-	bz := store.Get(byteKey)
-
-	// Count doesn't exist: no element
-	if bz == nil {
-		return 0
-	}
-
-	// Parse bytes
-	count, err := strconv.ParseUint(string(bz), 10, 64)
-	if err != nil {
-		// Panic because the count should be always formattable to uint64
-		panic("cannot decode count")
-	}
-
-	return count
-}
-
-// SetCreatePrivEventsCount set the total number of createPrivEvents
-func (k Keeper) SetCreatePrivEventsCount(ctx sdk.Context, count uint64) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePrivEventsCountKey))
-	byteKey := types.KeyPrefix(types.CreatePrivEventsCountKey)
-	bz := []byte(strconv.FormatUint(count, 10))
-	store.Set(byteKey, bz)
-}
 
 // AppendCreatePrivEvents appends a createPrivEvents in the store with a new id and update the count
 func (k Keeper) AppendCreatePrivEvents(
 	ctx sdk.Context,
 	createPrivEvents types.CreatePrivEvents,
 ) uint64 {
-	// Create the createPrivEvents
-	count := k.GetCreatePrivEventsCount(ctx)
 
-	// Set the ID of the appended value
-	createPrivEvents.Id = count
+	id := createPrivEvents.PrivId
+	createPrivEvents.Id = id
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePrivEventsKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&createPrivEvents)
 	store.Set(GetCreatePrivEventsIDBytes(createPrivEvents.Id), appendedValue)
 
-	// Update createPrivEvents count
-	k.SetCreatePrivEventsCount(ctx, count+1)
-
-	return count
+	return id
 }
 
 // SetCreatePrivEvents set a specific createPrivEvents in the store

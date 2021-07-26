@@ -2,14 +2,14 @@
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
 export const protobufPackage = 'VoroshilovMax.bettery.privateevents';
-const baseMsgCreateCreatePrivEvents = { creator: '', privId: '', question: '', answers: '', winner: '', loser: '' };
+const baseMsgCreateCreatePrivEvents = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '' };
 export const MsgCreateCreatePrivEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
         }
-        if (message.privId !== '') {
-            writer.uint32(18).string(message.privId);
+        if (message.privId !== 0) {
+            writer.uint32(16).uint64(message.privId);
         }
         if (message.question !== '') {
             writer.uint32(26).string(message.question);
@@ -37,7 +37,7 @@ export const MsgCreateCreatePrivEvents = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.privId = reader.string();
+                    message.privId = longToNumber(reader.uint64());
                     break;
                 case 3:
                     message.question = reader.string();
@@ -68,10 +68,10 @@ export const MsgCreateCreatePrivEvents = {
             message.creator = '';
         }
         if (object.privId !== undefined && object.privId !== null) {
-            message.privId = String(object.privId);
+            message.privId = Number(object.privId);
         }
         else {
-            message.privId = '';
+            message.privId = 0;
         }
         if (object.question !== undefined && object.question !== null) {
             message.question = String(object.question);
@@ -126,7 +126,7 @@ export const MsgCreateCreatePrivEvents = {
             message.privId = object.privId;
         }
         else {
-            message.privId = '';
+            message.privId = 0;
         }
         if (object.question !== undefined && object.question !== null) {
             message.question = object.question;
@@ -205,7 +205,7 @@ export const MsgCreateCreatePrivEventsResponse = {
         return message;
     }
 };
-const baseMsgUpdateCreatePrivEvents = { creator: '', id: 0, privId: '', question: '', answers: '', winner: '', loser: '' };
+const baseMsgUpdateCreatePrivEvents = { creator: '', id: 0, privId: 0, question: '', answers: '', winner: '', loser: '' };
 export const MsgUpdateCreatePrivEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -214,8 +214,8 @@ export const MsgUpdateCreatePrivEvents = {
         if (message.id !== 0) {
             writer.uint32(16).uint64(message.id);
         }
-        if (message.privId !== '') {
-            writer.uint32(26).string(message.privId);
+        if (message.privId !== 0) {
+            writer.uint32(24).uint64(message.privId);
         }
         if (message.question !== '') {
             writer.uint32(34).string(message.question);
@@ -246,7 +246,7 @@ export const MsgUpdateCreatePrivEvents = {
                     message.id = longToNumber(reader.uint64());
                     break;
                 case 3:
-                    message.privId = reader.string();
+                    message.privId = longToNumber(reader.uint64());
                     break;
                 case 4:
                     message.question = reader.string();
@@ -283,10 +283,10 @@ export const MsgUpdateCreatePrivEvents = {
             message.id = 0;
         }
         if (object.privId !== undefined && object.privId !== null) {
-            message.privId = String(object.privId);
+            message.privId = Number(object.privId);
         }
         else {
-            message.privId = '';
+            message.privId = 0;
         }
         if (object.question !== undefined && object.question !== null) {
             message.question = String(object.question);
@@ -348,7 +348,7 @@ export const MsgUpdateCreatePrivEvents = {
             message.privId = object.privId;
         }
         else {
-            message.privId = '';
+            message.privId = 0;
         }
         if (object.question !== undefined && object.question !== null) {
             message.question = object.question;

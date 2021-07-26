@@ -19,7 +19,7 @@ func CmdCreateCreatePrivEvents() *cobra.Command {
 		Short: "Create a new createPrivEvents",
 		Args:  cobra.MinimumNArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			argsPrivId, err := cast.ToStringE(args[0])
+			argsPrivId, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
 				return err
 			}
@@ -68,7 +68,7 @@ func CmdUpdateCreatePrivEvents() *cobra.Command {
 				return err
 			}
 
-			argsPrivId, err := cast.ToStringE(args[1])
+			argsPrivId, err := strconv.ParseUint(args[1], 10, 64)
 			if err != nil {
 				return err
 			}

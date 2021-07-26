@@ -19497,6 +19497,7 @@ paths:
                       format: uint64
                     privId:
                       type: string
+                      format: uint64
                     question:
                       type: string
                     answers:
@@ -19623,6 +19624,7 @@ paths:
                     format: uint64
                   privId:
                     type: string
+                    format: uint64
                   question:
                     type: string
                   answers:
@@ -29957,6 +29959,7 @@ definitions:
         format: uint64
       privId:
         type: string
+        format: uint64
       question:
         type: string
       answers:
@@ -29992,6 +29995,7 @@ definitions:
               format: uint64
             privId:
               type: string
+              format: uint64
             question:
               type: string
             answers:
@@ -30040,6 +30044,7 @@ definitions:
             format: uint64
           privId:
             type: string
+            format: uint64
           question:
             type: string
           answers:
