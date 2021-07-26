@@ -17,7 +17,7 @@ func CmdCreateCreatePrivEvents() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create-create-priv-events [privId] [question] [answers] [winner] [loser]",
 		Short: "Create a new createPrivEvents",
-		Args:  cobra.ExactArgs(5),
+		Args:  cobra.MinimumNArgs(5),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsPrivId, err := cast.ToStringE(args[0])
 			if err != nil {
@@ -27,10 +27,9 @@ func CmdCreateCreatePrivEvents() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argsAnswers, err := cast.ToStringE(args[2])
-			if err != nil {
-				return err
-			}
+
+			argsAnswers := args[2:len(args)]
+
 			argsWinner, err := cast.ToStringE(args[3])
 			if err != nil {
 				return err
@@ -79,10 +78,7 @@ func CmdUpdateCreatePrivEvents() *cobra.Command {
 				return err
 			}
 
-			argsAnswers, err := cast.ToStringE(args[3])
-			if err != nil {
-				return err
-			}
+			argsAnswers := args[3:len(args)]
 
 			argsWinner, err := cast.ToStringE(args[4])
 			if err != nil {

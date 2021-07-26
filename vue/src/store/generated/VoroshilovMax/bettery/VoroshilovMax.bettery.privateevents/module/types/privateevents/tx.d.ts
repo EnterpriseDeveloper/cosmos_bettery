@@ -5,7 +5,7 @@ export interface MsgCreateCreatePrivEvents {
     creator: string;
     privId: string;
     question: string;
-    answers: string;
+    answers: string[];
     winner: string;
     loser: string;
 }
@@ -17,7 +17,7 @@ export interface MsgUpdateCreatePrivEvents {
     id: number;
     privId: string;
     question: string;
-    answers: string;
+    answers: string[];
     winner: string;
     loser: string;
 }

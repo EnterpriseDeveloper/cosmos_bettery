@@ -14,8 +14,8 @@ export const MsgCreateCreatePrivEvents = {
         if (message.question !== '') {
             writer.uint32(26).string(message.question);
         }
-        if (message.answers !== '') {
-            writer.uint32(34).string(message.answers);
+        for (const v of message.answers) {
+            writer.uint32(34).string(v);
         }
         if (message.winner !== '') {
             writer.uint32(42).string(message.winner);
@@ -29,6 +29,7 @@ export const MsgCreateCreatePrivEvents = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgCreateCreatePrivEvents };
+        message.answers = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -42,7 +43,7 @@ export const MsgCreateCreatePrivEvents = {
                     message.question = reader.string();
                     break;
                 case 4:
-                    message.answers = reader.string();
+                    message.answers.push(reader.string());
                     break;
                 case 5:
                     message.winner = reader.string();
@@ -59,6 +60,7 @@ export const MsgCreateCreatePrivEvents = {
     },
     fromJSON(object) {
         const message = { ...baseMsgCreateCreatePrivEvents };
+        message.answers = [];
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = String(object.creator);
         }
@@ -78,10 +80,9 @@ export const MsgCreateCreatePrivEvents = {
             message.question = '';
         }
         if (object.answers !== undefined && object.answers !== null) {
-            message.answers = String(object.answers);
-        }
-        else {
-            message.answers = '';
+            for (const e of object.answers) {
+                message.answers.push(String(e));
+            }
         }
         if (object.winner !== undefined && object.winner !== null) {
             message.winner = String(object.winner);
@@ -102,13 +103,19 @@ export const MsgCreateCreatePrivEvents = {
         message.creator !== undefined && (obj.creator = message.creator);
         message.privId !== undefined && (obj.privId = message.privId);
         message.question !== undefined && (obj.question = message.question);
-        message.answers !== undefined && (obj.answers = message.answers);
+        if (message.answers) {
+            obj.answers = message.answers.map((e) => e);
+        }
+        else {
+            obj.answers = [];
+        }
         message.winner !== undefined && (obj.winner = message.winner);
         message.loser !== undefined && (obj.loser = message.loser);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseMsgCreateCreatePrivEvents };
+        message.answers = [];
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = object.creator;
         }
@@ -128,10 +135,9 @@ export const MsgCreateCreatePrivEvents = {
             message.question = '';
         }
         if (object.answers !== undefined && object.answers !== null) {
-            message.answers = object.answers;
-        }
-        else {
-            message.answers = '';
+            for (const e of object.answers) {
+                message.answers.push(e);
+            }
         }
         if (object.winner !== undefined && object.winner !== null) {
             message.winner = object.winner;
@@ -214,8 +220,8 @@ export const MsgUpdateCreatePrivEvents = {
         if (message.question !== '') {
             writer.uint32(34).string(message.question);
         }
-        if (message.answers !== '') {
-            writer.uint32(42).string(message.answers);
+        for (const v of message.answers) {
+            writer.uint32(42).string(v);
         }
         if (message.winner !== '') {
             writer.uint32(50).string(message.winner);
@@ -229,6 +235,7 @@ export const MsgUpdateCreatePrivEvents = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseMsgUpdateCreatePrivEvents };
+        message.answers = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -245,7 +252,7 @@ export const MsgUpdateCreatePrivEvents = {
                     message.question = reader.string();
                     break;
                 case 5:
-                    message.answers = reader.string();
+                    message.answers.push(reader.string());
                     break;
                 case 6:
                     message.winner = reader.string();
@@ -262,6 +269,7 @@ export const MsgUpdateCreatePrivEvents = {
     },
     fromJSON(object) {
         const message = { ...baseMsgUpdateCreatePrivEvents };
+        message.answers = [];
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = String(object.creator);
         }
@@ -287,10 +295,9 @@ export const MsgUpdateCreatePrivEvents = {
             message.question = '';
         }
         if (object.answers !== undefined && object.answers !== null) {
-            message.answers = String(object.answers);
-        }
-        else {
-            message.answers = '';
+            for (const e of object.answers) {
+                message.answers.push(String(e));
+            }
         }
         if (object.winner !== undefined && object.winner !== null) {
             message.winner = String(object.winner);
@@ -312,13 +319,19 @@ export const MsgUpdateCreatePrivEvents = {
         message.id !== undefined && (obj.id = message.id);
         message.privId !== undefined && (obj.privId = message.privId);
         message.question !== undefined && (obj.question = message.question);
-        message.answers !== undefined && (obj.answers = message.answers);
+        if (message.answers) {
+            obj.answers = message.answers.map((e) => e);
+        }
+        else {
+            obj.answers = [];
+        }
         message.winner !== undefined && (obj.winner = message.winner);
         message.loser !== undefined && (obj.loser = message.loser);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseMsgUpdateCreatePrivEvents };
+        message.answers = [];
         if (object.creator !== undefined && object.creator !== null) {
             message.creator = object.creator;
         }
@@ -344,10 +357,9 @@ export const MsgUpdateCreatePrivEvents = {
             message.question = '';
         }
         if (object.answers !== undefined && object.answers !== null) {
-            message.answers = object.answers;
-        }
-        else {
-            message.answers = '';
+            for (const e of object.answers) {
+                message.answers.push(e);
+            }
         }
         if (object.winner !== undefined && object.winner !== null) {
             message.winner = object.winner;

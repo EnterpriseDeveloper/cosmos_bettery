@@ -5,7 +5,7 @@ export interface CreatePrivEvents {
     id: number;
     privId: string;
     question: string;
-    answers: string;
+    answers: string[];
     winner: string;
     loser: string;
 }

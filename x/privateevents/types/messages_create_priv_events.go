@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreateCreatePrivEvents{}
 
-func NewMsgCreateCreatePrivEvents(creator string, privId string, question string, answers string, winner string, loser string) *MsgCreateCreatePrivEvents {
+func NewMsgCreateCreatePrivEvents(creator string, privId string, question string, answers []string, winner string, loser string) *MsgCreateCreatePrivEvents {
 	return &MsgCreateCreatePrivEvents{
 		Creator:  creator,
 		PrivId:   privId,
@@ -49,7 +49,7 @@ func (msg *MsgCreateCreatePrivEvents) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateCreatePrivEvents{}
 
-func NewMsgUpdateCreatePrivEvents(creator string, id uint64, privId string, question string, answers string, winner string, loser string) *MsgUpdateCreatePrivEvents {
+func NewMsgUpdateCreatePrivEvents(creator string, id uint64, privId string, question string, answers []string, winner string, loser string) *MsgUpdateCreatePrivEvents {
 	return &MsgUpdateCreatePrivEvents{
 		Id:       id,
 		Creator:  creator,

@@ -19500,7 +19500,9 @@ paths:
                     question:
                       type: string
                     answers:
-                      type: string
+                      type: array
+                      items:
+                        type: string
                     winner:
                       type: string
                     loser:
@@ -19624,7 +19626,9 @@ paths:
                   question:
                     type: string
                   answers:
-                    type: string
+                    type: array
+                    items:
+                      type: string
                   winner:
                     type: string
                   loser:
@@ -29956,7 +29960,9 @@ definitions:
       question:
         type: string
       answers:
-        type: string
+        type: array
+        items:
+          type: string
       winner:
         type: string
       loser:
@@ -29989,7 +29995,9 @@ definitions:
             question:
               type: string
             answers:
-              type: string
+              type: array
+              items:
+                type: string
             winner:
               type: string
             loser:
@@ -30035,7 +30043,9 @@ definitions:
           question:
             type: string
           answers:
-            type: string
+            type: array
+            items:
+              type: string
           winner:
             type: string
           loser:

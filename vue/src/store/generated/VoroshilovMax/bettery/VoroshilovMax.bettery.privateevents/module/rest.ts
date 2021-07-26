@@ -16,7 +16,7 @@ export interface PrivateeventsCreatePrivEvents {
   id?: string;
   privId?: string;
   question?: string;
-  answers?: string;
+  answers?: string[];
   winner?: string;
   loser?: string;
 }
