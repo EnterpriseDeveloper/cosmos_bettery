@@ -30,6 +30,190 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // this line is used by starport scaffolding # 3
+type QueryGetPartPrivEventsRequest struct {
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *QueryGetPartPrivEventsRequest) Reset()         { *m = QueryGetPartPrivEventsRequest{} }
+func (m *QueryGetPartPrivEventsRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetPartPrivEventsRequest) ProtoMessage()    {}
+func (*QueryGetPartPrivEventsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_22507769cae3c14c, []int{0}
+}
+func (m *QueryGetPartPrivEventsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetPartPrivEventsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetPartPrivEventsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetPartPrivEventsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetPartPrivEventsRequest.Merge(m, src)
+}
+func (m *QueryGetPartPrivEventsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetPartPrivEventsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetPartPrivEventsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetPartPrivEventsRequest proto.InternalMessageInfo
+
+func (m *QueryGetPartPrivEventsRequest) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type QueryGetPartPrivEventsResponse struct {
+	PartPrivEvents *PartPrivEvents `protobuf:"bytes,1,opt,name=PartPrivEvents,proto3" json:"PartPrivEvents,omitempty"`
+}
+
+func (m *QueryGetPartPrivEventsResponse) Reset()         { *m = QueryGetPartPrivEventsResponse{} }
+func (m *QueryGetPartPrivEventsResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetPartPrivEventsResponse) ProtoMessage()    {}
+func (*QueryGetPartPrivEventsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_22507769cae3c14c, []int{1}
+}
+func (m *QueryGetPartPrivEventsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetPartPrivEventsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetPartPrivEventsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetPartPrivEventsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetPartPrivEventsResponse.Merge(m, src)
+}
+func (m *QueryGetPartPrivEventsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetPartPrivEventsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetPartPrivEventsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetPartPrivEventsResponse proto.InternalMessageInfo
+
+func (m *QueryGetPartPrivEventsResponse) GetPartPrivEvents() *PartPrivEvents {
+	if m != nil {
+		return m.PartPrivEvents
+	}
+	return nil
+}
+
+type QueryAllPartPrivEventsRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllPartPrivEventsRequest) Reset()         { *m = QueryAllPartPrivEventsRequest{} }
+func (m *QueryAllPartPrivEventsRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllPartPrivEventsRequest) ProtoMessage()    {}
+func (*QueryAllPartPrivEventsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_22507769cae3c14c, []int{2}
+}
+func (m *QueryAllPartPrivEventsRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllPartPrivEventsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllPartPrivEventsRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllPartPrivEventsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllPartPrivEventsRequest.Merge(m, src)
+}
+func (m *QueryAllPartPrivEventsRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllPartPrivEventsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllPartPrivEventsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllPartPrivEventsRequest proto.InternalMessageInfo
+
+func (m *QueryAllPartPrivEventsRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllPartPrivEventsResponse struct {
+	PartPrivEvents []*PartPrivEvents   `protobuf:"bytes,1,rep,name=PartPrivEvents,proto3" json:"PartPrivEvents,omitempty"`
+	Pagination     *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllPartPrivEventsResponse) Reset()         { *m = QueryAllPartPrivEventsResponse{} }
+func (m *QueryAllPartPrivEventsResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllPartPrivEventsResponse) ProtoMessage()    {}
+func (*QueryAllPartPrivEventsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_22507769cae3c14c, []int{3}
+}
+func (m *QueryAllPartPrivEventsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllPartPrivEventsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllPartPrivEventsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllPartPrivEventsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllPartPrivEventsResponse.Merge(m, src)
+}
+func (m *QueryAllPartPrivEventsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllPartPrivEventsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllPartPrivEventsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllPartPrivEventsResponse proto.InternalMessageInfo
+
+func (m *QueryAllPartPrivEventsResponse) GetPartPrivEvents() []*PartPrivEvents {
+	if m != nil {
+		return m.PartPrivEvents
+	}
+	return nil
+}
+
+func (m *QueryAllPartPrivEventsResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 type QueryGetCreatePrivEventsRequest struct {
 	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 }
@@ -38,7 +222,7 @@ func (m *QueryGetCreatePrivEventsRequest) Reset()         { *m = QueryGetCreateP
 func (m *QueryGetCreatePrivEventsRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetCreatePrivEventsRequest) ProtoMessage()    {}
 func (*QueryGetCreatePrivEventsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{0}
+	return fileDescriptor_22507769cae3c14c, []int{4}
 }
 func (m *QueryGetCreatePrivEventsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -82,7 +266,7 @@ func (m *QueryGetCreatePrivEventsResponse) Reset()         { *m = QueryGetCreate
 func (m *QueryGetCreatePrivEventsResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetCreatePrivEventsResponse) ProtoMessage()    {}
 func (*QueryGetCreatePrivEventsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{1}
+	return fileDescriptor_22507769cae3c14c, []int{5}
 }
 func (m *QueryGetCreatePrivEventsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -126,7 +310,7 @@ func (m *QueryAllCreatePrivEventsRequest) Reset()         { *m = QueryAllCreateP
 func (m *QueryAllCreatePrivEventsRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllCreatePrivEventsRequest) ProtoMessage()    {}
 func (*QueryAllCreatePrivEventsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{2}
+	return fileDescriptor_22507769cae3c14c, []int{6}
 }
 func (m *QueryAllCreatePrivEventsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -171,7 +355,7 @@ func (m *QueryAllCreatePrivEventsResponse) Reset()         { *m = QueryAllCreate
 func (m *QueryAllCreatePrivEventsResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllCreatePrivEventsResponse) ProtoMessage()    {}
 func (*QueryAllCreatePrivEventsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_22507769cae3c14c, []int{3}
+	return fileDescriptor_22507769cae3c14c, []int{7}
 }
 func (m *QueryAllCreatePrivEventsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -215,6 +399,10 @@ func (m *QueryAllCreatePrivEventsResponse) GetPagination() *query.PageResponse {
 }
 
 func init() {
+	proto.RegisterType((*QueryGetPartPrivEventsRequest)(nil), "VoroshilovMax.bettery.privateevents.QueryGetPartPrivEventsRequest")
+	proto.RegisterType((*QueryGetPartPrivEventsResponse)(nil), "VoroshilovMax.bettery.privateevents.QueryGetPartPrivEventsResponse")
+	proto.RegisterType((*QueryAllPartPrivEventsRequest)(nil), "VoroshilovMax.bettery.privateevents.QueryAllPartPrivEventsRequest")
+	proto.RegisterType((*QueryAllPartPrivEventsResponse)(nil), "VoroshilovMax.bettery.privateevents.QueryAllPartPrivEventsResponse")
 	proto.RegisterType((*QueryGetCreatePrivEventsRequest)(nil), "VoroshilovMax.bettery.privateevents.QueryGetCreatePrivEventsRequest")
 	proto.RegisterType((*QueryGetCreatePrivEventsResponse)(nil), "VoroshilovMax.bettery.privateevents.QueryGetCreatePrivEventsResponse")
 	proto.RegisterType((*QueryAllCreatePrivEventsRequest)(nil), "VoroshilovMax.bettery.privateevents.QueryAllCreatePrivEventsRequest")
@@ -224,34 +412,42 @@ func init() {
 func init() { proto.RegisterFile("privateevents/query.proto", fileDescriptor_22507769cae3c14c) }
 
 var fileDescriptor_22507769cae3c14c = []byte{
-	// 433 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x94, 0x4d, 0xab, 0xd3, 0x40,
-	0x14, 0x86, 0x3b, 0xb9, 0xea, 0x62, 0x04, 0x91, 0x71, 0xa3, 0x45, 0xe2, 0x25, 0xc2, 0x55, 0x5c,
-	0xcc, 0xd0, 0x2b, 0x55, 0x10, 0x5d, 0xb4, 0x5a, 0xbb, 0x12, 0x6a, 0x17, 0x2e, 0xdc, 0x94, 0x49,
-	0x7b, 0x48, 0x07, 0xd2, 0x4c, 0x9a, 0x99, 0x86, 0x16, 0x71, 0x23, 0xb8, 0x17, 0xfc, 0x53, 0xae,
-	0xa4, 0xe2, 0xc6, 0xa5, 0x36, 0xfe, 0x10, 0xe9, 0x4c, 0xa4, 0x9f, 0xe9, 0x87, 0xde, 0xed, 0xcc,
-	0x39, 0xcf, 0xbc, 0xcf, 0xc9, 0x21, 0xf8, 0x56, 0x9c, 0x88, 0x94, 0x6b, 0x80, 0x14, 0x22, 0xad,
-	0xd8, 0x70, 0x04, 0xc9, 0x84, 0xc6, 0x89, 0xd4, 0x92, 0xdc, 0x7d, 0x23, 0x13, 0xa9, 0xfa, 0x22,
-	0x94, 0xe9, 0x2b, 0x3e, 0xa6, 0x3e, 0x68, 0x6d, 0x2f, 0x97, 0x1a, 0xca, 0xb7, 0x03, 0x29, 0x83,
-	0x10, 0x18, 0x8f, 0x05, 0xe3, 0x51, 0x24, 0x35, 0xd7, 0x42, 0x46, 0xca, 0x22, 0xca, 0x0f, 0xba,
-	0x52, 0x0d, 0xa4, 0x62, 0x3e, 0x57, 0x60, 0xd9, 0x2c, 0xad, 0xf8, 0xa0, 0x79, 0x85, 0xc5, 0x3c,
-	0x10, 0x91, 0x29, 0xce, 0x6b, 0xcf, 0x56, 0x93, 0x74, 0x13, 0xe0, 0x1a, 0x3a, 0xf3, 0xc3, 0x8e,
-	0x3d, 0xb2, 0x75, 0x5e, 0x05, 0xdf, 0x79, 0x3d, 0x27, 0x35, 0x41, 0x3f, 0x37, 0x35, 0xad, 0x44,
-	0xa4, 0x0d, 0x53, 0xd1, 0x86, 0xe1, 0x08, 0x94, 0x26, 0xd7, 0xb0, 0x23, 0x7a, 0x37, 0xd1, 0x29,
-	0xba, 0x7f, 0xa9, 0xed, 0x88, 0x9e, 0xf7, 0x11, 0xe1, 0xd3, 0xe2, 0x1e, 0x15, 0xcb, 0x48, 0x01,
-	0xe1, 0xf8, 0xfa, 0xfa, 0x9d, 0x41, 0x5c, 0x3d, 0xaf, 0xd2, 0x03, 0x26, 0x41, 0x37, 0xc0, 0x1b,
-	0x38, 0x4f, 0xe4, 0xd1, 0x6b, 0x61, 0x58, 0x14, 0xfd, 0x25, 0xc6, 0x8b, 0xc9, 0xe4, 0xef, 0x9f,
-	0x51, 0x3b, 0x46, 0x3a, 0x1f, 0x23, 0xb5, 0x9f, 0x28, 0x1f, 0x23, 0x6d, 0xf1, 0x00, 0xf2, 0xde,
-	0xf6, 0x52, 0xa7, 0xf7, 0xf5, 0xaf, 0xf2, 0xd6, 0xb7, 0x76, 0x2a, 0x9f, 0x5c, 0xa0, 0x32, 0x69,
-	0xae, 0xf8, 0x38, 0xc6, 0xe7, 0xde, 0x5e, 0x1f, 0x9b, 0x6f, 0x59, 0xe8, 0xfc, 0xdb, 0x09, 0xbe,
-	0x6c, 0x84, 0x48, 0x86, 0x36, 0x63, 0x93, 0x17, 0x07, 0x05, 0xde, 0xb3, 0x38, 0xe5, 0xc6, 0x7f,
-	0x52, 0x6c, 0x6e, 0xaf, 0xfe, 0xe1, 0xfb, 0xef, 0xcf, 0xce, 0x53, 0xf2, 0x84, 0xad, 0xe0, 0x58,
-	0x8e, 0x63, 0xdb, 0x36, 0x7d, 0x81, 0x61, 0xef, 0x44, 0xef, 0x3d, 0xf9, 0x85, 0xf0, 0x8d, 0xf5,
-	0x07, 0x6a, 0x61, 0x78, 0x8c, 0x68, 0xf1, 0x9a, 0x1d, 0x23, 0xba, 0x63, 0x81, 0xbc, 0x67, 0x46,
-	0xf4, 0x31, 0xa9, 0xfe, 0x93, 0x68, 0xbd, 0xf5, 0x65, 0xe6, 0xa2, 0xe9, 0xcc, 0x45, 0x3f, 0x67,
-	0x2e, 0xfa, 0x94, 0xb9, 0xa5, 0x69, 0xe6, 0x96, 0x7e, 0x64, 0x6e, 0xe9, 0xed, 0xa3, 0x40, 0xe8,
-	0xfe, 0xc8, 0xa7, 0x5d, 0x39, 0x28, 0x40, 0x8f, 0xd7, 0xe0, 0x7a, 0x12, 0x83, 0xf2, 0xaf, 0x98,
-	0x7f, 0xc4, 0xc3, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x41, 0x73, 0x18, 0xf1, 0xd7, 0x04, 0x00,
+	// 561 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x95, 0xcf, 0x6b, 0x13, 0x41,
+	0x14, 0xc7, 0x33, 0xa9, 0x3f, 0x60, 0x84, 0xa2, 0xe3, 0x45, 0x83, 0xae, 0x65, 0x95, 0x2a, 0x1e,
+	0x66, 0x48, 0x43, 0x54, 0xaa, 0x82, 0x49, 0x5b, 0x7b, 0x12, 0x62, 0x0e, 0x1e, 0xf4, 0x50, 0x66,
+	0x93, 0x61, 0x3b, 0xb0, 0xdd, 0xd9, 0xee, 0x4c, 0x96, 0x16, 0xe9, 0x45, 0xf0, 0xe4, 0x45, 0xf0,
+	0x7f, 0x12, 0x4f, 0x52, 0xf0, 0xa2, 0x78, 0xd1, 0xc4, 0x3f, 0x44, 0x32, 0x33, 0xa5, 0xdd, 0xdd,
+	0x6c, 0x9a, 0xb4, 0x7b, 0xdd, 0x79, 0xef, 0xfb, 0xde, 0xe7, 0xfb, 0x66, 0xde, 0xc2, 0x9b, 0x51,
+	0xcc, 0x13, 0xaa, 0x18, 0x4b, 0x58, 0xa8, 0x24, 0xd9, 0x1d, 0xb0, 0x78, 0x1f, 0x47, 0xb1, 0x50,
+	0x02, 0xdd, 0x7d, 0x23, 0x62, 0x21, 0xb7, 0x79, 0x20, 0x92, 0x57, 0x74, 0x0f, 0x7b, 0x4c, 0x29,
+	0x73, 0x78, 0x22, 0xa1, 0x76, 0xcb, 0x17, 0xc2, 0x0f, 0x18, 0xa1, 0x11, 0x27, 0x34, 0x0c, 0x85,
+	0xa2, 0x8a, 0x8b, 0x50, 0x1a, 0x89, 0xda, 0xc3, 0x9e, 0x90, 0x3b, 0x42, 0x12, 0x8f, 0x4a, 0x66,
+	0xb4, 0x49, 0x52, 0xf7, 0x98, 0xa2, 0x75, 0x12, 0x51, 0x9f, 0x87, 0x3a, 0xd8, 0xc6, 0xde, 0x4b,
+	0x77, 0x12, 0xd1, 0x58, 0x6d, 0x8d, 0x3f, 0x6d, 0x99, 0x0f, 0x36, 0x6a, 0x39, 0x1d, 0xd5, 0x8b,
+	0x19, 0x55, 0x2c, 0x1f, 0xe7, 0x12, 0x78, 0xfb, 0xf5, 0xb8, 0xde, 0x26, 0x53, 0x1d, 0x1a, 0xab,
+	0x4e, 0xcc, 0x93, 0x0d, 0x7d, 0xde, 0x65, 0xbb, 0x03, 0x26, 0x15, 0x5a, 0x84, 0x55, 0xde, 0xbf,
+	0x01, 0x96, 0xc0, 0x83, 0x0b, 0xdd, 0x2a, 0xef, 0xbb, 0x07, 0xd0, 0x29, 0x4a, 0x90, 0x91, 0x08,
+	0x25, 0x43, 0xef, 0xe0, 0x62, 0xfa, 0x44, 0x67, 0x5f, 0x59, 0x69, 0xe0, 0x19, 0x8c, 0xc2, 0x19,
+	0xd1, 0x8c, 0x94, 0xeb, 0xdb, 0x7e, 0x5b, 0x41, 0x30, 0xb9, 0xdf, 0x97, 0x10, 0x1e, 0x5b, 0x66,
+	0x2b, 0x2f, 0x63, 0xe3, 0x2f, 0x1e, 0xfb, 0x8b, 0xcd, 0xec, 0xac, 0xbf, 0xb8, 0x43, 0x7d, 0x66,
+	0x73, 0xbb, 0x27, 0x32, 0xdd, 0xaf, 0xc0, 0x82, 0x4e, 0xa8, 0x34, 0x05, 0x74, 0xa1, 0x24, 0x50,
+	0xb4, 0x99, 0xe2, 0xa8, 0x6a, 0x8e, 0xfb, 0xa7, 0x72, 0x98, 0xce, 0x52, 0x20, 0x75, 0x78, 0xe7,
+	0x68, 0x60, 0x6b, 0xfa, 0x16, 0x9c, 0x3e, 0xe3, 0x8f, 0x00, 0x2e, 0x15, 0xe7, 0x58, 0x7a, 0x0a,
+	0xaf, 0x66, 0xcf, 0xac, 0xdd, 0xcd, 0x99, 0xf8, 0x73, 0xc2, 0x39, 0x39, 0x97, 0xdb, 0xd6, 0x5b,
+	0x41, 0x50, 0xd4, 0x7a, 0x59, 0xe3, 0xfe, 0x7e, 0x84, 0x3c, 0xb1, 0xd6, 0x54, 0xe4, 0x85, 0x12,
+	0x91, 0x4b, 0x1b, 0xfb, 0xca, 0xa7, 0xcb, 0xf0, 0xa2, 0x06, 0x42, 0xbf, 0x41, 0xf6, 0x9e, 0xa2,
+	0xf6, 0x4c, 0xed, 0x4e, 0x5d, 0x0c, 0xb5, 0xb5, 0x73, 0x69, 0x98, 0x8e, 0xdd, 0x17, 0x1f, 0x7e,
+	0xfc, 0xfb, 0x52, 0x5d, 0x45, 0x4f, 0x48, 0x4a, 0x8c, 0x58, 0x31, 0x92, 0xdf, 0x75, 0xc7, 0x22,
+	0xe4, 0x3d, 0xef, 0x1f, 0xa0, 0x5f, 0x00, 0x5e, 0x4b, 0x8b, 0xb7, 0x82, 0x60, 0x1e, 0xc0, 0xa2,
+	0x4d, 0x32, 0x0f, 0x60, 0xe1, 0x8e, 0x70, 0x9f, 0x6a, 0xc0, 0x26, 0x6a, 0x9c, 0x01, 0x10, 0x8d,
+	0x40, 0xfe, 0xc2, 0xa1, 0xf5, 0xb9, 0x7c, 0x2f, 0x78, 0x37, 0xb5, 0x8d, 0x73, 0xaa, 0x58, 0xbc,
+	0xb6, 0xc6, 0x7b, 0x86, 0x56, 0x67, 0xc2, 0xeb, 0x65, 0x64, 0xcc, 0x04, 0xff, 0x02, 0x78, 0x3d,
+	0x5b, 0x60, 0x3c, 0xc3, 0xf5, 0xb9, 0xfc, 0x2f, 0x01, 0x74, 0xca, 0xd3, 0x77, 0x9f, 0x6b, 0xd0,
+	0xc7, 0xa8, 0x79, 0x26, 0xd0, 0x76, 0xe7, 0xdb, 0xd0, 0x01, 0x87, 0x43, 0x07, 0xfc, 0x19, 0x3a,
+	0xe0, 0xf3, 0xc8, 0xa9, 0x1c, 0x8e, 0x9c, 0xca, 0xcf, 0x91, 0x53, 0x79, 0xfb, 0xc8, 0xe7, 0x6a,
+	0x7b, 0xe0, 0xe1, 0x9e, 0xd8, 0x29, 0x90, 0xde, 0xcb, 0x88, 0xab, 0xfd, 0x88, 0x49, 0xef, 0x92,
+	0xfe, 0x7f, 0x37, 0xfe, 0x07, 0x00, 0x00, 0xff, 0xff, 0xa4, 0x7f, 0x95, 0x6f, 0x99, 0x08, 0x00,
 	0x00,
 }
 
@@ -267,6 +463,10 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type QueryClient interface {
+	// Queries a partPrivEvents by id.
+	PartPrivEvents(ctx context.Context, in *QueryGetPartPrivEventsRequest, opts ...grpc.CallOption) (*QueryGetPartPrivEventsResponse, error)
+	// Queries a list of partPrivEvents items.
+	PartPrivEventsAll(ctx context.Context, in *QueryAllPartPrivEventsRequest, opts ...grpc.CallOption) (*QueryAllPartPrivEventsResponse, error)
 	// Queries a createPrivEvents by id.
 	CreatePrivEvents(ctx context.Context, in *QueryGetCreatePrivEventsRequest, opts ...grpc.CallOption) (*QueryGetCreatePrivEventsResponse, error)
 	// Queries a list of createPrivEvents items.
@@ -279,6 +479,24 @@ type queryClient struct {
 
 func NewQueryClient(cc grpc1.ClientConn) QueryClient {
 	return &queryClient{cc}
+}
+
+func (c *queryClient) PartPrivEvents(ctx context.Context, in *QueryGetPartPrivEventsRequest, opts ...grpc.CallOption) (*QueryGetPartPrivEventsResponse, error) {
+	out := new(QueryGetPartPrivEventsResponse)
+	err := c.cc.Invoke(ctx, "/VoroshilovMax.bettery.privateevents.Query/PartPrivEvents", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) PartPrivEventsAll(ctx context.Context, in *QueryAllPartPrivEventsRequest, opts ...grpc.CallOption) (*QueryAllPartPrivEventsResponse, error) {
+	out := new(QueryAllPartPrivEventsResponse)
+	err := c.cc.Invoke(ctx, "/VoroshilovMax.bettery.privateevents.Query/PartPrivEventsAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *queryClient) CreatePrivEvents(ctx context.Context, in *QueryGetCreatePrivEventsRequest, opts ...grpc.CallOption) (*QueryGetCreatePrivEventsResponse, error) {
@@ -301,6 +519,10 @@ func (c *queryClient) CreatePrivEventsAll(ctx context.Context, in *QueryAllCreat
 
 // QueryServer is the server API for Query service.
 type QueryServer interface {
+	// Queries a partPrivEvents by id.
+	PartPrivEvents(context.Context, *QueryGetPartPrivEventsRequest) (*QueryGetPartPrivEventsResponse, error)
+	// Queries a list of partPrivEvents items.
+	PartPrivEventsAll(context.Context, *QueryAllPartPrivEventsRequest) (*QueryAllPartPrivEventsResponse, error)
 	// Queries a createPrivEvents by id.
 	CreatePrivEvents(context.Context, *QueryGetCreatePrivEventsRequest) (*QueryGetCreatePrivEventsResponse, error)
 	// Queries a list of createPrivEvents items.
@@ -311,6 +533,12 @@ type QueryServer interface {
 type UnimplementedQueryServer struct {
 }
 
+func (*UnimplementedQueryServer) PartPrivEvents(ctx context.Context, req *QueryGetPartPrivEventsRequest) (*QueryGetPartPrivEventsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PartPrivEvents not implemented")
+}
+func (*UnimplementedQueryServer) PartPrivEventsAll(ctx context.Context, req *QueryAllPartPrivEventsRequest) (*QueryAllPartPrivEventsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PartPrivEventsAll not implemented")
+}
 func (*UnimplementedQueryServer) CreatePrivEvents(ctx context.Context, req *QueryGetCreatePrivEventsRequest) (*QueryGetCreatePrivEventsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePrivEvents not implemented")
 }
@@ -320,6 +548,42 @@ func (*UnimplementedQueryServer) CreatePrivEventsAll(ctx context.Context, req *Q
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
 	s.RegisterService(&_Query_serviceDesc, srv)
+}
+
+func _Query_PartPrivEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetPartPrivEventsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).PartPrivEvents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VoroshilovMax.bettery.privateevents.Query/PartPrivEvents",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).PartPrivEvents(ctx, req.(*QueryGetPartPrivEventsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_PartPrivEventsAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllPartPrivEventsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).PartPrivEventsAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VoroshilovMax.bettery.privateevents.Query/PartPrivEventsAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).PartPrivEventsAll(ctx, req.(*QueryAllPartPrivEventsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Query_CreatePrivEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -363,6 +627,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*QueryServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "PartPrivEvents",
+			Handler:    _Query_PartPrivEvents_Handler,
+		},
+		{
+			MethodName: "PartPrivEventsAll",
+			Handler:    _Query_PartPrivEventsAll_Handler,
+		},
+		{
 			MethodName: "CreatePrivEvents",
 			Handler:    _Query_CreatePrivEvents_Handler,
 		},
@@ -373,6 +645,153 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "privateevents/query.proto",
+}
+
+func (m *QueryGetPartPrivEventsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetPartPrivEventsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetPartPrivEventsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetPartPrivEventsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetPartPrivEventsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetPartPrivEventsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.PartPrivEvents != nil {
+		{
+			size, err := m.PartPrivEvents.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllPartPrivEventsRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllPartPrivEventsRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllPartPrivEventsRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllPartPrivEventsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllPartPrivEventsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllPartPrivEventsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.PartPrivEvents) > 0 {
+		for iNdEx := len(m.PartPrivEvents) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.PartPrivEvents[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *QueryGetCreatePrivEventsRequest) Marshal() (dAtA []byte, err error) {
@@ -533,6 +952,63 @@ func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *QueryGetPartPrivEventsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != 0 {
+		n += 1 + sovQuery(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *QueryGetPartPrivEventsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.PartPrivEvents != nil {
+		l = m.PartPrivEvents.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllPartPrivEventsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllPartPrivEventsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.PartPrivEvents) > 0 {
+		for _, e := range m.PartPrivEvents {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
 func (m *QueryGetCreatePrivEventsRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -595,6 +1071,367 @@ func sovQuery(x uint64) (n int) {
 }
 func sozQuery(x uint64) (n int) {
 	return sovQuery(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *QueryGetPartPrivEventsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetPartPrivEventsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetPartPrivEventsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetPartPrivEventsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetPartPrivEventsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetPartPrivEventsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PartPrivEvents", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PartPrivEvents == nil {
+				m.PartPrivEvents = &PartPrivEvents{}
+			}
+			if err := m.PartPrivEvents.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllPartPrivEventsRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllPartPrivEventsRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllPartPrivEventsRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllPartPrivEventsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllPartPrivEventsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllPartPrivEventsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PartPrivEvents", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PartPrivEvents = append(m.PartPrivEvents, &PartPrivEvents{})
+			if err := m.PartPrivEvents[len(m.PartPrivEvents)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *QueryGetCreatePrivEventsRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)

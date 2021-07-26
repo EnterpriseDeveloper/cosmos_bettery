@@ -13,6 +13,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
+		PartPrivEventsList:   []*PartPrivEvents{},
 		CreatePrivEventsList: []*CreatePrivEvents{},
 	}
 }
@@ -23,6 +24,15 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in partPrivEvents
+	partPrivEventsIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.PartPrivEventsList {
+		if _, ok := partPrivEventsIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for partPrivEvents")
+		}
+		partPrivEventsIdMap[elem.Id] = true
+	}
 	// Check for duplicated ID in createPrivEvents
 	createPrivEventsIdMap := make(map[uint64]bool)
 

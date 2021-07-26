@@ -13,8 +13,21 @@ export interface PrivateeventsMsgCreateCreatePrivEventsResponse {
     /** @format uint64 */
     id?: string;
 }
+export interface PrivateeventsMsgCreatePartPrivEventsResponse {
+    /** @format uint64 */
+    id?: string;
+}
 export declare type PrivateeventsMsgDeleteCreatePrivEventsResponse = object;
+export declare type PrivateeventsMsgDeletePartPrivEventsResponse = object;
 export declare type PrivateeventsMsgUpdateCreatePrivEventsResponse = object;
+export declare type PrivateeventsMsgUpdatePartPrivEventsResponse = object;
+export interface PrivateeventsPartPrivEvents {
+    creator?: string;
+    /** @format uint64 */
+    id?: string;
+    privId?: string;
+    answer?: string;
+}
 export interface PrivateeventsQueryAllCreatePrivEventsResponse {
     CreatePrivEvents?: PrivateeventsCreatePrivEvents[];
     /**
@@ -28,8 +41,24 @@ export interface PrivateeventsQueryAllCreatePrivEventsResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface PrivateeventsQueryAllPartPrivEventsResponse {
+    PartPrivEvents?: PrivateeventsPartPrivEvents[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface PrivateeventsQueryGetCreatePrivEventsResponse {
     CreatePrivEvents?: PrivateeventsCreatePrivEvents;
+}
+export interface PrivateeventsQueryGetPartPrivEventsResponse {
+    PartPrivEvents?: PrivateeventsPartPrivEvents;
 }
 export interface ProtobufAny {
     typeUrl?: string;
@@ -173,5 +202,28 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/VoroshilovMax/bettery/privateevents/createPrivEvents/{id}
      */
     queryCreatePrivEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryGetCreatePrivEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryPartPrivEventsAll
+     * @summary Queries a list of partPrivEvents items.
+     * @request GET:/VoroshilovMax/bettery/privateevents/partPrivEvents
+     */
+    queryPartPrivEventsAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryAllPartPrivEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryPartPrivEvents
+     * @summary Queries a partPrivEvents by id.
+     * @request GET:/VoroshilovMax/bettery/privateevents/partPrivEvents/{id}
+     */
+    queryPartPrivEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryGetPartPrivEventsResponse, RpcStatus>>;
 }
 export {};

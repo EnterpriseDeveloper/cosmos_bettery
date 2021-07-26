@@ -1,0 +1,13 @@
+syntax = "proto3";
+package VoroshilovMax.bettery.privateevents;
+
+option go_package = "github.com/VoroshilovMax/bettery/x/privateevents/types";
+
+import "gogoproto/gogo.proto";
+
+message PartPrivEvents {
+  string creator = 1;
+  uint64 id = 2;
+  string privId = 3; 
+  string answer = 4; 
+}

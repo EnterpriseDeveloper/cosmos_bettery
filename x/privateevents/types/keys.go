@@ -29,3 +29,8 @@ const (
 	CreatePrivEventsKey      = "CreatePrivEvents-value-"
 	CreatePrivEventsCountKey = "CreatePrivEvents-count-"
 )
+
+const (
+	PartPrivEventsKey      = "PartPrivEvents-value-"
+	PartPrivEventsCountKey = "PartPrivEvents-count-"
+)

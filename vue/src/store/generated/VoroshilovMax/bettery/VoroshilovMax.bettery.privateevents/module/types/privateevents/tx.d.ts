@@ -1,6 +1,28 @@
 import { Reader, Writer } from 'protobufjs/minimal';
 export declare const protobufPackage = "VoroshilovMax.bettery.privateevents";
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreatePartPrivEvents {
+    creator: string;
+    privId: string;
+    answer: string;
+}
+export interface MsgCreatePartPrivEventsResponse {
+    id: number;
+}
+export interface MsgUpdatePartPrivEvents {
+    creator: string;
+    id: number;
+    privId: string;
+    answer: string;
+}
+export interface MsgUpdatePartPrivEventsResponse {
+}
+export interface MsgDeletePartPrivEvents {
+    creator: string;
+    id: number;
+}
+export interface MsgDeletePartPrivEventsResponse {
+}
 export interface MsgCreateCreatePrivEvents {
     creator: string;
     privId: number;
@@ -28,6 +50,48 @@ export interface MsgDeleteCreatePrivEvents {
 }
 export interface MsgDeleteCreatePrivEventsResponse {
 }
+export declare const MsgCreatePartPrivEvents: {
+    encode(message: MsgCreatePartPrivEvents, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreatePartPrivEvents;
+    fromJSON(object: any): MsgCreatePartPrivEvents;
+    toJSON(message: MsgCreatePartPrivEvents): unknown;
+    fromPartial(object: DeepPartial<MsgCreatePartPrivEvents>): MsgCreatePartPrivEvents;
+};
+export declare const MsgCreatePartPrivEventsResponse: {
+    encode(message: MsgCreatePartPrivEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreatePartPrivEventsResponse;
+    fromJSON(object: any): MsgCreatePartPrivEventsResponse;
+    toJSON(message: MsgCreatePartPrivEventsResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreatePartPrivEventsResponse>): MsgCreatePartPrivEventsResponse;
+};
+export declare const MsgUpdatePartPrivEvents: {
+    encode(message: MsgUpdatePartPrivEvents, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdatePartPrivEvents;
+    fromJSON(object: any): MsgUpdatePartPrivEvents;
+    toJSON(message: MsgUpdatePartPrivEvents): unknown;
+    fromPartial(object: DeepPartial<MsgUpdatePartPrivEvents>): MsgUpdatePartPrivEvents;
+};
+export declare const MsgUpdatePartPrivEventsResponse: {
+    encode(_: MsgUpdatePartPrivEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdatePartPrivEventsResponse;
+    fromJSON(_: any): MsgUpdatePartPrivEventsResponse;
+    toJSON(_: MsgUpdatePartPrivEventsResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdatePartPrivEventsResponse>): MsgUpdatePartPrivEventsResponse;
+};
+export declare const MsgDeletePartPrivEvents: {
+    encode(message: MsgDeletePartPrivEvents, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeletePartPrivEvents;
+    fromJSON(object: any): MsgDeletePartPrivEvents;
+    toJSON(message: MsgDeletePartPrivEvents): unknown;
+    fromPartial(object: DeepPartial<MsgDeletePartPrivEvents>): MsgDeletePartPrivEvents;
+};
+export declare const MsgDeletePartPrivEventsResponse: {
+    encode(_: MsgDeletePartPrivEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeletePartPrivEventsResponse;
+    fromJSON(_: any): MsgDeletePartPrivEventsResponse;
+    toJSON(_: MsgDeletePartPrivEventsResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeletePartPrivEventsResponse>): MsgDeletePartPrivEventsResponse;
+};
 export declare const MsgCreateCreatePrivEvents: {
     encode(message: MsgCreateCreatePrivEvents, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateCreatePrivEvents;
@@ -73,6 +137,9 @@ export declare const MsgDeleteCreatePrivEventsResponse: {
 /** Msg defines the Msg service. */
 export interface Msg {
     /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreatePartPrivEvents(request: MsgCreatePartPrivEvents): Promise<MsgCreatePartPrivEventsResponse>;
+    UpdatePartPrivEvents(request: MsgUpdatePartPrivEvents): Promise<MsgUpdatePartPrivEventsResponse>;
+    DeletePartPrivEvents(request: MsgDeletePartPrivEvents): Promise<MsgDeletePartPrivEventsResponse>;
     CreateCreatePrivEvents(request: MsgCreateCreatePrivEvents): Promise<MsgCreateCreatePrivEventsResponse>;
     UpdateCreatePrivEvents(request: MsgUpdateCreatePrivEvents): Promise<MsgUpdateCreatePrivEventsResponse>;
     DeleteCreatePrivEvents(request: MsgDeleteCreatePrivEvents): Promise<MsgDeleteCreatePrivEventsResponse>;
@@ -80,6 +147,9 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
+    CreatePartPrivEvents(request: MsgCreatePartPrivEvents): Promise<MsgCreatePartPrivEventsResponse>;
+    UpdatePartPrivEvents(request: MsgUpdatePartPrivEvents): Promise<MsgUpdatePartPrivEventsResponse>;
+    DeletePartPrivEvents(request: MsgDeletePartPrivEvents): Promise<MsgDeletePartPrivEventsResponse>;
     CreateCreatePrivEvents(request: MsgCreateCreatePrivEvents): Promise<MsgCreateCreatePrivEventsResponse>;
     UpdateCreatePrivEvents(request: MsgUpdateCreatePrivEvents): Promise<MsgUpdateCreatePrivEventsResponse>;
     DeleteCreatePrivEvents(request: MsgDeleteCreatePrivEvents): Promise<MsgDeleteCreatePrivEventsResponse>;

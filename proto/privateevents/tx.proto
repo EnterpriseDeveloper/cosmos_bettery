@@ -2,6 +2,7 @@ syntax = "proto3";
 package VoroshilovMax.bettery.privateevents;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "privateevents/part_priv_events.proto";
 import "privateevents/create_priv_events.proto";
 
 option go_package = "github.com/VoroshilovMax/bettery/x/privateevents/types";
@@ -9,12 +10,41 @@ option go_package = "github.com/VoroshilovMax/bettery/x/privateevents/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreatePartPrivEvents(MsgCreatePartPrivEvents) returns (MsgCreatePartPrivEventsResponse);
+  rpc UpdatePartPrivEvents(MsgUpdatePartPrivEvents) returns (MsgUpdatePartPrivEventsResponse);
+  rpc DeletePartPrivEvents(MsgDeletePartPrivEvents) returns (MsgDeletePartPrivEventsResponse);
   rpc CreateCreatePrivEvents(MsgCreateCreatePrivEvents) returns (MsgCreateCreatePrivEventsResponse);
   rpc UpdateCreatePrivEvents(MsgUpdateCreatePrivEvents) returns (MsgUpdateCreatePrivEventsResponse);
   rpc DeleteCreatePrivEvents(MsgDeleteCreatePrivEvents) returns (MsgDeleteCreatePrivEventsResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreatePartPrivEvents {
+  string creator = 1;
+  string privId = 2;
+  string answer = 3;
+}
+
+message MsgCreatePartPrivEventsResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdatePartPrivEvents {
+  string creator = 1;
+  uint64 id = 2;
+  string privId = 3;
+  string answer = 4;
+}
+
+message MsgUpdatePartPrivEventsResponse { }
+
+message MsgDeletePartPrivEvents {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeletePartPrivEventsResponse { }
+
 message MsgCreateCreatePrivEvents {
   string creator = 1;
   uint64 privId = 2;

@@ -2,6 +2,388 @@
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
 export const protobufPackage = 'VoroshilovMax.bettery.privateevents';
+const baseMsgCreatePartPrivEvents = { creator: '', privId: '', answer: '' };
+export const MsgCreatePartPrivEvents = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.privId !== '') {
+            writer.uint32(18).string(message.privId);
+        }
+        if (message.answer !== '') {
+            writer.uint32(26).string(message.answer);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreatePartPrivEvents };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.privId = reader.string();
+                    break;
+                case 3:
+                    message.answer = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreatePartPrivEvents };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.privId !== undefined && object.privId !== null) {
+            message.privId = String(object.privId);
+        }
+        else {
+            message.privId = '';
+        }
+        if (object.answer !== undefined && object.answer !== null) {
+            message.answer = String(object.answer);
+        }
+        else {
+            message.answer = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.privId !== undefined && (obj.privId = message.privId);
+        message.answer !== undefined && (obj.answer = message.answer);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreatePartPrivEvents };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.privId !== undefined && object.privId !== null) {
+            message.privId = object.privId;
+        }
+        else {
+            message.privId = '';
+        }
+        if (object.answer !== undefined && object.answer !== null) {
+            message.answer = object.answer;
+        }
+        else {
+            message.answer = '';
+        }
+        return message;
+    }
+};
+const baseMsgCreatePartPrivEventsResponse = { id: 0 };
+export const MsgCreatePartPrivEventsResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreatePartPrivEventsResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreatePartPrivEventsResponse };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreatePartPrivEventsResponse };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    }
+};
+const baseMsgUpdatePartPrivEvents = { creator: '', id: 0, privId: '', answer: '' };
+export const MsgUpdatePartPrivEvents = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
+        if (message.privId !== '') {
+            writer.uint32(26).string(message.privId);
+        }
+        if (message.answer !== '') {
+            writer.uint32(34).string(message.answer);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdatePartPrivEvents };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.privId = reader.string();
+                    break;
+                case 4:
+                    message.answer = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgUpdatePartPrivEvents };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.privId !== undefined && object.privId !== null) {
+            message.privId = String(object.privId);
+        }
+        else {
+            message.privId = '';
+        }
+        if (object.answer !== undefined && object.answer !== null) {
+            message.answer = String(object.answer);
+        }
+        else {
+            message.answer = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
+        message.privId !== undefined && (obj.privId = message.privId);
+        message.answer !== undefined && (obj.answer = message.answer);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgUpdatePartPrivEvents };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.privId !== undefined && object.privId !== null) {
+            message.privId = object.privId;
+        }
+        else {
+            message.privId = '';
+        }
+        if (object.answer !== undefined && object.answer !== null) {
+            message.answer = object.answer;
+        }
+        else {
+            message.answer = '';
+        }
+        return message;
+    }
+};
+const baseMsgUpdatePartPrivEventsResponse = {};
+export const MsgUpdatePartPrivEventsResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdatePartPrivEventsResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgUpdatePartPrivEventsResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgUpdatePartPrivEventsResponse };
+        return message;
+    }
+};
+const baseMsgDeletePartPrivEvents = { creator: '', id: 0 };
+export const MsgDeletePartPrivEvents = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeletePartPrivEvents };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgDeletePartPrivEvents };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgDeletePartPrivEvents };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    }
+};
+const baseMsgDeletePartPrivEventsResponse = {};
+export const MsgDeletePartPrivEventsResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeletePartPrivEventsResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgDeletePartPrivEventsResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgDeletePartPrivEventsResponse };
+        return message;
+    }
+};
 const baseMsgCreateCreatePrivEvents = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '' };
 export const MsgCreateCreatePrivEvents = {
     encode(message, writer = Writer.create()) {
@@ -494,6 +876,21 @@ export const MsgDeleteCreatePrivEventsResponse = {
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    CreatePartPrivEvents(request) {
+        const data = MsgCreatePartPrivEvents.encode(request).finish();
+        const promise = this.rpc.request('VoroshilovMax.bettery.privateevents.Msg', 'CreatePartPrivEvents', data);
+        return promise.then((data) => MsgCreatePartPrivEventsResponse.decode(new Reader(data)));
+    }
+    UpdatePartPrivEvents(request) {
+        const data = MsgUpdatePartPrivEvents.encode(request).finish();
+        const promise = this.rpc.request('VoroshilovMax.bettery.privateevents.Msg', 'UpdatePartPrivEvents', data);
+        return promise.then((data) => MsgUpdatePartPrivEventsResponse.decode(new Reader(data)));
+    }
+    DeletePartPrivEvents(request) {
+        const data = MsgDeletePartPrivEvents.encode(request).finish();
+        const promise = this.rpc.request('VoroshilovMax.bettery.privateevents.Msg', 'DeletePartPrivEvents', data);
+        return promise.then((data) => MsgDeletePartPrivEventsResponse.decode(new Reader(data)));
     }
     CreateCreatePrivEvents(request) {
         const data = MsgCreateCreatePrivEvents.encode(request).finish();

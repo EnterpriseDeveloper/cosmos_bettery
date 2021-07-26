@@ -4,15 +4,21 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreateCreatePrivEvents } from "./types/privateevents/tx";
 import { MsgUpdateCreatePrivEvents } from "./types/privateevents/tx";
+import { MsgUpdatePartPrivEvents } from "./types/privateevents/tx";
+import { MsgCreateCreatePrivEvents } from "./types/privateevents/tx";
 import { MsgDeleteCreatePrivEvents } from "./types/privateevents/tx";
+import { MsgCreatePartPrivEvents } from "./types/privateevents/tx";
+import { MsgDeletePartPrivEvents } from "./types/privateevents/tx";
 
 
 const types = [
-  ["/VoroshilovMax.bettery.privateevents.MsgCreateCreatePrivEvents", MsgCreateCreatePrivEvents],
   ["/VoroshilovMax.bettery.privateevents.MsgUpdateCreatePrivEvents", MsgUpdateCreatePrivEvents],
+  ["/VoroshilovMax.bettery.privateevents.MsgUpdatePartPrivEvents", MsgUpdatePartPrivEvents],
+  ["/VoroshilovMax.bettery.privateevents.MsgCreateCreatePrivEvents", MsgCreateCreatePrivEvents],
   ["/VoroshilovMax.bettery.privateevents.MsgDeleteCreatePrivEvents", MsgDeleteCreatePrivEvents],
+  ["/VoroshilovMax.bettery.privateevents.MsgCreatePartPrivEvents", MsgCreatePartPrivEvents],
+  ["/VoroshilovMax.bettery.privateevents.MsgDeletePartPrivEvents", MsgDeletePartPrivEvents],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -41,9 +47,12 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgCreateCreatePrivEvents: (data: MsgCreateCreatePrivEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.privateevents.MsgCreateCreatePrivEvents", value: data }),
     msgUpdateCreatePrivEvents: (data: MsgUpdateCreatePrivEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.privateevents.MsgUpdateCreatePrivEvents", value: data }),
+    msgUpdatePartPrivEvents: (data: MsgUpdatePartPrivEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.privateevents.MsgUpdatePartPrivEvents", value: data }),
+    msgCreateCreatePrivEvents: (data: MsgCreateCreatePrivEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.privateevents.MsgCreateCreatePrivEvents", value: data }),
     msgDeleteCreatePrivEvents: (data: MsgDeleteCreatePrivEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.privateevents.MsgDeleteCreatePrivEvents", value: data }),
+    msgCreatePartPrivEvents: (data: MsgCreatePartPrivEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.privateevents.MsgCreatePartPrivEvents", value: data }),
+    msgDeletePartPrivEvents: (data: MsgDeletePartPrivEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.privateevents.MsgDeletePartPrivEvents", value: data }),
     
   };
 };

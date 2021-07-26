@@ -2,6 +2,7 @@ syntax = "proto3";
 package VoroshilovMax.bettery.privateevents;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "privateevents/part_priv_events.proto";
 import "privateevents/create_priv_events.proto";
 
 option go_package = "github.com/VoroshilovMax/bettery/x/privateevents/types";
@@ -9,6 +10,8 @@ option go_package = "github.com/VoroshilovMax/bettery/x/privateevents/types";
 // GenesisState defines the privateevents module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated PartPrivEvents partPrivEventsList = 3; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 partPrivEventsCount = 4; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated CreatePrivEvents createPrivEventsList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
 		uint64 createPrivEventsCount = 2; // this line is used by starport scaffolding # genesis/proto/stateField
     // this line is used by starport scaffolding # ibc/genesis/proto

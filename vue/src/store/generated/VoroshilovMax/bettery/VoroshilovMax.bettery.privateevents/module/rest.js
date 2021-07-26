@@ -165,5 +165,34 @@ export class Api extends HttpClient {
             format: "json",
             ...params,
         });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryPartPrivEventsAll
+         * @summary Queries a list of partPrivEvents items.
+         * @request GET:/VoroshilovMax/bettery/privateevents/partPrivEvents
+         */
+        this.queryPartPrivEventsAll = (query, params = {}) => this.request({
+            path: `/VoroshilovMax/bettery/privateevents/partPrivEvents`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryPartPrivEvents
+         * @summary Queries a partPrivEvents by id.
+         * @request GET:/VoroshilovMax/bettery/privateevents/partPrivEvents/{id}
+         */
+        this.queryPartPrivEvents = (id, params = {}) => this.request({
+            path: `/VoroshilovMax/bettery/privateevents/partPrivEvents/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
     }
 }

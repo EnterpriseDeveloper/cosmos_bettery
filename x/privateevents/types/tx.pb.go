@@ -28,6 +28,302 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // this line is used by starport scaffolding # proto/tx/message
+type MsgCreatePartPrivEvents struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	PrivId  string `protobuf:"bytes,2,opt,name=privId,proto3" json:"privId,omitempty"`
+	Answer  string `protobuf:"bytes,3,opt,name=answer,proto3" json:"answer,omitempty"`
+}
+
+func (m *MsgCreatePartPrivEvents) Reset()         { *m = MsgCreatePartPrivEvents{} }
+func (m *MsgCreatePartPrivEvents) String() string { return proto.CompactTextString(m) }
+func (*MsgCreatePartPrivEvents) ProtoMessage()    {}
+func (*MsgCreatePartPrivEvents) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7270389db22a15e7, []int{0}
+}
+func (m *MsgCreatePartPrivEvents) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreatePartPrivEvents) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreatePartPrivEvents.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreatePartPrivEvents) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreatePartPrivEvents.Merge(m, src)
+}
+func (m *MsgCreatePartPrivEvents) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreatePartPrivEvents) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreatePartPrivEvents.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreatePartPrivEvents proto.InternalMessageInfo
+
+func (m *MsgCreatePartPrivEvents) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgCreatePartPrivEvents) GetPrivId() string {
+	if m != nil {
+		return m.PrivId
+	}
+	return ""
+}
+
+func (m *MsgCreatePartPrivEvents) GetAnswer() string {
+	if m != nil {
+		return m.Answer
+	}
+	return ""
+}
+
+type MsgCreatePartPrivEventsResponse struct {
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *MsgCreatePartPrivEventsResponse) Reset()         { *m = MsgCreatePartPrivEventsResponse{} }
+func (m *MsgCreatePartPrivEventsResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgCreatePartPrivEventsResponse) ProtoMessage()    {}
+func (*MsgCreatePartPrivEventsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7270389db22a15e7, []int{1}
+}
+func (m *MsgCreatePartPrivEventsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreatePartPrivEventsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreatePartPrivEventsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreatePartPrivEventsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreatePartPrivEventsResponse.Merge(m, src)
+}
+func (m *MsgCreatePartPrivEventsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreatePartPrivEventsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreatePartPrivEventsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreatePartPrivEventsResponse proto.InternalMessageInfo
+
+func (m *MsgCreatePartPrivEventsResponse) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type MsgUpdatePartPrivEvents struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	PrivId  string `protobuf:"bytes,3,opt,name=privId,proto3" json:"privId,omitempty"`
+	Answer  string `protobuf:"bytes,4,opt,name=answer,proto3" json:"answer,omitempty"`
+}
+
+func (m *MsgUpdatePartPrivEvents) Reset()         { *m = MsgUpdatePartPrivEvents{} }
+func (m *MsgUpdatePartPrivEvents) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdatePartPrivEvents) ProtoMessage()    {}
+func (*MsgUpdatePartPrivEvents) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7270389db22a15e7, []int{2}
+}
+func (m *MsgUpdatePartPrivEvents) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUpdatePartPrivEvents) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUpdatePartPrivEvents.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUpdatePartPrivEvents) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdatePartPrivEvents.Merge(m, src)
+}
+func (m *MsgUpdatePartPrivEvents) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUpdatePartPrivEvents) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdatePartPrivEvents.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUpdatePartPrivEvents proto.InternalMessageInfo
+
+func (m *MsgUpdatePartPrivEvents) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgUpdatePartPrivEvents) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *MsgUpdatePartPrivEvents) GetPrivId() string {
+	if m != nil {
+		return m.PrivId
+	}
+	return ""
+}
+
+func (m *MsgUpdatePartPrivEvents) GetAnswer() string {
+	if m != nil {
+		return m.Answer
+	}
+	return ""
+}
+
+type MsgUpdatePartPrivEventsResponse struct {
+}
+
+func (m *MsgUpdatePartPrivEventsResponse) Reset()         { *m = MsgUpdatePartPrivEventsResponse{} }
+func (m *MsgUpdatePartPrivEventsResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdatePartPrivEventsResponse) ProtoMessage()    {}
+func (*MsgUpdatePartPrivEventsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7270389db22a15e7, []int{3}
+}
+func (m *MsgUpdatePartPrivEventsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUpdatePartPrivEventsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUpdatePartPrivEventsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUpdatePartPrivEventsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdatePartPrivEventsResponse.Merge(m, src)
+}
+func (m *MsgUpdatePartPrivEventsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUpdatePartPrivEventsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdatePartPrivEventsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUpdatePartPrivEventsResponse proto.InternalMessageInfo
+
+type MsgDeletePartPrivEvents struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *MsgDeletePartPrivEvents) Reset()         { *m = MsgDeletePartPrivEvents{} }
+func (m *MsgDeletePartPrivEvents) String() string { return proto.CompactTextString(m) }
+func (*MsgDeletePartPrivEvents) ProtoMessage()    {}
+func (*MsgDeletePartPrivEvents) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7270389db22a15e7, []int{4}
+}
+func (m *MsgDeletePartPrivEvents) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgDeletePartPrivEvents) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgDeletePartPrivEvents.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgDeletePartPrivEvents) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgDeletePartPrivEvents.Merge(m, src)
+}
+func (m *MsgDeletePartPrivEvents) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgDeletePartPrivEvents) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgDeletePartPrivEvents.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgDeletePartPrivEvents proto.InternalMessageInfo
+
+func (m *MsgDeletePartPrivEvents) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgDeletePartPrivEvents) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type MsgDeletePartPrivEventsResponse struct {
+}
+
+func (m *MsgDeletePartPrivEventsResponse) Reset()         { *m = MsgDeletePartPrivEventsResponse{} }
+func (m *MsgDeletePartPrivEventsResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgDeletePartPrivEventsResponse) ProtoMessage()    {}
+func (*MsgDeletePartPrivEventsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_7270389db22a15e7, []int{5}
+}
+func (m *MsgDeletePartPrivEventsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgDeletePartPrivEventsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgDeletePartPrivEventsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgDeletePartPrivEventsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgDeletePartPrivEventsResponse.Merge(m, src)
+}
+func (m *MsgDeletePartPrivEventsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgDeletePartPrivEventsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgDeletePartPrivEventsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgDeletePartPrivEventsResponse proto.InternalMessageInfo
+
 type MsgCreateCreatePrivEvents struct {
 	Creator  string   `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	PrivId   uint64   `protobuf:"varint,2,opt,name=privId,proto3" json:"privId,omitempty"`
@@ -41,7 +337,7 @@ func (m *MsgCreateCreatePrivEvents) Reset()         { *m = MsgCreateCreatePrivEv
 func (m *MsgCreateCreatePrivEvents) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateCreatePrivEvents) ProtoMessage()    {}
 func (*MsgCreateCreatePrivEvents) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7270389db22a15e7, []int{0}
+	return fileDescriptor_7270389db22a15e7, []int{6}
 }
 func (m *MsgCreateCreatePrivEvents) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -120,7 +416,7 @@ func (m *MsgCreateCreatePrivEventsResponse) Reset()         { *m = MsgCreateCrea
 func (m *MsgCreateCreatePrivEventsResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateCreatePrivEventsResponse) ProtoMessage()    {}
 func (*MsgCreateCreatePrivEventsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7270389db22a15e7, []int{1}
+	return fileDescriptor_7270389db22a15e7, []int{7}
 }
 func (m *MsgCreateCreatePrivEventsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -169,7 +465,7 @@ func (m *MsgUpdateCreatePrivEvents) Reset()         { *m = MsgUpdateCreatePrivEv
 func (m *MsgUpdateCreatePrivEvents) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateCreatePrivEvents) ProtoMessage()    {}
 func (*MsgUpdateCreatePrivEvents) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7270389db22a15e7, []int{2}
+	return fileDescriptor_7270389db22a15e7, []int{8}
 }
 func (m *MsgUpdateCreatePrivEvents) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -247,7 +543,7 @@ func (m *MsgUpdateCreatePrivEventsResponse) Reset()         { *m = MsgUpdateCrea
 func (m *MsgUpdateCreatePrivEventsResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateCreatePrivEventsResponse) ProtoMessage()    {}
 func (*MsgUpdateCreatePrivEventsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7270389db22a15e7, []int{3}
+	return fileDescriptor_7270389db22a15e7, []int{9}
 }
 func (m *MsgUpdateCreatePrivEventsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -285,7 +581,7 @@ func (m *MsgDeleteCreatePrivEvents) Reset()         { *m = MsgDeleteCreatePrivEv
 func (m *MsgDeleteCreatePrivEvents) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteCreatePrivEvents) ProtoMessage()    {}
 func (*MsgDeleteCreatePrivEvents) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7270389db22a15e7, []int{4}
+	return fileDescriptor_7270389db22a15e7, []int{10}
 }
 func (m *MsgDeleteCreatePrivEvents) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -335,7 +631,7 @@ func (m *MsgDeleteCreatePrivEventsResponse) Reset()         { *m = MsgDeleteCrea
 func (m *MsgDeleteCreatePrivEventsResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgDeleteCreatePrivEventsResponse) ProtoMessage()    {}
 func (*MsgDeleteCreatePrivEventsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_7270389db22a15e7, []int{5}
+	return fileDescriptor_7270389db22a15e7, []int{11}
 }
 func (m *MsgDeleteCreatePrivEventsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -365,6 +661,12 @@ func (m *MsgDeleteCreatePrivEventsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgDeleteCreatePrivEventsResponse proto.InternalMessageInfo
 
 func init() {
+	proto.RegisterType((*MsgCreatePartPrivEvents)(nil), "VoroshilovMax.bettery.privateevents.MsgCreatePartPrivEvents")
+	proto.RegisterType((*MsgCreatePartPrivEventsResponse)(nil), "VoroshilovMax.bettery.privateevents.MsgCreatePartPrivEventsResponse")
+	proto.RegisterType((*MsgUpdatePartPrivEvents)(nil), "VoroshilovMax.bettery.privateevents.MsgUpdatePartPrivEvents")
+	proto.RegisterType((*MsgUpdatePartPrivEventsResponse)(nil), "VoroshilovMax.bettery.privateevents.MsgUpdatePartPrivEventsResponse")
+	proto.RegisterType((*MsgDeletePartPrivEvents)(nil), "VoroshilovMax.bettery.privateevents.MsgDeletePartPrivEvents")
+	proto.RegisterType((*MsgDeletePartPrivEventsResponse)(nil), "VoroshilovMax.bettery.privateevents.MsgDeletePartPrivEventsResponse")
 	proto.RegisterType((*MsgCreateCreatePrivEvents)(nil), "VoroshilovMax.bettery.privateevents.MsgCreateCreatePrivEvents")
 	proto.RegisterType((*MsgCreateCreatePrivEventsResponse)(nil), "VoroshilovMax.bettery.privateevents.MsgCreateCreatePrivEventsResponse")
 	proto.RegisterType((*MsgUpdateCreatePrivEvents)(nil), "VoroshilovMax.bettery.privateevents.MsgUpdateCreatePrivEvents")
@@ -376,33 +678,41 @@ func init() {
 func init() { proto.RegisterFile("privateevents/tx.proto", fileDescriptor_7270389db22a15e7) }
 
 var fileDescriptor_7270389db22a15e7 = []byte{
-	// 413 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0x31, 0x6b, 0xdb, 0x40,
-	0x18, 0xf5, 0x49, 0xb2, 0xdc, 0xde, 0xd0, 0x41, 0x14, 0xa3, 0x7a, 0x10, 0xae, 0x0c, 0xc5, 0x93,
-	0x04, 0x35, 0x74, 0xec, 0xd0, 0xd6, 0x85, 0x0e, 0x06, 0x23, 0x68, 0x86, 0x2c, 0x46, 0xb6, 0x3e,
-	0xec, 0x03, 0x47, 0xa7, 0xdc, 0x9d, 0x65, 0xfb, 0x5f, 0xe4, 0x27, 0x64, 0xcd, 0x98, 0x7f, 0x91,
-	0xd1, 0x63, 0xc6, 0x60, 0xef, 0xf9, 0x0d, 0x41, 0x27, 0xc9, 0x44, 0x41, 0x32, 0x0a, 0x5e, 0x04,
-	0xef, 0xd3, 0xbd, 0xf7, 0xbd, 0xc7, 0x3b, 0x0e, 0xb7, 0x23, 0x46, 0x62, 0x5f, 0x00, 0xc4, 0x10,
-	0x0a, 0xee, 0x8a, 0x8d, 0x13, 0x31, 0x2a, 0xa8, 0xd1, 0xbb, 0xa0, 0x8c, 0xf2, 0x05, 0x59, 0xd2,
-	0x78, 0xe4, 0x6f, 0x9c, 0x29, 0x08, 0x01, 0x6c, 0xeb, 0x14, 0x4e, 0x77, 0xbe, 0x15, 0xc9, 0x33,
-	0x06, 0xbe, 0x80, 0x49, 0x32, 0x9c, 0xa4, 0xa3, 0x54, 0xcc, 0xbe, 0x47, 0xf8, 0xcb, 0x88, 0xcf,
-	0x7f, 0xcb, 0xff, 0xe9, 0x77, 0xcc, 0x48, 0x3c, 0x94, 0x67, 0x0c, 0x13, 0xb7, 0x24, 0x93, 0x32,
-	0x13, 0x75, 0x51, 0xff, 0xa3, 0x97, 0x43, 0xa3, 0x8d, 0xf5, 0x44, 0xec, 0x5f, 0x60, 0x2a, 0x5d,
-	0xd4, 0xd7, 0xbc, 0x0c, 0x19, 0x1d, 0xfc, 0xe1, 0x7a, 0x05, 0x5c, 0x10, 0x1a, 0x9a, 0xaa, 0xa4,
-	0x1c, 0x71, 0xa2, 0xe6, 0x87, 0x7c, 0x0d, 0x8c, 0x9b, 0x5a, 0x57, 0x4d, 0xd4, 0x32, 0x98, 0xa8,
-	0xad, 0x49, 0x18, 0x02, 0x33, 0x9b, 0x92, 0x93, 0x21, 0xe3, 0x33, 0x6e, 0x2e, 0x29, 0x07, 0x66,
-	0xea, 0x72, 0x9c, 0x02, 0x7b, 0x80, 0xbf, 0x56, 0x5a, 0xf6, 0x80, 0x47, 0x34, 0xe4, 0x60, 0x7c,
-	0xc2, 0x0a, 0x09, 0xa4, 0x6b, 0xcd, 0x53, 0x48, 0x60, 0xdf, 0xa5, 0x41, 0xff, 0x47, 0xc1, 0xfb,
-	0x82, 0xa6, 0x3a, 0x4a, 0xae, 0x53, 0x08, 0xa8, 0x55, 0x07, 0x6c, 0x56, 0x05, 0xd4, 0xcb, 0x03,
-	0xb6, 0x5e, 0x07, 0xec, 0xc9, 0x80, 0xe5, 0x56, 0xf3, 0x80, 0xf6, 0x50, 0xe6, 0xf9, 0x03, 0x4b,
-	0x38, 0x27, 0x4f, 0xb6, 0xab, 0x5c, 0x26, 0xdf, 0xf5, 0xfd, 0x59, 0xc5, 0xea, 0x88, 0xcf, 0x8d,
-	0x5b, 0x84, 0xdb, 0x15, 0x57, 0xe5, 0xa7, 0x53, 0xe3, 0x5a, 0x3a, 0x95, 0xbd, 0x75, 0xfe, 0x9e,
-	0xc7, 0x3f, 0xf6, 0x9e, 0x58, 0xac, 0x28, 0xb9, 0xb6, 0xc5, 0x72, 0x7e, 0x7d, 0x8b, 0xa7, 0x9b,
-	0x93, 0x16, 0x2b, 0x7a, 0xab, 0x6d, 0xb1, 0x9c, 0x5f, 0xdf, 0xe2, 0xe9, 0xc2, 0x7f, 0x8d, 0x1f,
-	0xf6, 0x16, 0xda, 0xed, 0x2d, 0xf4, 0xb4, 0xb7, 0xd0, 0xcd, 0xc1, 0x6a, 0xec, 0x0e, 0x56, 0xe3,
-	0xf1, 0x60, 0x35, 0x2e, 0x7f, 0xcc, 0x89, 0x58, 0xac, 0xa6, 0xce, 0x8c, 0x5e, 0xb9, 0x85, 0x5d,
-	0x6e, 0xb6, 0xcb, 0xdd, 0xb8, 0x6f, 0x1e, 0xae, 0x6d, 0x04, 0x7c, 0xaa, 0xcb, 0xf7, 0x66, 0xf0,
-	0x12, 0x00, 0x00, 0xff, 0xff, 0xad, 0x19, 0xb9, 0x2a, 0xd6, 0x04, 0x00, 0x00,
+	// 533 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x96, 0x31, 0x6f, 0xd3, 0x40,
+	0x14, 0xc7, 0x73, 0x89, 0x93, 0xc0, 0x0d, 0x0c, 0x56, 0x15, 0x8c, 0x07, 0xd3, 0xba, 0x08, 0x31,
+	0xd9, 0x82, 0x4a, 0x4c, 0x28, 0x03, 0x6d, 0x91, 0x18, 0x22, 0x45, 0x91, 0x60, 0x60, 0xa9, 0x9c,
+	0xe4, 0x29, 0x3d, 0x29, 0xf8, 0xcc, 0xdd, 0x35, 0x4d, 0xbf, 0x05, 0x33, 0x13, 0x2b, 0x23, 0x1f,
+	0x02, 0x89, 0xb1, 0x23, 0x23, 0x4a, 0xbe, 0x08, 0xf2, 0x9d, 0x63, 0xc5, 0xe1, 0x2e, 0xb2, 0x9d,
+	0xf1, 0x9d, 0xef, 0xbd, 0xf7, 0xfb, 0xbf, 0xa7, 0xff, 0x25, 0xb8, 0x97, 0x30, 0xb2, 0x88, 0x04,
+	0xc0, 0x02, 0x62, 0xc1, 0x43, 0xb1, 0x0c, 0x12, 0x46, 0x05, 0xb5, 0x4f, 0x3f, 0x52, 0x46, 0xf9,
+	0x35, 0x99, 0xd3, 0xc5, 0x20, 0x5a, 0x06, 0x63, 0x10, 0x02, 0xd8, 0x5d, 0x50, 0xb8, 0xed, 0x3e,
+	0x2b, 0x26, 0x27, 0x11, 0x13, 0x57, 0xe9, 0xd1, 0x95, 0x3a, 0x50, 0xa5, 0xdc, 0xe7, 0xc5, 0x5b,
+	0x13, 0x06, 0x91, 0x80, 0xff, 0xef, 0xf9, 0x13, 0xfc, 0x78, 0xc0, 0x67, 0xe7, 0xf2, 0xf3, 0x30,
+	0x62, 0x62, 0xc8, 0xc8, 0xe2, 0x52, 0x5e, 0xb0, 0x1d, 0xdc, 0x95, 0x69, 0x94, 0x39, 0xe8, 0x18,
+	0xbd, 0x78, 0x38, 0xda, 0x84, 0x76, 0x0f, 0x77, 0xd2, 0x4a, 0xef, 0xa7, 0x4e, 0x53, 0x7e, 0xc8,
+	0xa2, 0xf4, 0x3c, 0x8a, 0xf9, 0x2d, 0x30, 0xa7, 0xa5, 0xce, 0x55, 0xe4, 0xbf, 0xc4, 0x4f, 0x0d,
+	0x4d, 0x46, 0xc0, 0x13, 0x1a, 0x73, 0xb0, 0x1f, 0xe1, 0x26, 0x99, 0xca, 0x3e, 0xd6, 0xa8, 0x49,
+	0xa6, 0x3e, 0x97, 0x5c, 0x1f, 0x92, 0x69, 0x15, 0x2e, 0x55, 0xa4, 0xb9, 0x29, 0xb2, 0xc5, 0xd9,
+	0x32, 0x70, 0x5a, 0x05, 0xce, 0x13, 0xc9, 0xa9, 0x6b, 0xba, 0xe1, 0xf4, 0xcf, 0x25, 0xd7, 0x05,
+	0xcc, 0xa1, 0x3e, 0x57, 0xd6, 0x47, 0x57, 0x24, 0xef, 0xf3, 0x13, 0xe1, 0x27, 0xf9, 0xcc, 0xb2,
+	0xc9, 0x55, 0x5f, 0x8d, 0x95, 0x4b, 0x76, 0xf1, 0x83, 0x2f, 0x37, 0xc0, 0x05, 0xa1, 0x71, 0x36,
+	0x8c, 0x3c, 0x4e, 0xab, 0xa9, 0x01, 0x70, 0xc7, 0x3a, 0x6e, 0xa5, 0xd5, 0xb2, 0x30, 0xad, 0x76,
+	0x4b, 0xe2, 0x18, 0x98, 0xd3, 0x56, 0x83, 0x52, 0x91, 0x7d, 0x84, 0xdb, 0x73, 0xca, 0x81, 0x39,
+	0x1d, 0x79, 0xac, 0x02, 0xff, 0x0c, 0x9f, 0x18, 0x91, 0x8d, 0x8b, 0xfe, 0xa1, 0x84, 0xaa, 0xa1,
+	0x57, 0x10, 0xba, 0xbb, 0xeb, 0x6d, 0x81, 0x96, 0x59, 0x60, 0xdb, 0x24, 0xb0, 0xa3, 0x17, 0xd8,
+	0xdd, 0x16, 0x78, 0x2a, 0x05, 0xea, 0x51, 0xf3, 0xcd, 0x5d, 0x4a, 0x3d, 0x6a, 0xb9, 0xf5, 0xf5,
+	0x64, 0xbd, 0xf4, 0x65, 0x36, 0xbd, 0x5e, 0xfd, 0xea, 0xe2, 0xd6, 0x80, 0xcf, 0xec, 0x6f, 0x08,
+	0x1f, 0x69, 0x3d, 0xfc, 0x26, 0x28, 0xf1, 0xa4, 0x04, 0x06, 0x73, 0xba, 0x17, 0x87, 0x64, 0xe7,
+	0x1b, 0x4f, 0xe1, 0xb4, 0x46, 0x2e, 0x0d, 0xa7, 0xcb, 0x2e, 0x0f, 0xb7, 0xcf, 0xcf, 0x12, 0x4e,
+	0xeb, 0xe6, 0xd2, 0x70, 0xba, 0xec, 0xf2, 0x70, 0xfb, 0x1e, 0x01, 0xfb, 0x3b, 0xc2, 0x3d, 0xc3,
+	0x0b, 0xd0, 0xaf, 0xb6, 0x9a, 0xdd, 0x7c, 0xf7, 0xdd, 0x61, 0xf9, 0x05, 0x44, 0x83, 0x77, 0xfb,
+	0xd5, 0x16, 0x54, 0x1f, 0x71, 0xbf, 0x21, 0x25, 0xa2, 0xc1, 0x8e, 0xfd, 0x6a, 0x6b, 0xaa, 0x8f,
+	0xb8, 0xdf, 0xc7, 0x6f, 0x87, 0xbf, 0x57, 0x1e, 0xba, 0x5f, 0x79, 0xe8, 0xef, 0xca, 0x43, 0x5f,
+	0xd7, 0x5e, 0xe3, 0x7e, 0xed, 0x35, 0xfe, 0xac, 0xbd, 0xc6, 0xa7, 0xd7, 0x33, 0x22, 0xae, 0x6f,
+	0xc6, 0xc1, 0x84, 0x7e, 0x0e, 0x0b, 0xbd, 0xc2, 0xac, 0x57, 0xb8, 0x0c, 0x77, 0xfe, 0x4d, 0xdc,
+	0x25, 0xc0, 0xc7, 0x1d, 0xf9, 0xf3, 0x7e, 0xf6, 0x2f, 0x00, 0x00, 0xff, 0xff, 0x6e, 0xaf, 0x07,
+	0xb6, 0x6b, 0x08, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -418,6 +728,9 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
 	// this line is used by starport scaffolding # proto/tx/rpc
+	CreatePartPrivEvents(ctx context.Context, in *MsgCreatePartPrivEvents, opts ...grpc.CallOption) (*MsgCreatePartPrivEventsResponse, error)
+	UpdatePartPrivEvents(ctx context.Context, in *MsgUpdatePartPrivEvents, opts ...grpc.CallOption) (*MsgUpdatePartPrivEventsResponse, error)
+	DeletePartPrivEvents(ctx context.Context, in *MsgDeletePartPrivEvents, opts ...grpc.CallOption) (*MsgDeletePartPrivEventsResponse, error)
 	CreateCreatePrivEvents(ctx context.Context, in *MsgCreateCreatePrivEvents, opts ...grpc.CallOption) (*MsgCreateCreatePrivEventsResponse, error)
 	UpdateCreatePrivEvents(ctx context.Context, in *MsgUpdateCreatePrivEvents, opts ...grpc.CallOption) (*MsgUpdateCreatePrivEventsResponse, error)
 	DeleteCreatePrivEvents(ctx context.Context, in *MsgDeleteCreatePrivEvents, opts ...grpc.CallOption) (*MsgDeleteCreatePrivEventsResponse, error)
@@ -429,6 +742,33 @@ type msgClient struct {
 
 func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
+}
+
+func (c *msgClient) CreatePartPrivEvents(ctx context.Context, in *MsgCreatePartPrivEvents, opts ...grpc.CallOption) (*MsgCreatePartPrivEventsResponse, error) {
+	out := new(MsgCreatePartPrivEventsResponse)
+	err := c.cc.Invoke(ctx, "/VoroshilovMax.bettery.privateevents.Msg/CreatePartPrivEvents", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdatePartPrivEvents(ctx context.Context, in *MsgUpdatePartPrivEvents, opts ...grpc.CallOption) (*MsgUpdatePartPrivEventsResponse, error) {
+	out := new(MsgUpdatePartPrivEventsResponse)
+	err := c.cc.Invoke(ctx, "/VoroshilovMax.bettery.privateevents.Msg/UpdatePartPrivEvents", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) DeletePartPrivEvents(ctx context.Context, in *MsgDeletePartPrivEvents, opts ...grpc.CallOption) (*MsgDeletePartPrivEventsResponse, error) {
+	out := new(MsgDeletePartPrivEventsResponse)
+	err := c.cc.Invoke(ctx, "/VoroshilovMax.bettery.privateevents.Msg/DeletePartPrivEvents", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *msgClient) CreateCreatePrivEvents(ctx context.Context, in *MsgCreateCreatePrivEvents, opts ...grpc.CallOption) (*MsgCreateCreatePrivEventsResponse, error) {
@@ -461,6 +801,9 @@ func (c *msgClient) DeleteCreatePrivEvents(ctx context.Context, in *MsgDeleteCre
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// this line is used by starport scaffolding # proto/tx/rpc
+	CreatePartPrivEvents(context.Context, *MsgCreatePartPrivEvents) (*MsgCreatePartPrivEventsResponse, error)
+	UpdatePartPrivEvents(context.Context, *MsgUpdatePartPrivEvents) (*MsgUpdatePartPrivEventsResponse, error)
+	DeletePartPrivEvents(context.Context, *MsgDeletePartPrivEvents) (*MsgDeletePartPrivEventsResponse, error)
 	CreateCreatePrivEvents(context.Context, *MsgCreateCreatePrivEvents) (*MsgCreateCreatePrivEventsResponse, error)
 	UpdateCreatePrivEvents(context.Context, *MsgUpdateCreatePrivEvents) (*MsgUpdateCreatePrivEventsResponse, error)
 	DeleteCreatePrivEvents(context.Context, *MsgDeleteCreatePrivEvents) (*MsgDeleteCreatePrivEventsResponse, error)
@@ -470,6 +813,15 @@ type MsgServer interface {
 type UnimplementedMsgServer struct {
 }
 
+func (*UnimplementedMsgServer) CreatePartPrivEvents(ctx context.Context, req *MsgCreatePartPrivEvents) (*MsgCreatePartPrivEventsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreatePartPrivEvents not implemented")
+}
+func (*UnimplementedMsgServer) UpdatePartPrivEvents(ctx context.Context, req *MsgUpdatePartPrivEvents) (*MsgUpdatePartPrivEventsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePartPrivEvents not implemented")
+}
+func (*UnimplementedMsgServer) DeletePartPrivEvents(ctx context.Context, req *MsgDeletePartPrivEvents) (*MsgDeletePartPrivEventsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePartPrivEvents not implemented")
+}
 func (*UnimplementedMsgServer) CreateCreatePrivEvents(ctx context.Context, req *MsgCreateCreatePrivEvents) (*MsgCreateCreatePrivEventsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCreatePrivEvents not implemented")
 }
@@ -482,6 +834,60 @@ func (*UnimplementedMsgServer) DeleteCreatePrivEvents(ctx context.Context, req *
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
+}
+
+func _Msg_CreatePartPrivEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreatePartPrivEvents)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreatePartPrivEvents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VoroshilovMax.bettery.privateevents.Msg/CreatePartPrivEvents",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreatePartPrivEvents(ctx, req.(*MsgCreatePartPrivEvents))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdatePartPrivEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdatePartPrivEvents)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdatePartPrivEvents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VoroshilovMax.bettery.privateevents.Msg/UpdatePartPrivEvents",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdatePartPrivEvents(ctx, req.(*MsgUpdatePartPrivEvents))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_DeletePartPrivEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDeletePartPrivEvents)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).DeletePartPrivEvents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VoroshilovMax.bettery.privateevents.Msg/DeletePartPrivEvents",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).DeletePartPrivEvents(ctx, req.(*MsgDeletePartPrivEvents))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Msg_CreateCreatePrivEvents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -543,6 +949,18 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "CreatePartPrivEvents",
+			Handler:    _Msg_CreatePartPrivEvents_Handler,
+		},
+		{
+			MethodName: "UpdatePartPrivEvents",
+			Handler:    _Msg_UpdatePartPrivEvents_Handler,
+		},
+		{
+			MethodName: "DeletePartPrivEvents",
+			Handler:    _Msg_DeletePartPrivEvents_Handler,
+		},
+		{
 			MethodName: "CreateCreatePrivEvents",
 			Handler:    _Msg_CreateCreatePrivEvents_Handler,
 		},
@@ -557,6 +975,208 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "privateevents/tx.proto",
+}
+
+func (m *MsgCreatePartPrivEvents) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreatePartPrivEvents) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreatePartPrivEvents) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Answer) > 0 {
+		i -= len(m.Answer)
+		copy(dAtA[i:], m.Answer)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Answer)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.PrivId) > 0 {
+		i -= len(m.PrivId)
+		copy(dAtA[i:], m.PrivId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.PrivId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgCreatePartPrivEventsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreatePartPrivEventsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreatePartPrivEventsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdatePartPrivEvents) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdatePartPrivEvents) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdatePartPrivEvents) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Answer) > 0 {
+		i -= len(m.Answer)
+		copy(dAtA[i:], m.Answer)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Answer)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.PrivId) > 0 {
+		i -= len(m.PrivId)
+		copy(dAtA[i:], m.PrivId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.PrivId)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdatePartPrivEventsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdatePartPrivEventsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdatePartPrivEventsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgDeletePartPrivEvents) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgDeletePartPrivEvents) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgDeletePartPrivEvents) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgDeletePartPrivEventsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgDeletePartPrivEventsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgDeletePartPrivEventsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
 }
 
 func (m *MsgCreateCreatePrivEvents) Marshal() (dAtA []byte, err error) {
@@ -809,6 +1429,97 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *MsgCreatePartPrivEvents) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.PrivId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Answer)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgCreatePartPrivEventsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *MsgUpdatePartPrivEvents) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	l = len(m.PrivId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Answer)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgUpdatePartPrivEventsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgDeletePartPrivEvents) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *MsgDeletePartPrivEventsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
 func (m *MsgCreateCreatePrivEvents) Size() (n int) {
 	if m == nil {
 		return 0
@@ -928,6 +1639,587 @@ func sovTx(x uint64) (n int) {
 }
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *MsgCreatePartPrivEvents) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreatePartPrivEvents: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreatePartPrivEvents: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PrivId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PrivId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Answer", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Answer = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreatePartPrivEventsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreatePartPrivEventsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreatePartPrivEventsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdatePartPrivEvents) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdatePartPrivEvents: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdatePartPrivEvents: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PrivId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PrivId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Answer", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Answer = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdatePartPrivEventsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdatePartPrivEventsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdatePartPrivEventsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgDeletePartPrivEvents) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgDeletePartPrivEvents: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgDeletePartPrivEvents: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgDeletePartPrivEventsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgDeletePartPrivEventsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgDeletePartPrivEventsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *MsgCreateCreatePrivEvents) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
