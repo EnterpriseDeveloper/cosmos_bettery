@@ -7,6 +7,7 @@ import (
 	"github.com/VoroshilovMax/bettery/x/privateevents/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/spf13/cast"
 )
 
 func (k msgServer) CreateValidPrivEvents(goCtx context.Context, msg *types.MsgCreateValidPrivEvents) (*types.MsgCreateValidPrivEventsResponse, error) {
@@ -23,6 +24,18 @@ func (k msgServer) CreateValidPrivEvents(goCtx context.Context, msg *types.MsgCr
 		validPrivEvents,
 	)
 
+	eventId, err := cast.ToStringE(id)
+	if err != nil {
+		return nil, err
+	}
+
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			"priv.event",
+			sdk.NewAttribute("finish", "true"),
+			sdk.NewAttribute("id", eventId),
+		),
+	)
 	return &types.MsgCreateValidPrivEventsResponse{
 		Id: id,
 	}, nil
