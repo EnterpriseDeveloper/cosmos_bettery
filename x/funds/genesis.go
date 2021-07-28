@@ -16,7 +16,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	}
 
 	// Set swipeBet count
-	k.SetSwipeBetCount(ctx, genState.SwipeBetCount)
+	// k.SetSwipeBetCount(ctx, genState.SwipeBetCount)
 
 	// Set all the mintBet
 	for _, elem := range genState.MintBetList {
@@ -41,8 +41,8 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		genesis.SwipeBetList = append(genesis.SwipeBetList, &elem)
 	}
 
-	// Set the current count
-	genesis.SwipeBetCount = k.GetSwipeBetCount(ctx)
+	// // Set the current count
+	// genesis.SwipeBetCount = k.GetSwipeBetCount(ctx)
 
 	// Get all mintBet
 	mintBetList := k.GetAllMintBet(ctx)

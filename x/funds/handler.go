@@ -22,14 +22,6 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			res, err := msgServer.CreateSwipeBet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 
-		case *types.MsgUpdateSwipeBet:
-			res, err := msgServer.UpdateSwipeBet(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
-		case *types.MsgDeleteSwipeBet:
-			res, err := msgServer.DeleteSwipeBet(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
 		case *types.MsgCreateMintBet:
 			res, err := msgServer.CreateMintBet(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)

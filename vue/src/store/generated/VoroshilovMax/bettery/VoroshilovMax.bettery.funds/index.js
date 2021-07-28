@@ -198,23 +198,6 @@ export default {
                 }
             }
         },
-        async sendMsgDeleteSwipeBet({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgDeleteSwipeBet(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgDeleteSwipeBet:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgDeleteSwipeBet:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
         async sendMsgCreateMintBet({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -229,23 +212,6 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgCreateMintBet:Send', 'Could not broadcast Tx: ' + e.message);
-                }
-            }
-        },
-        async sendMsgUpdateSwipeBet({ rootGetters }, { value, fee = [], memo = '' }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgUpdateSwipeBet(value);
-                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
-                        gas: "200000" }, memo });
-                return result;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgUpdateSwipeBet:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgUpdateSwipeBet:Send', 'Could not broadcast Tx: ' + e.message);
                 }
             }
         },
@@ -264,21 +230,6 @@ export default {
                 }
             }
         },
-        async MsgDeleteSwipeBet({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgDeleteSwipeBet(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgDeleteSwipeBet:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgDeleteSwipeBet:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
         async MsgCreateMintBet({ rootGetters }, { value }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -291,21 +242,6 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgCreateMintBet:Create', 'Could not create message: ' + e.message);
-                }
-            }
-        },
-        async MsgUpdateSwipeBet({ rootGetters }, { value }) {
-            try {
-                const txClient = await initTxClient(rootGetters);
-                const msg = await txClient.msgUpdateSwipeBet(value);
-                return msg;
-            }
-            catch (e) {
-                if (e == MissingWalletError) {
-                    throw new SpVuexError('TxClient:MsgUpdateSwipeBet:Init', 'Could not initialize signing client. Wallet is required.');
-                }
-                else {
-                    throw new SpVuexError('TxClient:MsgUpdateSwipeBet:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

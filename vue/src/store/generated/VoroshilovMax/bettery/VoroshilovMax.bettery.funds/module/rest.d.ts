@@ -13,8 +13,6 @@ export interface FundsMsgCreateSwipeBetResponse {
     /** @format uint64 */
     id?: string;
 }
-export declare type FundsMsgDeleteSwipeBetResponse = object;
-export declare type FundsMsgUpdateSwipeBetResponse = object;
 export interface FundsQueryAllMintBetResponse {
     MintBet?: FundsMintBet[];
     /**
@@ -49,9 +47,9 @@ export interface FundsQueryGetSwipeBetResponse {
 }
 export interface FundsSwipeBet {
     creator?: string;
-    /** @format uint64 */
-    id?: string;
+    /** @format int64 */
     amount?: string;
+    /** @format int64 */
     userId?: string;
 }
 export interface ProtobufAny {

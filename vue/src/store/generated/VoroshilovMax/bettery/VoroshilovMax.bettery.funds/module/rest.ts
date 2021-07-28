@@ -29,10 +29,6 @@ export interface FundsMsgCreateSwipeBetResponse {
   id?: string;
 }
 
-export type FundsMsgDeleteSwipeBetResponse = object;
-
-export type FundsMsgUpdateSwipeBetResponse = object;
-
 export interface FundsQueryAllMintBetResponse {
   MintBet?: FundsMintBet[];
 
@@ -74,9 +70,10 @@ export interface FundsQueryGetSwipeBetResponse {
 export interface FundsSwipeBet {
   creator?: string;
 
-  /** @format uint64 */
-  id?: string;
+  /** @format int64 */
   amount?: string;
+
+  /** @format int64 */
   userId?: string;
 }
 

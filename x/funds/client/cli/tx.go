@@ -32,9 +32,6 @@ func GetTxCmd() *cobra.Command {
 	// this line is used by starport scaffolding # 1
 
 	cmd.AddCommand(CmdCreateSwipeBet())
-	cmd.AddCommand(CmdUpdateSwipeBet())
-	cmd.AddCommand(CmdDeleteSwipeBet())
-
 	cmd.AddCommand(CmdCreateMintBet())
 
 	return cmd

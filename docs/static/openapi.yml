@@ -19660,13 +19660,12 @@ paths:
                   properties:
                     creator:
                       type: string
-                    id:
-                      type: string
-                      format: uint64
                     amount:
                       type: string
+                      format: int64
                     userId:
                       type: string
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -19778,13 +19777,12 @@ paths:
                 properties:
                   creator:
                     type: string
-                  id:
-                    type: string
-                    format: uint64
                   amount:
                     type: string
+                    format: int64
                   userId:
                     type: string
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -30652,10 +30650,6 @@ definitions:
       id:
         type: string
         format: uint64
-  VoroshilovMax.bettery.funds.MsgDeleteSwipeBetResponse:
-    type: object
-  VoroshilovMax.bettery.funds.MsgUpdateSwipeBetResponse:
-    type: object
   VoroshilovMax.bettery.funds.QueryAllMintBetResponse:
     type: object
     properties:
@@ -30707,13 +30701,12 @@ definitions:
           properties:
             creator:
               type: string
-            id:
-              type: string
-              format: uint64
             amount:
               type: string
+              format: int64
             userId:
               type: string
+              format: int64
       pagination:
         type: object
         properties:
@@ -30761,25 +30754,23 @@ definitions:
         properties:
           creator:
             type: string
-          id:
-            type: string
-            format: uint64
           amount:
             type: string
+            format: int64
           userId:
             type: string
+            format: int64
   VoroshilovMax.bettery.funds.SwipeBet:
     type: object
     properties:
       creator:
         type: string
-      id:
-        type: string
-        format: uint64
       amount:
         type: string
+        format: int64
       userId:
         type: string
+        format: int64
   VoroshilovMax.bettery.privateevents.CreatePrivEvents:
     type: object
     properties:
