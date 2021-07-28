@@ -19,11 +19,36 @@ func (k msgServer) CreatePartPrivEvents(goCtx context.Context, msg *types.MsgCre
 		Answer:  msg.Answer,
 	}
 
+	// check if event not finished
+	if k.GetEventFinished(ctx, msg.PrivId) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event already finished by id: %d", msg.PrivId))
+	}
+
+	// check if event exit
+	if !k.HasCreatePrivEvents(ctx, msg.PrivId) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event doesn't exist by id: %d", msg.PrivId))
+	}
+
+	// check if event start for participant
 	dateNow := time.Now().Unix()
 	startTime, _ := k.GetTimesPrivEvents(ctx, msg.PrivId)
-
 	if int64(startTime) > dateNow {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event by id: %d not started yet, start time: %d", msg.PrivId, dateNow))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event by id: %d not started yet, start time: %d", msg.PrivId, startTime))
+	}
+
+	// check if user alredy part in event
+	allPart := k.GetEachPartPrivEvents(ctx, msg.PrivId)
+
+	for _, v := range allPart {
+		if v.Creator == msg.Creator {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user: %s alredy participate in event by id: %d", msg.Creator, msg.PrivId))
+		}
+	}
+
+	// find answer index
+	answerIndex := k.GetAnswerIndex(ctx, msg.PrivId, msg.Answer)
+	if answerIndex == -1 {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("answer %s not found in event by id: %d", msg.Answer, msg.PrivId))
 	}
 
 	id := k.AppendPartPrivEvents(

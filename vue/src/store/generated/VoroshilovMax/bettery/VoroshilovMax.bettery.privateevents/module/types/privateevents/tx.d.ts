@@ -52,6 +52,7 @@ export interface MsgCreateCreatePrivEvents {
     loser: string;
     startTime: number;
     endTime: number;
+    finished: boolean;
 }
 export interface MsgCreateCreatePrivEventsResponse {
     id: number;
@@ -65,6 +66,7 @@ export interface MsgUpdateCreatePrivEvents {
     loser: string;
     startTime: number;
     endTime: number;
+    finished: boolean;
 }
 export interface MsgUpdateCreatePrivEventsResponse {
 }

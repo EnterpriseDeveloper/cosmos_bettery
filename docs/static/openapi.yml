@@ -19511,6 +19511,8 @@ paths:
                     endTime:
                       type: string
                       format: uint64
+                    finished:
+                      type: boolean
               pagination:
                 type: object
                 properties:
@@ -19641,6 +19643,8 @@ paths:
                   endTime:
                     type: string
                     format: uint64
+                  finished:
+                    type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -30311,6 +30315,8 @@ definitions:
       endTime:
         type: string
         format: uint64
+      finished:
+        type: boolean
   VoroshilovMax.bettery.privateevents.MsgCreateCreatePrivEventsResponse:
     type: object
     properties:
@@ -30380,6 +30386,8 @@ definitions:
             endTime:
               type: string
               format: uint64
+            finished:
+              type: boolean
       pagination:
         type: object
         properties:
@@ -30512,6 +30520,8 @@ definitions:
           endTime:
             type: string
             format: uint64
+          finished:
+            type: boolean
   VoroshilovMax.bettery.privateevents.QueryGetPartPrivEventsResponse:
     type: object
     properties:

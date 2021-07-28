@@ -64,6 +64,7 @@ export interface MsgCreateCreatePrivEvents {
   loser: string
   startTime: number
   endTime: number
+  finished: boolean
 }
 
 export interface MsgCreateCreatePrivEventsResponse {
@@ -79,6 +80,7 @@ export interface MsgUpdateCreatePrivEvents {
   loser: string
   startTime: number
   endTime: number
+  finished: boolean
 }
 
 export interface MsgUpdateCreatePrivEventsResponse {}
@@ -852,7 +854,17 @@ export const MsgDeletePartPrivEventsResponse = {
   }
 }
 
-const baseMsgCreateCreatePrivEvents: object = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '', startTime: 0, endTime: 0 }
+const baseMsgCreateCreatePrivEvents: object = {
+  creator: '',
+  privId: 0,
+  question: '',
+  answers: '',
+  winner: '',
+  loser: '',
+  startTime: 0,
+  endTime: 0,
+  finished: false
+}
 
 export const MsgCreateCreatePrivEvents = {
   encode(message: MsgCreateCreatePrivEvents, writer: Writer = Writer.create()): Writer {
@@ -879,6 +891,9 @@ export const MsgCreateCreatePrivEvents = {
     }
     if (message.endTime !== 0) {
       writer.uint32(64).uint64(message.endTime)
+    }
+    if (message.finished === true) {
+      writer.uint32(72).bool(message.finished)
     }
     return writer
   },
@@ -914,6 +929,9 @@ export const MsgCreateCreatePrivEvents = {
           break
         case 8:
           message.endTime = longToNumber(reader.uint64() as Long)
+          break
+        case 9:
+          message.finished = reader.bool()
           break
         default:
           reader.skipType(tag & 7)
@@ -966,6 +984,11 @@ export const MsgCreateCreatePrivEvents = {
     } else {
       message.endTime = 0
     }
+    if (object.finished !== undefined && object.finished !== null) {
+      message.finished = Boolean(object.finished)
+    } else {
+      message.finished = false
+    }
     return message
   },
 
@@ -983,6 +1006,7 @@ export const MsgCreateCreatePrivEvents = {
     message.loser !== undefined && (obj.loser = message.loser)
     message.startTime !== undefined && (obj.startTime = message.startTime)
     message.endTime !== undefined && (obj.endTime = message.endTime)
+    message.finished !== undefined && (obj.finished = message.finished)
     return obj
   },
 
@@ -1028,6 +1052,11 @@ export const MsgCreateCreatePrivEvents = {
       message.endTime = object.endTime
     } else {
       message.endTime = 0
+    }
+    if (object.finished !== undefined && object.finished !== null) {
+      message.finished = object.finished
+    } else {
+      message.finished = false
     }
     return message
   }
@@ -1088,7 +1117,17 @@ export const MsgCreateCreatePrivEventsResponse = {
   }
 }
 
-const baseMsgUpdateCreatePrivEvents: object = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '', startTime: 0, endTime: 0 }
+const baseMsgUpdateCreatePrivEvents: object = {
+  creator: '',
+  privId: 0,
+  question: '',
+  answers: '',
+  winner: '',
+  loser: '',
+  startTime: 0,
+  endTime: 0,
+  finished: false
+}
 
 export const MsgUpdateCreatePrivEvents = {
   encode(message: MsgUpdateCreatePrivEvents, writer: Writer = Writer.create()): Writer {
@@ -1115,6 +1154,9 @@ export const MsgUpdateCreatePrivEvents = {
     }
     if (message.endTime !== 0) {
       writer.uint32(64).uint64(message.endTime)
+    }
+    if (message.finished === true) {
+      writer.uint32(72).bool(message.finished)
     }
     return writer
   },
@@ -1150,6 +1192,9 @@ export const MsgUpdateCreatePrivEvents = {
           break
         case 8:
           message.endTime = longToNumber(reader.uint64() as Long)
+          break
+        case 9:
+          message.finished = reader.bool()
           break
         default:
           reader.skipType(tag & 7)
@@ -1202,6 +1247,11 @@ export const MsgUpdateCreatePrivEvents = {
     } else {
       message.endTime = 0
     }
+    if (object.finished !== undefined && object.finished !== null) {
+      message.finished = Boolean(object.finished)
+    } else {
+      message.finished = false
+    }
     return message
   },
 
@@ -1219,6 +1269,7 @@ export const MsgUpdateCreatePrivEvents = {
     message.loser !== undefined && (obj.loser = message.loser)
     message.startTime !== undefined && (obj.startTime = message.startTime)
     message.endTime !== undefined && (obj.endTime = message.endTime)
+    message.finished !== undefined && (obj.finished = message.finished)
     return obj
   },
 
@@ -1264,6 +1315,11 @@ export const MsgUpdateCreatePrivEvents = {
       message.endTime = object.endTime
     } else {
       message.endTime = 0
+    }
+    if (object.finished !== undefined && object.finished !== null) {
+      message.finished = object.finished
+    } else {
+      message.finished = false
     }
     return message
   }

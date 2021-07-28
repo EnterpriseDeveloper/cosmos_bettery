@@ -10,3 +10,8 @@ message ValidPrivEvents {
   uint64 privId = 2; 
   string answer = 3; 
 }
+
+message allValidPrivEvent {
+  string creator = 1;
+  uint64 privId = 2; 
+}

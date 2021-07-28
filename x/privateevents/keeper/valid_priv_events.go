@@ -69,6 +69,24 @@ func (k Keeper) GetAllValidPrivEvents(ctx sdk.Context) (list []types.ValidPrivEv
 	return
 }
 
+// GetEachValidPrivEvent returs all validator in event
+func (k Keeper) GetEachValidPrivEvents(ctx sdk.Context, id uint64) (list []types.AllValidPrivEvent) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPrivEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.AllValidPrivEvent
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if id == val.PrivId {
+			list = append(list, val)
+		}
+	}
+
+	return
+}
+
 // GetValidPrivEventsIDBytes returns the byte representation of the ID
 func GetValidPrivEventsIDBytes(id uint64) []byte {
 	bz := make([]byte, 8)

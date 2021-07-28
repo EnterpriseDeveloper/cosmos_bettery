@@ -52,6 +52,22 @@ func (k Keeper) GetTimesPrivEvents(ctx sdk.Context, id uint64) (uint64, uint64) 
 	return data.StartTime, data.EndTime
 }
 
+// check if event finished
+func (k Keeper) GetEventFinished(ctx sdk.Context, id uint64) bool {
+	return k.GetCreatePrivEvents(ctx, id).Finished
+}
+
+// get answer index
+func (k Keeper) GetAnswerIndex(ctx sdk.Context, id uint64, answer string) int {
+	answers := k.GetCreatePrivEvents(ctx, id).Answers
+	for k, v := range answers {
+		if answer == v {
+			return k
+		}
+	}
+	return -1
+}
+
 // RemoveCreatePrivEvents removes a createPrivEvents from the store
 func (k Keeper) RemoveCreatePrivEvents(ctx sdk.Context, id uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePrivEventsKey))

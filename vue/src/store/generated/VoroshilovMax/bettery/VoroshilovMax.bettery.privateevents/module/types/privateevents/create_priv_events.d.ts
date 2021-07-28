@@ -9,6 +9,7 @@ export interface CreatePrivEvents {
     loser: string;
     startTime: number;
     endTime: number;
+    finished: boolean;
 }
 export declare const CreatePrivEvents: {
     encode(message: CreatePrivEvents, writer?: Writer): Writer;

@@ -91,11 +91,14 @@ export const PartPrivEvents = {
         return message;
     }
 };
-const baseallPartPrivEvent = { creator: '' };
+const baseallPartPrivEvent = { creator: '', privId: 0 };
 export const allPartPrivEvent = {
     encode(message, writer = Writer.create()) {
-        for (const v of message.creator) {
-            writer.uint32(10).string(v);
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.privId !== 0) {
+            writer.uint32(16).uint64(message.privId);
         }
         return writer;
     },
@@ -103,12 +106,14 @@ export const allPartPrivEvent = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseallPartPrivEvent };
-        message.creator = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.creator.push(reader.string());
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.privId = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -119,31 +124,39 @@ export const allPartPrivEvent = {
     },
     fromJSON(object) {
         const message = { ...baseallPartPrivEvent };
-        message.creator = [];
         if (object.creator !== undefined && object.creator !== null) {
-            for (const e of object.creator) {
-                message.creator.push(String(e));
-            }
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.privId !== undefined && object.privId !== null) {
+            message.privId = Number(object.privId);
+        }
+        else {
+            message.privId = 0;
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
-        if (message.creator) {
-            obj.creator = message.creator.map((e) => e);
-        }
-        else {
-            obj.creator = [];
-        }
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.privId !== undefined && (obj.privId = message.privId);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseallPartPrivEvent };
-        message.creator = [];
         if (object.creator !== undefined && object.creator !== null) {
-            for (const e of object.creator) {
-                message.creator.push(e);
-            }
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.privId !== undefined && object.privId !== null) {
+            message.privId = object.privId;
+        }
+        else {
+            message.privId = 0;
         }
         return message;
     }

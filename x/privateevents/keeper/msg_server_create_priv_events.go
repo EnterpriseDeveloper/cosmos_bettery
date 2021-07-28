@@ -13,12 +13,19 @@ func (k msgServer) CreateCreatePrivEvents(goCtx context.Context, msg *types.MsgC
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var createPrivEvents = types.CreatePrivEvents{
-		Creator:  msg.Creator,
-		PrivId:   msg.PrivId,
-		Question: msg.Question,
-		Answers:  msg.Answers,
-		Winner:   msg.Winner,
-		Loser:    msg.Loser,
+		Creator:   msg.Creator,
+		PrivId:    msg.PrivId,
+		Question:  msg.Question,
+		Answers:   msg.Answers,
+		Winner:    msg.Winner,
+		Loser:     msg.Loser,
+		EndTime:   msg.EndTime,
+		StartTime: msg.StartTime,
+	}
+
+	// Checks that the event exists
+	if k.HasCreatePrivEvents(ctx, msg.PrivId) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event by id %d alredy exist", msg.PrivId))
 	}
 
 	id := k.AppendCreatePrivEvents(
@@ -35,11 +42,13 @@ func (k msgServer) UpdateCreatePrivEvents(goCtx context.Context, msg *types.MsgU
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var createPrivEvents = types.CreatePrivEvents{
-		Creator:  msg.Creator,
-		Question: msg.Question,
-		Answers:  msg.Answers,
-		Winner:   msg.Winner,
-		Loser:    msg.Loser,
+		Creator:   msg.Creator,
+		Question:  msg.Question,
+		Answers:   msg.Answers,
+		Winner:    msg.Winner,
+		Loser:     msg.Loser,
+		EndTime:   msg.EndTime,
+		StartTime: msg.StartTime,
 	}
 
 	// Checks that the element exists

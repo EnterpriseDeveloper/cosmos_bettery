@@ -6,7 +6,8 @@ export interface PartPrivEvents {
     answer: string;
 }
 export interface allPartPrivEvent {
-    creator: string[];
+    creator: string;
+    privId: number;
 }
 export declare const PartPrivEvents: {
     encode(message: PartPrivEvents, writer?: Writer): Writer;

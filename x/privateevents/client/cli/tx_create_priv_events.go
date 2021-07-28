@@ -15,9 +15,9 @@ import (
 
 func CmdCreateCreatePrivEvents() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-create-priv-events [privId] [question] [answers] [winner] [loser]",
+		Use:   "create-create-priv-events [privId] [question] [answers] [winner] [loser] [startTime] [endTime]",
 		Short: "Create a new createPrivEvents",
-		Args:  cobra.MinimumNArgs(5),
+		Args:  cobra.MinimumNArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsPrivId, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
@@ -69,9 +69,9 @@ func CmdCreateCreatePrivEvents() *cobra.Command {
 
 func CmdUpdateCreatePrivEvents() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-create-priv-events [privId] [question] [answers] [winner] [loser]",
+		Use:   "update-create-priv-events [privId] [question] [answers] [winner] [loser] [startTime] [endTime]",
 		Short: "Update a createPrivEvents",
-		Args:  cobra.ExactArgs(6),
+		Args:  cobra.ExactArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) error {
 
 			argsPrivId, err := strconv.ParseUint(args[0], 10, 64)
