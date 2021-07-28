@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/VoroshilovMax/bettery/x/privateevents/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -16,6 +17,13 @@ func (k msgServer) CreatePartPrivEvents(goCtx context.Context, msg *types.MsgCre
 		Creator: msg.Creator,
 		PrivId:  msg.PrivId,
 		Answer:  msg.Answer,
+	}
+
+	dateNow := time.Now().Unix()
+	startTime, _ := k.GetTimesPrivEvents(ctx, msg.PrivId)
+
+	if int64(startTime) > dateNow {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event by id: %d not started yet, start time: %d", msg.PrivId, dateNow))
 	}
 
 	id := k.AppendPartPrivEvents(

@@ -728,7 +728,7 @@ export const MsgDeletePartPrivEventsResponse = {
         return message;
     }
 };
-const baseMsgCreateCreatePrivEvents = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '' };
+const baseMsgCreateCreatePrivEvents = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '', startTime: 0, endTime: 0 };
 export const MsgCreateCreatePrivEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -748,6 +748,12 @@ export const MsgCreateCreatePrivEvents = {
         }
         if (message.loser !== '') {
             writer.uint32(50).string(message.loser);
+        }
+        if (message.startTime !== 0) {
+            writer.uint32(56).uint64(message.startTime);
+        }
+        if (message.endTime !== 0) {
+            writer.uint32(64).uint64(message.endTime);
         }
         return writer;
     },
@@ -776,6 +782,12 @@ export const MsgCreateCreatePrivEvents = {
                     break;
                 case 6:
                     message.loser = reader.string();
+                    break;
+                case 7:
+                    message.startTime = longToNumber(reader.uint64());
+                    break;
+                case 8:
+                    message.endTime = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -822,6 +834,18 @@ export const MsgCreateCreatePrivEvents = {
         else {
             message.loser = '';
         }
+        if (object.startTime !== undefined && object.startTime !== null) {
+            message.startTime = Number(object.startTime);
+        }
+        else {
+            message.startTime = 0;
+        }
+        if (object.endTime !== undefined && object.endTime !== null) {
+            message.endTime = Number(object.endTime);
+        }
+        else {
+            message.endTime = 0;
+        }
         return message;
     },
     toJSON(message) {
@@ -837,6 +861,8 @@ export const MsgCreateCreatePrivEvents = {
         }
         message.winner !== undefined && (obj.winner = message.winner);
         message.loser !== undefined && (obj.loser = message.loser);
+        message.startTime !== undefined && (obj.startTime = message.startTime);
+        message.endTime !== undefined && (obj.endTime = message.endTime);
         return obj;
     },
     fromPartial(object) {
@@ -876,6 +902,18 @@ export const MsgCreateCreatePrivEvents = {
         }
         else {
             message.loser = '';
+        }
+        if (object.startTime !== undefined && object.startTime !== null) {
+            message.startTime = object.startTime;
+        }
+        else {
+            message.startTime = 0;
+        }
+        if (object.endTime !== undefined && object.endTime !== null) {
+            message.endTime = object.endTime;
+        }
+        else {
+            message.endTime = 0;
         }
         return message;
     }
@@ -931,7 +969,7 @@ export const MsgCreateCreatePrivEventsResponse = {
         return message;
     }
 };
-const baseMsgUpdateCreatePrivEvents = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '' };
+const baseMsgUpdateCreatePrivEvents = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '', startTime: 0, endTime: 0 };
 export const MsgUpdateCreatePrivEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -941,16 +979,22 @@ export const MsgUpdateCreatePrivEvents = {
             writer.uint32(16).uint64(message.privId);
         }
         if (message.question !== '') {
-            writer.uint32(34).string(message.question);
+            writer.uint32(26).string(message.question);
         }
         for (const v of message.answers) {
-            writer.uint32(42).string(v);
+            writer.uint32(34).string(v);
         }
         if (message.winner !== '') {
-            writer.uint32(50).string(message.winner);
+            writer.uint32(42).string(message.winner);
         }
         if (message.loser !== '') {
-            writer.uint32(58).string(message.loser);
+            writer.uint32(50).string(message.loser);
+        }
+        if (message.startTime !== 0) {
+            writer.uint32(56).uint64(message.startTime);
+        }
+        if (message.endTime !== 0) {
+            writer.uint32(64).uint64(message.endTime);
         }
         return writer;
     },
@@ -968,17 +1012,23 @@ export const MsgUpdateCreatePrivEvents = {
                 case 2:
                     message.privId = longToNumber(reader.uint64());
                     break;
-                case 4:
+                case 3:
                     message.question = reader.string();
                     break;
-                case 5:
+                case 4:
                     message.answers.push(reader.string());
                     break;
-                case 6:
+                case 5:
                     message.winner = reader.string();
                     break;
-                case 7:
+                case 6:
                     message.loser = reader.string();
+                    break;
+                case 7:
+                    message.startTime = longToNumber(reader.uint64());
+                    break;
+                case 8:
+                    message.endTime = longToNumber(reader.uint64());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -1025,6 +1075,18 @@ export const MsgUpdateCreatePrivEvents = {
         else {
             message.loser = '';
         }
+        if (object.startTime !== undefined && object.startTime !== null) {
+            message.startTime = Number(object.startTime);
+        }
+        else {
+            message.startTime = 0;
+        }
+        if (object.endTime !== undefined && object.endTime !== null) {
+            message.endTime = Number(object.endTime);
+        }
+        else {
+            message.endTime = 0;
+        }
         return message;
     },
     toJSON(message) {
@@ -1040,6 +1102,8 @@ export const MsgUpdateCreatePrivEvents = {
         }
         message.winner !== undefined && (obj.winner = message.winner);
         message.loser !== undefined && (obj.loser = message.loser);
+        message.startTime !== undefined && (obj.startTime = message.startTime);
+        message.endTime !== undefined && (obj.endTime = message.endTime);
         return obj;
     },
     fromPartial(object) {
@@ -1079,6 +1143,18 @@ export const MsgUpdateCreatePrivEvents = {
         }
         else {
             message.loser = '';
+        }
+        if (object.startTime !== undefined && object.startTime !== null) {
+            message.startTime = object.startTime;
+        }
+        else {
+            message.startTime = 0;
+        }
+        if (object.endTime !== undefined && object.endTime !== null) {
+            message.endTime = object.endTime;
+        }
+        else {
+            message.endTime = 0;
         }
         return message;
     }

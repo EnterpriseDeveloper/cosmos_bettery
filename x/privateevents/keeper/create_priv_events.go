@@ -46,6 +46,12 @@ func (k Keeper) GetCreatePrivEventsOwner(ctx sdk.Context, id uint64) string {
 	return k.GetCreatePrivEvents(ctx, id).Creator
 }
 
+// Get start and end time
+func (k Keeper) GetTimesPrivEvents(ctx sdk.Context, id uint64) (uint64, uint64) {
+	data := k.GetCreatePrivEvents(ctx, id)
+	return data.StartTime, data.EndTime
+}
+
 // RemoveCreatePrivEvents removes a createPrivEvents from the store
 func (k Keeper) RemoveCreatePrivEvents(ctx sdk.Context, id uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePrivEventsKey))

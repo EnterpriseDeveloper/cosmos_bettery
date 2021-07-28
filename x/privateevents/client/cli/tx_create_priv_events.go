@@ -39,12 +39,22 @@ func CmdCreateCreatePrivEvents() *cobra.Command {
 				return err
 			}
 
+			argsStartTime, err := strconv.ParseUint(args[5], 10, 64)
+			if err != nil {
+				return err
+			}
+
+			argsEndTime, err := strconv.ParseUint(args[6], 10, 64)
+			if err != nil {
+				return err
+			}
+
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateCreatePrivEvents(clientCtx.GetFromAddress().String(), argsPrivId, argsQuestion, argsAnswers, argsWinner, argsLoser)
+			msg := types.NewMsgCreateCreatePrivEvents(clientCtx.GetFromAddress().String(), argsPrivId, argsQuestion, argsAnswers, argsWinner, argsLoser, argsStartTime, argsEndTime)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -86,12 +96,22 @@ func CmdUpdateCreatePrivEvents() *cobra.Command {
 				return err
 			}
 
+			argsStartTime, err := strconv.ParseUint(args[5], 10, 64)
+			if err != nil {
+				return err
+			}
+
+			argsEndTime, err := strconv.ParseUint(args[6], 10, 64)
+			if err != nil {
+				return err
+			}
+
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgUpdateCreatePrivEvents(clientCtx.GetFromAddress().String(), argsPrivId, argsQuestion, argsAnswers, argsWinner, argsLoser)
+			msg := types.NewMsgUpdateCreatePrivEvents(clientCtx.GetFromAddress().String(), argsPrivId, argsQuestion, argsAnswers, argsWinner, argsLoser, argsStartTime, argsEndTime)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

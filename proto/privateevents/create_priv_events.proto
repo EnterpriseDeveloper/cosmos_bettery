@@ -12,4 +12,6 @@ message CreatePrivEvents {
   repeated string answers = 4; 
   string winner = 5; 
   string loser = 6; 
+  uint64 startTime = 7;
+  uint64 endTime = 8;
 }

@@ -11,9 +11,11 @@ export interface CreatePrivEvents {
   answers: string[]
   winner: string
   loser: string
+  startTime: number
+  endTime: number
 }
 
-const baseCreatePrivEvents: object = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '' }
+const baseCreatePrivEvents: object = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '', startTime: 0, endTime: 0 }
 
 export const CreatePrivEvents = {
   encode(message: CreatePrivEvents, writer: Writer = Writer.create()): Writer {
@@ -34,6 +36,12 @@ export const CreatePrivEvents = {
     }
     if (message.loser !== '') {
       writer.uint32(50).string(message.loser)
+    }
+    if (message.startTime !== 0) {
+      writer.uint32(56).uint64(message.startTime)
+    }
+    if (message.endTime !== 0) {
+      writer.uint32(64).uint64(message.endTime)
     }
     return writer
   },
@@ -63,6 +71,12 @@ export const CreatePrivEvents = {
           break
         case 6:
           message.loser = reader.string()
+          break
+        case 7:
+          message.startTime = longToNumber(reader.uint64() as Long)
+          break
+        case 8:
+          message.endTime = longToNumber(reader.uint64() as Long)
           break
         default:
           reader.skipType(tag & 7)
@@ -105,6 +119,16 @@ export const CreatePrivEvents = {
     } else {
       message.loser = ''
     }
+    if (object.startTime !== undefined && object.startTime !== null) {
+      message.startTime = Number(object.startTime)
+    } else {
+      message.startTime = 0
+    }
+    if (object.endTime !== undefined && object.endTime !== null) {
+      message.endTime = Number(object.endTime)
+    } else {
+      message.endTime = 0
+    }
     return message
   },
 
@@ -120,6 +144,8 @@ export const CreatePrivEvents = {
     }
     message.winner !== undefined && (obj.winner = message.winner)
     message.loser !== undefined && (obj.loser = message.loser)
+    message.startTime !== undefined && (obj.startTime = message.startTime)
+    message.endTime !== undefined && (obj.endTime = message.endTime)
     return obj
   },
 
@@ -155,6 +181,16 @@ export const CreatePrivEvents = {
       message.loser = object.loser
     } else {
       message.loser = ''
+    }
+    if (object.startTime !== undefined && object.startTime !== null) {
+      message.startTime = object.startTime
+    } else {
+      message.startTime = 0
+    }
+    if (object.endTime !== undefined && object.endTime !== null) {
+      message.endTime = object.endTime
+    } else {
+      message.endTime = 0
     }
     return message
   }

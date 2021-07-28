@@ -69,6 +69,22 @@ func (k Keeper) GetAllPartPrivEvents(ctx sdk.Context) (list []types.PartPrivEven
 	return
 }
 
+// GetEachPartPrivEvent returs all participant in event
+func (k Keeper) GetEachPartPrivEvents(ctx sdk.Context) (list []types.AllPartPrivEvent) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPrivEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.AllPartPrivEvent
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		list = append(list, val)
+	}
+
+	return
+}
+
 // GetPartPrivEventsIDBytes returns the byte representation of the ID
 func GetPartPrivEventsIDBytes(id uint64) []byte {
 	bz := make([]byte, 8)

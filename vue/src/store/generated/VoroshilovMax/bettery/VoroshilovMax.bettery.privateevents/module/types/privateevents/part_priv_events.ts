@@ -10,6 +10,10 @@ export interface PartPrivEvents {
   answer: string
 }
 
+export interface allPartPrivEvent {
+  creator: string[]
+}
+
 const basePartPrivEvents: object = { creator: '', privId: 0, answer: '' }
 
 export const PartPrivEvents = {
@@ -94,6 +98,68 @@ export const PartPrivEvents = {
       message.answer = object.answer
     } else {
       message.answer = ''
+    }
+    return message
+  }
+}
+
+const baseallPartPrivEvent: object = { creator: '' }
+
+export const allPartPrivEvent = {
+  encode(message: allPartPrivEvent, writer: Writer = Writer.create()): Writer {
+    for (const v of message.creator) {
+      writer.uint32(10).string(v!)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): allPartPrivEvent {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseallPartPrivEvent } as allPartPrivEvent
+    message.creator = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator.push(reader.string())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): allPartPrivEvent {
+    const message = { ...baseallPartPrivEvent } as allPartPrivEvent
+    message.creator = []
+    if (object.creator !== undefined && object.creator !== null) {
+      for (const e of object.creator) {
+        message.creator.push(String(e))
+      }
+    }
+    return message
+  },
+
+  toJSON(message: allPartPrivEvent): unknown {
+    const obj: any = {}
+    if (message.creator) {
+      obj.creator = message.creator.map((e) => e)
+    } else {
+      obj.creator = []
+    }
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<allPartPrivEvent>): allPartPrivEvent {
+    const message = { ...baseallPartPrivEvent } as allPartPrivEvent
+    message.creator = []
+    if (object.creator !== undefined && object.creator !== null) {
+      for (const e of object.creator) {
+        message.creator.push(e)
+      }
     }
     return message
   }

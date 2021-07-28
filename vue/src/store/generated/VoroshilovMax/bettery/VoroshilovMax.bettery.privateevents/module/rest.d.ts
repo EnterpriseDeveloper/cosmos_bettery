@@ -6,6 +6,10 @@ export interface PrivateeventsCreatePrivEvents {
     answers?: string[];
     winner?: string;
     loser?: string;
+    /** @format uint64 */
+    startTime?: string;
+    /** @format uint64 */
+    endTime?: string;
 }
 export interface PrivateeventsMsgCreateCreatePrivEventsResponse {
     /** @format uint64 */

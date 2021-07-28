@@ -7,6 +7,8 @@ export interface CreatePrivEvents {
     answers: string[];
     winner: string;
     loser: string;
+    startTime: number;
+    endTime: number;
 }
 export declare const CreatePrivEvents: {
     encode(message: CreatePrivEvents, writer?: Writer): Writer;

@@ -50,6 +50,8 @@ export interface MsgCreateCreatePrivEvents {
     answers: string[];
     winner: string;
     loser: string;
+    startTime: number;
+    endTime: number;
 }
 export interface MsgCreateCreatePrivEventsResponse {
     id: number;
@@ -61,6 +63,8 @@ export interface MsgUpdateCreatePrivEvents {
     answers: string[];
     winner: string;
     loser: string;
+    startTime: number;
+    endTime: number;
 }
 export interface MsgUpdateCreatePrivEventsResponse {
 }

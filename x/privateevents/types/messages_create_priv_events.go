@@ -7,14 +7,16 @@ import (
 
 var _ sdk.Msg = &MsgCreateCreatePrivEvents{}
 
-func NewMsgCreateCreatePrivEvents(creator string, privId uint64, question string, answers []string, winner string, loser string) *MsgCreateCreatePrivEvents {
+func NewMsgCreateCreatePrivEvents(creator string, privId uint64, question string, answers []string, winner string, loser string, startTime uint64, endTime uint64) *MsgCreateCreatePrivEvents {
 	return &MsgCreateCreatePrivEvents{
-		Creator:  creator,
-		PrivId:   privId,
-		Question: question,
-		Answers:  answers,
-		Winner:   winner,
-		Loser:    loser,
+		Creator:   creator,
+		PrivId:    privId,
+		Question:  question,
+		Answers:   answers,
+		Winner:    winner,
+		Loser:     loser,
+		StartTime: startTime,
+		EndTime:   endTime,
 	}
 }
 
@@ -49,13 +51,15 @@ func (msg *MsgCreateCreatePrivEvents) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdateCreatePrivEvents{}
 
-func NewMsgUpdateCreatePrivEvents(creator string, id uint64, question string, answers []string, winner string, loser string) *MsgUpdateCreatePrivEvents {
+func NewMsgUpdateCreatePrivEvents(creator string, id uint64, question string, answers []string, winner string, loser string, startTime uint64, endTime uint64) *MsgUpdateCreatePrivEvents {
 	return &MsgUpdateCreatePrivEvents{
-		Creator:  creator,
-		Question: question,
-		Answers:  answers,
-		Winner:   winner,
-		Loser:    loser,
+		Creator:   creator,
+		Question:  question,
+		Answers:   answers,
+		Winner:    winner,
+		Loser:     loser,
+		StartTime: startTime,
+		EndTime:   endTime,
 	}
 }
 

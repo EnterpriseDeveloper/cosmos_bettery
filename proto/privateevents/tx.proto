@@ -80,6 +80,8 @@ message MsgCreateCreatePrivEvents {
   repeated string answers = 4;
   string winner = 5;
   string loser = 6;
+  uint64 startTime = 7;
+  uint64 endTime = 8;
 }
 
 message MsgCreateCreatePrivEventsResponse {
@@ -89,10 +91,12 @@ message MsgCreateCreatePrivEventsResponse {
 message MsgUpdateCreatePrivEvents {
   string creator = 1;
   uint64 privId = 2;
-  string question = 4;
-  repeated string answers = 5;
-  string winner = 6;
-  string loser = 7;
+  string question = 3;
+  repeated string answers = 4;
+  string winner = 5;
+  string loser = 6;
+  uint64 startTime = 7;
+  uint64 endTime = 8;
 }
 
 message MsgUpdateCreatePrivEventsResponse { }

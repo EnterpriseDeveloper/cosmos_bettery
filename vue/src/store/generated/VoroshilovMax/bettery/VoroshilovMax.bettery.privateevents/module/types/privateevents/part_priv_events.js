@@ -91,6 +91,63 @@ export const PartPrivEvents = {
         return message;
     }
 };
+const baseallPartPrivEvent = { creator: '' };
+export const allPartPrivEvent = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.creator) {
+            writer.uint32(10).string(v);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseallPartPrivEvent };
+        message.creator = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator.push(reader.string());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseallPartPrivEvent };
+        message.creator = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            for (const e of object.creator) {
+                message.creator.push(String(e));
+            }
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.creator) {
+            obj.creator = message.creator.map((e) => e);
+        }
+        else {
+            obj.creator = [];
+        }
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseallPartPrivEvent };
+        message.creator = [];
+        if (object.creator !== undefined && object.creator !== null) {
+            for (const e of object.creator) {
+                message.creator.push(e);
+            }
+        }
+        return message;
+    }
+};
 var globalThis = (() => {
     if (typeof globalThis !== 'undefined')
         return globalThis;

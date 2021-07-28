@@ -19505,6 +19505,12 @@ paths:
                       type: string
                     loser:
                       type: string
+                    startTime:
+                      type: string
+                      format: uint64
+                    endTime:
+                      type: string
+                      format: uint64
               pagination:
                 type: object
                 properties:
@@ -19629,6 +19635,12 @@ paths:
                     type: string
                   loser:
                     type: string
+                  startTime:
+                    type: string
+                    format: uint64
+                  endTime:
+                    type: string
+                    format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -30293,6 +30305,12 @@ definitions:
         type: string
       loser:
         type: string
+      startTime:
+        type: string
+        format: uint64
+      endTime:
+        type: string
+        format: uint64
   VoroshilovMax.bettery.privateevents.MsgCreateCreatePrivEventsResponse:
     type: object
     properties:
@@ -30356,6 +30374,12 @@ definitions:
               type: string
             loser:
               type: string
+            startTime:
+              type: string
+              format: uint64
+            endTime:
+              type: string
+              format: uint64
       pagination:
         type: object
         properties:
@@ -30482,6 +30506,12 @@ definitions:
             type: string
           loser:
             type: string
+          startTime:
+            type: string
+            format: uint64
+          endTime:
+            type: string
+            format: uint64
   VoroshilovMax.bettery.privateevents.QueryGetPartPrivEventsResponse:
     type: object
     properties:

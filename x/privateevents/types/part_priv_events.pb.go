@@ -83,8 +83,53 @@ func (m *PartPrivEvents) GetAnswer() string {
 	return ""
 }
 
+type AllPartPrivEvent struct {
+	Creator []string `protobuf:"bytes,1,rep,name=creator,proto3" json:"creator,omitempty"`
+}
+
+func (m *AllPartPrivEvent) Reset()         { *m = AllPartPrivEvent{} }
+func (m *AllPartPrivEvent) String() string { return proto.CompactTextString(m) }
+func (*AllPartPrivEvent) ProtoMessage()    {}
+func (*AllPartPrivEvent) Descriptor() ([]byte, []int) {
+	return fileDescriptor_64bf93b8693510c3, []int{1}
+}
+func (m *AllPartPrivEvent) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *AllPartPrivEvent) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_AllPartPrivEvent.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *AllPartPrivEvent) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AllPartPrivEvent.Merge(m, src)
+}
+func (m *AllPartPrivEvent) XXX_Size() int {
+	return m.Size()
+}
+func (m *AllPartPrivEvent) XXX_DiscardUnknown() {
+	xxx_messageInfo_AllPartPrivEvent.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AllPartPrivEvent proto.InternalMessageInfo
+
+func (m *AllPartPrivEvent) GetCreator() []string {
+	if m != nil {
+		return m.Creator
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*PartPrivEvents)(nil), "VoroshilovMax.bettery.privateevents.PartPrivEvents")
+	proto.RegisterType((*AllPartPrivEvent)(nil), "VoroshilovMax.bettery.privateevents.allPartPrivEvent")
 }
 
 func init() {
@@ -92,7 +137,7 @@ func init() {
 }
 
 var fileDescriptor_64bf93b8693510c3 = []byte{
-	// 222 bytes of a gzipped FileDescriptorProto
+	// 237 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x29, 0x28, 0xca, 0x2c,
 	0x4b, 0x2c, 0x49, 0x4d, 0x2d, 0x4b, 0xcd, 0x2b, 0x29, 0xd6, 0x2f, 0x48, 0x2c, 0x2a, 0x89, 0x07,
 	0x09, 0xc5, 0x43, 0x04, 0xf4, 0x0a, 0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0x94, 0xc3, 0xf2, 0x8b, 0xf2,
@@ -102,11 +147,12 @@ var fileDescriptor_64bf93b8693510c3 = []byte{
 	0x42, 0x12, 0x5c, 0xec, 0xc9, 0x45, 0xa9, 0x89, 0x25, 0xf9, 0x45, 0x12, 0x8c, 0x0a, 0x8c, 0x1a,
 	0x9c, 0x41, 0x30, 0xae, 0x90, 0x18, 0x17, 0x1b, 0xc8, 0x48, 0xcf, 0x14, 0x09, 0x26, 0x05, 0x46,
 	0x0d, 0x96, 0x20, 0x28, 0x0f, 0x24, 0x9e, 0x98, 0x57, 0x5c, 0x9e, 0x5a, 0x24, 0xc1, 0x0c, 0xd6,
-	0x00, 0xe5, 0x39, 0x05, 0x9c, 0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83, 0x47, 0x72,
-	0x8c, 0x13, 0x1e, 0xcb, 0x31, 0x5c, 0x78, 0x2c, 0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43, 0x94, 0x59,
-	0x7a, 0x66, 0x49, 0x46, 0x69, 0x92, 0x5e, 0x72, 0x7e, 0xae, 0x3e, 0x8a, 0xdb, 0xf5, 0xa1, 0x6e,
-	0xd7, 0xaf, 0xd0, 0x47, 0xf5, 0x79, 0x49, 0x65, 0x41, 0x6a, 0x71, 0x12, 0x1b, 0xd8, 0xd1, 0xc6,
-	0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0xa8, 0x4c, 0x07, 0x7f, 0x17, 0x01, 0x00, 0x00,
+	0x00, 0xe5, 0x29, 0xe9, 0x70, 0x09, 0x24, 0xe6, 0xe4, 0xa0, 0x18, 0x8f, 0x6a, 0x3a, 0x33, 0x92,
+	0xe9, 0x4e, 0x01, 0x27, 0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3,
+	0x84, 0xc7, 0x72, 0x0c, 0x17, 0x1e, 0xcb, 0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0x65, 0x96, 0x9e,
+	0x59, 0x92, 0x51, 0x9a, 0xa4, 0x97, 0x9c, 0x9f, 0xab, 0x8f, 0xe2, 0x53, 0x7d, 0xa8, 0x4f, 0xf5,
+	0x2b, 0xf4, 0x51, 0xc3, 0xa9, 0xa4, 0xb2, 0x20, 0xb5, 0x38, 0x89, 0x0d, 0xec, 0x45, 0x63, 0x40,
+	0x00, 0x00, 0x00, 0xff, 0xff, 0x62, 0x80, 0x41, 0xb7, 0x45, 0x01, 0x00, 0x00,
 }
 
 func (m *PartPrivEvents) Marshal() (dAtA []byte, err error) {
@@ -151,6 +197,38 @@ func (m *PartPrivEvents) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *AllPartPrivEvent) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *AllPartPrivEvent) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *AllPartPrivEvent) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Creator) > 0 {
+		for iNdEx := len(m.Creator) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Creator[iNdEx])
+			copy(dAtA[i:], m.Creator[iNdEx])
+			i = encodeVarintPartPrivEvents(dAtA, i, uint64(len(m.Creator[iNdEx])))
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintPartPrivEvents(dAtA []byte, offset int, v uint64) int {
 	offset -= sovPartPrivEvents(v)
 	base := offset
@@ -178,6 +256,21 @@ func (m *PartPrivEvents) Size() (n int) {
 	l = len(m.Answer)
 	if l > 0 {
 		n += 1 + l + sovPartPrivEvents(uint64(l))
+	}
+	return n
+}
+
+func (m *AllPartPrivEvent) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Creator) > 0 {
+		for _, s := range m.Creator {
+			l = len(s)
+			n += 1 + l + sovPartPrivEvents(uint64(l))
+		}
 	}
 	return n
 }
@@ -299,6 +392,88 @@ func (m *PartPrivEvents) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Answer = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipPartPrivEvents(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthPartPrivEvents
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *AllPartPrivEvent) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowPartPrivEvents
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: allPartPrivEvent: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: allPartPrivEvent: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowPartPrivEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthPartPrivEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthPartPrivEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = append(m.Creator, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
