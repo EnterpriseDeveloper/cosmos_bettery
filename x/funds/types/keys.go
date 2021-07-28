@@ -33,3 +33,8 @@ const (
 	MintBetKey      = "MintBet-value-"
 	MintBetCountKey = "MintBet-count-"
 )
+
+const (
+	SwipeBetKey      = "SwipeBet-value-"
+	SwipeBetCountKey = "SwipeBet-count-"
+)

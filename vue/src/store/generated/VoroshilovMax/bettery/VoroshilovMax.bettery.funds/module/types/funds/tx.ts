@@ -5,6 +5,32 @@ import * as Long from 'long'
 export const protobufPackage = 'VoroshilovMax.bettery.funds'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateSwipeBet {
+  creator: string
+  amount: string
+  userId: string
+}
+
+export interface MsgCreateSwipeBetResponse {
+  id: number
+}
+
+export interface MsgUpdateSwipeBet {
+  creator: string
+  id: number
+  amount: string
+  userId: string
+}
+
+export interface MsgUpdateSwipeBetResponse {}
+
+export interface MsgDeleteSwipeBet {
+  creator: string
+  id: number
+}
+
+export interface MsgDeleteSwipeBetResponse {}
+
 export interface MsgCreateMintBet {
   creator: string
   amount: number
@@ -13,6 +39,404 @@ export interface MsgCreateMintBet {
 
 export interface MsgCreateMintBetResponse {
   id: number
+}
+
+const baseMsgCreateSwipeBet: object = { creator: '', amount: '', userId: '' }
+
+export const MsgCreateSwipeBet = {
+  encode(message: MsgCreateSwipeBet, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.amount !== '') {
+      writer.uint32(18).string(message.amount)
+    }
+    if (message.userId !== '') {
+      writer.uint32(26).string(message.userId)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateSwipeBet {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateSwipeBet } as MsgCreateSwipeBet
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.amount = reader.string()
+          break
+        case 3:
+          message.userId = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateSwipeBet {
+    const message = { ...baseMsgCreateSwipeBet } as MsgCreateSwipeBet
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = String(object.amount)
+    } else {
+      message.amount = ''
+    }
+    if (object.userId !== undefined && object.userId !== null) {
+      message.userId = String(object.userId)
+    } else {
+      message.userId = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateSwipeBet): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.amount !== undefined && (obj.amount = message.amount)
+    message.userId !== undefined && (obj.userId = message.userId)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateSwipeBet>): MsgCreateSwipeBet {
+    const message = { ...baseMsgCreateSwipeBet } as MsgCreateSwipeBet
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount
+    } else {
+      message.amount = ''
+    }
+    if (object.userId !== undefined && object.userId !== null) {
+      message.userId = object.userId
+    } else {
+      message.userId = ''
+    }
+    return message
+  }
+}
+
+const baseMsgCreateSwipeBetResponse: object = { id: 0 }
+
+export const MsgCreateSwipeBetResponse = {
+  encode(message: MsgCreateSwipeBetResponse, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateSwipeBetResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateSwipeBetResponse } as MsgCreateSwipeBetResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateSwipeBetResponse {
+    const message = { ...baseMsgCreateSwipeBetResponse } as MsgCreateSwipeBetResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateSwipeBetResponse): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateSwipeBetResponse>): MsgCreateSwipeBetResponse {
+    const message = { ...baseMsgCreateSwipeBetResponse } as MsgCreateSwipeBetResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateSwipeBet: object = { creator: '', id: 0, amount: '', userId: '' }
+
+export const MsgUpdateSwipeBet = {
+  encode(message: MsgUpdateSwipeBet, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    if (message.amount !== '') {
+      writer.uint32(26).string(message.amount)
+    }
+    if (message.userId !== '') {
+      writer.uint32(34).string(message.userId)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateSwipeBet {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateSwipeBet } as MsgUpdateSwipeBet
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 3:
+          message.amount = reader.string()
+          break
+        case 4:
+          message.userId = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgUpdateSwipeBet {
+    const message = { ...baseMsgUpdateSwipeBet } as MsgUpdateSwipeBet
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = String(object.amount)
+    } else {
+      message.amount = ''
+    }
+    if (object.userId !== undefined && object.userId !== null) {
+      message.userId = String(object.userId)
+    } else {
+      message.userId = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgUpdateSwipeBet): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    message.amount !== undefined && (obj.amount = message.amount)
+    message.userId !== undefined && (obj.userId = message.userId)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateSwipeBet>): MsgUpdateSwipeBet {
+    const message = { ...baseMsgUpdateSwipeBet } as MsgUpdateSwipeBet
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    if (object.amount !== undefined && object.amount !== null) {
+      message.amount = object.amount
+    } else {
+      message.amount = ''
+    }
+    if (object.userId !== undefined && object.userId !== null) {
+      message.userId = object.userId
+    } else {
+      message.userId = ''
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateSwipeBetResponse: object = {}
+
+export const MsgUpdateSwipeBetResponse = {
+  encode(_: MsgUpdateSwipeBetResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateSwipeBetResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateSwipeBetResponse } as MsgUpdateSwipeBetResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgUpdateSwipeBetResponse {
+    const message = { ...baseMsgUpdateSwipeBetResponse } as MsgUpdateSwipeBetResponse
+    return message
+  },
+
+  toJSON(_: MsgUpdateSwipeBetResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateSwipeBetResponse>): MsgUpdateSwipeBetResponse {
+    const message = { ...baseMsgUpdateSwipeBetResponse } as MsgUpdateSwipeBetResponse
+    return message
+  }
+}
+
+const baseMsgDeleteSwipeBet: object = { creator: '', id: 0 }
+
+export const MsgDeleteSwipeBet = {
+  encode(message: MsgDeleteSwipeBet, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteSwipeBet {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteSwipeBet } as MsgDeleteSwipeBet
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgDeleteSwipeBet {
+    const message = { ...baseMsgDeleteSwipeBet } as MsgDeleteSwipeBet
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgDeleteSwipeBet): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteSwipeBet>): MsgDeleteSwipeBet {
+    const message = { ...baseMsgDeleteSwipeBet } as MsgDeleteSwipeBet
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgDeleteSwipeBetResponse: object = {}
+
+export const MsgDeleteSwipeBetResponse = {
+  encode(_: MsgDeleteSwipeBetResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteSwipeBetResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteSwipeBetResponse } as MsgDeleteSwipeBetResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgDeleteSwipeBetResponse {
+    const message = { ...baseMsgDeleteSwipeBetResponse } as MsgDeleteSwipeBetResponse
+    return message
+  },
+
+  toJSON(_: MsgDeleteSwipeBetResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteSwipeBetResponse>): MsgDeleteSwipeBetResponse {
+    const message = { ...baseMsgDeleteSwipeBetResponse } as MsgDeleteSwipeBetResponse
+    return message
+  }
 }
 
 const baseMsgCreateMintBet: object = { creator: '', amount: 0, userId: 0 }
@@ -162,6 +586,9 @@ export const MsgCreateMintBetResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateSwipeBet(request: MsgCreateSwipeBet): Promise<MsgCreateSwipeBetResponse>
+  UpdateSwipeBet(request: MsgUpdateSwipeBet): Promise<MsgUpdateSwipeBetResponse>
+  DeleteSwipeBet(request: MsgDeleteSwipeBet): Promise<MsgDeleteSwipeBetResponse>
   CreateMintBet(request: MsgCreateMintBet): Promise<MsgCreateMintBetResponse>
 }
 
@@ -170,6 +597,24 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  CreateSwipeBet(request: MsgCreateSwipeBet): Promise<MsgCreateSwipeBetResponse> {
+    const data = MsgCreateSwipeBet.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.funds.Msg', 'CreateSwipeBet', data)
+    return promise.then((data) => MsgCreateSwipeBetResponse.decode(new Reader(data)))
+  }
+
+  UpdateSwipeBet(request: MsgUpdateSwipeBet): Promise<MsgUpdateSwipeBetResponse> {
+    const data = MsgUpdateSwipeBet.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.funds.Msg', 'UpdateSwipeBet', data)
+    return promise.then((data) => MsgUpdateSwipeBetResponse.decode(new Reader(data)))
+  }
+
+  DeleteSwipeBet(request: MsgDeleteSwipeBet): Promise<MsgDeleteSwipeBetResponse> {
+    const data = MsgDeleteSwipeBet.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.funds.Msg', 'DeleteSwipeBet', data)
+    return promise.then((data) => MsgDeleteSwipeBetResponse.decode(new Reader(data)))
+  }
+
   CreateMintBet(request: MsgCreateMintBet): Promise<MsgCreateMintBetResponse> {
     const data = MsgCreateMintBet.encode(request).finish()
     const promise = this.rpc.request('VoroshilovMax.bettery.funds.Msg', 'CreateMintBet', data)

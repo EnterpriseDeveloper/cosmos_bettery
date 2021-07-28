@@ -13,7 +13,8 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
-		MintBetList: []*MintBet{},
+		SwipeBetList: []*SwipeBet{},
+		MintBetList:  []*MintBet{},
 	}
 }
 
@@ -23,6 +24,15 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in swipeBet
+	swipeBetIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.SwipeBetList {
+		if _, ok := swipeBetIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for swipeBet")
+		}
+		swipeBetIdMap[elem.Id] = true
+	}
 	// Check for duplicated ID in mintBet
 	mintBetIdMap := make(map[uint64]bool)
 

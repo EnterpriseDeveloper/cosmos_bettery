@@ -1,11 +1,18 @@
 /* eslint-disable */
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { SwipeBet } from '../funds/swipe_bet';
 import { MintBet } from '../funds/mint_bet';
 export const protobufPackage = 'VoroshilovMax.bettery.funds';
-const baseGenesisState = { mintBetCount: 0 };
+const baseGenesisState = { swipeBetCount: 0, mintBetCount: 0 };
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
+        for (const v of message.swipeBetList) {
+            SwipeBet.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        if (message.swipeBetCount !== 0) {
+            writer.uint32(32).uint64(message.swipeBetCount);
+        }
         for (const v of message.mintBetList) {
             MintBet.encode(v, writer.uint32(10).fork()).ldelim();
         }
@@ -18,10 +25,17 @@ export const GenesisState = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGenesisState };
+        message.swipeBetList = [];
         message.mintBetList = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 3:
+                    message.swipeBetList.push(SwipeBet.decode(reader, reader.uint32()));
+                    break;
+                case 4:
+                    message.swipeBetCount = longToNumber(reader.uint64());
+                    break;
                 case 1:
                     message.mintBetList.push(MintBet.decode(reader, reader.uint32()));
                     break;
@@ -37,7 +51,19 @@ export const GenesisState = {
     },
     fromJSON(object) {
         const message = { ...baseGenesisState };
+        message.swipeBetList = [];
         message.mintBetList = [];
+        if (object.swipeBetList !== undefined && object.swipeBetList !== null) {
+            for (const e of object.swipeBetList) {
+                message.swipeBetList.push(SwipeBet.fromJSON(e));
+            }
+        }
+        if (object.swipeBetCount !== undefined && object.swipeBetCount !== null) {
+            message.swipeBetCount = Number(object.swipeBetCount);
+        }
+        else {
+            message.swipeBetCount = 0;
+        }
         if (object.mintBetList !== undefined && object.mintBetList !== null) {
             for (const e of object.mintBetList) {
                 message.mintBetList.push(MintBet.fromJSON(e));
@@ -53,6 +79,13 @@ export const GenesisState = {
     },
     toJSON(message) {
         const obj = {};
+        if (message.swipeBetList) {
+            obj.swipeBetList = message.swipeBetList.map((e) => (e ? SwipeBet.toJSON(e) : undefined));
+        }
+        else {
+            obj.swipeBetList = [];
+        }
+        message.swipeBetCount !== undefined && (obj.swipeBetCount = message.swipeBetCount);
         if (message.mintBetList) {
             obj.mintBetList = message.mintBetList.map((e) => (e ? MintBet.toJSON(e) : undefined));
         }
@@ -64,7 +97,19 @@ export const GenesisState = {
     },
     fromPartial(object) {
         const message = { ...baseGenesisState };
+        message.swipeBetList = [];
         message.mintBetList = [];
+        if (object.swipeBetList !== undefined && object.swipeBetList !== null) {
+            for (const e of object.swipeBetList) {
+                message.swipeBetList.push(SwipeBet.fromPartial(e));
+            }
+        }
+        if (object.swipeBetCount !== undefined && object.swipeBetCount !== null) {
+            message.swipeBetCount = object.swipeBetCount;
+        }
+        else {
+            message.swipeBetCount = 0;
+        }
         if (object.mintBetList !== undefined && object.mintBetList !== null) {
             for (const e of object.mintBetList) {
                 message.mintBetList.push(MintBet.fromPartial(e));

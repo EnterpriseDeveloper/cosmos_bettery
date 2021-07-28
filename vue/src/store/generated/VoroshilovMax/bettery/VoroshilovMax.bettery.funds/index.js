@@ -2,7 +2,8 @@ import { txClient, queryClient, MissingWalletError } from './module';
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex';
 import { MintBet } from "./module/types/funds/mint_bet";
-export { MintBet };
+import { SwipeBet } from "./module/types/funds/swipe_bet";
+export { MintBet, SwipeBet };
 async function initTxClient(vuexGetters) {
     return await txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
@@ -36,10 +37,13 @@ function getStructure(template) {
 }
 const getDefaultState = () => {
     return {
+        SwipeBet: {},
+        SwipeBetAll: {},
         MintBet: {},
         MintBetAll: {},
         _Structure: {
             MintBet: getStructure(MintBet.fromPartial({})),
+            SwipeBet: getStructure(SwipeBet.fromPartial({})),
         },
         _Subscriptions: new Set(),
     };
@@ -64,6 +68,18 @@ export default {
         }
     },
     getters: {
+        getSwipeBet: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.SwipeBet[JSON.stringify(params)] ?? {};
+        },
+        getSwipeBetAll: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.SwipeBetAll[JSON.stringify(params)] ?? {};
+        },
         getMintBet: (state) => (params = { params: {} }) => {
             if (!params.query) {
                 params.query = null;
@@ -105,6 +121,36 @@ export default {
                 }
             });
         },
+        async QuerySwipeBet({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
+            try {
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.querySwipeBet(key.id)).data;
+                commit('QUERY', { query: 'SwipeBet', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QuerySwipeBet', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getSwipeBet']({ params: { ...key }, query }) ?? {};
+            }
+            catch (e) {
+                throw new SpVuexError('QueryClient:QuerySwipeBet', 'API Node Unavailable. Could not perform query: ' + e.message);
+            }
+        },
+        async QuerySwipeBetAll({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
+            try {
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.querySwipeBetAll(query)).data;
+                while (all && value.pagination && value.pagination.nextKey != null) {
+                    let next_values = (await queryClient.querySwipeBetAll({ ...query, 'pagination.key': value.pagination.nextKey })).data;
+                    value = mergeResults(value, next_values);
+                }
+                commit('QUERY', { query: 'SwipeBetAll', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QuerySwipeBetAll', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getSwipeBetAll']({ params: { ...key }, query }) ?? {};
+            }
+            catch (e) {
+                throw new SpVuexError('QueryClient:QuerySwipeBetAll', 'API Node Unavailable. Could not perform query: ' + e.message);
+            }
+        },
         async QueryMintBet({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
             try {
                 const queryClient = await initQueryClient(rootGetters);
@@ -135,6 +181,40 @@ export default {
                 throw new SpVuexError('QueryClient:QueryMintBetAll', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
+        async sendMsgCreateSwipeBet({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreateSwipeBet(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgCreateSwipeBet:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreateSwipeBet:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgDeleteSwipeBet({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgDeleteSwipeBet(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgDeleteSwipeBet:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgDeleteSwipeBet:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
         async sendMsgCreateMintBet({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -152,6 +232,53 @@ export default {
                 }
             }
         },
+        async sendMsgUpdateSwipeBet({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgUpdateSwipeBet(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgUpdateSwipeBet:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgUpdateSwipeBet:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async MsgCreateSwipeBet({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreateSwipeBet(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgCreateSwipeBet:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreateSwipeBet:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgDeleteSwipeBet({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgDeleteSwipeBet(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgDeleteSwipeBet:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgDeleteSwipeBet:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
         async MsgCreateMintBet({ rootGetters }, { value }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -164,6 +291,21 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgCreateMintBet:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgUpdateSwipeBet({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgUpdateSwipeBet(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgUpdateSwipeBet:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgUpdateSwipeBet:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

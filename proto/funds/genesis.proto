@@ -2,6 +2,7 @@ syntax = "proto3";
 package VoroshilovMax.bettery.funds;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "funds/swipe_bet.proto";
 import "funds/mint_bet.proto";
 
 option go_package = "github.com/VoroshilovMax/bettery/x/funds/types";
@@ -9,6 +10,8 @@ option go_package = "github.com/VoroshilovMax/bettery/x/funds/types";
 // GenesisState defines the funds module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated SwipeBet swipeBetList = 3; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 swipeBetCount = 4; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated MintBet mintBetList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
 		uint64 mintBetCount = 2; // this line is used by starport scaffolding # genesis/proto/stateField
     // this line is used by starport scaffolding # ibc/genesis/proto

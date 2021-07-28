@@ -1,9 +1,14 @@
 import { Writer, Reader } from 'protobufjs/minimal';
+import { SwipeBet } from '../funds/swipe_bet';
 import { MintBet } from '../funds/mint_bet';
 export declare const protobufPackage = "VoroshilovMax.bettery.funds";
 /** GenesisState defines the funds module's genesis state. */
 export interface GenesisState {
     /** this line is used by starport scaffolding # genesis/proto/state */
+    swipeBetList: SwipeBet[];
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
+    swipeBetCount: number;
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
     mintBetList: MintBet[];
     /** this line is used by starport scaffolding # genesis/proto/stateField */
     mintBetCount: number;

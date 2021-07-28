@@ -9,12 +9,21 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	// this line is used by starport scaffolding # 2
+	cdc.RegisterConcrete(&MsgCreateSwipeBet{}, "funds/CreateSwipeBet", nil)
+	cdc.RegisterConcrete(&MsgUpdateSwipeBet{}, "funds/UpdateSwipeBet", nil)
+	cdc.RegisterConcrete(&MsgDeleteSwipeBet{}, "funds/DeleteSwipeBet", nil)
+
 	cdc.RegisterConcrete(&MsgCreateMintBet{}, "funds/CreateMintBet", nil)
 
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	// this line is used by starport scaffolding # 3
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateSwipeBet{},
+		&MsgUpdateSwipeBet{},
+		&MsgDeleteSwipeBet{},
+	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateMintBet{},
 	)

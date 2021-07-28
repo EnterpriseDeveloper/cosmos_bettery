@@ -1,8 +1,22 @@
 import { Reader, Writer } from 'protobufjs/minimal';
-import { MintBet } from '../funds/mint_bet';
+import { SwipeBet } from '../funds/swipe_bet';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { MintBet } from '../funds/mint_bet';
 export declare const protobufPackage = "VoroshilovMax.bettery.funds";
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetSwipeBetRequest {
+    id: number;
+}
+export interface QueryGetSwipeBetResponse {
+    SwipeBet: SwipeBet | undefined;
+}
+export interface QueryAllSwipeBetRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllSwipeBetResponse {
+    SwipeBet: SwipeBet[];
+    pagination: PageResponse | undefined;
+}
 export interface QueryGetMintBetRequest {
     id: number;
 }
@@ -16,6 +30,34 @@ export interface QueryAllMintBetResponse {
     MintBet: MintBet[];
     pagination: PageResponse | undefined;
 }
+export declare const QueryGetSwipeBetRequest: {
+    encode(message: QueryGetSwipeBetRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetSwipeBetRequest;
+    fromJSON(object: any): QueryGetSwipeBetRequest;
+    toJSON(message: QueryGetSwipeBetRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetSwipeBetRequest>): QueryGetSwipeBetRequest;
+};
+export declare const QueryGetSwipeBetResponse: {
+    encode(message: QueryGetSwipeBetResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetSwipeBetResponse;
+    fromJSON(object: any): QueryGetSwipeBetResponse;
+    toJSON(message: QueryGetSwipeBetResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetSwipeBetResponse>): QueryGetSwipeBetResponse;
+};
+export declare const QueryAllSwipeBetRequest: {
+    encode(message: QueryAllSwipeBetRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllSwipeBetRequest;
+    fromJSON(object: any): QueryAllSwipeBetRequest;
+    toJSON(message: QueryAllSwipeBetRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllSwipeBetRequest>): QueryAllSwipeBetRequest;
+};
+export declare const QueryAllSwipeBetResponse: {
+    encode(message: QueryAllSwipeBetResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllSwipeBetResponse;
+    fromJSON(object: any): QueryAllSwipeBetResponse;
+    toJSON(message: QueryAllSwipeBetResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllSwipeBetResponse>): QueryAllSwipeBetResponse;
+};
 export declare const QueryGetMintBetRequest: {
     encode(message: QueryGetMintBetRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryGetMintBetRequest;
@@ -46,6 +88,10 @@ export declare const QueryAllMintBetResponse: {
 };
 /** Query defines the gRPC querier service. */
 export interface Query {
+    /** Queries a swipeBet by id. */
+    SwipeBet(request: QueryGetSwipeBetRequest): Promise<QueryGetSwipeBetResponse>;
+    /** Queries a list of swipeBet items. */
+    SwipeBetAll(request: QueryAllSwipeBetRequest): Promise<QueryAllSwipeBetResponse>;
     /** Queries a mintBet by id. */
     MintBet(request: QueryGetMintBetRequest): Promise<QueryGetMintBetResponse>;
     /** Queries a list of mintBet items. */
@@ -54,6 +100,8 @@ export interface Query {
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
+    SwipeBet(request: QueryGetSwipeBetRequest): Promise<QueryGetSwipeBetResponse>;
+    SwipeBetAll(request: QueryAllSwipeBetRequest): Promise<QueryAllSwipeBetResponse>;
     MintBet(request: QueryGetMintBetRequest): Promise<QueryGetMintBetResponse>;
     MintBetAll(request: QueryAllMintBetRequest): Promise<QueryAllMintBetResponse>;
 }

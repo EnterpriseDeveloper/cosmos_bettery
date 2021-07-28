@@ -4,6 +4,7 @@ package VoroshilovMax.bettery.funds;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "funds/swipe_bet.proto";
 import "funds/mint_bet.proto";
 
 option go_package = "github.com/VoroshilovMax/bettery/x/funds/types";
@@ -11,6 +12,17 @@ option go_package = "github.com/VoroshilovMax/bettery/x/funds/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a swipeBet by id.
+	rpc SwipeBet(QueryGetSwipeBetRequest) returns (QueryGetSwipeBetResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/funds/swipeBet/{id}";
+	}
+
+	// Queries a list of swipeBet items.
+	rpc SwipeBetAll(QueryAllSwipeBetRequest) returns (QueryAllSwipeBetResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/funds/swipeBet";
+	}
+
 
 	// Queries a mintBet by id.
 	rpc MintBet(QueryGetMintBetRequest) returns (QueryGetMintBetResponse) {
@@ -25,6 +37,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetSwipeBetRequest {
+	uint64 id = 1;
+}
+
+message QueryGetSwipeBetResponse {
+	SwipeBet SwipeBet = 1;
+}
+
+message QueryAllSwipeBetRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSwipeBetResponse {
+	repeated SwipeBet SwipeBet = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetMintBetRequest {
 	uint64 id = 1;
 }

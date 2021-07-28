@@ -28,6 +28,302 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // this line is used by starport scaffolding # proto/tx/message
+type MsgCreateSwipeBet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Amount  string `protobuf:"bytes,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	UserId  string `protobuf:"bytes,3,opt,name=userId,proto3" json:"userId,omitempty"`
+}
+
+func (m *MsgCreateSwipeBet) Reset()         { *m = MsgCreateSwipeBet{} }
+func (m *MsgCreateSwipeBet) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateSwipeBet) ProtoMessage()    {}
+func (*MsgCreateSwipeBet) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fb52ceeb6acd4c41, []int{0}
+}
+func (m *MsgCreateSwipeBet) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreateSwipeBet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreateSwipeBet.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreateSwipeBet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateSwipeBet.Merge(m, src)
+}
+func (m *MsgCreateSwipeBet) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreateSwipeBet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateSwipeBet.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreateSwipeBet proto.InternalMessageInfo
+
+func (m *MsgCreateSwipeBet) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgCreateSwipeBet) GetAmount() string {
+	if m != nil {
+		return m.Amount
+	}
+	return ""
+}
+
+func (m *MsgCreateSwipeBet) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+type MsgCreateSwipeBetResponse struct {
+	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *MsgCreateSwipeBetResponse) Reset()         { *m = MsgCreateSwipeBetResponse{} }
+func (m *MsgCreateSwipeBetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateSwipeBetResponse) ProtoMessage()    {}
+func (*MsgCreateSwipeBetResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fb52ceeb6acd4c41, []int{1}
+}
+func (m *MsgCreateSwipeBetResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreateSwipeBetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreateSwipeBetResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreateSwipeBetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateSwipeBetResponse.Merge(m, src)
+}
+func (m *MsgCreateSwipeBetResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreateSwipeBetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateSwipeBetResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreateSwipeBetResponse proto.InternalMessageInfo
+
+func (m *MsgCreateSwipeBetResponse) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type MsgUpdateSwipeBet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	Amount  string `protobuf:"bytes,3,opt,name=amount,proto3" json:"amount,omitempty"`
+	UserId  string `protobuf:"bytes,4,opt,name=userId,proto3" json:"userId,omitempty"`
+}
+
+func (m *MsgUpdateSwipeBet) Reset()         { *m = MsgUpdateSwipeBet{} }
+func (m *MsgUpdateSwipeBet) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateSwipeBet) ProtoMessage()    {}
+func (*MsgUpdateSwipeBet) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fb52ceeb6acd4c41, []int{2}
+}
+func (m *MsgUpdateSwipeBet) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUpdateSwipeBet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUpdateSwipeBet.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUpdateSwipeBet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateSwipeBet.Merge(m, src)
+}
+func (m *MsgUpdateSwipeBet) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUpdateSwipeBet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateSwipeBet.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUpdateSwipeBet proto.InternalMessageInfo
+
+func (m *MsgUpdateSwipeBet) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgUpdateSwipeBet) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+func (m *MsgUpdateSwipeBet) GetAmount() string {
+	if m != nil {
+		return m.Amount
+	}
+	return ""
+}
+
+func (m *MsgUpdateSwipeBet) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+type MsgUpdateSwipeBetResponse struct {
+}
+
+func (m *MsgUpdateSwipeBetResponse) Reset()         { *m = MsgUpdateSwipeBetResponse{} }
+func (m *MsgUpdateSwipeBetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateSwipeBetResponse) ProtoMessage()    {}
+func (*MsgUpdateSwipeBetResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fb52ceeb6acd4c41, []int{3}
+}
+func (m *MsgUpdateSwipeBetResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUpdateSwipeBetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUpdateSwipeBetResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUpdateSwipeBetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateSwipeBetResponse.Merge(m, src)
+}
+func (m *MsgUpdateSwipeBetResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUpdateSwipeBetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateSwipeBetResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUpdateSwipeBetResponse proto.InternalMessageInfo
+
+type MsgDeleteSwipeBet struct {
+	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (m *MsgDeleteSwipeBet) Reset()         { *m = MsgDeleteSwipeBet{} }
+func (m *MsgDeleteSwipeBet) String() string { return proto.CompactTextString(m) }
+func (*MsgDeleteSwipeBet) ProtoMessage()    {}
+func (*MsgDeleteSwipeBet) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fb52ceeb6acd4c41, []int{4}
+}
+func (m *MsgDeleteSwipeBet) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgDeleteSwipeBet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgDeleteSwipeBet.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgDeleteSwipeBet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgDeleteSwipeBet.Merge(m, src)
+}
+func (m *MsgDeleteSwipeBet) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgDeleteSwipeBet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgDeleteSwipeBet.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgDeleteSwipeBet proto.InternalMessageInfo
+
+func (m *MsgDeleteSwipeBet) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgDeleteSwipeBet) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
+type MsgDeleteSwipeBetResponse struct {
+}
+
+func (m *MsgDeleteSwipeBetResponse) Reset()         { *m = MsgDeleteSwipeBetResponse{} }
+func (m *MsgDeleteSwipeBetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgDeleteSwipeBetResponse) ProtoMessage()    {}
+func (*MsgDeleteSwipeBetResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_fb52ceeb6acd4c41, []int{5}
+}
+func (m *MsgDeleteSwipeBetResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgDeleteSwipeBetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgDeleteSwipeBetResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgDeleteSwipeBetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgDeleteSwipeBetResponse.Merge(m, src)
+}
+func (m *MsgDeleteSwipeBetResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgDeleteSwipeBetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgDeleteSwipeBetResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgDeleteSwipeBetResponse proto.InternalMessageInfo
+
 type MsgCreateMintBet struct {
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
 	Amount  int64  `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
@@ -38,7 +334,7 @@ func (m *MsgCreateMintBet) Reset()         { *m = MsgCreateMintBet{} }
 func (m *MsgCreateMintBet) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateMintBet) ProtoMessage()    {}
 func (*MsgCreateMintBet) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fb52ceeb6acd4c41, []int{0}
+	return fileDescriptor_fb52ceeb6acd4c41, []int{6}
 }
 func (m *MsgCreateMintBet) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -96,7 +392,7 @@ func (m *MsgCreateMintBetResponse) Reset()         { *m = MsgCreateMintBetRespon
 func (m *MsgCreateMintBetResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgCreateMintBetResponse) ProtoMessage()    {}
 func (*MsgCreateMintBetResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_fb52ceeb6acd4c41, []int{1}
+	return fileDescriptor_fb52ceeb6acd4c41, []int{7}
 }
 func (m *MsgCreateMintBetResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -133,6 +429,12 @@ func (m *MsgCreateMintBetResponse) GetId() uint64 {
 }
 
 func init() {
+	proto.RegisterType((*MsgCreateSwipeBet)(nil), "VoroshilovMax.bettery.funds.MsgCreateSwipeBet")
+	proto.RegisterType((*MsgCreateSwipeBetResponse)(nil), "VoroshilovMax.bettery.funds.MsgCreateSwipeBetResponse")
+	proto.RegisterType((*MsgUpdateSwipeBet)(nil), "VoroshilovMax.bettery.funds.MsgUpdateSwipeBet")
+	proto.RegisterType((*MsgUpdateSwipeBetResponse)(nil), "VoroshilovMax.bettery.funds.MsgUpdateSwipeBetResponse")
+	proto.RegisterType((*MsgDeleteSwipeBet)(nil), "VoroshilovMax.bettery.funds.MsgDeleteSwipeBet")
+	proto.RegisterType((*MsgDeleteSwipeBetResponse)(nil), "VoroshilovMax.bettery.funds.MsgDeleteSwipeBetResponse")
 	proto.RegisterType((*MsgCreateMintBet)(nil), "VoroshilovMax.bettery.funds.MsgCreateMintBet")
 	proto.RegisterType((*MsgCreateMintBetResponse)(nil), "VoroshilovMax.bettery.funds.MsgCreateMintBetResponse")
 }
@@ -140,24 +442,32 @@ func init() {
 func init() { proto.RegisterFile("funds/tx.proto", fileDescriptor_fb52ceeb6acd4c41) }
 
 var fileDescriptor_fb52ceeb6acd4c41 = []byte{
-	// 266 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4b, 0x2b, 0xcd, 0x4b,
-	0x29, 0xd6, 0x2f, 0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x92, 0x0e, 0xcb, 0x2f, 0xca,
-	0x2f, 0xce, 0xc8, 0xcc, 0xc9, 0x2f, 0xf3, 0x4d, 0xac, 0xd0, 0x4b, 0x4a, 0x2d, 0x29, 0x49, 0x2d,
-	0xaa, 0xd4, 0x03, 0xab, 0x92, 0x12, 0x81, 0x28, 0xce, 0xcd, 0xcc, 0x2b, 0x89, 0x4f, 0x4a, 0x2d,
-	0x81, 0x68, 0x51, 0x8a, 0xe1, 0x12, 0xf0, 0x2d, 0x4e, 0x77, 0x2e, 0x4a, 0x4d, 0x2c, 0x49, 0xf5,
-	0xcd, 0xcc, 0x2b, 0x71, 0x4a, 0x2d, 0x11, 0x92, 0xe0, 0x62, 0x4f, 0x06, 0x09, 0xe4, 0x17, 0x49,
-	0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06, 0xc1, 0xb8, 0x42, 0x62, 0x5c, 0x6c, 0x89, 0xb9, 0xf9, 0xa5,
-	0x79, 0x25, 0x12, 0x4c, 0x0a, 0x8c, 0x1a, 0xcc, 0x41, 0x50, 0x1e, 0x48, 0xbc, 0xb4, 0x38, 0xb5,
-	0xc8, 0x33, 0x45, 0x82, 0x19, 0x22, 0x0e, 0xe1, 0x29, 0x69, 0x71, 0x49, 0xa0, 0x9b, 0x1e, 0x94,
-	0x5a, 0x5c, 0x90, 0x9f, 0x57, 0x9c, 0x2a, 0xc4, 0xc7, 0xc5, 0x94, 0x99, 0x02, 0xb6, 0x80, 0x25,
-	0x88, 0x29, 0x33, 0xc5, 0xa8, 0x86, 0x8b, 0xd9, 0xb7, 0x38, 0x5d, 0xa8, 0x94, 0x8b, 0x17, 0xd5,
-	0x35, 0xba, 0x7a, 0x78, 0x7c, 0xa5, 0x87, 0x6e, 0xbc, 0x94, 0x29, 0x49, 0xca, 0x61, 0xae, 0x71,
-	0xf2, 0x38, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07, 0x8f, 0xe4, 0x18, 0x27, 0x3c,
-	0x96, 0x63, 0xb8, 0xf0, 0x58, 0x8e, 0xe1, 0xc6, 0x63, 0x39, 0x86, 0x28, 0xbd, 0xf4, 0xcc, 0x92,
-	0x8c, 0xd2, 0x24, 0xbd, 0xe4, 0xfc, 0x5c, 0x7d, 0x14, 0xa3, 0xf5, 0xa1, 0x46, 0xeb, 0x57, 0xe8,
-	0x43, 0xe3, 0xa1, 0xb2, 0x20, 0xb5, 0x38, 0x89, 0x0d, 0x1c, 0xb0, 0xc6, 0x80, 0x00, 0x00, 0x00,
-	0xff, 0xff, 0x6e, 0x1c, 0x3d, 0x6a, 0x9d, 0x01, 0x00, 0x00,
+	// 397 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0x4f, 0x4b, 0xe3, 0x40,
+	0x1c, 0x6d, 0x92, 0xd2, 0x65, 0x07, 0x36, 0xec, 0x86, 0x55, 0x62, 0x0a, 0x41, 0x72, 0x12, 0xc5,
+	0x09, 0x28, 0x7a, 0xf3, 0x52, 0x3d, 0xe8, 0x21, 0x97, 0x8a, 0x1e, 0x44, 0x91, 0xa6, 0x19, 0xdb,
+	0x81, 0x26, 0x13, 0x32, 0x13, 0x4d, 0xbf, 0x85, 0x1f, 0xcb, 0x63, 0x8f, 0x1e, 0xa5, 0xbd, 0xf9,
+	0x29, 0x24, 0x93, 0x3f, 0x3a, 0x69, 0x6b, 0x5a, 0x8f, 0xf3, 0xcb, 0xfb, 0xbd, 0xf7, 0xf2, 0xde,
+	0x30, 0x40, 0x7d, 0x88, 0x03, 0x8f, 0xda, 0x2c, 0x81, 0x61, 0x44, 0x18, 0xd1, 0xda, 0xd7, 0x24,
+	0x22, 0x74, 0x88, 0x47, 0xe4, 0xd1, 0xe9, 0x25, 0xd0, 0x45, 0x8c, 0xa1, 0x68, 0x0c, 0x39, 0xca,
+	0xd8, 0xc8, 0xc0, 0xf4, 0x09, 0x87, 0xe8, 0xde, 0x45, 0x2c, 0xdb, 0x31, 0xfe, 0x67, 0x63, 0x1f,
+	0x07, 0xec, 0x73, 0x6a, 0xdd, 0x81, 0x7f, 0x0e, 0x1d, 0x9c, 0x46, 0xa8, 0xc7, 0xd0, 0x65, 0xba,
+	0xd1, 0x41, 0x4c, 0xd3, 0xc1, 0xaf, 0x7e, 0x3a, 0x21, 0x91, 0x2e, 0x6d, 0x4b, 0x3b, 0xbf, 0xbb,
+	0xc5, 0x51, 0xdb, 0x04, 0xad, 0x9e, 0x4f, 0xe2, 0x80, 0xe9, 0x32, 0xff, 0x90, 0x9f, 0xd2, 0x79,
+	0x4c, 0x51, 0x74, 0xe1, 0xe9, 0x4a, 0x36, 0xcf, 0x4e, 0xd6, 0x1e, 0xd8, 0x9a, 0xa3, 0xef, 0x22,
+	0x1a, 0x92, 0x80, 0x22, 0x4d, 0x05, 0x32, 0xf6, 0xb8, 0x42, 0xb3, 0x2b, 0x63, 0xcf, 0xf2, 0xb9,
+	0x97, 0xab, 0xd0, 0x5b, 0xcd, 0x4b, 0xb6, 0x2e, 0x17, 0xeb, 0x5f, 0xbc, 0x29, 0x4b, 0xbc, 0x35,
+	0x05, 0x6f, 0x6d, 0xee, 0x4d, 0x94, 0x2b, 0xbc, 0x59, 0x27, 0xdc, 0xcb, 0x19, 0x1a, 0xa1, 0x9f,
+	0x78, 0xc9, 0xb9, 0xc5, 0xf5, 0x92, 0xfb, 0x16, 0xfc, 0x2d, 0x43, 0x71, 0x70, 0xc0, 0xd6, 0x89,
+	0x5c, 0x59, 0x12, 0xb9, 0x52, 0xfe, 0xd6, 0x2e, 0xd0, 0xab, 0xec, 0xcb, 0x12, 0x3f, 0x78, 0x57,
+	0x80, 0xe2, 0xd0, 0x81, 0x96, 0x00, 0xb5, 0x72, 0x05, 0x20, 0xfc, 0xe6, 0x8a, 0xc1, 0xb9, 0x4e,
+	0x8d, 0xe3, 0xf5, 0xf0, 0xa5, 0xa3, 0x04, 0xa8, 0x95, 0xc2, 0x6b, 0x95, 0x45, 0x7c, 0xbd, 0xf2,
+	0xe2, 0x86, 0x53, 0xe5, 0x4a, 0xbd, 0xb5, 0xca, 0x22, 0xbe, 0x5e, 0x79, 0x71, 0xff, 0x5a, 0x0c,
+	0xfe, 0x88, 0xe5, 0xef, 0xaf, 0x16, 0x5e, 0x0e, 0x37, 0x8e, 0xd6, 0x82, 0x17, 0xb2, 0x9d, 0xf3,
+	0x97, 0xa9, 0x29, 0x4d, 0xa6, 0xa6, 0xf4, 0x36, 0x35, 0xa5, 0xe7, 0x99, 0xd9, 0x98, 0xcc, 0xcc,
+	0xc6, 0xeb, 0xcc, 0x6c, 0xdc, 0xc0, 0x01, 0x66, 0xc3, 0xd8, 0x85, 0x7d, 0xe2, 0xdb, 0x02, 0xb5,
+	0x9d, 0x53, 0xdb, 0x89, 0x9d, 0xbf, 0x40, 0xe3, 0x10, 0x51, 0xb7, 0xc5, 0xdf, 0x8e, 0xc3, 0x8f,
+	0x00, 0x00, 0x00, 0xff, 0xff, 0x3a, 0x5f, 0x42, 0xca, 0x97, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -173,6 +483,9 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
 	// this line is used by starport scaffolding # proto/tx/rpc
+	CreateSwipeBet(ctx context.Context, in *MsgCreateSwipeBet, opts ...grpc.CallOption) (*MsgCreateSwipeBetResponse, error)
+	UpdateSwipeBet(ctx context.Context, in *MsgUpdateSwipeBet, opts ...grpc.CallOption) (*MsgUpdateSwipeBetResponse, error)
+	DeleteSwipeBet(ctx context.Context, in *MsgDeleteSwipeBet, opts ...grpc.CallOption) (*MsgDeleteSwipeBetResponse, error)
 	CreateMintBet(ctx context.Context, in *MsgCreateMintBet, opts ...grpc.CallOption) (*MsgCreateMintBetResponse, error)
 }
 
@@ -182,6 +495,33 @@ type msgClient struct {
 
 func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
+}
+
+func (c *msgClient) CreateSwipeBet(ctx context.Context, in *MsgCreateSwipeBet, opts ...grpc.CallOption) (*MsgCreateSwipeBetResponse, error) {
+	out := new(MsgCreateSwipeBetResponse)
+	err := c.cc.Invoke(ctx, "/VoroshilovMax.bettery.funds.Msg/CreateSwipeBet", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdateSwipeBet(ctx context.Context, in *MsgUpdateSwipeBet, opts ...grpc.CallOption) (*MsgUpdateSwipeBetResponse, error) {
+	out := new(MsgUpdateSwipeBetResponse)
+	err := c.cc.Invoke(ctx, "/VoroshilovMax.bettery.funds.Msg/UpdateSwipeBet", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) DeleteSwipeBet(ctx context.Context, in *MsgDeleteSwipeBet, opts ...grpc.CallOption) (*MsgDeleteSwipeBetResponse, error) {
+	out := new(MsgDeleteSwipeBetResponse)
+	err := c.cc.Invoke(ctx, "/VoroshilovMax.bettery.funds.Msg/DeleteSwipeBet", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *msgClient) CreateMintBet(ctx context.Context, in *MsgCreateMintBet, opts ...grpc.CallOption) (*MsgCreateMintBetResponse, error) {
@@ -196,6 +536,9 @@ func (c *msgClient) CreateMintBet(ctx context.Context, in *MsgCreateMintBet, opt
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// this line is used by starport scaffolding # proto/tx/rpc
+	CreateSwipeBet(context.Context, *MsgCreateSwipeBet) (*MsgCreateSwipeBetResponse, error)
+	UpdateSwipeBet(context.Context, *MsgUpdateSwipeBet) (*MsgUpdateSwipeBetResponse, error)
+	DeleteSwipeBet(context.Context, *MsgDeleteSwipeBet) (*MsgDeleteSwipeBetResponse, error)
 	CreateMintBet(context.Context, *MsgCreateMintBet) (*MsgCreateMintBetResponse, error)
 }
 
@@ -203,12 +546,75 @@ type MsgServer interface {
 type UnimplementedMsgServer struct {
 }
 
+func (*UnimplementedMsgServer) CreateSwipeBet(ctx context.Context, req *MsgCreateSwipeBet) (*MsgCreateSwipeBetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateSwipeBet not implemented")
+}
+func (*UnimplementedMsgServer) UpdateSwipeBet(ctx context.Context, req *MsgUpdateSwipeBet) (*MsgUpdateSwipeBetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateSwipeBet not implemented")
+}
+func (*UnimplementedMsgServer) DeleteSwipeBet(ctx context.Context, req *MsgDeleteSwipeBet) (*MsgDeleteSwipeBetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteSwipeBet not implemented")
+}
 func (*UnimplementedMsgServer) CreateMintBet(ctx context.Context, req *MsgCreateMintBet) (*MsgCreateMintBetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateMintBet not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
+}
+
+func _Msg_CreateSwipeBet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreateSwipeBet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreateSwipeBet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VoroshilovMax.bettery.funds.Msg/CreateSwipeBet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreateSwipeBet(ctx, req.(*MsgCreateSwipeBet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdateSwipeBet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateSwipeBet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdateSwipeBet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VoroshilovMax.bettery.funds.Msg/UpdateSwipeBet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdateSwipeBet(ctx, req.(*MsgUpdateSwipeBet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_DeleteSwipeBet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDeleteSwipeBet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).DeleteSwipeBet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/VoroshilovMax.bettery.funds.Msg/DeleteSwipeBet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).DeleteSwipeBet(ctx, req.(*MsgDeleteSwipeBet))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Msg_CreateMintBet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -234,12 +640,226 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "CreateSwipeBet",
+			Handler:    _Msg_CreateSwipeBet_Handler,
+		},
+		{
+			MethodName: "UpdateSwipeBet",
+			Handler:    _Msg_UpdateSwipeBet_Handler,
+		},
+		{
+			MethodName: "DeleteSwipeBet",
+			Handler:    _Msg_DeleteSwipeBet_Handler,
+		},
+		{
 			MethodName: "CreateMintBet",
 			Handler:    _Msg_CreateMintBet_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "funds/tx.proto",
+}
+
+func (m *MsgCreateSwipeBet) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreateSwipeBet) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreateSwipeBet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.UserId) > 0 {
+		i -= len(m.UserId)
+		copy(dAtA[i:], m.UserId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.UserId)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Amount) > 0 {
+		i -= len(m.Amount)
+		copy(dAtA[i:], m.Amount)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Amount)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgCreateSwipeBetResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreateSwipeBetResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreateSwipeBetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdateSwipeBet) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdateSwipeBet) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdateSwipeBet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.UserId) > 0 {
+		i -= len(m.UserId)
+		copy(dAtA[i:], m.UserId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.UserId)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.Amount) > 0 {
+		i -= len(m.Amount)
+		copy(dAtA[i:], m.Amount)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Amount)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdateSwipeBetResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdateSwipeBetResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdateSwipeBetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgDeleteSwipeBet) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgDeleteSwipeBet) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgDeleteSwipeBet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Id != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.Id))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgDeleteSwipeBetResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgDeleteSwipeBetResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgDeleteSwipeBetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
 }
 
 func (m *MsgCreateMintBet) Marshal() (dAtA []byte, err error) {
@@ -321,6 +941,97 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *MsgCreateSwipeBet) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Amount)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.UserId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgCreateSwipeBetResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *MsgUpdateSwipeBet) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	l = len(m.Amount)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.UserId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgUpdateSwipeBetResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgDeleteSwipeBet) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.Id != 0 {
+		n += 1 + sovTx(uint64(m.Id))
+	}
+	return n
+}
+
+func (m *MsgDeleteSwipeBetResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
 func (m *MsgCreateMintBet) Size() (n int) {
 	if m == nil {
 		return 0
@@ -357,6 +1068,587 @@ func sovTx(x uint64) (n int) {
 }
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *MsgCreateSwipeBet) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreateSwipeBet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreateSwipeBet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Amount = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreateSwipeBetResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreateSwipeBetResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreateSwipeBetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdateSwipeBet) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdateSwipeBet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdateSwipeBet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Amount = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdateSwipeBetResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdateSwipeBetResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdateSwipeBetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgDeleteSwipeBet) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgDeleteSwipeBet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgDeleteSwipeBet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			m.Id = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Id |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgDeleteSwipeBetResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgDeleteSwipeBetResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgDeleteSwipeBetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *MsgCreateMintBet) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)

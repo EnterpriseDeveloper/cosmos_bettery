@@ -165,5 +165,34 @@ export class Api extends HttpClient {
             format: "json",
             ...params,
         });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QuerySwipeBetAll
+         * @summary Queries a list of swipeBet items.
+         * @request GET:/VoroshilovMax/bettery/funds/swipeBet
+         */
+        this.querySwipeBetAll = (query, params = {}) => this.request({
+            path: `/VoroshilovMax/bettery/funds/swipeBet`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QuerySwipeBet
+         * @summary Queries a swipeBet by id.
+         * @request GET:/VoroshilovMax/bettery/funds/swipeBet/{id}
+         */
+        this.querySwipeBet = (id, params = {}) => this.request({
+            path: `/VoroshilovMax/bettery/funds/swipeBet/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
     }
 }

@@ -1,12 +1,30 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal'
 import * as Long from 'long'
-import { MintBet } from '../funds/mint_bet'
+import { SwipeBet } from '../funds/swipe_bet'
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
+import { MintBet } from '../funds/mint_bet'
 
 export const protobufPackage = 'VoroshilovMax.bettery.funds'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetSwipeBetRequest {
+  id: number
+}
+
+export interface QueryGetSwipeBetResponse {
+  SwipeBet: SwipeBet | undefined
+}
+
+export interface QueryAllSwipeBetRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllSwipeBetResponse {
+  SwipeBet: SwipeBet[]
+  pagination: PageResponse | undefined
+}
+
 export interface QueryGetMintBetRequest {
   id: number
 }
@@ -22,6 +40,250 @@ export interface QueryAllMintBetRequest {
 export interface QueryAllMintBetResponse {
   MintBet: MintBet[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryGetSwipeBetRequest: object = { id: 0 }
+
+export const QueryGetSwipeBetRequest = {
+  encode(message: QueryGetSwipeBetRequest, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetSwipeBetRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetSwipeBetRequest } as QueryGetSwipeBetRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetSwipeBetRequest {
+    const message = { ...baseQueryGetSwipeBetRequest } as QueryGetSwipeBetRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetSwipeBetRequest): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetSwipeBetRequest>): QueryGetSwipeBetRequest {
+    const message = { ...baseQueryGetSwipeBetRequest } as QueryGetSwipeBetRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseQueryGetSwipeBetResponse: object = {}
+
+export const QueryGetSwipeBetResponse = {
+  encode(message: QueryGetSwipeBetResponse, writer: Writer = Writer.create()): Writer {
+    if (message.SwipeBet !== undefined) {
+      SwipeBet.encode(message.SwipeBet, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetSwipeBetResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetSwipeBetResponse } as QueryGetSwipeBetResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.SwipeBet = SwipeBet.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetSwipeBetResponse {
+    const message = { ...baseQueryGetSwipeBetResponse } as QueryGetSwipeBetResponse
+    if (object.SwipeBet !== undefined && object.SwipeBet !== null) {
+      message.SwipeBet = SwipeBet.fromJSON(object.SwipeBet)
+    } else {
+      message.SwipeBet = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetSwipeBetResponse): unknown {
+    const obj: any = {}
+    message.SwipeBet !== undefined && (obj.SwipeBet = message.SwipeBet ? SwipeBet.toJSON(message.SwipeBet) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetSwipeBetResponse>): QueryGetSwipeBetResponse {
+    const message = { ...baseQueryGetSwipeBetResponse } as QueryGetSwipeBetResponse
+    if (object.SwipeBet !== undefined && object.SwipeBet !== null) {
+      message.SwipeBet = SwipeBet.fromPartial(object.SwipeBet)
+    } else {
+      message.SwipeBet = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllSwipeBetRequest: object = {}
+
+export const QueryAllSwipeBetRequest = {
+  encode(message: QueryAllSwipeBetRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllSwipeBetRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllSwipeBetRequest } as QueryAllSwipeBetRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllSwipeBetRequest {
+    const message = { ...baseQueryAllSwipeBetRequest } as QueryAllSwipeBetRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllSwipeBetRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllSwipeBetRequest>): QueryAllSwipeBetRequest {
+    const message = { ...baseQueryAllSwipeBetRequest } as QueryAllSwipeBetRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllSwipeBetResponse: object = {}
+
+export const QueryAllSwipeBetResponse = {
+  encode(message: QueryAllSwipeBetResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.SwipeBet) {
+      SwipeBet.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllSwipeBetResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllSwipeBetResponse } as QueryAllSwipeBetResponse
+    message.SwipeBet = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.SwipeBet.push(SwipeBet.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllSwipeBetResponse {
+    const message = { ...baseQueryAllSwipeBetResponse } as QueryAllSwipeBetResponse
+    message.SwipeBet = []
+    if (object.SwipeBet !== undefined && object.SwipeBet !== null) {
+      for (const e of object.SwipeBet) {
+        message.SwipeBet.push(SwipeBet.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllSwipeBetResponse): unknown {
+    const obj: any = {}
+    if (message.SwipeBet) {
+      obj.SwipeBet = message.SwipeBet.map((e) => (e ? SwipeBet.toJSON(e) : undefined))
+    } else {
+      obj.SwipeBet = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllSwipeBetResponse>): QueryAllSwipeBetResponse {
+    const message = { ...baseQueryAllSwipeBetResponse } as QueryAllSwipeBetResponse
+    message.SwipeBet = []
+    if (object.SwipeBet !== undefined && object.SwipeBet !== null) {
+      for (const e of object.SwipeBet) {
+        message.SwipeBet.push(SwipeBet.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryGetMintBetRequest: object = { id: 0 }
@@ -270,6 +532,10 @@ export const QueryAllMintBetResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a swipeBet by id. */
+  SwipeBet(request: QueryGetSwipeBetRequest): Promise<QueryGetSwipeBetResponse>
+  /** Queries a list of swipeBet items. */
+  SwipeBetAll(request: QueryAllSwipeBetRequest): Promise<QueryAllSwipeBetResponse>
   /** Queries a mintBet by id. */
   MintBet(request: QueryGetMintBetRequest): Promise<QueryGetMintBetResponse>
   /** Queries a list of mintBet items. */
@@ -281,6 +547,18 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  SwipeBet(request: QueryGetSwipeBetRequest): Promise<QueryGetSwipeBetResponse> {
+    const data = QueryGetSwipeBetRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.funds.Query', 'SwipeBet', data)
+    return promise.then((data) => QueryGetSwipeBetResponse.decode(new Reader(data)))
+  }
+
+  SwipeBetAll(request: QueryAllSwipeBetRequest): Promise<QueryAllSwipeBetResponse> {
+    const data = QueryAllSwipeBetRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.funds.Query', 'SwipeBetAll', data)
+    return promise.then((data) => QueryAllSwipeBetResponse.decode(new Reader(data)))
+  }
+
   MintBet(request: QueryGetMintBetRequest): Promise<QueryGetMintBetResponse> {
     const data = QueryGetMintBetRequest.encode(request).finish()
     const promise = this.rpc.request('VoroshilovMax.bettery.funds.Query', 'MintBet', data)
