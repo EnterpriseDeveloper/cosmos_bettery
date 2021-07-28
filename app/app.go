@@ -85,6 +85,9 @@ import (
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
 	// this line is used by starport scaffolding # stargate/app/moduleImport
+	fundsmodule "github.com/VoroshilovMax/bettery/x/funds"
+	fundsmodulekeeper "github.com/VoroshilovMax/bettery/x/funds/keeper"
+	fundsmoduletypes "github.com/VoroshilovMax/bettery/x/funds/types"
 	privateeventsmodule "github.com/VoroshilovMax/bettery/x/privateevents"
 	privateeventsmodulekeeper "github.com/VoroshilovMax/bettery/x/privateevents/keeper"
 	privateeventsmoduletypes "github.com/VoroshilovMax/bettery/x/privateevents/types"
@@ -142,6 +145,7 @@ var (
 		transfer.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
+		fundsmodule.AppModuleBasic{},
 		publiceventsmodule.AppModuleBasic{},
 		privateeventsmodule.AppModuleBasic{},
 	)
@@ -212,6 +216,8 @@ type App struct {
 
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
+	FundsKeeper fundsmodulekeeper.Keeper
+
 	PubliceventsKeeper publiceventsmodulekeeper.Keeper
 
 	PrivateeventsKeeper privateeventsmodulekeeper.Keeper
@@ -249,6 +255,7 @@ func New(
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
+		fundsmoduletypes.StoreKey,
 		publiceventsmoduletypes.StoreKey,
 		privateeventsmoduletypes.StoreKey,
 	)
@@ -360,6 +367,13 @@ func New(
 	)
 	publiceventsModule := publiceventsmodule.NewAppModule(appCodec, app.PubliceventsKeeper)
 
+	app.FundsKeeper = *fundsmodulekeeper.NewKeeper(
+		appCodec,
+		keys[fundsmoduletypes.StoreKey],
+		keys[fundsmoduletypes.MemStoreKey],
+	)
+	fundsModule := fundsmodule.NewAppModule(appCodec, app.FundsKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
@@ -398,6 +412,7 @@ func New(
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
+		fundsModule,
 		publiceventsModule,
 		privateeventsModule,
 	)
@@ -433,6 +448,7 @@ func New(
 		evidencetypes.ModuleName,
 		ibctransfertypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
+		fundsmoduletypes.ModuleName,
 		publiceventsmoduletypes.ModuleName,
 		privateeventsmoduletypes.ModuleName,
 	)
@@ -622,6 +638,7 @@ func initParamsKeeper(appCodec codec.BinaryMarshaler, legacyAmino *codec.LegacyA
 	paramsKeeper.Subspace(ibctransfertypes.ModuleName)
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
+	paramsKeeper.Subspace(fundsmoduletypes.ModuleName)
 	paramsKeeper.Subspace(publiceventsmoduletypes.ModuleName)
 	paramsKeeper.Subspace(privateeventsmoduletypes.ModuleName)
 
