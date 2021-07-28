@@ -13,7 +13,6 @@ func (k Keeper) AppendMintBet(
 	ctx sdk.Context,
 	mintBet types.MintBet,
 ) uint64 {
-
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MintBetKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&mintBet)
 	store.Set(GetMintBetIDBytes(uint64(mintBet.UserId)), appendedValue)

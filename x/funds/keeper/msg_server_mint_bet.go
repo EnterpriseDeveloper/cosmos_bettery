@@ -16,6 +16,12 @@ func (k msgServer) CreateMintBet(goCtx context.Context, msg *types.MsgCreateMint
 		UserId:  msg.UserId,
 	}
 
+	reciever, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+	k.MintTokens(ctx, reciever, sdk.NewCoin(types.BetToken, sdk.NewInt(msg.Amount)))
+
 	id := k.AppendMintBet(
 		ctx,
 		mintBet,

@@ -159,6 +159,7 @@ var (
 		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:            {authtypes.Burner},
 		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		fundsmoduletypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
@@ -371,6 +372,7 @@ func New(
 		appCodec,
 		keys[fundsmoduletypes.StoreKey],
 		keys[fundsmoduletypes.MemStoreKey],
+		app.BankKeeper,
 	)
 	fundsModule := fundsmodule.NewAppModule(appCodec, app.FundsKeeper)
 
