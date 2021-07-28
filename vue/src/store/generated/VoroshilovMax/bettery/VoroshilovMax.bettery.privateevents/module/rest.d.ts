@@ -24,12 +24,6 @@ export interface PrivateeventsMsgCreateValidPrivEventsResponse {
     /** @format uint64 */
     id?: string;
 }
-export declare type PrivateeventsMsgDeleteCreatePrivEventsResponse = object;
-export declare type PrivateeventsMsgDeletePartPrivEventsResponse = object;
-export declare type PrivateeventsMsgDeleteValidPrivEventsResponse = object;
-export declare type PrivateeventsMsgUpdateCreatePrivEventsResponse = object;
-export declare type PrivateeventsMsgUpdatePartPrivEventsResponse = object;
-export declare type PrivateeventsMsgUpdateValidPrivEventsResponse = object;
 export interface PrivateeventsPartPrivEvents {
     creator?: string;
     /** @format uint64 */

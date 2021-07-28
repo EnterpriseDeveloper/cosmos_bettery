@@ -22,36 +22,12 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			res, err := msgServer.CreateValidPrivEvents(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 
-		case *types.MsgUpdateValidPrivEvents:
-			res, err := msgServer.UpdateValidPrivEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
-		case *types.MsgDeleteValidPrivEvents:
-			res, err := msgServer.DeleteValidPrivEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
 		case *types.MsgCreatePartPrivEvents:
 			res, err := msgServer.CreatePartPrivEvents(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 
-		case *types.MsgUpdatePartPrivEvents:
-			res, err := msgServer.UpdatePartPrivEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
-		case *types.MsgDeletePartPrivEvents:
-			res, err := msgServer.DeletePartPrivEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
 		case *types.MsgCreateCreatePrivEvents:
 			res, err := msgServer.CreateCreatePrivEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
-		case *types.MsgUpdateCreatePrivEvents:
-			res, err := msgServer.UpdateCreatePrivEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
-		case *types.MsgDeleteCreatePrivEvents:
-			res, err := msgServer.DeleteCreatePrivEvents(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 
 		default:

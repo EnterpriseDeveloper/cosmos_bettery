@@ -30335,18 +30335,6 @@ definitions:
       id:
         type: string
         format: uint64
-  VoroshilovMax.bettery.privateevents.MsgDeleteCreatePrivEventsResponse:
-    type: object
-  VoroshilovMax.bettery.privateevents.MsgDeletePartPrivEventsResponse:
-    type: object
-  VoroshilovMax.bettery.privateevents.MsgDeleteValidPrivEventsResponse:
-    type: object
-  VoroshilovMax.bettery.privateevents.MsgUpdateCreatePrivEventsResponse:
-    type: object
-  VoroshilovMax.bettery.privateevents.MsgUpdatePartPrivEventsResponse:
-    type: object
-  VoroshilovMax.bettery.privateevents.MsgUpdateValidPrivEventsResponse:
-    type: object
   VoroshilovMax.bettery.privateevents.PartPrivEvents:
     type: object
     properties:

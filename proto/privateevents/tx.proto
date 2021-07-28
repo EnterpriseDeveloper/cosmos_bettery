@@ -12,14 +12,8 @@ option go_package = "github.com/VoroshilovMax/bettery/x/privateevents/types";
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
   rpc CreateValidPrivEvents(MsgCreateValidPrivEvents) returns (MsgCreateValidPrivEventsResponse);
-  rpc UpdateValidPrivEvents(MsgUpdateValidPrivEvents) returns (MsgUpdateValidPrivEventsResponse);
-  rpc DeleteValidPrivEvents(MsgDeleteValidPrivEvents) returns (MsgDeleteValidPrivEventsResponse);
   rpc CreatePartPrivEvents(MsgCreatePartPrivEvents) returns (MsgCreatePartPrivEventsResponse);
-  rpc UpdatePartPrivEvents(MsgUpdatePartPrivEvents) returns (MsgUpdatePartPrivEventsResponse);
-  rpc DeletePartPrivEvents(MsgDeletePartPrivEvents) returns (MsgDeletePartPrivEventsResponse);
   rpc CreateCreatePrivEvents(MsgCreateCreatePrivEvents) returns (MsgCreateCreatePrivEventsResponse);
-  rpc UpdateCreatePrivEvents(MsgUpdateCreatePrivEvents) returns (MsgUpdateCreatePrivEventsResponse);
-  rpc DeleteCreatePrivEvents(MsgDeleteCreatePrivEvents) returns (MsgDeleteCreatePrivEventsResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
@@ -33,21 +27,6 @@ message MsgCreateValidPrivEventsResponse {
   uint64 id = 1;
 }
 
-message MsgUpdateValidPrivEvents {
-  string creator = 1;
-  uint64 privId = 3;
-  string answer = 4;
-}
-
-message MsgUpdateValidPrivEventsResponse { }
-
-message MsgDeleteValidPrivEvents {
-  string creator = 1;
-  uint64 id = 2;
-}
-
-message MsgDeleteValidPrivEventsResponse { }
-
 message MsgCreatePartPrivEvents {
   string creator = 1;
   uint64 privId = 2;
@@ -57,21 +36,6 @@ message MsgCreatePartPrivEvents {
 message MsgCreatePartPrivEventsResponse {
   uint64 id = 1;
 }
-
-message MsgUpdatePartPrivEvents {
-  string creator = 1;
-  uint64 privId = 2;
-  string answer = 3;
-}
-
-message MsgUpdatePartPrivEventsResponse { }
-
-message MsgDeletePartPrivEvents {
-  string creator = 1;
-  uint64 id = 2;
-}
-
-message MsgDeletePartPrivEventsResponse { }
 
 message MsgCreateCreatePrivEvents {
   string creator = 1;
@@ -88,24 +52,3 @@ message MsgCreateCreatePrivEvents {
 message MsgCreateCreatePrivEventsResponse {
   uint64 id = 1;
 }
-
-message MsgUpdateCreatePrivEvents {
-  string creator = 1;
-  uint64 privId = 2;
-  string question = 3;
-  repeated string answers = 4;
-  string winner = 5;
-  string loser = 6;
-  uint64 startTime = 7;
-  uint64 endTime = 8;
-  bool finished = 9;
-}
-
-message MsgUpdateCreatePrivEventsResponse { }
-
-message MsgDeleteCreatePrivEvents {
-  string creator = 1;
-  uint64 id = 2;
-}
-
-message MsgDeleteCreatePrivEventsResponse { }

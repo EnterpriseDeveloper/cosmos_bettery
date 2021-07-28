@@ -10,16 +10,10 @@ import (
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	// this line is used by starport scaffolding # 2
 	cdc.RegisterConcrete(&MsgCreateValidPrivEvents{}, "privateevents/CreateValidPrivEvents", nil)
-	cdc.RegisterConcrete(&MsgUpdateValidPrivEvents{}, "privateevents/UpdateValidPrivEvents", nil)
-	cdc.RegisterConcrete(&MsgDeleteValidPrivEvents{}, "privateevents/DeleteValidPrivEvents", nil)
 
 	cdc.RegisterConcrete(&MsgCreatePartPrivEvents{}, "privateevents/CreatePartPrivEvents", nil)
-	cdc.RegisterConcrete(&MsgUpdatePartPrivEvents{}, "privateevents/UpdatePartPrivEvents", nil)
-	cdc.RegisterConcrete(&MsgDeletePartPrivEvents{}, "privateevents/DeletePartPrivEvents", nil)
 
 	cdc.RegisterConcrete(&MsgCreateCreatePrivEvents{}, "privateevents/CreateCreatePrivEvents", nil)
-	cdc.RegisterConcrete(&MsgUpdateCreatePrivEvents{}, "privateevents/UpdateCreatePrivEvents", nil)
-	cdc.RegisterConcrete(&MsgDeleteCreatePrivEvents{}, "privateevents/DeleteCreatePrivEvents", nil)
 
 }
 
@@ -27,18 +21,12 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	// this line is used by starport scaffolding # 3
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateValidPrivEvents{},
-		&MsgUpdateValidPrivEvents{},
-		&MsgDeleteValidPrivEvents{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreatePartPrivEvents{},
-		&MsgUpdatePartPrivEvents{},
-		&MsgDeletePartPrivEvents{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateCreatePrivEvents{},
-		&MsgUpdateCreatePrivEvents{},
-		&MsgDeleteCreatePrivEvents{},
 	)
 
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)

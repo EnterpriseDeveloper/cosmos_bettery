@@ -1,15 +1,9 @@
 import { StdFee } from "@cosmjs/launchpad";
 import { OfflineSigner, EncodeObject } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgUpdatePartPrivEvents } from "./types/privateevents/tx";
-import { MsgDeletePartPrivEvents } from "./types/privateevents/tx";
-import { MsgCreateCreatePrivEvents } from "./types/privateevents/tx";
-import { MsgUpdateValidPrivEvents } from "./types/privateevents/tx";
-import { MsgUpdateCreatePrivEvents } from "./types/privateevents/tx";
-import { MsgDeleteCreatePrivEvents } from "./types/privateevents/tx";
-import { MsgDeleteValidPrivEvents } from "./types/privateevents/tx";
-import { MsgCreateValidPrivEvents } from "./types/privateevents/tx";
 import { MsgCreatePartPrivEvents } from "./types/privateevents/tx";
+import { MsgCreateValidPrivEvents } from "./types/privateevents/tx";
+import { MsgCreateCreatePrivEvents } from "./types/privateevents/tx";
 export declare const MissingWalletError: Error;
 interface TxClientOptions {
     addr: string;
@@ -20,15 +14,9 @@ interface SignAndBroadcastOptions {
 }
 declare const txClient: (wallet: OfflineSigner, { addr: addr }?: TxClientOptions) => Promise<{
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }?: SignAndBroadcastOptions) => Promise<import("@cosmjs/stargate").BroadcastTxResponse>;
-    msgUpdatePartPrivEvents: (data: MsgUpdatePartPrivEvents) => EncodeObject;
-    msgDeletePartPrivEvents: (data: MsgDeletePartPrivEvents) => EncodeObject;
-    msgCreateCreatePrivEvents: (data: MsgCreateCreatePrivEvents) => EncodeObject;
-    msgUpdateValidPrivEvents: (data: MsgUpdateValidPrivEvents) => EncodeObject;
-    msgUpdateCreatePrivEvents: (data: MsgUpdateCreatePrivEvents) => EncodeObject;
-    msgDeleteCreatePrivEvents: (data: MsgDeleteCreatePrivEvents) => EncodeObject;
-    msgDeleteValidPrivEvents: (data: MsgDeleteValidPrivEvents) => EncodeObject;
-    msgCreateValidPrivEvents: (data: MsgCreateValidPrivEvents) => EncodeObject;
     msgCreatePartPrivEvents: (data: MsgCreatePartPrivEvents) => EncodeObject;
+    msgCreateValidPrivEvents: (data: MsgCreateValidPrivEvents) => EncodeObject;
+    msgCreateCreatePrivEvents: (data: MsgCreateCreatePrivEvents) => EncodeObject;
 }>;
 interface QueryClientOptions {
     addr: string;
