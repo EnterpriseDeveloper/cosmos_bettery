@@ -1,9 +1,7 @@
 package types
 
-import (
-// this line is used by starport scaffolding # genesis/types/import
+//	"fmt"
 // this line is used by starport scaffolding # ibc/genesistype/import
-)
 
 // DefaultIndex is the default capability global index
 const DefaultIndex uint64 = 1
@@ -13,6 +11,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
+		MintBetList: []*MintBet{},
 	}
 }
 
@@ -22,6 +21,15 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in mintBet
+	// mintBetIdMap := make(map[uint64]bool)
+
+	// for _, elem := range gs.MintBetList {
+	// 	if _, ok := mintBetIdMap[elem.Id]; ok {
+	// 		return fmt.Errorf("duplicated id for mintBet")
+	// 	}
+	// 	mintBetIdMap[elem.Id] = true
+	// }
 
 	return nil
 }

@@ -4,12 +4,40 @@ package VoroshilovMax.bettery.funds;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "funds/mint_bet.proto";
 
 option go_package = "github.com/VoroshilovMax/bettery/x/funds/types";
 
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a mintBet by id.
+	rpc MintBet(QueryGetMintBetRequest) returns (QueryGetMintBetResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/funds/mintBet/{id}";
+	}
+
+	// Queries a list of mintBet items.
+	rpc MintBetAll(QueryAllMintBetRequest) returns (QueryAllMintBetResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/funds/mintBet";
+	}
+
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetMintBetRequest {
+	uint64 id = 1;
+}
+
+message QueryGetMintBetResponse {
+	MintBet MintBet = 1;
+}
+
+message QueryAllMintBetRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllMintBetResponse {
+	repeated MintBet MintBet = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

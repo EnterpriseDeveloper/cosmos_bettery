@@ -1,0 +1,12 @@
+syntax = "proto3";
+package VoroshilovMax.bettery.funds;
+
+option go_package = "github.com/VoroshilovMax/bettery/x/funds/types";
+
+import "gogoproto/gogo.proto";
+
+message MintBet {
+  string creator = 1;
+  int64 amount = 2; 
+  int64 userId = 3;
+}

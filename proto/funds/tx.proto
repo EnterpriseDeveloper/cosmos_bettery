@@ -2,12 +2,24 @@ syntax = "proto3";
 package VoroshilovMax.bettery.funds;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "funds/mint_bet.proto";
 
 option go_package = "github.com/VoroshilovMax/bettery/x/funds/types";
 
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateMintBet(MsgCreateMintBet) returns (MsgCreateMintBetResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateMintBet {
+  string creator = 1;
+  int64 amount = 2;
+  int64 userId = 3;
+}
+
+message MsgCreateMintBetResponse {
+  uint64 id = 1;
+}
+

@@ -1,4 +1,5 @@
 // THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
+import VoroshilovMaxBetteryVoroshilovMaxBetteryFunds from './VoroshilovMax/bettery/VoroshilovMax.bettery.funds';
 import VoroshilovMaxBetteryVoroshilovMaxBetteryPrivateevents from './VoroshilovMax/bettery/VoroshilovMax.bettery.privateevents';
 import CosmosCosmosSdkCosmosBankV1Beta1 from './cosmos/cosmos-sdk/cosmos.bank.v1beta1';
 import CosmosCosmosSdkCosmosBaseAbciV1Beta1 from './cosmos/cosmos-sdk/cosmos.base.abci.v1beta1';
@@ -15,6 +16,7 @@ import CosmosCosmosSdkIbcCoreChannelV1 from './cosmos/cosmos-sdk/ibc.core.channe
 import CosmosCosmosSdkIbcCoreClientV1 from './cosmos/cosmos-sdk/ibc.core.client.v1';
 import CosmosCosmosSdkIbcCoreConnectionV1 from './cosmos/cosmos-sdk/ibc.core.connection.v1';
 export default {
+    VoroshilovMaxBetteryVoroshilovMaxBetteryFunds: load(VoroshilovMaxBetteryVoroshilovMaxBetteryFunds, 'VoroshilovMax.bettery.funds'),
     VoroshilovMaxBetteryVoroshilovMaxBetteryPrivateevents: load(VoroshilovMaxBetteryVoroshilovMaxBetteryPrivateevents, 'VoroshilovMax.bettery.privateevents'),
     CosmosCosmosSdkCosmosBankV1Beta1: load(CosmosCosmosSdkCosmosBankV1Beta1, 'cosmos.bank.v1beta1'),
     CosmosCosmosSdkCosmosBaseAbciV1Beta1: load(CosmosCosmosSdkCosmosBaseAbciV1Beta1, 'cosmos.base.abci.v1beta1'),
