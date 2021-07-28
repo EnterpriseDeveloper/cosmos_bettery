@@ -83,10 +83,8 @@ import (
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
-	minttokenmodule "github.com/VoroshilovMax/bettery/x/minttoken"
-	minttokenmodulekeeper "github.com/VoroshilovMax/bettery/x/minttoken/keeper"
-	minttokenmoduletypes "github.com/VoroshilovMax/bettery/x/minttoken/types"
 	privateeventsmodule "github.com/VoroshilovMax/bettery/x/privateevents"
 	privateeventsmodulekeeper "github.com/VoroshilovMax/bettery/x/privateevents/keeper"
 	privateeventsmoduletypes "github.com/VoroshilovMax/bettery/x/privateevents/types"
@@ -145,7 +143,6 @@ var (
 		vesting.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 		publiceventsmodule.AppModuleBasic{},
-		minttokenmodule.AppModuleBasic{},
 		privateeventsmodule.AppModuleBasic{},
 	)
 
@@ -217,8 +214,6 @@ type App struct {
 
 	PubliceventsKeeper publiceventsmodulekeeper.Keeper
 
-	MinttokenKeeper minttokenmodulekeeper.Keeper
-
 	PrivateeventsKeeper privateeventsmodulekeeper.Keeper
 
 	// the module manager
@@ -255,7 +250,6 @@ func New(
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 		publiceventsmoduletypes.StoreKey,
-		minttokenmoduletypes.StoreKey,
 		privateeventsmoduletypes.StoreKey,
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -359,13 +353,6 @@ func New(
 	)
 	privateeventsModule := privateeventsmodule.NewAppModule(appCodec, app.PrivateeventsKeeper)
 
-	app.MinttokenKeeper = *minttokenmodulekeeper.NewKeeper(
-		appCodec,
-		keys[minttokenmoduletypes.StoreKey],
-		keys[minttokenmoduletypes.MemStoreKey],
-	)
-	minttokenModule := minttokenmodule.NewAppModule(appCodec, app.MinttokenKeeper)
-
 	app.PubliceventsKeeper = *publiceventsmodulekeeper.NewKeeper(
 		appCodec,
 		keys[publiceventsmoduletypes.StoreKey],
@@ -412,7 +399,6 @@ func New(
 		transferModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 		publiceventsModule,
-		minttokenModule,
 		privateeventsModule,
 	)
 
@@ -448,7 +434,6 @@ func New(
 		ibctransfertypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 		publiceventsmoduletypes.ModuleName,
-		minttokenmoduletypes.ModuleName,
 		privateeventsmoduletypes.ModuleName,
 	)
 
@@ -638,7 +623,6 @@ func initParamsKeeper(appCodec codec.BinaryMarshaler, legacyAmino *codec.LegacyA
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 	paramsKeeper.Subspace(publiceventsmoduletypes.ModuleName)
-	paramsKeeper.Subspace(minttokenmoduletypes.ModuleName)
 	paramsKeeper.Subspace(privateeventsmoduletypes.ModuleName)
 
 	return paramsKeeper
