@@ -2,10 +2,9 @@ import { Writer, Reader } from 'protobufjs/minimal';
 export declare const protobufPackage = "VoroshilovMax.bettery.publicevents";
 export interface ValidPubEvents {
     creator: string;
-    id: number;
-    pubId: string;
+    pubId: number;
     answers: string;
-    reput: string;
+    reput: number;
 }
 export declare const ValidPubEvents: {
     encode(message: ValidPubEvents, writer?: Writer): Writer;

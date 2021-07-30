@@ -22,24 +22,8 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			res, err := msgServer.CreateValidPubEvents(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 
-		case *types.MsgUpdateValidPubEvents:
-			res, err := msgServer.UpdateValidPubEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
-		case *types.MsgDeleteValidPubEvents:
-			res, err := msgServer.DeleteValidPubEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
 		case *types.MsgCreatePartPubEvents:
 			res, err := msgServer.CreatePartPubEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
-		case *types.MsgUpdatePartPubEvents:
-			res, err := msgServer.UpdatePartPubEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
-		case *types.MsgDeletePartPubEvents:
-			res, err := msgServer.DeletePartPubEvents(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 
 		case *types.MsgCreateCreatePubEvents:

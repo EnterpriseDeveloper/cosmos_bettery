@@ -25,10 +25,9 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type ValidPubEvents struct {
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Id      uint64 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
-	PubId   string `protobuf:"bytes,3,opt,name=pubId,proto3" json:"pubId,omitempty"`
-	Answers string `protobuf:"bytes,4,opt,name=answers,proto3" json:"answers,omitempty"`
-	Reput   string `protobuf:"bytes,5,opt,name=reput,proto3" json:"reput,omitempty"`
+	PubId   uint64 `protobuf:"varint,2,opt,name=pubId,proto3" json:"pubId,omitempty"`
+	Answers string `protobuf:"bytes,3,opt,name=answers,proto3" json:"answers,omitempty"`
+	Reput   int64  `protobuf:"varint,4,opt,name=reput,proto3" json:"reput,omitempty"`
 }
 
 func (m *ValidPubEvents) Reset()         { *m = ValidPubEvents{} }
@@ -71,18 +70,11 @@ func (m *ValidPubEvents) GetCreator() string {
 	return ""
 }
 
-func (m *ValidPubEvents) GetId() uint64 {
-	if m != nil {
-		return m.Id
-	}
-	return 0
-}
-
-func (m *ValidPubEvents) GetPubId() string {
+func (m *ValidPubEvents) GetPubId() uint64 {
 	if m != nil {
 		return m.PubId
 	}
-	return ""
+	return 0
 }
 
 func (m *ValidPubEvents) GetAnswers() string {
@@ -92,11 +84,11 @@ func (m *ValidPubEvents) GetAnswers() string {
 	return ""
 }
 
-func (m *ValidPubEvents) GetReput() string {
+func (m *ValidPubEvents) GetReput() int64 {
 	if m != nil {
 		return m.Reput
 	}
-	return ""
+	return 0
 }
 
 func init() {
@@ -108,23 +100,22 @@ func init() {
 }
 
 var fileDescriptor_b2f15ffd67c4b2fb = []byte{
-	// 250 bytes of a gzipped FileDescriptorProto
+	// 239 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x2e, 0x28, 0x4d, 0xca,
 	0xc9, 0x4c, 0x4e, 0x2d, 0x4b, 0xcd, 0x2b, 0x29, 0xd6, 0x2f, 0x4b, 0xcc, 0xc9, 0x4c, 0x89, 0x2f,
 	0x28, 0x4d, 0x8a, 0x87, 0x08, 0xe8, 0x15, 0x14, 0xe5, 0x97, 0xe4, 0x0b, 0x29, 0x85, 0xe5, 0x17,
 	0xe5, 0x17, 0x67, 0x64, 0xe6, 0xe4, 0x97, 0xf9, 0x26, 0x56, 0xe8, 0x25, 0xa5, 0x96, 0x94, 0xa4,
 	0x16, 0x55, 0xea, 0x21, 0x6b, 0x95, 0x12, 0x49, 0xcf, 0x4f, 0xcf, 0x07, 0x2b, 0xd7, 0x07, 0xb1,
-	0x20, 0x3a, 0x95, 0x1a, 0x18, 0xb9, 0xf8, 0xc2, 0x40, 0x86, 0x06, 0x94, 0x26, 0xb9, 0x82, 0x15,
-	0x0a, 0x49, 0x70, 0xb1, 0x27, 0x17, 0xa5, 0x26, 0x96, 0xe4, 0x17, 0x49, 0x30, 0x2a, 0x30, 0x6a,
-	0x70, 0x06, 0xc1, 0xb8, 0x42, 0x7c, 0x5c, 0x4c, 0x99, 0x29, 0x12, 0x4c, 0x0a, 0x8c, 0x1a, 0x2c,
-	0x41, 0x4c, 0x99, 0x29, 0x42, 0x22, 0x5c, 0xac, 0x05, 0xa5, 0x49, 0x9e, 0x29, 0x12, 0xcc, 0x60,
-	0x75, 0x10, 0x0e, 0x48, 0x7f, 0x62, 0x5e, 0x71, 0x79, 0x6a, 0x51, 0xb1, 0x04, 0x0b, 0x44, 0x3f,
-	0x94, 0x0b, 0x52, 0x5f, 0x94, 0x5a, 0x50, 0x5a, 0x22, 0xc1, 0x0a, 0x51, 0x0f, 0xe6, 0x38, 0xf9,
-	0x9f, 0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83, 0x47, 0x72, 0x8c, 0x13, 0x1e, 0xcb,
-	0x31, 0x5c, 0x78, 0x2c, 0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43, 0x94, 0x69, 0x7a, 0x66, 0x49, 0x46,
-	0x69, 0x92, 0x5e, 0x72, 0x7e, 0xae, 0x3e, 0x8a, 0x0f, 0xf5, 0xa1, 0x3e, 0xd4, 0xaf, 0xd0, 0x47,
-	0x09, 0x9e, 0x92, 0xca, 0x82, 0xd4, 0xe2, 0x24, 0x36, 0xb0, 0xd7, 0x8c, 0x01, 0x01, 0x00, 0x00,
-	0xff, 0xff, 0x47, 0xf3, 0xc4, 0x01, 0x3b, 0x01, 0x00, 0x00,
+	0x20, 0x3a, 0x95, 0x0a, 0xb8, 0xf8, 0xc2, 0x40, 0x66, 0x06, 0x94, 0x26, 0xb9, 0x82, 0xd5, 0x09,
+	0x49, 0x70, 0xb1, 0x27, 0x17, 0xa5, 0x26, 0x96, 0xe4, 0x17, 0x49, 0x30, 0x2a, 0x30, 0x6a, 0x70,
+	0x06, 0xc1, 0xb8, 0x42, 0x22, 0x5c, 0xac, 0x05, 0xa5, 0x49, 0x9e, 0x29, 0x12, 0x4c, 0x0a, 0x8c,
+	0x1a, 0x2c, 0x41, 0x10, 0x0e, 0x48, 0x7d, 0x62, 0x5e, 0x71, 0x79, 0x6a, 0x51, 0xb1, 0x04, 0x33,
+	0x44, 0x3d, 0x94, 0x0b, 0x52, 0x5f, 0x94, 0x5a, 0x50, 0x5a, 0x22, 0xc1, 0xa2, 0xc0, 0xa8, 0xc1,
+	0x1c, 0x04, 0xe1, 0x38, 0xf9, 0x9f, 0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83, 0x47,
+	0x72, 0x8c, 0x13, 0x1e, 0xcb, 0x31, 0x5c, 0x78, 0x2c, 0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43, 0x94,
+	0x69, 0x7a, 0x66, 0x49, 0x46, 0x69, 0x92, 0x5e, 0x72, 0x7e, 0xae, 0x3e, 0x8a, 0x87, 0xf4, 0xa1,
+	0x1e, 0xd2, 0xaf, 0xd0, 0x47, 0x09, 0x8d, 0x92, 0xca, 0x82, 0xd4, 0xe2, 0x24, 0x36, 0xb0, 0x4f,
+	0x8c, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0xb3, 0x80, 0xed, 0xce, 0x2a, 0x01, 0x00, 0x00,
 }
 
 func (m *ValidPubEvents) Marshal() (dAtA []byte, err error) {
@@ -147,29 +138,20 @@ func (m *ValidPubEvents) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Reput) > 0 {
-		i -= len(m.Reput)
-		copy(dAtA[i:], m.Reput)
-		i = encodeVarintValidPubEvents(dAtA, i, uint64(len(m.Reput)))
+	if m.Reput != 0 {
+		i = encodeVarintValidPubEvents(dAtA, i, uint64(m.Reput))
 		i--
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x20
 	}
 	if len(m.Answers) > 0 {
 		i -= len(m.Answers)
 		copy(dAtA[i:], m.Answers)
 		i = encodeVarintValidPubEvents(dAtA, i, uint64(len(m.Answers)))
 		i--
-		dAtA[i] = 0x22
-	}
-	if len(m.PubId) > 0 {
-		i -= len(m.PubId)
-		copy(dAtA[i:], m.PubId)
-		i = encodeVarintValidPubEvents(dAtA, i, uint64(len(m.PubId)))
-		i--
 		dAtA[i] = 0x1a
 	}
-	if m.Id != 0 {
-		i = encodeVarintValidPubEvents(dAtA, i, uint64(m.Id))
+	if m.PubId != 0 {
+		i = encodeVarintValidPubEvents(dAtA, i, uint64(m.PubId))
 		i--
 		dAtA[i] = 0x10
 	}
@@ -204,20 +186,15 @@ func (m *ValidPubEvents) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovValidPubEvents(uint64(l))
 	}
-	if m.Id != 0 {
-		n += 1 + sovValidPubEvents(uint64(m.Id))
-	}
-	l = len(m.PubId)
-	if l > 0 {
-		n += 1 + l + sovValidPubEvents(uint64(l))
+	if m.PubId != 0 {
+		n += 1 + sovValidPubEvents(uint64(m.PubId))
 	}
 	l = len(m.Answers)
 	if l > 0 {
 		n += 1 + l + sovValidPubEvents(uint64(l))
 	}
-	l = len(m.Reput)
-	if l > 0 {
-		n += 1 + l + sovValidPubEvents(uint64(l))
+	if m.Reput != 0 {
+		n += 1 + sovValidPubEvents(uint64(m.Reput))
 	}
 	return n
 }
@@ -291,9 +268,9 @@ func (m *ValidPubEvents) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field PubId", wireType)
 			}
-			m.Id = 0
+			m.PubId = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowValidPubEvents
@@ -303,44 +280,12 @@ func (m *ValidPubEvents) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Id |= uint64(b&0x7F) << shift
+				m.PubId |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
 		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field PubId", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowValidPubEvents
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthValidPubEvents
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthValidPubEvents
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.PubId = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Answers", wireType)
 			}
@@ -372,11 +317,11 @@ func (m *ValidPubEvents) Unmarshal(dAtA []byte) error {
 			}
 			m.Answers = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 5:
-			if wireType != 2 {
+		case 4:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Reput", wireType)
 			}
-			var stringLen uint64
+			m.Reput = 0
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowValidPubEvents
@@ -386,24 +331,11 @@ func (m *ValidPubEvents) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
+				m.Reput |= int64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthValidPubEvents
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthValidPubEvents
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Reput = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipValidPubEvents(dAtA[iNdEx:])

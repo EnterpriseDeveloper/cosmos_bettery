@@ -12,70 +12,33 @@ option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
   rpc CreateValidPubEvents(MsgCreateValidPubEvents) returns (MsgCreateValidPubEventsResponse);
-  rpc UpdateValidPubEvents(MsgUpdateValidPubEvents) returns (MsgUpdateValidPubEventsResponse);
-  rpc DeleteValidPubEvents(MsgDeleteValidPubEvents) returns (MsgDeleteValidPubEventsResponse);
   rpc CreatePartPubEvents(MsgCreatePartPubEvents) returns (MsgCreatePartPubEventsResponse);
-  rpc UpdatePartPubEvents(MsgUpdatePartPubEvents) returns (MsgUpdatePartPubEventsResponse);
-  rpc DeletePartPubEvents(MsgDeletePartPubEvents) returns (MsgDeletePartPubEventsResponse);
   rpc CreateCreatePubEvents(MsgCreateCreatePubEvents) returns (MsgCreateCreatePubEventsResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
 message MsgCreateValidPubEvents {
   string creator = 1;
-  string pubId = 2;
+  uint64 pubId = 2;
   string answers = 3;
-  string reput = 4;
+  int64 reput = 4;
 }
 
 message MsgCreateValidPubEventsResponse {
   uint64 id = 1;
 }
 
-message MsgUpdateValidPubEvents {
-  string creator = 1;
-  uint64 id = 2;
-  string pubId = 3;
-  string answers = 4;
-  string reput = 5;
-}
-
-message MsgUpdateValidPubEventsResponse { }
-
-message MsgDeleteValidPubEvents {
-  string creator = 1;
-  uint64 id = 2;
-}
-
-message MsgDeleteValidPubEventsResponse { }
 
 message MsgCreatePartPubEvents {
   string creator = 1;
-  string pubId = 2;
+  uint64 pubId = 2;
   string answers = 3;
-  string amount = 4;
+  int64 amount = 4;
 }
 
 message MsgCreatePartPubEventsResponse {
   uint64 id = 1;
 }
-
-message MsgUpdatePartPubEvents {
-  string creator = 1;
-  uint64 id = 2;
-  string pubId = 3;
-  string answers = 4;
-  string amount = 5;
-}
-
-message MsgUpdatePartPubEventsResponse { }
-
-message MsgDeletePartPubEvents {
-  string creator = 1;
-  uint64 id = 2;
-}
-
-message MsgDeletePartPubEventsResponse { }
 
 message MsgCreateCreatePubEvents {
   string creator = 1;

@@ -53,21 +53,14 @@ export interface PubliceventsMsgCreateValidPubEventsResponse {
   id?: string;
 }
 
-export type PubliceventsMsgDeletePartPubEventsResponse = object;
-
-export type PubliceventsMsgDeleteValidPubEventsResponse = object;
-
-export type PubliceventsMsgUpdatePartPubEventsResponse = object;
-
-export type PubliceventsMsgUpdateValidPubEventsResponse = object;
-
 export interface PubliceventsPartPubEvents {
   creator?: string;
 
   /** @format uint64 */
-  id?: string;
   pubId?: string;
   answers?: string;
+
+  /** @format int64 */
   amount?: string;
 }
 
@@ -132,9 +125,10 @@ export interface PubliceventsValidPubEvents {
   creator?: string;
 
   /** @format uint64 */
-  id?: string;
   pubId?: string;
   answers?: string;
+
+  /** @format int64 */
   reput?: string;
 }
 

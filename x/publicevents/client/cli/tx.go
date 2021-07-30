@@ -32,12 +32,8 @@ func GetTxCmd() *cobra.Command {
 	// this line is used by starport scaffolding # 1
 
 	cmd.AddCommand(CmdCreateValidPubEvents())
-	cmd.AddCommand(CmdUpdateValidPubEvents())
-	cmd.AddCommand(CmdDeleteValidPubEvents())
 
 	cmd.AddCommand(CmdCreatePartPubEvents())
-	cmd.AddCommand(CmdUpdatePartPubEvents())
-	cmd.AddCommand(CmdDeletePartPubEvents())
 
 	cmd.AddCommand(CmdCreateCreatePubEvents())
 

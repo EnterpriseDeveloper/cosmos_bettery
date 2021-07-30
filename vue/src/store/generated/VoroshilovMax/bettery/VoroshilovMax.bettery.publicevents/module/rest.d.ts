@@ -31,16 +31,12 @@ export interface PubliceventsMsgCreateValidPubEventsResponse {
     /** @format uint64 */
     id?: string;
 }
-export declare type PubliceventsMsgDeletePartPubEventsResponse = object;
-export declare type PubliceventsMsgDeleteValidPubEventsResponse = object;
-export declare type PubliceventsMsgUpdatePartPubEventsResponse = object;
-export declare type PubliceventsMsgUpdateValidPubEventsResponse = object;
 export interface PubliceventsPartPubEvents {
     creator?: string;
     /** @format uint64 */
-    id?: string;
     pubId?: string;
     answers?: string;
+    /** @format int64 */
     amount?: string;
 }
 export interface PubliceventsQueryAllCreatePubEventsResponse {
@@ -94,9 +90,9 @@ export interface PubliceventsQueryGetValidPubEventsResponse {
 export interface PubliceventsValidPubEvents {
     creator?: string;
     /** @format uint64 */
-    id?: string;
     pubId?: string;
     answers?: string;
+    /** @format int64 */
     reput?: string;
 }
 export interface RpcStatus {

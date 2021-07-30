@@ -20560,15 +20560,14 @@ paths:
                   properties:
                     creator:
                       type: string
-                    id:
-                      type: string
-                      format: uint64
                     pubId:
                       type: string
+                      format: uint64
                     answers:
                       type: string
                     amount:
                       type: string
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -20680,15 +20679,14 @@ paths:
                 properties:
                   creator:
                     type: string
-                  id:
-                    type: string
-                    format: uint64
                   pubId:
                     type: string
+                    format: uint64
                   answers:
                     type: string
                   amount:
                     type: string
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -20734,15 +20732,14 @@ paths:
                   properties:
                     creator:
                       type: string
-                    id:
-                      type: string
-                      format: uint64
                     pubId:
                       type: string
+                      format: uint64
                     answers:
                       type: string
                     reput:
                       type: string
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -20854,15 +20851,14 @@ paths:
                 properties:
                   creator:
                     type: string
-                  id:
-                    type: string
-                    format: uint64
                   pubId:
                     type: string
+                    format: uint64
                   answers:
                     type: string
                   reput:
                     type: string
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -31622,28 +31618,19 @@ definitions:
       id:
         type: string
         format: uint64
-  VoroshilovMax.bettery.publicevents.MsgDeletePartPubEventsResponse:
-    type: object
-  VoroshilovMax.bettery.publicevents.MsgDeleteValidPubEventsResponse:
-    type: object
-  VoroshilovMax.bettery.publicevents.MsgUpdatePartPubEventsResponse:
-    type: object
-  VoroshilovMax.bettery.publicevents.MsgUpdateValidPubEventsResponse:
-    type: object
   VoroshilovMax.bettery.publicevents.PartPubEvents:
     type: object
     properties:
       creator:
         type: string
-      id:
-        type: string
-        format: uint64
       pubId:
         type: string
+        format: uint64
       answers:
         type: string
       amount:
         type: string
+        format: int64
   VoroshilovMax.bettery.publicevents.QueryAllCreatePubEventsResponse:
     type: object
     properties:
@@ -31712,15 +31699,14 @@ definitions:
           properties:
             creator:
               type: string
-            id:
-              type: string
-              format: uint64
             pubId:
               type: string
+              format: uint64
             answers:
               type: string
             amount:
               type: string
+              format: int64
       pagination:
         type: object
         properties:
@@ -31756,15 +31742,14 @@ definitions:
           properties:
             creator:
               type: string
-            id:
-              type: string
-              format: uint64
             pubId:
               type: string
+              format: uint64
             answers:
               type: string
             reput:
               type: string
+              format: int64
       pagination:
         type: object
         properties:
@@ -31829,15 +31814,14 @@ definitions:
         properties:
           creator:
             type: string
-          id:
-            type: string
-            format: uint64
           pubId:
             type: string
+            format: uint64
           answers:
             type: string
           amount:
             type: string
+            format: int64
   VoroshilovMax.bettery.publicevents.QueryGetValidPubEventsResponse:
     type: object
     properties:
@@ -31846,26 +31830,24 @@ definitions:
         properties:
           creator:
             type: string
-          id:
-            type: string
-            format: uint64
           pubId:
             type: string
+            format: uint64
           answers:
             type: string
           reput:
             type: string
+            format: int64
   VoroshilovMax.bettery.publicevents.ValidPubEvents:
     type: object
     properties:
       creator:
         type: string
-      id:
-        type: string
-        format: uint64
       pubId:
         type: string
+        format: uint64
       answers:
         type: string
       reput:
         type: string
+        format: int64
