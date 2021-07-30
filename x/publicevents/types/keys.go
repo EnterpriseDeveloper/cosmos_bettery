@@ -24,3 +24,8 @@ const (
 func KeyPrefix(p string) []byte {
 	return []byte(p)
 }
+
+const (
+	CreatePubEventsKey      = "CreatePubEvents-value-"
+	CreatePubEventsCountKey = "CreatePubEvents-count-"
+)

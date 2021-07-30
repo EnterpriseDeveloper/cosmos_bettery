@@ -4,12 +4,40 @@ package VoroshilovMax.bettery.publicevents;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "publicevents/create_pub_events.proto";
 
 option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
 
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a createPubEvents by id.
+	rpc CreatePubEvents(QueryGetCreatePubEventsRequest) returns (QueryGetCreatePubEventsResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/publicevents/createPubEvents/{id}";
+	}
+
+	// Queries a list of createPubEvents items.
+	rpc CreatePubEventsAll(QueryAllCreatePubEventsRequest) returns (QueryAllCreatePubEventsResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/publicevents/createPubEvents";
+	}
+
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetCreatePubEventsRequest {
+	uint64 id = 1;
+}
+
+message QueryGetCreatePubEventsResponse {
+	CreatePubEvents CreatePubEvents = 1;
+}
+
+message QueryAllCreatePubEventsRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCreatePubEventsResponse {
+	repeated CreatePubEvents CreatePubEvents = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

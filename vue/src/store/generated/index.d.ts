@@ -1,6 +1,7 @@
 declare const _default: {
     VoroshilovMaxBetteryVoroshilovMaxBetteryFunds: (store: any) => void;
     VoroshilovMaxBetteryVoroshilovMaxBetteryPrivateevents: (store: any) => void;
+    VoroshilovMaxBetteryVoroshilovMaxBetteryPublicevents: (store: any) => void;
     CosmosCosmosSdkCosmosBankV1Beta1: (store: any) => void;
     CosmosCosmosSdkCosmosBaseAbciV1Beta1: (store: any) => void;
     CosmosCosmosSdkCosmosBaseV1Beta1: (store: any) => void;
