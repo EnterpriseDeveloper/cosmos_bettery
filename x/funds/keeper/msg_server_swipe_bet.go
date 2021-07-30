@@ -28,8 +28,15 @@ func (k msgServer) CreateSwipeBet(goCtx context.Context, msg *types.MsgCreateSwi
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user does not have enought bet token, his amount: %d", amount.Amount.Int64()))
 	}
 
-	k.BurnTokens(ctx, reciever, sdk.NewCoin(types.BetToken, sdk.NewInt(msg.Amount)))
-	k.MintTokens(ctx, reciever, sdk.NewCoin(types.BtyToken, sdk.NewInt(msg.Amount)))
+	err = k.BurnTokens(ctx, reciever, sdk.NewCoin(types.BetToken, sdk.NewInt(msg.Amount)))
+
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("error from burn token, amount: %s, user: c", msg.Creator))
+	}
+	err = k.MintTokens(ctx, reciever, sdk.NewCoin(types.BtyToken, sdk.NewInt(msg.Amount)))
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("error from burn mint, amount: %s, user: c", msg.Creator))
+	}
 
 	id := k.AppendSwipeBet(
 		ctx,

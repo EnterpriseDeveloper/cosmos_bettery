@@ -2,9 +2,11 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/VoroshilovMax/bettery/x/funds/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 func (k msgServer) CreateMintBet(goCtx context.Context, msg *types.MsgCreateMintBet) (*types.MsgCreateMintBetResponse, error) {
@@ -20,7 +22,10 @@ func (k msgServer) CreateMintBet(goCtx context.Context, msg *types.MsgCreateMint
 	if err != nil {
 		return nil, err
 	}
-	k.MintTokens(ctx, reciever, sdk.NewCoin(types.BetToken, sdk.NewInt(msg.Amount)))
+	err = k.MintTokens(ctx, reciever, sdk.NewCoin(types.BetToken, sdk.NewInt(msg.Amount)))
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("error from burn mint, amount: %s, user: c", msg.Creator))
+	}
 
 	id := k.AppendMintBet(
 		ctx,
