@@ -13,9 +13,10 @@ export interface CreatePubEvents {
   startTime: number
   endTime: number
   expertAmount: number
+  advisor: string
 }
 
-const baseCreatePubEvents: object = { creator: '', pubId: 0, question: '', answers: '', premAmount: 0, startTime: 0, endTime: 0, expertAmount: 0 }
+const baseCreatePubEvents: object = { creator: '', pubId: 0, question: '', answers: '', premAmount: 0, startTime: 0, endTime: 0, expertAmount: 0, advisor: '' }
 
 export const CreatePubEvents = {
   encode(message: CreatePubEvents, writer: Writer = Writer.create()): Writer {
@@ -42,6 +43,9 @@ export const CreatePubEvents = {
     }
     if (message.expertAmount !== 0) {
       writer.uint32(64).int64(message.expertAmount)
+    }
+    if (message.advisor !== '') {
+      writer.uint32(74).string(message.advisor)
     }
     return writer
   },
@@ -77,6 +81,9 @@ export const CreatePubEvents = {
           break
         case 8:
           message.expertAmount = longToNumber(reader.int64() as Long)
+          break
+        case 9:
+          message.advisor = reader.string()
           break
         default:
           reader.skipType(tag & 7)
@@ -129,6 +136,11 @@ export const CreatePubEvents = {
     } else {
       message.expertAmount = 0
     }
+    if (object.advisor !== undefined && object.advisor !== null) {
+      message.advisor = String(object.advisor)
+    } else {
+      message.advisor = ''
+    }
     return message
   },
 
@@ -146,6 +158,7 @@ export const CreatePubEvents = {
     message.startTime !== undefined && (obj.startTime = message.startTime)
     message.endTime !== undefined && (obj.endTime = message.endTime)
     message.expertAmount !== undefined && (obj.expertAmount = message.expertAmount)
+    message.advisor !== undefined && (obj.advisor = message.advisor)
     return obj
   },
 
@@ -191,6 +204,11 @@ export const CreatePubEvents = {
       message.expertAmount = object.expertAmount
     } else {
       message.expertAmount = 0
+    }
+    if (object.advisor !== undefined && object.advisor !== null) {
+      message.advisor = object.advisor
+    } else {
+      message.advisor = ''
     }
     return message
   }

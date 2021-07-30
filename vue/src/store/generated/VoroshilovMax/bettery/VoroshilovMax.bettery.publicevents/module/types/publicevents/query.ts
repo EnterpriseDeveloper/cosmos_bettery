@@ -1,12 +1,48 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal'
 import * as Long from 'long'
-import { CreatePubEvents } from '../publicevents/create_pub_events'
+import { ValidPubEvents } from '../publicevents/valid_pub_events'
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
+import { PartPubEvents } from '../publicevents/part_pub_events'
+import { CreatePubEvents } from '../publicevents/create_pub_events'
 
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetValidPubEventsRequest {
+  id: number
+}
+
+export interface QueryGetValidPubEventsResponse {
+  ValidPubEvents: ValidPubEvents | undefined
+}
+
+export interface QueryAllValidPubEventsRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllValidPubEventsResponse {
+  ValidPubEvents: ValidPubEvents[]
+  pagination: PageResponse | undefined
+}
+
+export interface QueryGetPartPubEventsRequest {
+  id: number
+}
+
+export interface QueryGetPartPubEventsResponse {
+  PartPubEvents: PartPubEvents | undefined
+}
+
+export interface QueryAllPartPubEventsRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllPartPubEventsResponse {
+  PartPubEvents: PartPubEvents[]
+  pagination: PageResponse | undefined
+}
+
 export interface QueryGetCreatePubEventsRequest {
   id: number
 }
@@ -22,6 +58,494 @@ export interface QueryAllCreatePubEventsRequest {
 export interface QueryAllCreatePubEventsResponse {
   CreatePubEvents: CreatePubEvents[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryGetValidPubEventsRequest: object = { id: 0 }
+
+export const QueryGetValidPubEventsRequest = {
+  encode(message: QueryGetValidPubEventsRequest, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetValidPubEventsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetValidPubEventsRequest } as QueryGetValidPubEventsRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetValidPubEventsRequest {
+    const message = { ...baseQueryGetValidPubEventsRequest } as QueryGetValidPubEventsRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetValidPubEventsRequest): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetValidPubEventsRequest>): QueryGetValidPubEventsRequest {
+    const message = { ...baseQueryGetValidPubEventsRequest } as QueryGetValidPubEventsRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseQueryGetValidPubEventsResponse: object = {}
+
+export const QueryGetValidPubEventsResponse = {
+  encode(message: QueryGetValidPubEventsResponse, writer: Writer = Writer.create()): Writer {
+    if (message.ValidPubEvents !== undefined) {
+      ValidPubEvents.encode(message.ValidPubEvents, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetValidPubEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetValidPubEventsResponse } as QueryGetValidPubEventsResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.ValidPubEvents = ValidPubEvents.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetValidPubEventsResponse {
+    const message = { ...baseQueryGetValidPubEventsResponse } as QueryGetValidPubEventsResponse
+    if (object.ValidPubEvents !== undefined && object.ValidPubEvents !== null) {
+      message.ValidPubEvents = ValidPubEvents.fromJSON(object.ValidPubEvents)
+    } else {
+      message.ValidPubEvents = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetValidPubEventsResponse): unknown {
+    const obj: any = {}
+    message.ValidPubEvents !== undefined && (obj.ValidPubEvents = message.ValidPubEvents ? ValidPubEvents.toJSON(message.ValidPubEvents) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetValidPubEventsResponse>): QueryGetValidPubEventsResponse {
+    const message = { ...baseQueryGetValidPubEventsResponse } as QueryGetValidPubEventsResponse
+    if (object.ValidPubEvents !== undefined && object.ValidPubEvents !== null) {
+      message.ValidPubEvents = ValidPubEvents.fromPartial(object.ValidPubEvents)
+    } else {
+      message.ValidPubEvents = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllValidPubEventsRequest: object = {}
+
+export const QueryAllValidPubEventsRequest = {
+  encode(message: QueryAllValidPubEventsRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllValidPubEventsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllValidPubEventsRequest } as QueryAllValidPubEventsRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllValidPubEventsRequest {
+    const message = { ...baseQueryAllValidPubEventsRequest } as QueryAllValidPubEventsRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllValidPubEventsRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllValidPubEventsRequest>): QueryAllValidPubEventsRequest {
+    const message = { ...baseQueryAllValidPubEventsRequest } as QueryAllValidPubEventsRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllValidPubEventsResponse: object = {}
+
+export const QueryAllValidPubEventsResponse = {
+  encode(message: QueryAllValidPubEventsResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.ValidPubEvents) {
+      ValidPubEvents.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllValidPubEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllValidPubEventsResponse } as QueryAllValidPubEventsResponse
+    message.ValidPubEvents = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.ValidPubEvents.push(ValidPubEvents.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllValidPubEventsResponse {
+    const message = { ...baseQueryAllValidPubEventsResponse } as QueryAllValidPubEventsResponse
+    message.ValidPubEvents = []
+    if (object.ValidPubEvents !== undefined && object.ValidPubEvents !== null) {
+      for (const e of object.ValidPubEvents) {
+        message.ValidPubEvents.push(ValidPubEvents.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllValidPubEventsResponse): unknown {
+    const obj: any = {}
+    if (message.ValidPubEvents) {
+      obj.ValidPubEvents = message.ValidPubEvents.map((e) => (e ? ValidPubEvents.toJSON(e) : undefined))
+    } else {
+      obj.ValidPubEvents = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllValidPubEventsResponse>): QueryAllValidPubEventsResponse {
+    const message = { ...baseQueryAllValidPubEventsResponse } as QueryAllValidPubEventsResponse
+    message.ValidPubEvents = []
+    if (object.ValidPubEvents !== undefined && object.ValidPubEvents !== null) {
+      for (const e of object.ValidPubEvents) {
+        message.ValidPubEvents.push(ValidPubEvents.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryGetPartPubEventsRequest: object = { id: 0 }
+
+export const QueryGetPartPubEventsRequest = {
+  encode(message: QueryGetPartPubEventsRequest, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetPartPubEventsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetPartPubEventsRequest } as QueryGetPartPubEventsRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetPartPubEventsRequest {
+    const message = { ...baseQueryGetPartPubEventsRequest } as QueryGetPartPubEventsRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetPartPubEventsRequest): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetPartPubEventsRequest>): QueryGetPartPubEventsRequest {
+    const message = { ...baseQueryGetPartPubEventsRequest } as QueryGetPartPubEventsRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseQueryGetPartPubEventsResponse: object = {}
+
+export const QueryGetPartPubEventsResponse = {
+  encode(message: QueryGetPartPubEventsResponse, writer: Writer = Writer.create()): Writer {
+    if (message.PartPubEvents !== undefined) {
+      PartPubEvents.encode(message.PartPubEvents, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetPartPubEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetPartPubEventsResponse } as QueryGetPartPubEventsResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.PartPubEvents = PartPubEvents.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetPartPubEventsResponse {
+    const message = { ...baseQueryGetPartPubEventsResponse } as QueryGetPartPubEventsResponse
+    if (object.PartPubEvents !== undefined && object.PartPubEvents !== null) {
+      message.PartPubEvents = PartPubEvents.fromJSON(object.PartPubEvents)
+    } else {
+      message.PartPubEvents = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetPartPubEventsResponse): unknown {
+    const obj: any = {}
+    message.PartPubEvents !== undefined && (obj.PartPubEvents = message.PartPubEvents ? PartPubEvents.toJSON(message.PartPubEvents) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetPartPubEventsResponse>): QueryGetPartPubEventsResponse {
+    const message = { ...baseQueryGetPartPubEventsResponse } as QueryGetPartPubEventsResponse
+    if (object.PartPubEvents !== undefined && object.PartPubEvents !== null) {
+      message.PartPubEvents = PartPubEvents.fromPartial(object.PartPubEvents)
+    } else {
+      message.PartPubEvents = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllPartPubEventsRequest: object = {}
+
+export const QueryAllPartPubEventsRequest = {
+  encode(message: QueryAllPartPubEventsRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllPartPubEventsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllPartPubEventsRequest } as QueryAllPartPubEventsRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllPartPubEventsRequest {
+    const message = { ...baseQueryAllPartPubEventsRequest } as QueryAllPartPubEventsRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllPartPubEventsRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllPartPubEventsRequest>): QueryAllPartPubEventsRequest {
+    const message = { ...baseQueryAllPartPubEventsRequest } as QueryAllPartPubEventsRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllPartPubEventsResponse: object = {}
+
+export const QueryAllPartPubEventsResponse = {
+  encode(message: QueryAllPartPubEventsResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.PartPubEvents) {
+      PartPubEvents.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllPartPubEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllPartPubEventsResponse } as QueryAllPartPubEventsResponse
+    message.PartPubEvents = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.PartPubEvents.push(PartPubEvents.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllPartPubEventsResponse {
+    const message = { ...baseQueryAllPartPubEventsResponse } as QueryAllPartPubEventsResponse
+    message.PartPubEvents = []
+    if (object.PartPubEvents !== undefined && object.PartPubEvents !== null) {
+      for (const e of object.PartPubEvents) {
+        message.PartPubEvents.push(PartPubEvents.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllPartPubEventsResponse): unknown {
+    const obj: any = {}
+    if (message.PartPubEvents) {
+      obj.PartPubEvents = message.PartPubEvents.map((e) => (e ? PartPubEvents.toJSON(e) : undefined))
+    } else {
+      obj.PartPubEvents = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllPartPubEventsResponse>): QueryAllPartPubEventsResponse {
+    const message = { ...baseQueryAllPartPubEventsResponse } as QueryAllPartPubEventsResponse
+    message.PartPubEvents = []
+    if (object.PartPubEvents !== undefined && object.PartPubEvents !== null) {
+      for (const e of object.PartPubEvents) {
+        message.PartPubEvents.push(PartPubEvents.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryGetCreatePubEventsRequest: object = { id: 0 }
@@ -270,6 +794,14 @@ export const QueryAllCreatePubEventsResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a validPubEvents by id. */
+  ValidPubEvents(request: QueryGetValidPubEventsRequest): Promise<QueryGetValidPubEventsResponse>
+  /** Queries a list of validPubEvents items. */
+  ValidPubEventsAll(request: QueryAllValidPubEventsRequest): Promise<QueryAllValidPubEventsResponse>
+  /** Queries a partPubEvents by id. */
+  PartPubEvents(request: QueryGetPartPubEventsRequest): Promise<QueryGetPartPubEventsResponse>
+  /** Queries a list of partPubEvents items. */
+  PartPubEventsAll(request: QueryAllPartPubEventsRequest): Promise<QueryAllPartPubEventsResponse>
   /** Queries a createPubEvents by id. */
   CreatePubEvents(request: QueryGetCreatePubEventsRequest): Promise<QueryGetCreatePubEventsResponse>
   /** Queries a list of createPubEvents items. */
@@ -281,6 +813,30 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  ValidPubEvents(request: QueryGetValidPubEventsRequest): Promise<QueryGetValidPubEventsResponse> {
+    const data = QueryGetValidPubEventsRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'ValidPubEvents', data)
+    return promise.then((data) => QueryGetValidPubEventsResponse.decode(new Reader(data)))
+  }
+
+  ValidPubEventsAll(request: QueryAllValidPubEventsRequest): Promise<QueryAllValidPubEventsResponse> {
+    const data = QueryAllValidPubEventsRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'ValidPubEventsAll', data)
+    return promise.then((data) => QueryAllValidPubEventsResponse.decode(new Reader(data)))
+  }
+
+  PartPubEvents(request: QueryGetPartPubEventsRequest): Promise<QueryGetPartPubEventsResponse> {
+    const data = QueryGetPartPubEventsRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'PartPubEvents', data)
+    return promise.then((data) => QueryGetPartPubEventsResponse.decode(new Reader(data)))
+  }
+
+  PartPubEventsAll(request: QueryAllPartPubEventsRequest): Promise<QueryAllPartPubEventsResponse> {
+    const data = QueryAllPartPubEventsRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'PartPubEventsAll', data)
+    return promise.then((data) => QueryAllPartPubEventsResponse.decode(new Reader(data)))
+  }
+
   CreatePubEvents(request: QueryGetCreatePubEventsRequest): Promise<QueryGetCreatePubEventsResponse> {
     const data = QueryGetCreatePubEventsRequest.encode(request).finish()
     const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'CreatePubEvents', data)

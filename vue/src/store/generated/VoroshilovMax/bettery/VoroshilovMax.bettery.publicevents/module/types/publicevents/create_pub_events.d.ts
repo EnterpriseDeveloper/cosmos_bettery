@@ -9,6 +9,7 @@ export interface CreatePubEvents {
     startTime: number;
     endTime: number;
     expertAmount: number;
+    advisor: string;
 }
 export declare const CreatePubEvents: {
     encode(message: CreatePubEvents, writer?: Writer): Writer;

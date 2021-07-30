@@ -35,11 +35,40 @@ export interface PubliceventsCreatePubEvents {
 
   /** @format int64 */
   expertAmount?: string;
+  advisor?: string;
 }
 
 export interface PubliceventsMsgCreateCreatePubEventsResponse {
   /** @format uint64 */
   id?: string;
+}
+
+export interface PubliceventsMsgCreatePartPubEventsResponse {
+  /** @format uint64 */
+  id?: string;
+}
+
+export interface PubliceventsMsgCreateValidPubEventsResponse {
+  /** @format uint64 */
+  id?: string;
+}
+
+export type PubliceventsMsgDeletePartPubEventsResponse = object;
+
+export type PubliceventsMsgDeleteValidPubEventsResponse = object;
+
+export type PubliceventsMsgUpdatePartPubEventsResponse = object;
+
+export type PubliceventsMsgUpdateValidPubEventsResponse = object;
+
+export interface PubliceventsPartPubEvents {
+  creator?: string;
+
+  /** @format uint64 */
+  id?: string;
+  pubId?: string;
+  answers?: string;
+  amount?: string;
 }
 
 export interface PubliceventsQueryAllCreatePubEventsResponse {
@@ -57,8 +86,56 @@ export interface PubliceventsQueryAllCreatePubEventsResponse {
   pagination?: V1Beta1PageResponse;
 }
 
+export interface PubliceventsQueryAllPartPubEventsResponse {
+  PartPubEvents?: PubliceventsPartPubEvents[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface PubliceventsQueryAllValidPubEventsResponse {
+  ValidPubEvents?: PubliceventsValidPubEvents[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
 export interface PubliceventsQueryGetCreatePubEventsResponse {
   CreatePubEvents?: PubliceventsCreatePubEvents;
+}
+
+export interface PubliceventsQueryGetPartPubEventsResponse {
+  PartPubEvents?: PubliceventsPartPubEvents;
+}
+
+export interface PubliceventsQueryGetValidPubEventsResponse {
+  ValidPubEvents?: PubliceventsValidPubEvents;
+}
+
+export interface PubliceventsValidPubEvents {
+  creator?: string;
+
+  /** @format uint64 */
+  id?: string;
+  pubId?: string;
+  answers?: string;
+  reput?: string;
 }
 
 export interface RpcStatus {
@@ -356,6 +433,88 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryCreatePubEvents = (id: string, params: RequestParams = {}) =>
     this.request<PubliceventsQueryGetCreatePubEventsResponse, RpcStatus>({
       path: `/VoroshilovMax/bettery/publicevents/createPubEvents/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryPartPubEventsAll
+   * @summary Queries a list of partPubEvents items.
+   * @request GET:/VoroshilovMax/bettery/publicevents/partPubEvents
+   */
+  queryPartPubEventsAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<PubliceventsQueryAllPartPubEventsResponse, RpcStatus>({
+      path: `/VoroshilovMax/bettery/publicevents/partPubEvents`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryPartPubEvents
+   * @summary Queries a partPubEvents by id.
+   * @request GET:/VoroshilovMax/bettery/publicevents/partPubEvents/{id}
+   */
+  queryPartPubEvents = (id: string, params: RequestParams = {}) =>
+    this.request<PubliceventsQueryGetPartPubEventsResponse, RpcStatus>({
+      path: `/VoroshilovMax/bettery/publicevents/partPubEvents/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryValidPubEventsAll
+   * @summary Queries a list of validPubEvents items.
+   * @request GET:/VoroshilovMax/bettery/publicevents/validPubEvents
+   */
+  queryValidPubEventsAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<PubliceventsQueryAllValidPubEventsResponse, RpcStatus>({
+      path: `/VoroshilovMax/bettery/publicevents/validPubEvents`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryValidPubEvents
+   * @summary Queries a validPubEvents by id.
+   * @request GET:/VoroshilovMax/bettery/publicevents/validPubEvents/{id}
+   */
+  queryValidPubEvents = (id: string, params: RequestParams = {}) =>
+    this.request<PubliceventsQueryGetValidPubEventsResponse, RpcStatus>({
+      path: `/VoroshilovMax/bettery/publicevents/validPubEvents/${id}`,
       method: "GET",
       format: "json",
       ...params,

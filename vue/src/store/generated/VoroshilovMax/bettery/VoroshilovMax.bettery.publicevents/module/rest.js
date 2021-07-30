@@ -165,5 +165,63 @@ export class Api extends HttpClient {
             format: "json",
             ...params,
         });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryPartPubEventsAll
+         * @summary Queries a list of partPubEvents items.
+         * @request GET:/VoroshilovMax/bettery/publicevents/partPubEvents
+         */
+        this.queryPartPubEventsAll = (query, params = {}) => this.request({
+            path: `/VoroshilovMax/bettery/publicevents/partPubEvents`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryPartPubEvents
+         * @summary Queries a partPubEvents by id.
+         * @request GET:/VoroshilovMax/bettery/publicevents/partPubEvents/{id}
+         */
+        this.queryPartPubEvents = (id, params = {}) => this.request({
+            path: `/VoroshilovMax/bettery/publicevents/partPubEvents/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryValidPubEventsAll
+         * @summary Queries a list of validPubEvents items.
+         * @request GET:/VoroshilovMax/bettery/publicevents/validPubEvents
+         */
+        this.queryValidPubEventsAll = (query, params = {}) => this.request({
+            path: `/VoroshilovMax/bettery/publicevents/validPubEvents`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryValidPubEvents
+         * @summary Queries a validPubEvents by id.
+         * @request GET:/VoroshilovMax/bettery/publicevents/validPubEvents/{id}
+         */
+        this.queryValidPubEvents = (id, params = {}) => this.request({
+            path: `/VoroshilovMax/bettery/publicevents/validPubEvents/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
     }
 }

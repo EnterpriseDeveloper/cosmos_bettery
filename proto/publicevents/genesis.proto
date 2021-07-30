@@ -2,6 +2,8 @@ syntax = "proto3";
 package VoroshilovMax.bettery.publicevents;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "publicevents/valid_pub_events.proto";
+import "publicevents/part_pub_events.proto";
 import "publicevents/create_pub_events.proto";
 
 option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
@@ -9,6 +11,10 @@ option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
 // GenesisState defines the publicevents module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated ValidPubEvents validPubEventsList = 5; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 validPubEventsCount = 6; // this line is used by starport scaffolding # genesis/proto/stateField
+		repeated PartPubEvents partPubEventsList = 3; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 partPubEventsCount = 4; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated CreatePubEvents createPubEventsList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
 		uint64 createPubEventsCount = 2; // this line is used by starport scaffolding # genesis/proto/stateField
     // this line is used by starport scaffolding # ibc/genesis/proto

@@ -4,6 +4,8 @@ package VoroshilovMax.bettery.publicevents;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "publicevents/valid_pub_events.proto";
+import "publicevents/part_pub_events.proto";
 import "publicevents/create_pub_events.proto";
 
 option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
@@ -11,6 +13,28 @@ option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a validPubEvents by id.
+	rpc ValidPubEvents(QueryGetValidPubEventsRequest) returns (QueryGetValidPubEventsResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/publicevents/validPubEvents/{id}";
+	}
+
+	// Queries a list of validPubEvents items.
+	rpc ValidPubEventsAll(QueryAllValidPubEventsRequest) returns (QueryAllValidPubEventsResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/publicevents/validPubEvents";
+	}
+
+
+	// Queries a partPubEvents by id.
+	rpc PartPubEvents(QueryGetPartPubEventsRequest) returns (QueryGetPartPubEventsResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/publicevents/partPubEvents/{id}";
+	}
+
+	// Queries a list of partPubEvents items.
+	rpc PartPubEventsAll(QueryAllPartPubEventsRequest) returns (QueryAllPartPubEventsResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/publicevents/partPubEvents";
+	}
+
 
 	// Queries a createPubEvents by id.
 	rpc CreatePubEvents(QueryGetCreatePubEventsRequest) returns (QueryGetCreatePubEventsResponse) {
@@ -25,6 +49,38 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetValidPubEventsRequest {
+	uint64 id = 1;
+}
+
+message QueryGetValidPubEventsResponse {
+	ValidPubEvents ValidPubEvents = 1;
+}
+
+message QueryAllValidPubEventsRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllValidPubEventsResponse {
+	repeated ValidPubEvents ValidPubEvents = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetPartPubEventsRequest {
+	uint64 id = 1;
+}
+
+message QueryGetPartPubEventsResponse {
+	PartPubEvents PartPubEvents = 1;
+}
+
+message QueryAllPartPubEventsRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllPartPubEventsResponse {
+	repeated PartPubEvents PartPubEvents = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetCreatePubEventsRequest {
 	uint64 id = 1;
 }

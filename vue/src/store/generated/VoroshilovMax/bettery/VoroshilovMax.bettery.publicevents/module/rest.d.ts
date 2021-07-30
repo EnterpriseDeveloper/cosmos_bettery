@@ -17,10 +17,31 @@ export interface PubliceventsCreatePubEvents {
     endTime?: string;
     /** @format int64 */
     expertAmount?: string;
+    advisor?: string;
 }
 export interface PubliceventsMsgCreateCreatePubEventsResponse {
     /** @format uint64 */
     id?: string;
+}
+export interface PubliceventsMsgCreatePartPubEventsResponse {
+    /** @format uint64 */
+    id?: string;
+}
+export interface PubliceventsMsgCreateValidPubEventsResponse {
+    /** @format uint64 */
+    id?: string;
+}
+export declare type PubliceventsMsgDeletePartPubEventsResponse = object;
+export declare type PubliceventsMsgDeleteValidPubEventsResponse = object;
+export declare type PubliceventsMsgUpdatePartPubEventsResponse = object;
+export declare type PubliceventsMsgUpdateValidPubEventsResponse = object;
+export interface PubliceventsPartPubEvents {
+    creator?: string;
+    /** @format uint64 */
+    id?: string;
+    pubId?: string;
+    answers?: string;
+    amount?: string;
 }
 export interface PubliceventsQueryAllCreatePubEventsResponse {
     CreatePubEvents?: PubliceventsCreatePubEvents[];
@@ -35,8 +56,48 @@ export interface PubliceventsQueryAllCreatePubEventsResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface PubliceventsQueryAllPartPubEventsResponse {
+    PartPubEvents?: PubliceventsPartPubEvents[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
+export interface PubliceventsQueryAllValidPubEventsResponse {
+    ValidPubEvents?: PubliceventsValidPubEvents[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface PubliceventsQueryGetCreatePubEventsResponse {
     CreatePubEvents?: PubliceventsCreatePubEvents;
+}
+export interface PubliceventsQueryGetPartPubEventsResponse {
+    PartPubEvents?: PubliceventsPartPubEvents;
+}
+export interface PubliceventsQueryGetValidPubEventsResponse {
+    ValidPubEvents?: PubliceventsValidPubEvents;
+}
+export interface PubliceventsValidPubEvents {
+    creator?: string;
+    /** @format uint64 */
+    id?: string;
+    pubId?: string;
+    answers?: string;
+    reput?: string;
 }
 export interface RpcStatus {
     /** @format int32 */
@@ -175,5 +236,51 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/VoroshilovMax/bettery/publicevents/createPubEvents/{id}
      */
     queryCreatePubEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryGetCreatePubEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryPartPubEventsAll
+     * @summary Queries a list of partPubEvents items.
+     * @request GET:/VoroshilovMax/bettery/publicevents/partPubEvents
+     */
+    queryPartPubEventsAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryAllPartPubEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryPartPubEvents
+     * @summary Queries a partPubEvents by id.
+     * @request GET:/VoroshilovMax/bettery/publicevents/partPubEvents/{id}
+     */
+    queryPartPubEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryGetPartPubEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryValidPubEventsAll
+     * @summary Queries a list of validPubEvents items.
+     * @request GET:/VoroshilovMax/bettery/publicevents/validPubEvents
+     */
+    queryValidPubEventsAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryAllValidPubEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryValidPubEvents
+     * @summary Queries a validPubEvents by id.
+     * @request GET:/VoroshilovMax/bettery/publicevents/validPubEvents/{id}
+     */
+    queryValidPubEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryGetValidPubEventsResponse, RpcStatus>>;
 }
 export {};

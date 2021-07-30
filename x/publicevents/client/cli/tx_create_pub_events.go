@@ -47,6 +47,8 @@ func CmdCreateCreatePubEvents() *cobra.Command {
 				return err
 			}
 
+			// TODO add advisor
+
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err

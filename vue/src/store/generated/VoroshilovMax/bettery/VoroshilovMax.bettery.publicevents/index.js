@@ -2,7 +2,9 @@ import { txClient, queryClient, MissingWalletError } from './module';
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex';
 import { CreatePubEvents } from "./module/types/publicevents/create_pub_events";
-export { CreatePubEvents };
+import { PartPubEvents } from "./module/types/publicevents/part_pub_events";
+import { ValidPubEvents } from "./module/types/publicevents/valid_pub_events";
+export { CreatePubEvents, PartPubEvents, ValidPubEvents };
 async function initTxClient(vuexGetters) {
     return await txClient(vuexGetters['common/wallet/signer'], {
         addr: vuexGetters['common/env/apiTendermint']
@@ -36,10 +38,16 @@ function getStructure(template) {
 }
 const getDefaultState = () => {
     return {
+        ValidPubEvents: {},
+        ValidPubEventsAll: {},
+        PartPubEvents: {},
+        PartPubEventsAll: {},
         CreatePubEvents: {},
         CreatePubEventsAll: {},
         _Structure: {
             CreatePubEvents: getStructure(CreatePubEvents.fromPartial({})),
+            PartPubEvents: getStructure(PartPubEvents.fromPartial({})),
+            ValidPubEvents: getStructure(ValidPubEvents.fromPartial({})),
         },
         _Subscriptions: new Set(),
     };
@@ -64,6 +72,30 @@ export default {
         }
     },
     getters: {
+        getValidPubEvents: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.ValidPubEvents[JSON.stringify(params)] ?? {};
+        },
+        getValidPubEventsAll: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.ValidPubEventsAll[JSON.stringify(params)] ?? {};
+        },
+        getPartPubEvents: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.PartPubEvents[JSON.stringify(params)] ?? {};
+        },
+        getPartPubEventsAll: (state) => (params = { params: {} }) => {
+            if (!params.query) {
+                params.query = null;
+            }
+            return state.PartPubEventsAll[JSON.stringify(params)] ?? {};
+        },
         getCreatePubEvents: (state) => (params = { params: {} }) => {
             if (!params.query) {
                 params.query = null;
@@ -105,6 +137,66 @@ export default {
                 }
             });
         },
+        async QueryValidPubEvents({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
+            try {
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.queryValidPubEvents(key.id)).data;
+                commit('QUERY', { query: 'ValidPubEvents', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QueryValidPubEvents', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getValidPubEvents']({ params: { ...key }, query }) ?? {};
+            }
+            catch (e) {
+                throw new SpVuexError('QueryClient:QueryValidPubEvents', 'API Node Unavailable. Could not perform query: ' + e.message);
+            }
+        },
+        async QueryValidPubEventsAll({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
+            try {
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.queryValidPubEventsAll(query)).data;
+                while (all && value.pagination && value.pagination.nextKey != null) {
+                    let next_values = (await queryClient.queryValidPubEventsAll({ ...query, 'pagination.key': value.pagination.nextKey })).data;
+                    value = mergeResults(value, next_values);
+                }
+                commit('QUERY', { query: 'ValidPubEventsAll', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QueryValidPubEventsAll', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getValidPubEventsAll']({ params: { ...key }, query }) ?? {};
+            }
+            catch (e) {
+                throw new SpVuexError('QueryClient:QueryValidPubEventsAll', 'API Node Unavailable. Could not perform query: ' + e.message);
+            }
+        },
+        async QueryPartPubEvents({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
+            try {
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.queryPartPubEvents(key.id)).data;
+                commit('QUERY', { query: 'PartPubEvents', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QueryPartPubEvents', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getPartPubEvents']({ params: { ...key }, query }) ?? {};
+            }
+            catch (e) {
+                throw new SpVuexError('QueryClient:QueryPartPubEvents', 'API Node Unavailable. Could not perform query: ' + e.message);
+            }
+        },
+        async QueryPartPubEventsAll({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
+            try {
+                const queryClient = await initQueryClient(rootGetters);
+                let value = (await queryClient.queryPartPubEventsAll(query)).data;
+                while (all && value.pagination && value.pagination.nextKey != null) {
+                    let next_values = (await queryClient.queryPartPubEventsAll({ ...query, 'pagination.key': value.pagination.nextKey })).data;
+                    value = mergeResults(value, next_values);
+                }
+                commit('QUERY', { query: 'PartPubEventsAll', key: { params: { ...key }, query }, value });
+                if (subscribe)
+                    commit('SUBSCRIBE', { action: 'QueryPartPubEventsAll', payload: { options: { all }, params: { ...key }, query } });
+                return getters['getPartPubEventsAll']({ params: { ...key }, query }) ?? {};
+            }
+            catch (e) {
+                throw new SpVuexError('QueryClient:QueryPartPubEventsAll', 'API Node Unavailable. Could not perform query: ' + e.message);
+            }
+        },
         async QueryCreatePubEvents({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
             try {
                 const queryClient = await initQueryClient(rootGetters);
@@ -135,6 +227,57 @@ export default {
                 throw new SpVuexError('QueryClient:QueryCreatePubEventsAll', 'API Node Unavailable. Could not perform query: ' + e.message);
             }
         },
+        async sendMsgCreatePartPubEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreatePartPubEvents(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgCreatePartPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreatePartPubEvents:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgDeleteValidPubEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgDeleteValidPubEvents(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgDeleteValidPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgDeleteValidPubEvents:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgCreateValidPubEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreateValidPubEvents(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
         async sendMsgCreateCreatePubEvents({ rootGetters }, { value, fee = [], memo = '' }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -152,6 +295,102 @@ export default {
                 }
             }
         },
+        async sendMsgUpdatePartPubEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgUpdatePartPubEvents(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgUpdatePartPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgUpdatePartPubEvents:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgUpdateValidPubEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgUpdateValidPubEvents(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgUpdateValidPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgUpdateValidPubEvents:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async sendMsgDeletePartPubEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgDeletePartPubEvents(value);
+                const result = await txClient.signAndBroadcast([msg], { fee: { amount: fee,
+                        gas: "200000" }, memo });
+                return result;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgDeletePartPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgDeletePartPubEvents:Send', 'Could not broadcast Tx: ' + e.message);
+                }
+            }
+        },
+        async MsgCreatePartPubEvents({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreatePartPubEvents(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgCreatePartPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreatePartPubEvents:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgDeleteValidPubEvents({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgDeleteValidPubEvents(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgDeleteValidPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgDeleteValidPubEvents:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgCreateValidPubEvents({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgCreateValidPubEvents(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
         async MsgCreateCreatePubEvents({ rootGetters }, { value }) {
             try {
                 const txClient = await initTxClient(rootGetters);
@@ -164,6 +403,51 @@ export default {
                 }
                 else {
                     throw new SpVuexError('TxClient:MsgCreateCreatePubEvents:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgUpdatePartPubEvents({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgUpdatePartPubEvents(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgUpdatePartPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgUpdatePartPubEvents:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgUpdateValidPubEvents({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgUpdateValidPubEvents(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgUpdateValidPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgUpdateValidPubEvents:Create', 'Could not create message: ' + e.message);
+                }
+            }
+        },
+        async MsgDeletePartPubEvents({ rootGetters }, { value }) {
+            try {
+                const txClient = await initTxClient(rootGetters);
+                const msg = await txClient.msgDeletePartPubEvents(value);
+                return msg;
+            }
+            catch (e) {
+                if (e == MissingWalletError) {
+                    throw new SpVuexError('TxClient:MsgDeletePartPubEvents:Init', 'Could not initialize signing client. Wallet is required.');
+                }
+                else {
+                    throw new SpVuexError('TxClient:MsgDeletePartPubEvents:Create', 'Could not create message: ' + e.message);
                 }
             }
         },

@@ -14,4 +14,5 @@ message CreatePubEvents {
   int64 startTime = 6; 
   int64 endTime = 7; 
   int64 expertAmount = 8; 
+  string advisor = 9;
 }

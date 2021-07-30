@@ -29,3 +29,13 @@ const (
 	CreatePubEventsKey      = "CreatePubEvents-value-"
 	CreatePubEventsCountKey = "CreatePubEvents-count-"
 )
+
+const (
+	PartPubEventsKey      = "PartPubEvents-value-"
+	PartPubEventsCountKey = "PartPubEvents-count-"
+)
+
+const (
+	ValidPubEventsKey      = "ValidPubEvents-value-"
+	ValidPubEventsCountKey = "ValidPubEvents-count-"
+)

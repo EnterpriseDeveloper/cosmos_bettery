@@ -1,8 +1,36 @@
 import { Reader, Writer } from 'protobufjs/minimal';
-import { CreatePubEvents } from '../publicevents/create_pub_events';
+import { ValidPubEvents } from '../publicevents/valid_pub_events';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { PartPubEvents } from '../publicevents/part_pub_events';
+import { CreatePubEvents } from '../publicevents/create_pub_events';
 export declare const protobufPackage = "VoroshilovMax.bettery.publicevents";
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetValidPubEventsRequest {
+    id: number;
+}
+export interface QueryGetValidPubEventsResponse {
+    ValidPubEvents: ValidPubEvents | undefined;
+}
+export interface QueryAllValidPubEventsRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllValidPubEventsResponse {
+    ValidPubEvents: ValidPubEvents[];
+    pagination: PageResponse | undefined;
+}
+export interface QueryGetPartPubEventsRequest {
+    id: number;
+}
+export interface QueryGetPartPubEventsResponse {
+    PartPubEvents: PartPubEvents | undefined;
+}
+export interface QueryAllPartPubEventsRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllPartPubEventsResponse {
+    PartPubEvents: PartPubEvents[];
+    pagination: PageResponse | undefined;
+}
 export interface QueryGetCreatePubEventsRequest {
     id: number;
 }
@@ -16,6 +44,62 @@ export interface QueryAllCreatePubEventsResponse {
     CreatePubEvents: CreatePubEvents[];
     pagination: PageResponse | undefined;
 }
+export declare const QueryGetValidPubEventsRequest: {
+    encode(message: QueryGetValidPubEventsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetValidPubEventsRequest;
+    fromJSON(object: any): QueryGetValidPubEventsRequest;
+    toJSON(message: QueryGetValidPubEventsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetValidPubEventsRequest>): QueryGetValidPubEventsRequest;
+};
+export declare const QueryGetValidPubEventsResponse: {
+    encode(message: QueryGetValidPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetValidPubEventsResponse;
+    fromJSON(object: any): QueryGetValidPubEventsResponse;
+    toJSON(message: QueryGetValidPubEventsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetValidPubEventsResponse>): QueryGetValidPubEventsResponse;
+};
+export declare const QueryAllValidPubEventsRequest: {
+    encode(message: QueryAllValidPubEventsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllValidPubEventsRequest;
+    fromJSON(object: any): QueryAllValidPubEventsRequest;
+    toJSON(message: QueryAllValidPubEventsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllValidPubEventsRequest>): QueryAllValidPubEventsRequest;
+};
+export declare const QueryAllValidPubEventsResponse: {
+    encode(message: QueryAllValidPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllValidPubEventsResponse;
+    fromJSON(object: any): QueryAllValidPubEventsResponse;
+    toJSON(message: QueryAllValidPubEventsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllValidPubEventsResponse>): QueryAllValidPubEventsResponse;
+};
+export declare const QueryGetPartPubEventsRequest: {
+    encode(message: QueryGetPartPubEventsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetPartPubEventsRequest;
+    fromJSON(object: any): QueryGetPartPubEventsRequest;
+    toJSON(message: QueryGetPartPubEventsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetPartPubEventsRequest>): QueryGetPartPubEventsRequest;
+};
+export declare const QueryGetPartPubEventsResponse: {
+    encode(message: QueryGetPartPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetPartPubEventsResponse;
+    fromJSON(object: any): QueryGetPartPubEventsResponse;
+    toJSON(message: QueryGetPartPubEventsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetPartPubEventsResponse>): QueryGetPartPubEventsResponse;
+};
+export declare const QueryAllPartPubEventsRequest: {
+    encode(message: QueryAllPartPubEventsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllPartPubEventsRequest;
+    fromJSON(object: any): QueryAllPartPubEventsRequest;
+    toJSON(message: QueryAllPartPubEventsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllPartPubEventsRequest>): QueryAllPartPubEventsRequest;
+};
+export declare const QueryAllPartPubEventsResponse: {
+    encode(message: QueryAllPartPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllPartPubEventsResponse;
+    fromJSON(object: any): QueryAllPartPubEventsResponse;
+    toJSON(message: QueryAllPartPubEventsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllPartPubEventsResponse>): QueryAllPartPubEventsResponse;
+};
 export declare const QueryGetCreatePubEventsRequest: {
     encode(message: QueryGetCreatePubEventsRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryGetCreatePubEventsRequest;
@@ -46,6 +130,14 @@ export declare const QueryAllCreatePubEventsResponse: {
 };
 /** Query defines the gRPC querier service. */
 export interface Query {
+    /** Queries a validPubEvents by id. */
+    ValidPubEvents(request: QueryGetValidPubEventsRequest): Promise<QueryGetValidPubEventsResponse>;
+    /** Queries a list of validPubEvents items. */
+    ValidPubEventsAll(request: QueryAllValidPubEventsRequest): Promise<QueryAllValidPubEventsResponse>;
+    /** Queries a partPubEvents by id. */
+    PartPubEvents(request: QueryGetPartPubEventsRequest): Promise<QueryGetPartPubEventsResponse>;
+    /** Queries a list of partPubEvents items. */
+    PartPubEventsAll(request: QueryAllPartPubEventsRequest): Promise<QueryAllPartPubEventsResponse>;
     /** Queries a createPubEvents by id. */
     CreatePubEvents(request: QueryGetCreatePubEventsRequest): Promise<QueryGetCreatePubEventsResponse>;
     /** Queries a list of createPubEvents items. */
@@ -54,6 +146,10 @@ export interface Query {
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
+    ValidPubEvents(request: QueryGetValidPubEventsRequest): Promise<QueryGetValidPubEventsResponse>;
+    ValidPubEventsAll(request: QueryAllValidPubEventsRequest): Promise<QueryAllValidPubEventsResponse>;
+    PartPubEvents(request: QueryGetPartPubEventsRequest): Promise<QueryGetPartPubEventsResponse>;
+    PartPubEventsAll(request: QueryAllPartPubEventsRequest): Promise<QueryAllPartPubEventsResponse>;
     CreatePubEvents(request: QueryGetCreatePubEventsRequest): Promise<QueryGetCreatePubEventsResponse>;
     CreatePubEventsAll(request: QueryAllCreatePubEventsRequest): Promise<QueryAllCreatePubEventsResponse>;
 }
