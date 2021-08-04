@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreateCreatePubEvents{}
 
-func NewMsgCreateCreatePubEvents(creator string, pubId uint64, question string, answers []string, premAmount int64, startTime int64, endTime int64, expertAmount int64) *MsgCreateCreatePubEvents {
+func NewMsgCreateCreatePubEvents(creator string, pubId uint64, question string, answers []string, premAmount int64, startTime int64, endTime int64, expertAmount int64, advisor string) *MsgCreateCreatePubEvents {
 	return &MsgCreateCreatePubEvents{
 		Creator:      creator,
 		PubId:        pubId,
@@ -17,6 +17,7 @@ func NewMsgCreateCreatePubEvents(creator string, pubId uint64, question string, 
 		StartTime:    startTime,
 		EndTime:      endTime,
 		ExpertAmount: expertAmount,
+		Advisor:      advisor,
 	}
 }
 

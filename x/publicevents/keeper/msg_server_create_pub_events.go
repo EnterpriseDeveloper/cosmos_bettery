@@ -21,6 +21,7 @@ func (k msgServer) CreateCreatePubEvents(goCtx context.Context, msg *types.MsgCr
 		StartTime:    msg.StartTime,
 		EndTime:      msg.EndTime,
 		ExpertAmount: msg.ExpertAmount,
+		Advisor:      msg.Advisor,
 	}
 
 	id := k.AppendCreatePubEvents(

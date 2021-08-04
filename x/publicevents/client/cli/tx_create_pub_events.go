@@ -15,7 +15,7 @@ import (
 
 func CmdCreateCreatePubEvents() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-create-pub-events [pubId] [question] [answers] [premAmount] [startTime] [endTime] [expertAmount]",
+		Use:   "create-create-pub-events [pubId] [question] [answers] [premAmount] [startTime] [endTime] [expertAmount] [advisor]",
 		Short: "Create a new createPubEvents",
 		Args:  cobra.MinimumNArgs(7),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -47,14 +47,17 @@ func CmdCreateCreatePubEvents() *cobra.Command {
 				return err
 			}
 
-			// TODO add advisor
+			advisor, err := cast.ToStringE(args[7])
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateCreatePubEvents(clientCtx.GetFromAddress().String(), argsPubId, argsQuestion, argsAnswers, argsPremAmount, argsStartTime, argsEndTime, argsExpertAmount)
+			msg := types.NewMsgCreateCreatePubEvents(clientCtx.GetFromAddress().String(), argsPubId, argsQuestion, argsAnswers, argsPremAmount, argsStartTime, argsEndTime, argsExpertAmount, advisor)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
