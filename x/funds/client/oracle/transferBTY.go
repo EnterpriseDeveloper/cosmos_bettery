@@ -12,7 +12,7 @@ import (
 )
 
 func SubToEvent() {
-	client, err := ethclient.Dial("wss://ropsten.infura.io/ws/v3/e15499b20fd64706bedea8339f77755d")
+	client, err := ethclient.Dial("wss://goerli.infura.io/ws/v3/2b5ec85db4a74c8d8ed304ff2398690d")
 	if err != nil {
 		log.Fatal(err)
 	}
