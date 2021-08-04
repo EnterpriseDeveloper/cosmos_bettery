@@ -8,6 +8,7 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/client"
 	// "github.com/cosmos/cosmos-sdk/client/flags"
+	oracle "github.com/VoroshilovMax/bettery/x/funds/client/oracle"
 	"github.com/VoroshilovMax/bettery/x/funds/types"
 )
 
@@ -33,6 +34,9 @@ func GetTxCmd() *cobra.Command {
 
 	cmd.AddCommand(CmdCreateSwipeBet())
 	cmd.AddCommand(CmdCreateMintBet())
+
+	// run oracle
+	oracle.SubToEvent()
 
 	return cmd
 }
