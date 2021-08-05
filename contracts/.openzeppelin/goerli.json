@@ -1,0 +1,50 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x728AeD25f35AD885092187b25Fd269602fBd7704",
+    "txHash": "0x2b9f98e0324ecc0a0bb324336548445ff1cbbd792b2882c0d1049ce2226fa4e6"
+  },
+  "proxies": [
+    {
+      "address": "0x8d2Db4C0D5C87cdaF95A7e26f1d0E6CD2219B66F",
+      "txHash": "0x5d32c552a2c7752cb4d9aa84bbde749a1d5731b84e60aef88441ff96cbf23c6a",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "77f6602bb06b31e31c2dbffdc077a1db195304747d41931a34fe07da1d421b84": {
+      "address": "0x5Aaa57829c70e5Bbca988F7BccEb88299c75CDaC",
+      "txHash": "0xbfb054272add2e8720dc41610823b58175508eee2f4952421153925825f13b43",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_bool",
+            "src": "../@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:21"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "../@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:26"
+          },
+          {
+            "contract": "Transfer",
+            "label": "owner",
+            "type": "t_address",
+            "src": "../project:/contracts/ether/Transfer.sol:9"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address"
+          },
+          "t_bool": {
+            "label": "bool"
+          }
+        }
+      }
+    }
+  }
+}

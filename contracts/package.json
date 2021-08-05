@@ -8,6 +8,7 @@
   },
   "scripts": {
     "chSum": "node ./script/checkSum.js",
+    "migrate:goerli": "truffle compile --all && truffle migrate --network goerli --reset",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -15,6 +16,7 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.2.0",
     "@openzeppelin/contracts-upgradeable": "^4.2.0",
+    "@openzeppelin/truffle-upgrades": "^1.8.0",
     "@truffle/hdwallet-provider": "^1.4.2",
     "web3": "^1.5.0"
   }

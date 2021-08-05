@@ -12,7 +12,6 @@ module.exports = {
         return new HDWalletProvider(mnemonic, config.goerli, 0, 10)
       },
       network_id: config.goerliId,
-      //    gasPrice: 15000000001
     },
   },
 

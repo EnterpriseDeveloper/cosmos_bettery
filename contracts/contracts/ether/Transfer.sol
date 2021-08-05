@@ -15,7 +15,7 @@ contract Transfer is Initializable, TokensAddr {
         string token
     );
 
-    function TransferInit() public initializer {
+    function __TransferInit() public initializer {
         owner = msg.sender;
     }
 
