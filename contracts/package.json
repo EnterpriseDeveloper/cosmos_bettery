@@ -10,6 +10,7 @@
     "chSum": "node ./script/checkSum.js",
     "send": "node ./script/transfer.js",
     "migrate:goerli": "truffle compile --all && truffle migrate --network goerli --reset",
+    "convertAbi": "solc --abi Transfer.sol",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
