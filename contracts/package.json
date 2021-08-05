@@ -9,8 +9,8 @@
   "scripts": {
     "chSum": "node ./script/checkSum.js",
     "send": "node ./script/transfer.js",
-    "migrate:goerli": "truffle compile --all && truffle migrate --network goerli --reset",
-    "convertAbi": "solc --abi Transfer.sol",
+    "migrate:goerli": "truffle compile --all && truffle migrate --network goerli --reset && convertAbi",
+    "convertAbi": "solc -o ./build/solcoutput --abi ./contracts/ether/Transfer.sol --allow-paths *,",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
