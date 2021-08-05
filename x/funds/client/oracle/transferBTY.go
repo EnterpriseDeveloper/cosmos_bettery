@@ -1,62 +1,77 @@
 package oracle
 
 import (
+	"context"
 	"fmt"
 	"log"
+	"math/big"
+	"strings"
 
+	transfer "github.com/VoroshilovMax/bettery/x/funds/client/oracle/contracts"
+	"github.com/ethereum/go-ethereum"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
 func SubToEvent() {
-	client, err := ethclient.Dial("wss://goerli.infura.io/ws/v3/2b5ec85db4a74c8d8ed304ff2398690d")
+	go getEvent("0x608fb9bE25Cb23b2995D35B1f417685416462ADf", "wss://goerli.infura.io/ws/v3/2b5ec85db4a74c8d8ed304ff2398690d")
+	//	go getEvent("0xF5665833f98938d93601dF0bdb8a663f8288b037", "wss://ws-matic-mumbai.chainstacklabs.com")
+}
+
+func getEvent(contract string, rpc string) {
+	client, err := ethclient.Dial(rpc)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println(client)
-
-	// contractAddress := common.HexToAddress("0x147B8eb97fD247D06C4006D269c90C1908Fb5D54")
-	// query := ethereum.FilterQuery{
-	// 	Addresses: []common.Address{contractAddress},
-	// }
-
-	// logs, err := client.FilterLogs(context.Background(), query)
-	// if err != nil {
-	//     log.Fatal(err)
-	// }
-
-	// contractAbi, err := abi.JSON(strings.NewReader(string(transfer.StoreABI)))
+	// header, err := client.HeaderByNumber(context.Background(), nil)
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }
 
-	// for _, vLog := range logs {
-	// 	fmt.Println(vLog.BlockHash.Hex()) // 0x3404b8c050aa0aacd0223e91b5c32fee6400f357764771d0684fa7b3f448f1a8
-	// 	fmt.Println(vLog.BlockNumber)     // 2394201
-	// 	fmt.Println(vLog.TxHash.Hex())    // 0x280201eda63c9ff6f305fcee51d5eb86167fab40ca3108ec784e8652a0e2b1a6
+	// fmt.Println(header.Number.Int64())
 
-	// 	event := struct {
-	// 		Key   [32]byte
-	// 		Value [32]byte
-	// 	}{}
-	// 	err := contractAbi.Unpack(&event, "ItemSet", vLog.Data)
-	// 	if err != nil {
-	// 		log.Fatal(err)
-	// 	}
+	contractAddress := common.HexToAddress(contract)
+	query := ethereum.FilterQuery{
+		//	FromBlock: big.NewInt(header.Number.Int64()),
+		Addresses: []common.Address{contractAddress},
+	}
 
-	// 	fmt.Println(string(event.Key[:]))   // foo
-	// 	fmt.Println(string(event.Value[:])) // bar
+	logs := make(chan types.Log)
+	sub, err := client.SubscribeFilterLogs(context.Background(), query, logs)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// 	var topics [4]string
-	// 	for i := range vLog.Topics {
-	// 		topics[i] = vLog.Topics[i].Hex()
-	// 	}
+	contractAbi, err := abi.JSON(strings.NewReader(string(transfer.TransferABI)))
+	if err != nil {
+		log.Fatal("abi JSON", err)
+	}
 
-	// 	fmt.Println(topics[0]) // 0xe79e73da417710ae99aa2088575580a60415d359acfad9cdd3382d59c80281d4
-	// }
+	for {
+		select {
+		case err := <-sub.Err():
+			log.Fatal(err)
+		case vLog := <-logs:
 
-	// eventSignature := []byte("ItemSet(bytes32,bytes32)")
-	// hash := crypto.Keccak256Hash(eventSignature)
-	// fmt.Println(hash.Hex()) // 0xe79e73da417710ae99aa2088575580a60415d359acfad9cdd3382d59c80281d4
+			event := struct {
+				CosmosWallet string
+				Amount       *big.Int
+				Sender       common.Address
+			}{}
+			err = contractAbi.Unpack(&event, "transferETHEvent", vLog.Data)
+			if err != nil {
+				log.Fatal("unpack err", err)
+			}
 
+			fmt.Println(string(event.CosmosWallet))
+			fmt.Println(event.Amount.String())
+			fmt.Println(string(event.Sender[:]))
+			fmt.Println(vLog.BlockHash.Hex()) // 0x3404b8c050aa0aacd0223e91b5c32fee6400f357764771d0684fa7b3f448f1a8
+			fmt.Println(vLog.BlockNumber)     // 2394201
+			fmt.Println(vLog.TxHash.Hex())    // 0x280201eda63c9ff6f305fcee51d5eb86167fab40ca3108ec784e8652a0e2b1a6
+		}
+	}
 }
