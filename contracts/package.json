@@ -9,8 +9,10 @@
   "scripts": {
     "chSum": "node ./script/checkSum.js",
     "send": "node ./script/transfer.js",
-    "migrate:goerli": "truffle compile --all && truffle migrate --network goerli --reset && convertAbi",
-    "convertAbi": "solc -o ./build/solcoutput --abi ./contracts/ether/Transfer.sol --allow-paths *,",
+    "migrate:goerli": "truffle compile --all && truffle migrate --network goerli --reset && npm run getAbi",
+    "getAbi": "solc -o ./build/solcoutput --abi ./contracts/ether/Transfer.sol --overwrite --allow-paths *, && npm run getBin",
+    "getBin": "solc -o ./build/solcoutput --bin ./contracts/ether/Transfer.sol --overwrite --allow-paths *, && npm run transfGO",
+    "transfGO": "abigen --bin=./build/solcoutput/Transfer.bin --abi=./build/solcoutput/Transfer.abi --pkg=transfer --out=../x/funds/client/oracle/contracts/Transfer.go",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
