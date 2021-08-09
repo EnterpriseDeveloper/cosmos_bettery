@@ -24,7 +24,7 @@ func (msg *MsgCreateMintBet) Type() string {
 }
 
 func (msg *MsgCreateMintBet) GetSigners() []sdk.AccAddress {
-	creator, err := sdk.AccAddressFromBech32(msg.Creator)
+	creator, err := sdk.AccAddressFromBech32(CompanyAccount)
 	if err != nil {
 		panic(err)
 	}
@@ -37,7 +37,7 @@ func (msg *MsgCreateMintBet) GetSignBytes() []byte {
 }
 
 func (msg *MsgCreateMintBet) ValidateBasic() error {
-	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	_, err := sdk.AccAddressFromBech32(CompanyAccount)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
