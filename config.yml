@@ -3,6 +3,14 @@ accounts:
     coins: ["20000token", "200000000stake"]
   - name: bob
     coins: ["10000token", "100000000stake"]
+  - name: sim
+    coins: ["10000token", "100000000stake"]
+  - name: shane
+    coins: ["10000token", "100000000stake"]
+  - name: max
+    coins: ["10000token", "100000000stake"]
+  - name: fedor
+    coins: ["10000token", "100000000stake"]
 validator:
   name: alice
   staked: "100000000stake"

@@ -20,6 +20,8 @@ const (
 
 	BtyToken = "bty"
 
+	Memonic = "skill occur truly admit december romance orphan orphan second ritual welcome bomb annual loop garden spawn lucky cart cross minimum gap shift answer original"
+
 	// this line is used by starport scaffolding # ibc/keys/name
 )
 
