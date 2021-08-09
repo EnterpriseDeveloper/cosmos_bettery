@@ -3,6 +3,7 @@ package oracle
 import (
 	"context"
 	"fmt"
+	"log"
 
 	mintTypes "github.com/VoroshilovMax/bettery/x/funds/types"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -18,15 +19,15 @@ import (
 	"google.golang.org/grpc"
 )
 
-func SendTx(msg *mintTypes.MsgCreateMintBet, clientCtx client.Context, memo string) (*tx.BroadcastTxResponse, error) {
+func SendTx(msg *mintTypes.MsgCreateMintBet, clientCtx client.Context) {
 
 	txBuilder := clientCtx.TxConfig.NewTxBuilder()
 	err := txBuilder.SetMsgs(msg)
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 
-	mnemonic := memo
+	mnemonic := mintTypes.CompanyMemo
 	fee := sdk.NewCoins(sdk.NewInt64Coin("stake", 150))
 	txBuilder.SetGasLimit(100000)
 	txBuilder.SetFeeAmount(fee)
@@ -37,15 +38,14 @@ func SendTx(msg *mintTypes.MsgCreateMintBet, clientCtx client.Context, memo stri
 	master, ch := hd.ComputeMastersFromSeed(seed)
 	priv, err := hd.DerivePrivateKeyForPath(master, ch, "m/44'/118'/0'/0/0")
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 
 	privKey := &secp256k1.PrivKey{Key: priv}
-	mintTypes.CompanyAccount = privKey.PubKey().Address().String()
-
-	num, seq, err := clientCtx.AccountRetriever.GetAccountNumberSequence(clientCtx, sdk.AccAddress(privKey.PubKey().Address().String()))
+	fmt.Println(privKey.PubKey().Address())
+	num, seq, err := clientCtx.AccountRetriever.GetAccountNumberSequence(clientCtx, sdk.AccAddress(privKey.PubKey().Address()))
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 	fmt.Println(num, seq)
 
@@ -85,23 +85,23 @@ func SendTx(msg *mintTypes.MsgCreateMintBet, clientCtx client.Context, memo stri
 			clientCtx.TxConfig.SignModeHandler().DefaultMode(), signerData,
 			txBuilder, priv, clientCtx.TxConfig, accSeqs[i])
 		if err != nil {
-			return nil, err
+			log.Fatal(err)
 		}
 
 		sigsV2 = append(sigsV2, sigV2)
 	}
 	err = txBuilder.SetSignatures(sigsV2...)
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
-	return broadcast(clientCtx, txBuilder)
+	broadcast(clientCtx, txBuilder)
 }
 
-func broadcast(clientCtx client.Context, txBuilder client.TxBuilder) (*tx.BroadcastTxResponse, error) {
+func broadcast(clientCtx client.Context, txBuilder client.TxBuilder) {
 	// Generated Protobuf-encoded bytes.
 	txBytes, err := clientCtx.TxConfig.TxEncoder()(txBuilder.GetTx())
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 
 	// Create a connection to the gRPC server.
@@ -110,7 +110,7 @@ func broadcast(clientCtx client.Context, txBuilder client.TxBuilder) (*tx.Broadc
 		grpc.WithInsecure(), // The SDK doesn't support any transport security mechanism.
 	)
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 	defer grpcConn.Close()
 
@@ -126,8 +126,8 @@ func broadcast(clientCtx client.Context, txBuilder client.TxBuilder) (*tx.Broadc
 		},
 	)
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
 
-	return send, nil
+	fmt.Println(send)
 }
