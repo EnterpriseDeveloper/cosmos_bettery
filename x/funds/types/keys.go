@@ -14,13 +14,15 @@ const (
 	QuerierRoute = ModuleName
 
 	// MemStoreKey defines the in-memory store key
-	MemStoreKey    = "mem_funds"
-	BetToken       = "bet"
-	BtyToken       = "bty"
-	CompanyMemonic = "tell arrest diagram hockey earth either work helmet motor avocado ketchup into page tuition oyster forget snap congress space turn festival desk tooth caution"
-	CompanyAccount = "cosmos142hss5xryhpm9me420ygg7855n4rtn5yyqh5rt"
+	MemStoreKey = "mem_funds"
+	BetToken    = "bet"
+	BtyToken    = "bty"
 
 	// this line is used by starport scaffolding # ibc/keys/name
+)
+
+var (
+	CompanyAccount = ""
 )
 
 // this line is used by starport scaffolding # ibc/keys/port

@@ -10,8 +10,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/crypto/hd"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/secp256k1"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
-	"github.com/cosmos/cosmos-sdk/simapp"
-	"github.com/cosmos/cosmos-sdk/simapp/params"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/tx"
 	"github.com/cosmos/cosmos-sdk/types/tx/signing"
@@ -20,15 +18,15 @@ import (
 	"google.golang.org/grpc"
 )
 
-func SendTx(msg *mintTypes.MsgCreateMintBet) (*tx.BroadcastTxResponse, error) {
-	encCfg := simapp.MakeTestEncodingConfig()
-	txBuilder := encCfg.TxConfig.NewTxBuilder()
+func SendTx(msg *mintTypes.MsgCreateMintBet, clientCtx client.Context, memo string) (*tx.BroadcastTxResponse, error) {
+
+	txBuilder := clientCtx.TxConfig.NewTxBuilder()
 	err := txBuilder.SetMsgs(msg)
 	if err != nil {
 		return nil, err
 	}
 
-	mnemonic := mintTypes.CompanyMemonic
+	mnemonic := memo
 	fee := sdk.NewCoins(sdk.NewInt64Coin("stake", 150))
 	txBuilder.SetGasLimit(100000)
 	txBuilder.SetFeeAmount(fee)
@@ -43,7 +41,7 @@ func SendTx(msg *mintTypes.MsgCreateMintBet) (*tx.BroadcastTxResponse, error) {
 	}
 
 	privKey := &secp256k1.PrivKey{Key: priv}
-	fmt.Println(privKey.PubKey().Address().String())
+	mintTypes.CompanyAccount = privKey.PubKey().Address().String()
 
 	num, seq, err := clientCtx.AccountRetriever.GetAccountNumberSequence(clientCtx, sdk.AccAddress(privKey.PubKey().Address().String()))
 	if err != nil {
@@ -62,7 +60,7 @@ func SendTx(msg *mintTypes.MsgCreateMintBet) (*tx.BroadcastTxResponse, error) {
 		sigV2 := signing.SignatureV2{
 			PubKey: priv.PubKey(),
 			Data: &signing.SingleSignatureData{
-				SignMode:  encCfg.TxConfig.SignModeHandler().DefaultMode(),
+				SignMode:  clientCtx.TxConfig.SignModeHandler().DefaultMode(),
 				Signature: nil,
 			},
 			Sequence: accSeqs[i],
@@ -74,19 +72,18 @@ func SendTx(msg *mintTypes.MsgCreateMintBet) (*tx.BroadcastTxResponse, error) {
 	if err != nil {
 		fmt.Println("SetSignatures", err)
 	}
-	fmt.Println("5")
 
 	// Second round: all signer infos are set, so each signer can sign.
 	sigsV2 = []signing.SignatureV2{}
 	for i, priv := range privs {
 		signerData := xauthsigning.SignerData{
-			ChainID:       "bettery",
+			ChainID:       clientCtx.ChainID,
 			AccountNumber: accNums[i],
 			Sequence:      accSeqs[i],
 		}
 		sigV2, err := txs.SignWithPrivKey(
-			encCfg.TxConfig.SignModeHandler().DefaultMode(), signerData,
-			txBuilder, priv, encCfg.TxConfig, accSeqs[i])
+			clientCtx.TxConfig.SignModeHandler().DefaultMode(), signerData,
+			txBuilder, priv, clientCtx.TxConfig, accSeqs[i])
 		if err != nil {
 			return nil, err
 		}
@@ -97,12 +94,12 @@ func SendTx(msg *mintTypes.MsgCreateMintBet) (*tx.BroadcastTxResponse, error) {
 	if err != nil {
 		return nil, err
 	}
-	return broadcast(encCfg, txBuilder)
+	return broadcast(clientCtx, txBuilder)
 }
 
-func broadcast(encCfg params.EncodingConfig, txBuilder client.TxBuilder) (*tx.BroadcastTxResponse, error) {
+func broadcast(clientCtx client.Context, txBuilder client.TxBuilder) (*tx.BroadcastTxResponse, error) {
 	// Generated Protobuf-encoded bytes.
-	txBytes, err := encCfg.TxConfig.TxEncoder()(txBuilder.GetTx())
+	txBytes, err := clientCtx.TxConfig.TxEncoder()(txBuilder.GetTx())
 	if err != nil {
 		return nil, err
 	}

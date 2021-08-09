@@ -9,6 +9,11 @@ import (
 
 	transfer "github.com/VoroshilovMax/bettery/x/funds/client/oracle/contracts"
 	mintTypes "github.com/VoroshilovMax/bettery/x/funds/types"
+	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/types/tx"
+	"github.com/spf13/cast"
+	"github.com/spf13/cobra"
 
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
@@ -18,16 +23,41 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
-func SubToEvent() {
-	// TODO
-	go getEvent(mintTypes.EthContractAddr, mintTypes.EthNet)
-	//	go getEvent("0xF5665833f98938d93601dF0bdb8a663f8288b037", "wss://ws-matic-mumbai.chainstacklabs.com")
+func CmdRunOracle() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "run_oracle [memonic]",
+		Short: "run oracle",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			memo, err := cast.ToStringE(args[0])
+			if err != nil {
+				return err
+			}
+			// TODO
+			responce, err := getEvent(mintTypes.EthContractAddr, mintTypes.EthNet, clientCtx, memo)
+			//	go getEvent("0xF5665833f98938d93601dF0bdb8a663f8288b037", "wss://ws-matic-mumbai.chainstacklabs.com")
+			if err != nil {
+				fmt.Println(err)
+				return err
+			}
+			fmt.Println(responce)
+			return nil
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
+	return cmd
 }
 
-func getEvent(contract string, rpc string) {
+func getEvent(contract string, rpc string, clientCtx client.Context, memo string) (*tx.BroadcastTxResponse, error) {
 	client, err := ethclient.Dial(rpc)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	contractAddress := common.HexToAddress(contract)
@@ -38,12 +68,12 @@ func getEvent(contract string, rpc string) {
 	logs := make(chan types.Log)
 	sub, err := client.SubscribeFilterLogs(context.Background(), query, logs)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	contractAbi, err := abi.JSON(strings.NewReader(string(transfer.TransferABI)))
 	if err != nil {
-		log.Fatal("abi JSON", err)
+		return nil, err
 	}
 
 	TransferETHSig := []byte("transferETHEvent(string,uint256,address)")
@@ -54,7 +84,7 @@ func getEvent(contract string, rpc string) {
 	for {
 		select {
 		case err := <-sub.Err():
-			log.Fatal(err)
+			return nil, err
 		case vLog := <-logs:
 			fmt.Printf("Log Block Number: %d\n", vLog.BlockNumber)
 			fmt.Printf("Log Index: %d\n", vLog.Index)
@@ -62,7 +92,7 @@ func getEvent(contract string, rpc string) {
 			switch vLog.Topics[0].Hex() {
 			case logTransferETHSigHash.Hex():
 				fmt.Printf("Log Name: Transfer ETH\n")
-				transferEthEvent(vLog, contractAbi)
+				return transferEthEvent(vLog, contractAbi, clientCtx, memo)
 
 			case logTransferERC20SigHash.Hex():
 				fmt.Printf("Log Name: Transfer ERC20\n")
@@ -72,7 +102,7 @@ func getEvent(contract string, rpc string) {
 	}
 }
 
-func transferEthEvent(vLog types.Log, contractAbi abi.ABI) {
+func transferEthEvent(vLog types.Log, contractAbi abi.ABI, clientCtx client.Context, memo string) (*tx.BroadcastTxResponse, error) {
 	event := struct {
 		CosmosWallet string
 		Amount       *big.Int
@@ -102,11 +132,11 @@ func transferEthEvent(vLog types.Log, contractAbi abi.ABI) {
 		fmt.Println("validate error oracle", err)
 	}
 
-	transact, err := SendTx(msg)
+	transact, err := SendTx(msg, clientCtx, memo)
 	if err != nil {
-		fmt.Println("transact", err)
+		return nil, err
 	}
-	fmt.Println(transact)
+	return transact, nil
 }
 
 func weiToEth(val float64) float64 {

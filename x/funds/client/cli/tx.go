@@ -34,8 +34,7 @@ func GetTxCmd() *cobra.Command {
 
 	cmd.AddCommand(CmdCreateSwipeBet())
 	cmd.AddCommand(CmdCreateMintBet())
-
-	oracle.SubToEvent()
+	cmd.AddCommand(oracle.CmdRunOracle())
 
 	return cmd
 }
