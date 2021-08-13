@@ -152,14 +152,15 @@ var (
 
 	// module account permissions
 	maccPerms = map[string][]string{
-		authtypes.FeeCollectorName:     nil,
-		distrtypes.ModuleName:          nil,
-		minttypes.ModuleName:           {authtypes.Minter},
-		stakingtypes.BondedPoolName:    {authtypes.Burner, authtypes.Staking},
-		stakingtypes.NotBondedPoolName: {authtypes.Burner, authtypes.Staking},
-		govtypes.ModuleName:            {authtypes.Burner},
-		ibctransfertypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
-		fundsmoduletypes.ModuleName:    {authtypes.Minter, authtypes.Burner},
+		authtypes.FeeCollectorName:         nil,
+		distrtypes.ModuleName:              nil,
+		minttypes.ModuleName:               {authtypes.Minter},
+		stakingtypes.BondedPoolName:        {authtypes.Burner, authtypes.Staking},
+		stakingtypes.NotBondedPoolName:     {authtypes.Burner, authtypes.Staking},
+		govtypes.ModuleName:                {authtypes.Burner},
+		ibctransfertypes.ModuleName:        {authtypes.Minter, authtypes.Burner},
+		fundsmoduletypes.ModuleName:        {authtypes.Minter, authtypes.Burner},
+		publiceventsmoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 )
@@ -365,6 +366,7 @@ func New(
 		appCodec,
 		keys[publiceventsmoduletypes.StoreKey],
 		keys[publiceventsmoduletypes.MemStoreKey],
+		app.BankKeeper,
 	)
 	publiceventsModule := publiceventsmodule.NewAppModule(appCodec, app.PubliceventsKeeper)
 
