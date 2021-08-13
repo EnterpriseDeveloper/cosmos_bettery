@@ -24,21 +24,26 @@ func (k msgServer) CreateSwipeBet(goCtx context.Context, msg *types.MsgCreateSwi
 		return nil, err
 	}
 
-	sendAmount, ok := new(big.Int).SetString(msg.Amount, 10)
+	cehckAmount, ok := new(big.Int).SetString(msg.Amount, 10)
 	if !ok {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error, amount: %s, user: %s", msg.Creator, msg.Amount))
 	}
 	resAmount := k.bankKeeper.GetBalance(ctx, reciever, types.BetToken)
-	if sendAmount.Cmp(resAmount.Amount.BigInt()) == 1 {
+	if cehckAmount.Cmp(resAmount.Amount.BigInt()) == 1 {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user does not have enought bet token, his amount: %d", resAmount.Amount.Int64()))
 	}
 
-	err = k.BurnTokens(ctx, reciever, sdk.NewCoin(types.BetToken, sdk.NewIntFromBigInt(sendAmount)))
+	amount, ok := sdk.NewIntFromString(msg.Amount)
+	if !ok {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse string to init error, amount: %s, user: %s", msg.Amount, msg.Creator))
+	}
+
+	err = k.BurnTokens(ctx, reciever, sdk.NewCoin(types.BetToken, amount))
 
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("error from burn token, amount: %s, user: c", msg.Creator))
 	}
-	err = k.MintTokens(ctx, reciever, sdk.NewCoin(types.BtyToken, sdk.NewIntFromBigInt(sendAmount)))
+	err = k.MintTokens(ctx, reciever, sdk.NewCoin(types.BtyToken, amount))
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("error from burn mint, amount: %s, user: c", msg.Creator))
 	}

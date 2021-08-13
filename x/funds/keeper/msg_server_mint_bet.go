@@ -3,7 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
-	"math/big"
+	"strconv"
 
 	"github.com/VoroshilovMax/bettery/x/funds/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -23,13 +23,13 @@ func (k msgServer) CreateMintBet(goCtx context.Context, msg *types.MsgCreateMint
 	if err != nil {
 		return nil, err
 	}
-	amount, ok := new(big.Int).SetString(msg.Amount, 10)
-	if !ok {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error, amount: %s, user: %s", msg.Creator, msg.Amount))
-	}
-	err = k.MintTokens(ctx, reciever, sdk.NewCoin(types.BetToken, sdk.NewIntFromBigInt(amount)))
+	amount, err := strconv.ParseInt(msg.Amount, 10, 64)
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("error from burn mint, amount: %s, user: %s", msg.Creator, msg.Amount))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse string to init error, amount: %s, user: %s", msg.Amount, msg.Creator))
+	}
+	err = k.MintTokens(ctx, reciever, sdk.NewCoin(types.BetToken, sdk.NewIntWithDecimal(amount, 18)))
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("error from burn mint, amount: %s, user: %s", msg.Amount, msg.Creator))
 	}
 
 	id := k.AppendMintBet(
