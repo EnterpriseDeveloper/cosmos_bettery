@@ -42,12 +42,10 @@ func SendTx(msg *mintTypes.MsgCreateMintBet, clientCtx client.Context) {
 	}
 
 	privKey := &secp256k1.PrivKey{Key: priv}
-	fmt.Println(privKey.PubKey().Address())
 	num, seq, err := clientCtx.AccountRetriever.GetAccountNumberSequence(clientCtx, sdk.AccAddress(privKey.PubKey().Address()))
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(num, seq)
 
 	privs := []cryptotypes.PrivKey{privKey}
 	accNums := []uint64{num}
