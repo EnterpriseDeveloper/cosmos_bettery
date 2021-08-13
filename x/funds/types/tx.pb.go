@@ -30,7 +30,7 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 // this line is used by starport scaffolding # proto/tx/message
 type MsgCreateSwipeBet struct {
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Amount  int64  `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	Amount  string `protobuf:"bytes,2,opt,name=amount,proto3" json:"amount,omitempty"`
 	UserId  int64  `protobuf:"varint,3,opt,name=userId,proto3" json:"userId,omitempty"`
 }
 
@@ -74,11 +74,11 @@ func (m *MsgCreateSwipeBet) GetCreator() string {
 	return ""
 }
 
-func (m *MsgCreateSwipeBet) GetAmount() int64 {
+func (m *MsgCreateSwipeBet) GetAmount() string {
 	if m != nil {
 		return m.Amount
 	}
-	return 0
+	return ""
 }
 
 func (m *MsgCreateSwipeBet) GetUserId() int64 {
@@ -134,7 +134,7 @@ func (m *MsgCreateSwipeBetResponse) GetId() uint64 {
 
 type MsgCreateMintBet struct {
 	Creator string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
-	Amount  int64  `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	Amount  string `protobuf:"bytes,2,opt,name=amount,proto3" json:"amount,omitempty"`
 	UserId  int64  `protobuf:"varint,3,opt,name=userId,proto3" json:"userId,omitempty"`
 }
 
@@ -178,11 +178,11 @@ func (m *MsgCreateMintBet) GetCreator() string {
 	return ""
 }
 
-func (m *MsgCreateMintBet) GetAmount() int64 {
+func (m *MsgCreateMintBet) GetAmount() string {
 	if m != nil {
 		return m.Amount
 	}
-	return 0
+	return ""
 }
 
 func (m *MsgCreateMintBet) GetUserId() int64 {
@@ -254,9 +254,9 @@ var fileDescriptor_fb52ceeb6acd4c41 = []byte{
 	0x2d, 0x81, 0xe8, 0x91, 0x12, 0x81, 0x08, 0xe7, 0x66, 0xe6, 0x95, 0x20, 0x44, 0x95, 0x62, 0xb9,
 	0x04, 0x7d, 0x8b, 0xd3, 0x9d, 0x8b, 0x52, 0x13, 0x4b, 0x52, 0x83, 0x41, 0x3a, 0x9c, 0x52, 0x4b,
 	0x84, 0x24, 0xb8, 0xd8, 0x93, 0x41, 0x22, 0xf9, 0x45, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0x9c, 0x41,
-	0x30, 0xae, 0x90, 0x18, 0x17, 0x5b, 0x62, 0x6e, 0x7e, 0x69, 0x5e, 0x89, 0x04, 0x93, 0x02, 0xa3,
-	0x06, 0x73, 0x10, 0x94, 0x07, 0x12, 0x2f, 0x2d, 0x4e, 0x2d, 0xf2, 0x4c, 0x91, 0x60, 0x86, 0x88,
-	0x43, 0x78, 0x4a, 0xda, 0x5c, 0x92, 0x18, 0xc6, 0x07, 0xa5, 0x16, 0x17, 0xe4, 0xe7, 0x15, 0xa7,
+	0x30, 0xae, 0x90, 0x18, 0x17, 0x5b, 0x62, 0x6e, 0x7e, 0x69, 0x5e, 0x89, 0x04, 0x13, 0x58, 0x02,
+	0xca, 0x03, 0x89, 0x97, 0x16, 0xa7, 0x16, 0x79, 0xa6, 0x48, 0x30, 0x2b, 0x30, 0x6a, 0x30, 0x07,
+	0x41, 0x79, 0x4a, 0xda, 0x5c, 0x92, 0x18, 0xc6, 0x07, 0xa5, 0x16, 0x17, 0xe4, 0xe7, 0x15, 0xa7,
 	0x0a, 0xf1, 0x71, 0x31, 0x65, 0xa6, 0x80, 0x6d, 0x60, 0x09, 0x62, 0xca, 0x4c, 0x51, 0x8a, 0xe1,
 	0x12, 0x80, 0x2b, 0xf6, 0xcd, 0xcc, 0x2b, 0xa1, 0xae, 0x53, 0xb4, 0xb8, 0x24, 0xd0, 0x4d, 0xc7,
 	0xe5, 0x12, 0xa3, 0x6f, 0x8c, 0x5c, 0xcc, 0xbe, 0xc5, 0xe9, 0x42, 0x15, 0x5c, 0x7c, 0x68, 0x41,
@@ -266,7 +266,7 @@ var fileDescriptor_fb52ceeb6acd4c41 = []byte{
 	0xf0, 0x58, 0x8e, 0xe1, 0xc2, 0x63, 0x39, 0x86, 0x1b, 0x8f, 0xe5, 0x18, 0xa2, 0xf4, 0xd2, 0x33,
 	0x4b, 0x32, 0x4a, 0x93, 0xf4, 0x92, 0xf3, 0x73, 0xf5, 0x51, 0x8c, 0xd6, 0x87, 0x1a, 0xad, 0x5f,
 	0xa1, 0x0f, 0x4d, 0xa5, 0x95, 0x05, 0xa9, 0xc5, 0x49, 0x6c, 0xe0, 0xf4, 0x65, 0x0c, 0x08, 0x00,
-	0x00, 0xff, 0xff, 0x41, 0x03, 0x03, 0x49, 0xbb, 0x02, 0x00, 0x00,
+	0x00, 0xff, 0xff, 0xb3, 0xa3, 0xdc, 0xe7, 0xbb, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -412,10 +412,12 @@ func (m *MsgCreateSwipeBet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x18
 	}
-	if m.Amount != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Amount))
+	if len(m.Amount) > 0 {
+		i -= len(m.Amount)
+		copy(dAtA[i:], m.Amount)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Amount)))
 		i--
-		dAtA[i] = 0x10
+		dAtA[i] = 0x12
 	}
 	if len(m.Creator) > 0 {
 		i -= len(m.Creator)
@@ -480,10 +482,12 @@ func (m *MsgCreateMintBet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x18
 	}
-	if m.Amount != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.Amount))
+	if len(m.Amount) > 0 {
+		i -= len(m.Amount)
+		copy(dAtA[i:], m.Amount)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Amount)))
 		i--
-		dAtA[i] = 0x10
+		dAtA[i] = 0x12
 	}
 	if len(m.Creator) > 0 {
 		i -= len(m.Creator)
@@ -544,8 +548,9 @@ func (m *MsgCreateSwipeBet) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Amount != 0 {
-		n += 1 + sovTx(uint64(m.Amount))
+	l = len(m.Amount)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
 	}
 	if m.UserId != 0 {
 		n += 1 + sovTx(uint64(m.UserId))
@@ -575,8 +580,9 @@ func (m *MsgCreateMintBet) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.Amount != 0 {
-		n += 1 + sovTx(uint64(m.Amount))
+	l = len(m.Amount)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
 	}
 	if m.UserId != 0 {
 		n += 1 + sovTx(uint64(m.UserId))
@@ -664,10 +670,10 @@ func (m *MsgCreateSwipeBet) Unmarshal(dAtA []byte) error {
 			m.Creator = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
 			}
-			m.Amount = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -677,11 +683,24 @@ func (m *MsgCreateSwipeBet) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Amount |= int64(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Amount = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
@@ -853,10 +872,10 @@ func (m *MsgCreateMintBet) Unmarshal(dAtA []byte) error {
 			m.Creator = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
 			}
-			m.Amount = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -866,11 +885,24 @@ func (m *MsgCreateMintBet) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Amount |= int64(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Amount = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)

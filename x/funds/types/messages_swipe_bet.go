@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreateSwipeBet{}
 
-func NewMsgCreateSwipeBet(creator string, amount int64, userId int64) *MsgCreateSwipeBet {
+func NewMsgCreateSwipeBet(creator string, amount string, userId int64) *MsgCreateSwipeBet {
 	return &MsgCreateSwipeBet{
 		Creator: creator,
 		Amount:  amount,

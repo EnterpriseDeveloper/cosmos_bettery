@@ -9,14 +9,14 @@ export interface CreatePubEvents {
   pubId: number
   question: string
   answers: string[]
-  premAmount: number
+  premAmount: string
   startTime: number
   endTime: number
   expertAmount: number
   advisor: string
 }
 
-const baseCreatePubEvents: object = { creator: '', pubId: 0, question: '', answers: '', premAmount: 0, startTime: 0, endTime: 0, expertAmount: 0, advisor: '' }
+const baseCreatePubEvents: object = { creator: '', pubId: 0, question: '', answers: '', premAmount: '', startTime: 0, endTime: 0, expertAmount: 0, advisor: '' }
 
 export const CreatePubEvents = {
   encode(message: CreatePubEvents, writer: Writer = Writer.create()): Writer {
@@ -32,8 +32,8 @@ export const CreatePubEvents = {
     for (const v of message.answers) {
       writer.uint32(34).string(v!)
     }
-    if (message.premAmount !== 0) {
-      writer.uint32(40).int64(message.premAmount)
+    if (message.premAmount !== '') {
+      writer.uint32(42).string(message.premAmount)
     }
     if (message.startTime !== 0) {
       writer.uint32(48).int64(message.startTime)
@@ -71,7 +71,7 @@ export const CreatePubEvents = {
           message.answers.push(reader.string())
           break
         case 5:
-          message.premAmount = longToNumber(reader.int64() as Long)
+          message.premAmount = reader.string()
           break
         case 6:
           message.startTime = longToNumber(reader.int64() as Long)
@@ -117,9 +117,9 @@ export const CreatePubEvents = {
       }
     }
     if (object.premAmount !== undefined && object.premAmount !== null) {
-      message.premAmount = Number(object.premAmount)
+      message.premAmount = String(object.premAmount)
     } else {
-      message.premAmount = 0
+      message.premAmount = ''
     }
     if (object.startTime !== undefined && object.startTime !== null) {
       message.startTime = Number(object.startTime)
@@ -188,7 +188,7 @@ export const CreatePubEvents = {
     if (object.premAmount !== undefined && object.premAmount !== null) {
       message.premAmount = object.premAmount
     } else {
-      message.premAmount = 0
+      message.premAmount = ''
     }
     if (object.startTime !== undefined && object.startTime !== null) {
       message.startTime = object.startTime

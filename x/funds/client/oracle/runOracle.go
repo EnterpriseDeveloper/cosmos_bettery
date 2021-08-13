@@ -118,8 +118,9 @@ func transferEthEvent(vLog types.Log, contractAbi abi.ABI, clientCtx client.Cont
 	btyPrice := 0.01
 	btyAmount := ((price * convert) / btyPrice)
 	fmt.Println(btyAmount)
-
-	msg := mintTypes.NewMsgCreateMintBet(string(event.CosmosWallet), int64(btyAmount), 124567)
+	// TODO chage to big init
+	x := "1000" // btyAmount
+	msg := mintTypes.NewMsgCreateMintBet(string(event.CosmosWallet), x, 124567)
 	if err := msg.ValidateBasic(); err != nil {
 		fmt.Println("validate error oracle", err)
 	}

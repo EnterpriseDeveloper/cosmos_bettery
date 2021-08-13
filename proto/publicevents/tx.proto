@@ -33,7 +33,7 @@ message MsgCreatePartPubEvents {
   string creator = 1;
   uint64 pubId = 2;
   string answers = 3;
-  int64 amount = 4;
+  string amount = 4;
 }
 
 message MsgCreatePartPubEventsResponse {
@@ -45,7 +45,7 @@ message MsgCreateCreatePubEvents {
   uint64 pubId = 2; 
   string question = 3; 
   repeated string answers = 4; 
-  int64 premAmount = 5; 
+  string premAmount = 5; 
   int64 startTime = 6; 
   int64 endTime = 7; 
   int64 expertAmount = 8; 

@@ -7,7 +7,7 @@ export const protobufPackage = 'VoroshilovMax.bettery.funds'
 /** this line is used by starport scaffolding # proto/tx/message */
 export interface MsgCreateSwipeBet {
   creator: string
-  amount: number
+  amount: string
   userId: number
 }
 
@@ -17,7 +17,7 @@ export interface MsgCreateSwipeBetResponse {
 
 export interface MsgCreateMintBet {
   creator: string
-  amount: number
+  amount: string
   userId: number
 }
 
@@ -25,15 +25,15 @@ export interface MsgCreateMintBetResponse {
   id: number
 }
 
-const baseMsgCreateSwipeBet: object = { creator: '', amount: 0, userId: 0 }
+const baseMsgCreateSwipeBet: object = { creator: '', amount: '', userId: 0 }
 
 export const MsgCreateSwipeBet = {
   encode(message: MsgCreateSwipeBet, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
-    if (message.amount !== 0) {
-      writer.uint32(16).int64(message.amount)
+    if (message.amount !== '') {
+      writer.uint32(18).string(message.amount)
     }
     if (message.userId !== 0) {
       writer.uint32(24).int64(message.userId)
@@ -52,7 +52,7 @@ export const MsgCreateSwipeBet = {
           message.creator = reader.string()
           break
         case 2:
-          message.amount = longToNumber(reader.int64() as Long)
+          message.amount = reader.string()
           break
         case 3:
           message.userId = longToNumber(reader.int64() as Long)
@@ -73,9 +73,9 @@ export const MsgCreateSwipeBet = {
       message.creator = ''
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = Number(object.amount)
+      message.amount = String(object.amount)
     } else {
-      message.amount = 0
+      message.amount = ''
     }
     if (object.userId !== undefined && object.userId !== null) {
       message.userId = Number(object.userId)
@@ -103,7 +103,7 @@ export const MsgCreateSwipeBet = {
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = object.amount
     } else {
-      message.amount = 0
+      message.amount = ''
     }
     if (object.userId !== undefined && object.userId !== null) {
       message.userId = object.userId
@@ -169,15 +169,15 @@ export const MsgCreateSwipeBetResponse = {
   }
 }
 
-const baseMsgCreateMintBet: object = { creator: '', amount: 0, userId: 0 }
+const baseMsgCreateMintBet: object = { creator: '', amount: '', userId: 0 }
 
 export const MsgCreateMintBet = {
   encode(message: MsgCreateMintBet, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
-    if (message.amount !== 0) {
-      writer.uint32(16).int64(message.amount)
+    if (message.amount !== '') {
+      writer.uint32(18).string(message.amount)
     }
     if (message.userId !== 0) {
       writer.uint32(24).int64(message.userId)
@@ -196,7 +196,7 @@ export const MsgCreateMintBet = {
           message.creator = reader.string()
           break
         case 2:
-          message.amount = longToNumber(reader.int64() as Long)
+          message.amount = reader.string()
           break
         case 3:
           message.userId = longToNumber(reader.int64() as Long)
@@ -217,9 +217,9 @@ export const MsgCreateMintBet = {
       message.creator = ''
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = Number(object.amount)
+      message.amount = String(object.amount)
     } else {
-      message.amount = 0
+      message.amount = ''
     }
     if (object.userId !== undefined && object.userId !== null) {
       message.userId = Number(object.userId)
@@ -247,7 +247,7 @@ export const MsgCreateMintBet = {
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = object.amount
     } else {
-      message.amount = 0
+      message.amount = ''
     }
     if (object.userId !== undefined && object.userId !== null) {
       message.userId = object.userId

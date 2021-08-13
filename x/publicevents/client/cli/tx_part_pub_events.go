@@ -27,7 +27,7 @@ func CmdCreatePartPubEvents() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argsAmount, err := strconv.ParseInt(args[2], 10, 64)
+			argsAmount, err := cast.ToStringE(args[2])
 			if err != nil {
 				return err
 			}

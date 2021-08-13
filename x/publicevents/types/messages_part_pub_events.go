@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreatePartPubEvents{}
 
-func NewMsgCreatePartPubEvents(creator string, pubId uint64, answers string, amount int64) *MsgCreatePartPubEvents {
+func NewMsgCreatePartPubEvents(creator string, pubId uint64, answers string, amount string) *MsgCreatePartPubEvents {
 	return &MsgCreatePartPubEvents{
 		Creator: creator,
 		PubId:   pubId,

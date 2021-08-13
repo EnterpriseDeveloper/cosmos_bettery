@@ -23,8 +23,6 @@ export interface PubliceventsCreatePubEvents {
   pubId?: string;
   question?: string;
   answers?: string[];
-
-  /** @format int64 */
   premAmount?: string;
 
   /** @format int64 */
@@ -59,8 +57,6 @@ export interface PubliceventsPartPubEvents {
   /** @format uint64 */
   pubId?: string;
   answers?: string;
-
-  /** @format int64 */
   amount?: string;
 }
 

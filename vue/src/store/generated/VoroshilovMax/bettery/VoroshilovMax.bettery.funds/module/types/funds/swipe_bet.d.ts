@@ -2,7 +2,7 @@ import { Writer, Reader } from 'protobufjs/minimal';
 export declare const protobufPackage = "VoroshilovMax.bettery.funds";
 export interface SwipeBet {
     creator: string;
-    amount: number;
+    amount: string;
     userId: number;
 }
 export declare const SwipeBet: {

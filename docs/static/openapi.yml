@@ -19494,7 +19494,6 @@ paths:
                       type: string
                     amount:
                       type: string
-                      format: int64
                     userId:
                       type: string
                       format: int64
@@ -19611,7 +19610,6 @@ paths:
                     type: string
                   amount:
                     type: string
-                    format: int64
                   userId:
                     type: string
                     format: int64
@@ -19662,7 +19660,6 @@ paths:
                       type: string
                     amount:
                       type: string
-                      format: int64
                     userId:
                       type: string
                       format: int64
@@ -19779,7 +19776,6 @@ paths:
                     type: string
                   amount:
                     type: string
-                    format: int64
                   userId:
                     type: string
                     format: int64
@@ -20369,7 +20365,6 @@ paths:
                         type: string
                     premAmount:
                       type: string
-                      format: int64
                     startTime:
                       type: string
                       format: int64
@@ -20503,7 +20498,6 @@ paths:
                       type: string
                   premAmount:
                     type: string
-                    format: int64
                   startTime:
                     type: string
                     format: int64
@@ -20567,7 +20561,6 @@ paths:
                       type: string
                     amount:
                       type: string
-                      format: int64
               pagination:
                 type: object
                 properties:
@@ -20686,7 +20679,6 @@ paths:
                     type: string
                   amount:
                     type: string
-                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -31180,7 +31172,6 @@ definitions:
         type: string
       amount:
         type: string
-        format: int64
       userId:
         type: string
         format: int64
@@ -31208,7 +31199,6 @@ definitions:
               type: string
             amount:
               type: string
-              format: int64
             userId:
               type: string
               format: int64
@@ -31249,7 +31239,6 @@ definitions:
               type: string
             amount:
               type: string
-              format: int64
             userId:
               type: string
               format: int64
@@ -31288,7 +31277,6 @@ definitions:
             type: string
           amount:
             type: string
-            format: int64
           userId:
             type: string
             format: int64
@@ -31302,7 +31290,6 @@ definitions:
             type: string
           amount:
             type: string
-            format: int64
           userId:
             type: string
             format: int64
@@ -31313,7 +31300,6 @@ definitions:
         type: string
       amount:
         type: string
-        format: int64
       userId:
         type: string
         format: int64
@@ -31588,7 +31574,6 @@ definitions:
           type: string
       premAmount:
         type: string
-        format: int64
       startTime:
         type: string
         format: int64
@@ -31630,7 +31615,6 @@ definitions:
         type: string
       amount:
         type: string
-        format: int64
   VoroshilovMax.bettery.publicevents.QueryAllCreatePubEventsResponse:
     type: object
     properties:
@@ -31652,7 +31636,6 @@ definitions:
                 type: string
             premAmount:
               type: string
-              format: int64
             startTime:
               type: string
               format: int64
@@ -31706,7 +31689,6 @@ definitions:
               type: string
             amount:
               type: string
-              format: int64
       pagination:
         type: object
         properties:
@@ -31794,7 +31776,6 @@ definitions:
               type: string
           premAmount:
             type: string
-            format: int64
           startTime:
             type: string
             format: int64
@@ -31821,7 +31802,6 @@ definitions:
             type: string
           amount:
             type: string
-            format: int64
   VoroshilovMax.bettery.publicevents.QueryGetValidPubEventsResponse:
     type: object
     properties:

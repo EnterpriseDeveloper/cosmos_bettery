@@ -2,7 +2,7 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
-const basePartPubEvents = { creator: '', pubId: 0, answers: '', amount: 0 };
+const basePartPubEvents = { creator: '', pubId: 0, answers: '', amount: '' };
 export const PartPubEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -14,8 +14,8 @@ export const PartPubEvents = {
         if (message.answers !== '') {
             writer.uint32(26).string(message.answers);
         }
-        if (message.amount !== 0) {
-            writer.uint32(32).int64(message.amount);
+        if (message.amount !== '') {
+            writer.uint32(34).string(message.amount);
         }
         return writer;
     },
@@ -36,7 +36,7 @@ export const PartPubEvents = {
                     message.answers = reader.string();
                     break;
                 case 4:
-                    message.amount = longToNumber(reader.int64());
+                    message.amount = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -66,10 +66,10 @@ export const PartPubEvents = {
             message.answers = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
-            message.amount = Number(object.amount);
+            message.amount = String(object.amount);
         }
         else {
-            message.amount = 0;
+            message.amount = '';
         }
         return message;
     },
@@ -105,7 +105,7 @@ export const PartPubEvents = {
             message.amount = object.amount;
         }
         else {
-            message.amount = 0;
+            message.amount = '';
         }
         return message;
     }

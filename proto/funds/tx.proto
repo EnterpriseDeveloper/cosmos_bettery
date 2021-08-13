@@ -17,7 +17,7 @@ service Msg {
 // this line is used by starport scaffolding # proto/tx/message
 message MsgCreateSwipeBet {
   string creator = 1;
-  int64 amount = 2;
+  string amount = 2;
   int64 userId = 3;
 }
 
@@ -27,7 +27,7 @@ message MsgCreateSwipeBetResponse {
 
 message MsgCreateMintBet {
   string creator = 1;
-  int64 amount = 2;
+  string amount = 2;
   int64 userId = 3;
 }
 

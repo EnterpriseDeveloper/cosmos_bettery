@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreateMintBet{}
 
-func NewMsgCreateMintBet(creator string, amount int64, userId int64) *MsgCreateMintBet {
+func NewMsgCreateMintBet(creator string, amount string, userId int64) *MsgCreateMintBet {
 	return &MsgCreateMintBet{
 		Creator: creator,
 		Amount:  amount,

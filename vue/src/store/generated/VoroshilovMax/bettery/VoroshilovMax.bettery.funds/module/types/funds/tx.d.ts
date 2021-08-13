@@ -3,7 +3,7 @@ export declare const protobufPackage = "VoroshilovMax.bettery.funds";
 /** this line is used by starport scaffolding # proto/tx/message */
 export interface MsgCreateSwipeBet {
     creator: string;
-    amount: number;
+    amount: string;
     userId: number;
 }
 export interface MsgCreateSwipeBetResponse {
@@ -11,7 +11,7 @@ export interface MsgCreateSwipeBetResponse {
 }
 export interface MsgCreateMintBet {
     creator: string;
-    amount: number;
+    amount: string;
     userId: number;
 }
 export interface MsgCreateMintBetResponse {

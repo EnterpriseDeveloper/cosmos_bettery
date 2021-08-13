@@ -14,7 +14,7 @@ export interface MsgCreatePartPubEvents {
     creator: string;
     pubId: number;
     answers: string;
-    amount: number;
+    amount: string;
 }
 export interface MsgCreatePartPubEventsResponse {
     id: number;
@@ -24,7 +24,7 @@ export interface MsgCreateCreatePubEvents {
     pubId: number;
     question: string;
     answers: string[];
-    premAmount: number;
+    premAmount: string;
     startTime: number;
     endTime: number;
     expertAmount: number;

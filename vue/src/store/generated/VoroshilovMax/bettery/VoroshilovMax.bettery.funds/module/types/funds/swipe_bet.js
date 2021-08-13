@@ -2,14 +2,14 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.funds';
-const baseSwipeBet = { creator: '', amount: 0, userId: 0 };
+const baseSwipeBet = { creator: '', amount: '', userId: 0 };
 export const SwipeBet = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
         }
-        if (message.amount !== 0) {
-            writer.uint32(16).int64(message.amount);
+        if (message.amount !== '') {
+            writer.uint32(18).string(message.amount);
         }
         if (message.userId !== 0) {
             writer.uint32(24).int64(message.userId);
@@ -27,7 +27,7 @@ export const SwipeBet = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.amount = longToNumber(reader.int64());
+                    message.amount = reader.string();
                     break;
                 case 3:
                     message.userId = longToNumber(reader.int64());
@@ -48,10 +48,10 @@ export const SwipeBet = {
             message.creator = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
-            message.amount = Number(object.amount);
+            message.amount = String(object.amount);
         }
         else {
-            message.amount = 0;
+            message.amount = '';
         }
         if (object.userId !== undefined && object.userId !== null) {
             message.userId = Number(object.userId);
@@ -80,7 +80,7 @@ export const SwipeBet = {
             message.amount = object.amount;
         }
         else {
-            message.amount = 0;
+            message.amount = '';
         }
         if (object.userId !== undefined && object.userId !== null) {
             message.userId = object.userId;

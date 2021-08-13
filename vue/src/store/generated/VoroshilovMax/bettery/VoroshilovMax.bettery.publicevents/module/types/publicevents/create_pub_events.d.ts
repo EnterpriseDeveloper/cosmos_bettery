@@ -5,7 +5,7 @@ export interface CreatePubEvents {
     pubId: number;
     question: string;
     answers: string[];
-    premAmount: number;
+    premAmount: string;
     startTime: number;
     endTime: number;
     expertAmount: number;

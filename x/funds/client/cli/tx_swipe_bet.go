@@ -3,6 +3,7 @@ package cli
 import (
 	"strconv"
 
+	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 
 	"github.com/VoroshilovMax/bettery/x/funds/types"
@@ -17,7 +18,7 @@ func CmdCreateSwipeBet() *cobra.Command {
 		Short: "Create a new swipeBet",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			argsAmount, err := strconv.ParseInt(args[0], 10, 64)
+			argsAmount, err := cast.ToStringE(args[0])
 			if err != nil {
 				return err
 			}

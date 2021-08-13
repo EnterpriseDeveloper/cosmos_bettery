@@ -4,7 +4,7 @@ export interface PartPubEvents {
     creator: string;
     pubId: number;
     answers: string;
-    amount: number;
+    amount: string;
 }
 export declare const PartPubEvents: {
     encode(message: PartPubEvents, writer?: Writer): Writer;

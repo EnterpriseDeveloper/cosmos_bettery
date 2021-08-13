@@ -2,14 +2,14 @@
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
 export const protobufPackage = 'VoroshilovMax.bettery.funds';
-const baseMsgCreateSwipeBet = { creator: '', amount: 0, userId: 0 };
+const baseMsgCreateSwipeBet = { creator: '', amount: '', userId: 0 };
 export const MsgCreateSwipeBet = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
         }
-        if (message.amount !== 0) {
-            writer.uint32(16).int64(message.amount);
+        if (message.amount !== '') {
+            writer.uint32(18).string(message.amount);
         }
         if (message.userId !== 0) {
             writer.uint32(24).int64(message.userId);
@@ -27,7 +27,7 @@ export const MsgCreateSwipeBet = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.amount = longToNumber(reader.int64());
+                    message.amount = reader.string();
                     break;
                 case 3:
                     message.userId = longToNumber(reader.int64());
@@ -48,10 +48,10 @@ export const MsgCreateSwipeBet = {
             message.creator = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
-            message.amount = Number(object.amount);
+            message.amount = String(object.amount);
         }
         else {
-            message.amount = 0;
+            message.amount = '';
         }
         if (object.userId !== undefined && object.userId !== null) {
             message.userId = Number(object.userId);
@@ -80,7 +80,7 @@ export const MsgCreateSwipeBet = {
             message.amount = object.amount;
         }
         else {
-            message.amount = 0;
+            message.amount = '';
         }
         if (object.userId !== undefined && object.userId !== null) {
             message.userId = object.userId;
@@ -142,14 +142,14 @@ export const MsgCreateSwipeBetResponse = {
         return message;
     }
 };
-const baseMsgCreateMintBet = { creator: '', amount: 0, userId: 0 };
+const baseMsgCreateMintBet = { creator: '', amount: '', userId: 0 };
 export const MsgCreateMintBet = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
         }
-        if (message.amount !== 0) {
-            writer.uint32(16).int64(message.amount);
+        if (message.amount !== '') {
+            writer.uint32(18).string(message.amount);
         }
         if (message.userId !== 0) {
             writer.uint32(24).int64(message.userId);
@@ -167,7 +167,7 @@ export const MsgCreateMintBet = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.amount = longToNumber(reader.int64());
+                    message.amount = reader.string();
                     break;
                 case 3:
                     message.userId = longToNumber(reader.int64());
@@ -188,10 +188,10 @@ export const MsgCreateMintBet = {
             message.creator = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
-            message.amount = Number(object.amount);
+            message.amount = String(object.amount);
         }
         else {
-            message.amount = 0;
+            message.amount = '';
         }
         if (object.userId !== undefined && object.userId !== null) {
             message.userId = Number(object.userId);
@@ -220,7 +220,7 @@ export const MsgCreateMintBet = {
             message.amount = object.amount;
         }
         else {
-            message.amount = 0;
+            message.amount = '';
         }
         if (object.userId !== undefined && object.userId !== null) {
             message.userId = object.userId;

@@ -20,7 +20,7 @@ export interface MsgCreatePartPubEvents {
   creator: string
   pubId: number
   answers: string
-  amount: number
+  amount: string
 }
 
 export interface MsgCreatePartPubEventsResponse {
@@ -32,7 +32,7 @@ export interface MsgCreateCreatePubEvents {
   pubId: number
   question: string
   answers: string[]
-  premAmount: number
+  premAmount: string
   startTime: number
   endTime: number
   expertAmount: number
@@ -204,7 +204,7 @@ export const MsgCreateValidPubEventsResponse = {
   }
 }
 
-const baseMsgCreatePartPubEvents: object = { creator: '', pubId: 0, answers: '', amount: 0 }
+const baseMsgCreatePartPubEvents: object = { creator: '', pubId: 0, answers: '', amount: '' }
 
 export const MsgCreatePartPubEvents = {
   encode(message: MsgCreatePartPubEvents, writer: Writer = Writer.create()): Writer {
@@ -217,8 +217,8 @@ export const MsgCreatePartPubEvents = {
     if (message.answers !== '') {
       writer.uint32(26).string(message.answers)
     }
-    if (message.amount !== 0) {
-      writer.uint32(32).int64(message.amount)
+    if (message.amount !== '') {
+      writer.uint32(34).string(message.amount)
     }
     return writer
   },
@@ -240,7 +240,7 @@ export const MsgCreatePartPubEvents = {
           message.answers = reader.string()
           break
         case 4:
-          message.amount = longToNumber(reader.int64() as Long)
+          message.amount = reader.string()
           break
         default:
           reader.skipType(tag & 7)
@@ -268,9 +268,9 @@ export const MsgCreatePartPubEvents = {
       message.answers = ''
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = Number(object.amount)
+      message.amount = String(object.amount)
     } else {
-      message.amount = 0
+      message.amount = ''
     }
     return message
   },
@@ -304,7 +304,7 @@ export const MsgCreatePartPubEvents = {
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = object.amount
     } else {
-      message.amount = 0
+      message.amount = ''
     }
     return message
   }
@@ -370,7 +370,7 @@ const baseMsgCreateCreatePubEvents: object = {
   pubId: 0,
   question: '',
   answers: '',
-  premAmount: 0,
+  premAmount: '',
   startTime: 0,
   endTime: 0,
   expertAmount: 0,
@@ -391,8 +391,8 @@ export const MsgCreateCreatePubEvents = {
     for (const v of message.answers) {
       writer.uint32(34).string(v!)
     }
-    if (message.premAmount !== 0) {
-      writer.uint32(40).int64(message.premAmount)
+    if (message.premAmount !== '') {
+      writer.uint32(42).string(message.premAmount)
     }
     if (message.startTime !== 0) {
       writer.uint32(48).int64(message.startTime)
@@ -430,7 +430,7 @@ export const MsgCreateCreatePubEvents = {
           message.answers.push(reader.string())
           break
         case 5:
-          message.premAmount = longToNumber(reader.int64() as Long)
+          message.premAmount = reader.string()
           break
         case 6:
           message.startTime = longToNumber(reader.int64() as Long)
@@ -476,9 +476,9 @@ export const MsgCreateCreatePubEvents = {
       }
     }
     if (object.premAmount !== undefined && object.premAmount !== null) {
-      message.premAmount = Number(object.premAmount)
+      message.premAmount = String(object.premAmount)
     } else {
-      message.premAmount = 0
+      message.premAmount = ''
     }
     if (object.startTime !== undefined && object.startTime !== null) {
       message.startTime = Number(object.startTime)
@@ -547,7 +547,7 @@ export const MsgCreateCreatePubEvents = {
     if (object.premAmount !== undefined && object.premAmount !== null) {
       message.premAmount = object.premAmount
     } else {
-      message.premAmount = 0
+      message.premAmount = ''
     }
     if (object.startTime !== undefined && object.startTime !== null) {
       message.startTime = object.startTime

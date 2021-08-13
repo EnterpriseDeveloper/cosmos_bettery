@@ -11,8 +11,6 @@
 
 export interface FundsMintBet {
   creator?: string;
-
-  /** @format int64 */
   amount?: string;
 
   /** @format int64 */
@@ -69,8 +67,6 @@ export interface FundsQueryGetSwipeBetResponse {
 
 export interface FundsSwipeBet {
   creator?: string;
-
-  /** @format int64 */
   amount?: string;
 
   /** @format int64 */

@@ -30,7 +30,7 @@ func CmdCreateCreatePubEvents() *cobra.Command {
 			}
 			argsAnswers := args[2:len(args)]
 
-			argsPremAmount, err := strconv.ParseInt(args[3], 10, 64)
+			argsPremAmount, err := cast.ToStringE(args[3])
 			if err != nil {
 				return err
 			}
