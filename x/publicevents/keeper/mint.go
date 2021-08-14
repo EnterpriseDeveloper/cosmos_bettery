@@ -31,7 +31,7 @@ func (k Keeper) BurnTokens(
 	return nil
 }
 
-func (k Keeper) MintTokens(
+func (k Keeper) TransferToModule(
 	ctx sdk.Context,
 	receiver sdk.AccAddress,
 	tokens sdk.Coin,

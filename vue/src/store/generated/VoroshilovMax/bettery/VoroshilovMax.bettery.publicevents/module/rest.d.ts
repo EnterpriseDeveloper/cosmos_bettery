@@ -17,6 +17,7 @@ export interface PubliceventsCreatePubEvents {
     /** @format int64 */
     expertAmount?: string;
     advisor?: string;
+    finished?: boolean;
 }
 export interface PubliceventsMsgCreateCreatePubEventsResponse {
     /** @format uint64 */

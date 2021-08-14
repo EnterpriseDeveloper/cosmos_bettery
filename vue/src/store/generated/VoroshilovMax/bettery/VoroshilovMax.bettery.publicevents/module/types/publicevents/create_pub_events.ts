@@ -14,9 +14,21 @@ export interface CreatePubEvents {
   endTime: number
   expertAmount: number
   advisor: string
+  finished: boolean
 }
 
-const baseCreatePubEvents: object = { creator: '', pubId: 0, question: '', answers: '', premAmount: '', startTime: 0, endTime: 0, expertAmount: 0, advisor: '' }
+const baseCreatePubEvents: object = {
+  creator: '',
+  pubId: 0,
+  question: '',
+  answers: '',
+  premAmount: '',
+  startTime: 0,
+  endTime: 0,
+  expertAmount: 0,
+  advisor: '',
+  finished: false
+}
 
 export const CreatePubEvents = {
   encode(message: CreatePubEvents, writer: Writer = Writer.create()): Writer {
@@ -46,6 +58,9 @@ export const CreatePubEvents = {
     }
     if (message.advisor !== '') {
       writer.uint32(74).string(message.advisor)
+    }
+    if (message.finished === true) {
+      writer.uint32(80).bool(message.finished)
     }
     return writer
   },
@@ -84,6 +99,9 @@ export const CreatePubEvents = {
           break
         case 9:
           message.advisor = reader.string()
+          break
+        case 10:
+          message.finished = reader.bool()
           break
         default:
           reader.skipType(tag & 7)
@@ -141,6 +159,11 @@ export const CreatePubEvents = {
     } else {
       message.advisor = ''
     }
+    if (object.finished !== undefined && object.finished !== null) {
+      message.finished = Boolean(object.finished)
+    } else {
+      message.finished = false
+    }
     return message
   },
 
@@ -159,6 +182,7 @@ export const CreatePubEvents = {
     message.endTime !== undefined && (obj.endTime = message.endTime)
     message.expertAmount !== undefined && (obj.expertAmount = message.expertAmount)
     message.advisor !== undefined && (obj.advisor = message.advisor)
+    message.finished !== undefined && (obj.finished = message.finished)
     return obj
   },
 
@@ -209,6 +233,11 @@ export const CreatePubEvents = {
       message.advisor = object.advisor
     } else {
       message.advisor = ''
+    }
+    if (object.finished !== undefined && object.finished !== null) {
+      message.finished = object.finished
+    } else {
+      message.finished = false
     }
     return message
   }

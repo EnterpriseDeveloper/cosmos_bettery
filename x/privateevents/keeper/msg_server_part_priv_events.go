@@ -19,12 +19,12 @@ func (k msgServer) CreatePartPrivEvents(goCtx context.Context, msg *types.MsgCre
 		Answer:  msg.Answer,
 	}
 
-	// check if event not finished
+	// check if event finish
 	if k.GetEventFinished(ctx, msg.PrivId) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event already finished by id: %d", msg.PrivId))
 	}
 
-	// check if event exit
+	// check if event exist
 	if !k.HasCreatePrivEvents(ctx, msg.PrivId) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event doesn't exist by id: %d", msg.PrivId))
 	}

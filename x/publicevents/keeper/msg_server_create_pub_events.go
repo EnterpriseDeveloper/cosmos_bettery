@@ -81,7 +81,7 @@ func sendPremTokenToEvent(msg *types.MsgCreateCreatePubEvents, ctx sdk.Context, 
 		return false, "error from burn token, amount: " + msg.PremAmount + " , user: " + msg.Creator
 	}
 
-	err = k.MintTokens(ctx, reciever, sdk.NewCoin(types.BetToken, amount))
+	err = k.TransferToModule(ctx, reciever, sdk.NewCoin(types.BetToken, amount))
 	if err != nil {
 		return false, "error from mint token, amount: " + msg.PremAmount + " , user: " + msg.Creator
 	}

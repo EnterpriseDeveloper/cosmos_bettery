@@ -20376,6 +20376,8 @@ paths:
                       format: int64
                     advisor:
                       type: string
+                    finished:
+                      type: boolean
               pagination:
                 type: object
                 properties:
@@ -20509,6 +20511,8 @@ paths:
                     format: int64
                   advisor:
                     type: string
+                  finished:
+                    type: boolean
         default:
           description: An unexpected error response.
           schema:
@@ -31585,6 +31589,8 @@ definitions:
         format: int64
       advisor:
         type: string
+      finished:
+        type: boolean
   VoroshilovMax.bettery.publicevents.MsgCreateCreatePubEventsResponse:
     type: object
     properties:
@@ -31647,6 +31653,8 @@ definitions:
               format: int64
             advisor:
               type: string
+            finished:
+              type: boolean
       pagination:
         type: object
         properties:
@@ -31787,6 +31795,8 @@ definitions:
             format: int64
           advisor:
             type: string
+          finished:
+            type: boolean
   VoroshilovMax.bettery.publicevents.QueryGetPartPubEventsResponse:
     type: object
     properties:

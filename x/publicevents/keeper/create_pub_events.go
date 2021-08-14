@@ -53,6 +53,17 @@ func (k Keeper) RemoveCreatePubEvents(ctx sdk.Context, id uint64) {
 	store.Delete(GetCreatePubEventsIDBytes(id))
 }
 
+// Get start and end time
+func (k Keeper) GetTimesPubEvents(ctx sdk.Context, id uint64) (int64, int64) {
+	data := k.GetCreatePubEvents(ctx, id)
+	return data.StartTime, data.EndTime
+}
+
+// check if event finished
+func (k Keeper) GetEventFinished(ctx sdk.Context, id uint64) bool {
+	return k.GetCreatePubEvents(ctx, id).Finished
+}
+
 // GetAllCreatePubEvents returns all createPubEvents
 func (k Keeper) GetAllCreatePubEvents(ctx sdk.Context) (list []types.CreatePubEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePubEventsKey))
