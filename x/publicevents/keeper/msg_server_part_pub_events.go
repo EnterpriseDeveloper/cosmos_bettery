@@ -49,8 +49,6 @@ func (k msgServer) CreatePartPubEvents(goCtx context.Context, msg *types.MsgCrea
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("min amount is: %s, event id: %d", mAm, msg.PubId))
 	}
 
-	// check balance of user
-
 	// check if event start for participant
 	dateNow := time.Now().Unix()
 	startTime, endTime := k.GetTimesPubEvents(ctx, msg.PubId)
@@ -63,8 +61,44 @@ func (k msgServer) CreatePartPubEvents(goCtx context.Context, msg *types.MsgCrea
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event by id: %d finished for part, start time: %d", msg.PubId, startTime))
 	}
 
-	// check if user already part in event
+	sender, err := sdk.AccAddressFromBech32(msg.Creator)
+	if err != nil {
+		return nil, err
+	}
+
+	// check if user alredy part in event
+	allPart := k.GetEachPartPubEvents(ctx, msg.PubId)
+	for _, v := range allPart {
+		if v.Creator == msg.Creator {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user: %s alredy participate in event by id: %d", msg.Creator, msg.PubId))
+		}
+	}
+
 	// find answer index
+	answerIndex := k.GetAnswerIndex(ctx, msg.PubId, msg.Answers)
+	if answerIndex == -1 {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("answer %s not found in event by id: %d", msg.Answers, msg.PubId))
+	}
+
+	// check balance of user
+	cehckAmount, ok := new(big.Int).SetString(msg.Amount, 10)
+	if !ok {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error, amount: %s, user: %s", msg.Creator, msg.Amount))
+	}
+
+	resAmount := k.bankKeeper.GetBalance(ctx, sender, types.BetToken)
+	if cehckAmount.Cmp(resAmount.Amount.BigInt()) == 1 {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user does not have enought bet token, his amount: %s", resAmount.Amount.String()))
+	}
+	// send money to the event
+	betAmount, ok := sdk.NewIntFromString(msg.Amount)
+	if !ok {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse string to init error, amount: %s, user: %s", msg.Amount, msg.Creator))
+	}
+	err = k.TransferToModule(ctx, sender, sdk.NewCoin(types.BetToken, betAmount))
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("send bet token to module error, amount: %s", err.Error()))
+	}
 
 	id := k.AppendPartPubEvents(
 		ctx,

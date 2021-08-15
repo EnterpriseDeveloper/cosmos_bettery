@@ -14,6 +14,7 @@ func (k Keeper) AppendValidPubEvents(
 	validPubEvents types.ValidPubEvents,
 ) uint64 {
 
+	// TODO add id
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&validPubEvents)
 	store.Set(GetValidPubEventsIDBytes(validPubEvents.PubId), appendedValue)

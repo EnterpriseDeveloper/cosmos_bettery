@@ -11,3 +11,8 @@ message PartPubEvents {
   string answers = 3; 
   string amount = 4; 
 }
+
+message allPartPubEvent {
+  string creator = 1;
+  uint64 privId = 2; 
+}

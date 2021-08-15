@@ -80,6 +80,16 @@ func (k Keeper) GetAllCreatePubEvents(ctx sdk.Context) (list []types.CreatePubEv
 	return
 }
 
+func (k Keeper) GetAnswerIndex(ctx sdk.Context, id uint64, answer string) int {
+	answers := k.GetCreatePubEvents(ctx, id).Answers
+	for k, v := range answers {
+		if answer == v {
+			return k
+		}
+	}
+	return -1
+}
+
 // GetCreatePubEventsIDBytes returns the byte representation of the ID
 func GetCreatePubEventsIDBytes(id uint64) []byte {
 	bz := make([]byte, 8)

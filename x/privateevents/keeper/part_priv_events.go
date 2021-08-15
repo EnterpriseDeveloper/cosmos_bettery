@@ -14,6 +14,7 @@ func (k Keeper) AppendPartPrivEvents(
 	partPrivEvents types.PartPrivEvents,
 ) uint64 {
 
+	// TODO add id
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPrivEventsKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&partPrivEvents)
 	store.Set(GetPartPrivEventsIDBytes(partPrivEvents.PrivId), appendedValue)

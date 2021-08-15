@@ -17,6 +17,17 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 		Reput:   msg.Reput,
 	}
 
+	// check if event not finished
+	// event not exist
+	// check time start
+	// check time end
+	// alredy part
+	// creator can't be validator
+	// calculate validators
+	// alredy validate
+	// find answer index
+	// finish evend
+
 	id := k.AppendValidPubEvents(
 		ctx,
 		validPubEvents,

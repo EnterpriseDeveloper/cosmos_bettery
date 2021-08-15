@@ -26,7 +26,7 @@ func (k msgServer) CreateValidPrivEvents(goCtx context.Context, msg *types.MsgCr
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event already finished by id: %d", msg.PrivId))
 	}
 
-	// event not exit
+	// event not exist
 	if !k.HasCreatePrivEvents(ctx, msg.PrivId) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event doesn't exist by id: %d", msg.PrivId))
 	}

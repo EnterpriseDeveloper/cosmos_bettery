@@ -13,6 +13,7 @@ func (k Keeper) AppendPartPubEvents(
 	ctx sdk.Context,
 	partPubEvents types.PartPubEvents,
 ) uint64 {
+	// TODO add id count
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&partPubEvents)
@@ -80,4 +81,21 @@ func GetPartPubEventsIDBytes(id uint64) []byte {
 // GetPartPubEventsIDFromBytes returns ID in uint64 format from a byte array
 func GetPartPubEventsIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
+}
+
+func (k Keeper) GetEachPartPubEvents(ctx sdk.Context, id uint64) (list []types.AllPartPubEvent) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.AllPartPubEvent
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if id == val.PrivId {
+			list = append(list, val)
+		}
+	}
+
+	return
 }

@@ -30,7 +30,7 @@ func (k msgServer) CreateSwipeBet(goCtx context.Context, msg *types.MsgCreateSwi
 	}
 	resAmount := k.bankKeeper.GetBalance(ctx, reciever, types.BetToken)
 	if cehckAmount.Cmp(resAmount.Amount.BigInt()) == 1 {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user does not have enought bet token, his amount: %d", resAmount.Amount.Int64()))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user does not have enought bet token, his amount: %s", resAmount.Amount.String()))
 	}
 
 	amount, ok := sdk.NewIntFromString(msg.Amount)
