@@ -9,6 +9,7 @@ export interface ValidPrivEvents {
   id: number
   privId: number
   answer: string
+  answerIndex: number
 }
 
 export interface allValidPrivEvent {
@@ -17,7 +18,7 @@ export interface allValidPrivEvent {
   privId: number
 }
 
-const baseValidPrivEvents: object = { creator: '', id: 0, privId: 0, answer: '' }
+const baseValidPrivEvents: object = { creator: '', id: 0, privId: 0, answer: '', answerIndex: 0 }
 
 export const ValidPrivEvents = {
   encode(message: ValidPrivEvents, writer: Writer = Writer.create()): Writer {
@@ -32,6 +33,9 @@ export const ValidPrivEvents = {
     }
     if (message.answer !== '') {
       writer.uint32(34).string(message.answer)
+    }
+    if (message.answerIndex !== 0) {
+      writer.uint32(40).uint32(message.answerIndex)
     }
     return writer
   },
@@ -54,6 +58,9 @@ export const ValidPrivEvents = {
           break
         case 4:
           message.answer = reader.string()
+          break
+        case 5:
+          message.answerIndex = reader.uint32()
           break
         default:
           reader.skipType(tag & 7)
@@ -85,6 +92,11 @@ export const ValidPrivEvents = {
     } else {
       message.answer = ''
     }
+    if (object.answerIndex !== undefined && object.answerIndex !== null) {
+      message.answerIndex = Number(object.answerIndex)
+    } else {
+      message.answerIndex = 0
+    }
     return message
   },
 
@@ -94,6 +106,7 @@ export const ValidPrivEvents = {
     message.id !== undefined && (obj.id = message.id)
     message.privId !== undefined && (obj.privId = message.privId)
     message.answer !== undefined && (obj.answer = message.answer)
+    message.answerIndex !== undefined && (obj.answerIndex = message.answerIndex)
     return obj
   },
 
@@ -118,6 +131,11 @@ export const ValidPrivEvents = {
       message.answer = object.answer
     } else {
       message.answer = ''
+    }
+    if (object.answerIndex !== undefined && object.answerIndex !== null) {
+      message.answerIndex = object.answerIndex
+    } else {
+      message.answerIndex = 0
     }
     return message
   }

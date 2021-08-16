@@ -62,6 +62,9 @@ export interface PubliceventsPartPubEvents {
   pubId?: string;
   answers?: string;
   amount?: string;
+
+  /** @format int64 */
+  answerIndex?: number;
 }
 
 export interface PubliceventsQueryAllCreatePubEventsResponse {
@@ -133,6 +136,9 @@ export interface PubliceventsValidPubEvents {
 
   /** @format int64 */
   reput?: string;
+
+  /** @format int64 */
+  answerIndex?: number;
 }
 
 export interface RpcStatus {

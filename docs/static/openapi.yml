@@ -20042,6 +20042,9 @@ paths:
                       format: uint64
                     answer:
                       type: string
+                    answerIndex:
+                      type: integer
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -20161,6 +20164,9 @@ paths:
                     format: uint64
                   answer:
                     type: string
+                  answerIndex:
+                    type: integer
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -20214,6 +20220,9 @@ paths:
                       format: uint64
                     answer:
                       type: string
+                    answerIndex:
+                      type: integer
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -20333,6 +20342,9 @@ paths:
                     format: uint64
                   answer:
                     type: string
+                  answerIndex:
+                    type: integer
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -20592,6 +20604,9 @@ paths:
                       type: string
                     amount:
                       type: string
+                    answerIndex:
+                      type: integer
+                      format: int64
               pagination:
                 type: object
                 properties:
@@ -20713,6 +20728,9 @@ paths:
                     type: string
                   amount:
                     type: string
+                  answerIndex:
+                    type: integer
+                    format: int64
         default:
           description: An unexpected error response.
           schema:
@@ -20768,6 +20786,9 @@ paths:
                       type: string
                     reput:
                       type: string
+                      format: int64
+                    answerIndex:
+                      type: integer
                       format: int64
               pagination:
                 type: object
@@ -20890,6 +20911,9 @@ paths:
                     type: string
                   reput:
                     type: string
+                    format: int64
+                  answerIndex:
+                    type: integer
                     format: int64
         default:
           description: An unexpected error response.
@@ -31418,6 +31442,9 @@ definitions:
         format: uint64
       answer:
         type: string
+      answerIndex:
+        type: integer
+        format: int64
   VoroshilovMax.bettery.privateevents.QueryAllCreatePrivEventsResponse:
     type: object
     properties:
@@ -31492,6 +31519,9 @@ definitions:
               format: uint64
             answer:
               type: string
+            answerIndex:
+              type: integer
+              format: int64
       pagination:
         type: object
         properties:
@@ -31535,6 +31565,9 @@ definitions:
               format: uint64
             answer:
               type: string
+            answerIndex:
+              type: integer
+              format: int64
       pagination:
         type: object
         properties:
@@ -31605,6 +31638,9 @@ definitions:
             format: uint64
           answer:
             type: string
+          answerIndex:
+            type: integer
+            format: int64
   VoroshilovMax.bettery.privateevents.QueryGetValidPrivEventsResponse:
     type: object
     properties:
@@ -31621,6 +31657,9 @@ definitions:
             format: uint64
           answer:
             type: string
+          answerIndex:
+            type: integer
+            format: int64
   VoroshilovMax.bettery.privateevents.ValidPrivEvents:
     type: object
     properties:
@@ -31634,6 +31673,9 @@ definitions:
         format: uint64
       answer:
         type: string
+      answerIndex:
+        type: integer
+        format: int64
   VoroshilovMax.bettery.publicevents.CreatePubEvents:
     type: object
     properties:
@@ -31696,6 +31738,9 @@ definitions:
         type: string
       amount:
         type: string
+      answerIndex:
+        type: integer
+        format: int64
   VoroshilovMax.bettery.publicevents.QueryAllCreatePubEventsResponse:
     type: object
     properties:
@@ -31775,6 +31820,9 @@ definitions:
               type: string
             amount:
               type: string
+            answerIndex:
+              type: integer
+              format: int64
       pagination:
         type: object
         properties:
@@ -31820,6 +31868,9 @@ definitions:
               type: string
             reput:
               type: string
+              format: int64
+            answerIndex:
+              type: integer
               format: int64
       pagination:
         type: object
@@ -31896,6 +31947,9 @@ definitions:
             type: string
           amount:
             type: string
+          answerIndex:
+            type: integer
+            format: int64
   VoroshilovMax.bettery.publicevents.QueryGetValidPubEventsResponse:
     type: object
     properties:
@@ -31915,6 +31969,9 @@ definitions:
           reput:
             type: string
             format: int64
+          answerIndex:
+            type: integer
+            format: int64
   VoroshilovMax.bettery.publicevents.ValidPubEvents:
     type: object
     properties:
@@ -31930,4 +31987,7 @@ definitions:
         type: string
       reput:
         type: string
+        format: int64
+      answerIndex:
+        type: integer
         format: int64

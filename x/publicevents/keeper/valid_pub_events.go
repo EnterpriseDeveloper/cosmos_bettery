@@ -115,3 +115,20 @@ func GetValidPubEventsIDBytes(id uint64) []byte {
 func GetValidPubEventsIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
+
+func (k Keeper) findValidPubEvent(ctx sdk.Context, id uint64, valid string) bool {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.AllValidPubEvent
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if id == val.PrivId && valid == val.Creator {
+			return true
+		}
+	}
+
+	return false
+}

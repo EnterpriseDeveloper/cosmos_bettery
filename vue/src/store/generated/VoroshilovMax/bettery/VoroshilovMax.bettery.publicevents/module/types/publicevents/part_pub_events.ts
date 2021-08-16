@@ -10,6 +10,7 @@ export interface PartPubEvents {
   pubId: number
   answers: string
   amount: string
+  answerIndex: number
 }
 
 export interface allPartPubEvent {
@@ -17,7 +18,7 @@ export interface allPartPubEvent {
   privId: number
 }
 
-const basePartPubEvents: object = { creator: '', id: 0, pubId: 0, answers: '', amount: '' }
+const basePartPubEvents: object = { creator: '', id: 0, pubId: 0, answers: '', amount: '', answerIndex: 0 }
 
 export const PartPubEvents = {
   encode(message: PartPubEvents, writer: Writer = Writer.create()): Writer {
@@ -35,6 +36,9 @@ export const PartPubEvents = {
     }
     if (message.amount !== '') {
       writer.uint32(42).string(message.amount)
+    }
+    if (message.answerIndex !== 0) {
+      writer.uint32(48).uint32(message.answerIndex)
     }
     return writer
   },
@@ -60,6 +64,9 @@ export const PartPubEvents = {
           break
         case 5:
           message.amount = reader.string()
+          break
+        case 6:
+          message.answerIndex = reader.uint32()
           break
         default:
           reader.skipType(tag & 7)
@@ -96,6 +103,11 @@ export const PartPubEvents = {
     } else {
       message.amount = ''
     }
+    if (object.answerIndex !== undefined && object.answerIndex !== null) {
+      message.answerIndex = Number(object.answerIndex)
+    } else {
+      message.answerIndex = 0
+    }
     return message
   },
 
@@ -106,6 +118,7 @@ export const PartPubEvents = {
     message.pubId !== undefined && (obj.pubId = message.pubId)
     message.answers !== undefined && (obj.answers = message.answers)
     message.amount !== undefined && (obj.amount = message.amount)
+    message.answerIndex !== undefined && (obj.answerIndex = message.answerIndex)
     return obj
   },
 
@@ -135,6 +148,11 @@ export const PartPubEvents = {
       message.amount = object.amount
     } else {
       message.amount = ''
+    }
+    if (object.answerIndex !== undefined && object.answerIndex !== null) {
+      message.answerIndex = object.answerIndex
+    } else {
+      message.answerIndex = 0
     }
     return message
   }

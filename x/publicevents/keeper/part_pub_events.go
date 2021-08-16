@@ -116,7 +116,7 @@ func GetPartPubEventsIDFromBytes(bz []byte) uint64 {
 	return binary.BigEndian.Uint64(bz)
 }
 
-func (k Keeper) GetEachPartPubEvents(ctx sdk.Context, id uint64) (list []types.AllPartPubEvent) {
+func (k Keeper) findPartPubEvent(ctx sdk.Context, id uint64, part string) bool {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
@@ -125,10 +125,10 @@ func (k Keeper) GetEachPartPubEvents(ctx sdk.Context, id uint64) (list []types.A
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.AllPartPubEvent
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
-		if id == val.PrivId {
-			list = append(list, val)
+		if id == val.PrivId && part == val.Creator {
+			return true
 		}
 	}
 
-	return
+	return false
 }

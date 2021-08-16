@@ -51,6 +51,9 @@ export interface PrivateeventsPartPrivEvents {
   /** @format uint64 */
   privId?: string;
   answer?: string;
+
+  /** @format int64 */
+  answerIndex?: number;
 }
 
 export interface PrivateeventsQueryAllCreatePrivEventsResponse {
@@ -119,6 +122,9 @@ export interface PrivateeventsValidPrivEvents {
   /** @format uint64 */
   privId?: string;
   answer?: string;
+
+  /** @format int64 */
+  answerIndex?: number;
 }
 
 export interface ProtobufAny {

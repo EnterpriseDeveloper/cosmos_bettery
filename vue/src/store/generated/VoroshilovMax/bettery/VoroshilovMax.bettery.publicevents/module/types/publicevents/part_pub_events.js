@@ -2,7 +2,7 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
-const basePartPubEvents = { creator: '', id: 0, pubId: 0, answers: '', amount: '' };
+const basePartPubEvents = { creator: '', id: 0, pubId: 0, answers: '', amount: '', answerIndex: 0 };
 export const PartPubEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -19,6 +19,9 @@ export const PartPubEvents = {
         }
         if (message.amount !== '') {
             writer.uint32(42).string(message.amount);
+        }
+        if (message.answerIndex !== 0) {
+            writer.uint32(48).uint32(message.answerIndex);
         }
         return writer;
     },
@@ -43,6 +46,9 @@ export const PartPubEvents = {
                     break;
                 case 5:
                     message.amount = reader.string();
+                    break;
+                case 6:
+                    message.answerIndex = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -83,6 +89,12 @@ export const PartPubEvents = {
         else {
             message.amount = '';
         }
+        if (object.answerIndex !== undefined && object.answerIndex !== null) {
+            message.answerIndex = Number(object.answerIndex);
+        }
+        else {
+            message.answerIndex = 0;
+        }
         return message;
     },
     toJSON(message) {
@@ -92,6 +104,7 @@ export const PartPubEvents = {
         message.pubId !== undefined && (obj.pubId = message.pubId);
         message.answers !== undefined && (obj.answers = message.answers);
         message.amount !== undefined && (obj.amount = message.amount);
+        message.answerIndex !== undefined && (obj.answerIndex = message.answerIndex);
         return obj;
     },
     fromPartial(object) {
@@ -125,6 +138,12 @@ export const PartPubEvents = {
         }
         else {
             message.amount = '';
+        }
+        if (object.answerIndex !== undefined && object.answerIndex !== null) {
+            message.answerIndex = object.answerIndex;
+        }
+        else {
+            message.answerIndex = 0;
         }
         return message;
     }

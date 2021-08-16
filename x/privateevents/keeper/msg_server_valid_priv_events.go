@@ -15,12 +15,6 @@ import (
 func (k msgServer) CreateValidPrivEvents(goCtx context.Context, msg *types.MsgCreateValidPrivEvents) (*types.MsgCreateValidPrivEventsResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	var validPrivEvents = types.ValidPrivEvents{
-		Creator: msg.Creator,
-		PrivId:  msg.PrivId,
-		Answer:  msg.Answer,
-	}
-
 	// check if event not finished
 	if k.GetEventFinished(ctx, msg.PrivId) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event already finished by id: %d", msg.PrivId))
@@ -40,12 +34,9 @@ func (k msgServer) CreateValidPrivEvents(goCtx context.Context, msg *types.MsgCr
 	}
 
 	// alredy particiapte
-	allPart := k.GetEachPartPrivEvents(ctx, msg.PrivId)
-
-	for _, v := range allPart {
-		if v.Creator == msg.Creator {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("participant: %s cant be validator in event by id: %d", msg.Creator, msg.PrivId))
-		}
+	find := k.findPartPrivEvent(ctx, msg.PrivId, msg.Creator)
+	if find {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("participant: %s cant be validator in event by id: %d", msg.Creator, msg.PrivId))
 	}
 
 	// createor can't be validator
@@ -70,12 +61,19 @@ func (k msgServer) CreateValidPrivEvents(goCtx context.Context, msg *types.MsgCr
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("answer %s not found in event by id: %d", msg.Answer, msg.PrivId))
 	}
 
+	var validPrivEvents = types.ValidPrivEvents{
+		Creator:     msg.Creator,
+		PrivId:      msg.PrivId,
+		Answer:      msg.Answer,
+		AnswerIndex: uint32(answerIndex),
+	}
+
 	id := k.AppendValidPrivEvents(
 		ctx,
 		validPrivEvents,
 	)
 
-	eventId, err := cast.ToStringE(id)
+	eventId, err := cast.ToStringE(msg.PrivId)
 	if err != nil {
 		return nil, err
 	}

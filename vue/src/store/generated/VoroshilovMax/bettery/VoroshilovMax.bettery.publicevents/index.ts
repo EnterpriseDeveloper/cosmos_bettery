@@ -6,9 +6,10 @@ import { CreatePubEvents } from "./module/types/publicevents/create_pub_events"
 import { PartPubEvents } from "./module/types/publicevents/part_pub_events"
 import { allPartPubEvent } from "./module/types/publicevents/part_pub_events"
 import { ValidPubEvents } from "./module/types/publicevents/valid_pub_events"
+import { allValidPubEvent } from "./module/types/publicevents/valid_pub_events"
 
 
-export { CreatePubEvents, PartPubEvents, allPartPubEvent, ValidPubEvents };
+export { CreatePubEvents, PartPubEvents, allPartPubEvent, ValidPubEvents, allValidPubEvent };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -58,6 +59,7 @@ const getDefaultState = () => {
 						PartPubEvents: getStructure(PartPubEvents.fromPartial({})),
 						allPartPubEvent: getStructure(allPartPubEvent.fromPartial({})),
 						ValidPubEvents: getStructure(ValidPubEvents.fromPartial({})),
+						allValidPubEvent: getStructure(allValidPubEvent.fromPartial({})),
 						
 		},
 		_Subscriptions: new Set(),
@@ -289,6 +291,21 @@ export default {
 		},
 		
 		
+		async sendMsgCreateValidPubEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateValidPubEvents(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		async sendMsgCreatePartPubEvents({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -319,22 +336,21 @@ export default {
 				}
 			}
 		},
-		async sendMsgCreateValidPubEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+		
+		async MsgCreateValidPubEvents({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgCreateValidPubEvents(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
+				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
 					throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Send', 'Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Create', 'Could not create message: ' + e.message)
+					
 				}
 			}
 		},
-		
 		async MsgCreatePartPubEvents({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -359,20 +375,6 @@ export default {
 					throw new SpVuexError('TxClient:MsgCreateCreatePubEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgCreateCreatePubEvents:Create', 'Could not create message: ' + e.message)
-					
-				}
-			}
-		},
-		async MsgCreateValidPubEvents({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateValidPubEvents(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgCreateValidPubEvents:Create', 'Could not create message: ' + e.message)
 					
 				}
 			}

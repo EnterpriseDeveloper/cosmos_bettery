@@ -2,7 +2,7 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.privateevents';
-const basePartPrivEvents = { creator: '', id: 0, privId: 0, answer: '' };
+const basePartPrivEvents = { creator: '', id: 0, privId: 0, answer: '', answerIndex: 0 };
 export const PartPrivEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -16,6 +16,9 @@ export const PartPrivEvents = {
         }
         if (message.answer !== '') {
             writer.uint32(34).string(message.answer);
+        }
+        if (message.answerIndex !== 0) {
+            writer.uint32(40).uint32(message.answerIndex);
         }
         return writer;
     },
@@ -37,6 +40,9 @@ export const PartPrivEvents = {
                     break;
                 case 4:
                     message.answer = reader.string();
+                    break;
+                case 5:
+                    message.answerIndex = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -71,6 +77,12 @@ export const PartPrivEvents = {
         else {
             message.answer = '';
         }
+        if (object.answerIndex !== undefined && object.answerIndex !== null) {
+            message.answerIndex = Number(object.answerIndex);
+        }
+        else {
+            message.answerIndex = 0;
+        }
         return message;
     },
     toJSON(message) {
@@ -79,6 +91,7 @@ export const PartPrivEvents = {
         message.id !== undefined && (obj.id = message.id);
         message.privId !== undefined && (obj.privId = message.privId);
         message.answer !== undefined && (obj.answer = message.answer);
+        message.answerIndex !== undefined && (obj.answerIndex = message.answerIndex);
         return obj;
     },
     fromPartial(object) {
@@ -106,6 +119,12 @@ export const PartPrivEvents = {
         }
         else {
             message.answer = '';
+        }
+        if (object.answerIndex !== undefined && object.answerIndex !== null) {
+            message.answerIndex = object.answerIndex;
+        }
+        else {
+            message.answerIndex = 0;
         }
         return message;
     }

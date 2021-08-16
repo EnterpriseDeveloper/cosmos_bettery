@@ -6,6 +6,7 @@ export interface PartPubEvents {
     pubId: number;
     answers: string;
     amount: string;
+    answerIndex: number;
 }
 export interface allPartPubEvent {
     creator: string;

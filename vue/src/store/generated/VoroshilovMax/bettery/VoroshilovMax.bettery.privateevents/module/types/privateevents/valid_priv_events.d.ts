@@ -5,6 +5,7 @@ export interface ValidPrivEvents {
     id: number;
     privId: number;
     answer: string;
+    answerIndex: number;
 }
 export interface allValidPrivEvent {
     creator: string;

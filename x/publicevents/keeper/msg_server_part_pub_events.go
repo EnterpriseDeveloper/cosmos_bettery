@@ -17,13 +17,6 @@ import (
 func (k msgServer) CreatePartPubEvents(goCtx context.Context, msg *types.MsgCreatePartPubEvents) (*types.MsgCreatePartPubEventsResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	var partPubEvents = types.PartPubEvents{
-		Creator: msg.Creator,
-		PubId:   msg.PubId,
-		Answers: msg.Answers,
-		Amount:  msg.Amount,
-	}
-
 	// check if event not finished
 	if k.GetEventFinished(ctx, msg.PubId) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event already finished by id: %d", msg.PubId))
@@ -67,11 +60,9 @@ func (k msgServer) CreatePartPubEvents(goCtx context.Context, msg *types.MsgCrea
 	}
 
 	// check if user alredy part in event
-	allPart := k.GetEachPartPubEvents(ctx, msg.PubId)
-	for _, v := range allPart {
-		if v.Creator == msg.Creator {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user: %s alredy participate in event by id: %d", msg.Creator, msg.PubId))
-		}
+	find := k.findPartPubEvent(ctx, msg.PubId, msg.Creator)
+	if find {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user: %s alredy participate in event by id: %d", msg.Creator, msg.PubId))
 	}
 
 	// find answer index
@@ -98,6 +89,14 @@ func (k msgServer) CreatePartPubEvents(goCtx context.Context, msg *types.MsgCrea
 	err = k.TransferToModule(ctx, sender, sdk.NewCoin(types.BetToken, betAmount))
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("send bet token to module error, amount: %s", err.Error()))
+	}
+
+	var partPubEvents = types.PartPubEvents{
+		Creator:     msg.Creator,
+		PubId:       msg.PubId,
+		Answers:     msg.Answers,
+		Amount:      msg.Amount,
+		AnswerIndex: uint32(answerIndex),
 	}
 
 	id := k.AppendPartPubEvents(
