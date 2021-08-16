@@ -16,7 +16,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	}
 
 	// Set validPubEvents count
-	//k.SetValidPubEventsCount(ctx, genState.ValidPubEventsCount)
+	k.SetValidPubEventsCount(ctx, genState.ValidPubEventsCount)
 
 	// Set all the partPubEvents
 	for _, elem := range genState.PartPubEventsList {
@@ -24,7 +24,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	}
 
 	// Set partPubEvents count
-	//k.SetPartPubEventsCount(ctx, genState.PartPubEventsCount)
+	k.SetPartPubEventsCount(ctx, genState.PartPubEventsCount)
 
 	// Set all the createPubEvents
 	for _, elem := range genState.CreatePubEventsList {
@@ -50,7 +50,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	}
 
 	// Set the current count
-	//genesis.ValidPubEventsCount = k.GetValidPubEventsCount(ctx)
+	genesis.ValidPubEventsCount = k.GetValidPubEventsCount(ctx)
 
 	// Get all partPubEvents
 	partPubEventsList := k.GetAllPartPubEvents(ctx)
@@ -60,7 +60,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	}
 
 	// Set the current count
-	//	genesis.PartPubEventsCount = k.GetPartPubEventsCount(ctx)
+	genesis.PartPubEventsCount = k.GetPartPubEventsCount(ctx)
 
 	// Get all createPubEvents
 	createPubEventsList := k.GetAllCreatePubEvents(ctx)

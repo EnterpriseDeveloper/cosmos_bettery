@@ -2,32 +2,65 @@ package keeper
 
 import (
 	"encoding/binary"
+	"strconv"
 
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// GetPartPubEventsCount get the total number of TypeName.LowerCamel
+func (k Keeper) GetPartPubEventsCount(ctx sdk.Context) uint64 {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsCountKey))
+	byteKey := types.KeyPrefix(types.PartPubEventsCountKey)
+	bz := store.Get(byteKey)
+
+	// Count doesn't exist: no element
+	if bz == nil {
+		return 0
+	}
+
+	// Parse bytes
+	count, err := strconv.ParseUint(string(bz), 10, 64)
+	if err != nil {
+		// Panic because the count should be always formattable to uint64
+		panic("cannot decode count")
+	}
+
+	return count
+}
+
+// SetPartPubEventsCount set the total number of parPubEvents
+func (k Keeper) SetPartPubEventsCount(ctx sdk.Context, count uint64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsCountKey))
+	byteKey := types.KeyPrefix(types.PartPubEventsCountKey)
+	bz := []byte(strconv.FormatUint(count, 10))
+	store.Set(byteKey, bz)
+}
+
 // AppendPartPubEvents appends a partPubEvents in the store with a new id and update the count
 func (k Keeper) AppendPartPubEvents(
 	ctx sdk.Context,
 	partPubEvents types.PartPubEvents,
 ) uint64 {
-	// TODO add id count
+	count := k.GetPartPubEventsCount(ctx)
 
+	// Set the ID of the appended value
+	partPubEvents.Id = count
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&partPubEvents)
-	store.Set(GetPartPubEventsIDBytes(partPubEvents.PubId), appendedValue)
+	store.Set(GetPartPubEventsIDBytes(partPubEvents.Id), appendedValue)
 
-	// Update partPubEvents count
-	return partPubEvents.PubId
+	k.SetPartPubEventsCount(ctx, count+1)
+
+	return count
 }
 
 // SetPartPubEvents set a specific partPubEvents in the store
 func (k Keeper) SetPartPubEvents(ctx sdk.Context, partPubEvents types.PartPubEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
 	b := k.cdc.MustMarshalBinaryBare(&partPubEvents)
-	store.Set(GetPartPubEventsIDBytes(partPubEvents.PubId), b)
+	store.Set(GetPartPubEventsIDBytes(partPubEvents.Id), b)
 }
 
 // GetPartPubEvents returns a partPubEvents from its id

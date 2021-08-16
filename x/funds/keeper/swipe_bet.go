@@ -14,6 +14,7 @@ func (k Keeper) AppendSwipeBet(
 	swipeBet types.SwipeBet,
 ) uint64 {
 
+	// TODO add id
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SwipeBetKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&swipeBet)
 	store.Set(GetSwipeBetIDBytes(uint64(swipeBet.UserId)), appendedValue)

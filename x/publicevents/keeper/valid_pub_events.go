@@ -2,31 +2,65 @@ package keeper
 
 import (
 	"encoding/binary"
+	"strconv"
 
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// GetValidPubEventsCount get the total number of TypeName.LowerCamel
+func (k Keeper) GetValidPubEventsCount(ctx sdk.Context) uint64 {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsCountKey))
+	byteKey := types.KeyPrefix(types.ValidPubEventsCountKey)
+	bz := store.Get(byteKey)
+
+	// Count doesn't exist: no element
+	if bz == nil {
+		return 0
+	}
+
+	// Parse bytes
+	count, err := strconv.ParseUint(string(bz), 10, 64)
+	if err != nil {
+		// Panic because the count should be always formattable to uint64
+		panic("cannot decode count")
+	}
+
+	return count
+}
+
+// SetValidPubEventsCount set the total number of validPubEvents
+func (k Keeper) SetValidPubEventsCount(ctx sdk.Context, count uint64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsCountKey))
+	byteKey := types.KeyPrefix(types.ValidPubEventsCountKey)
+	bz := []byte(strconv.FormatUint(count, 10))
+	store.Set(byteKey, bz)
+}
+
 // AppendValidPubEvents appends a validPubEvents in the store with a new id and update the count
 func (k Keeper) AppendValidPubEvents(
 	ctx sdk.Context,
 	validPubEvents types.ValidPubEvents,
 ) uint64 {
+	count := k.GetValidPubEventsCount(ctx)
 
-	// TODO add id
+	// Set the ID of the appended value
+	validPubEvents.Id = count
+
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&validPubEvents)
-	store.Set(GetValidPubEventsIDBytes(validPubEvents.PubId), appendedValue)
+	store.Set(GetValidPubEventsIDBytes(validPubEvents.Id), appendedValue)
 
-	return validPubEvents.PubId
+	k.SetValidPubEventsCount(ctx, count+1)
+	return count
 }
 
 // SetValidPubEvents set a specific validPubEvents in the store
 func (k Keeper) SetValidPubEvents(ctx sdk.Context, validPubEvents types.ValidPubEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
 	b := k.cdc.MustMarshalBinaryBare(&validPubEvents)
-	store.Set(GetValidPubEventsIDBytes(validPubEvents.PubId), b)
+	store.Set(GetValidPubEventsIDBytes(validPubEvents.Id), b)
 }
 
 // GetValidPubEvents returns a validPubEvents from its id

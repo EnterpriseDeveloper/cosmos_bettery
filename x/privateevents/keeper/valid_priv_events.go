@@ -52,7 +52,6 @@ func (k Keeper) AppendValidPrivEvents(
 	appendedValue := k.cdc.MustMarshalBinaryBare(&validPrivEvents)
 	store.Set(GetValidPrivEventsIDBytes(validPrivEvents.Id), appendedValue)
 
-	// Update createPrivEvents count
 	k.SetValidPrivEventsCount(ctx, count+1)
 	return count
 }
