@@ -16,7 +16,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	}
 
 	// Set swipeBet count
-	// k.SetSwipeBetCount(ctx, genState.SwipeBetCount)
+	k.SetSwipeCount(ctx, genState.SwipeBetCount)
 
 	// Set all the mintBet
 	for _, elem := range genState.MintBetList {
@@ -24,7 +24,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	}
 
 	// Set mintBet count
-	//	k.SetMintBetCount(ctx, genState.MintBetCount)
+	k.SetMintCount(ctx, genState.MintBetCount)
 
 	// this line is used by starport scaffolding # ibc/genesis/init
 }
@@ -42,7 +42,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	}
 
 	// // Set the current count
-	// genesis.SwipeBetCount = k.GetSwipeBetCount(ctx)
+	genesis.SwipeBetCount = k.GetSwipeCount(ctx)
 
 	// Get all mintBet
 	mintBetList := k.GetAllMintBet(ctx)
@@ -52,7 +52,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	}
 
 	// Set the current count
-	//	genesis.MintBetCount = k.GetMintBetCount(ctx)
+	genesis.MintBetCount = k.GetMintCount(ctx)
 
 	// this line is used by starport scaffolding # ibc/genesis/export
 

@@ -2,30 +2,65 @@ package keeper
 
 import (
 	"encoding/binary"
+	"strconv"
 
 	"github.com/VoroshilovMax/bettery/x/funds/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// GetMintCount get the total number of TypeName.LowerCamel
+func (k Keeper) GetMintCount(ctx sdk.Context) uint64 {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MintBetCountKey))
+	byteKey := types.KeyPrefix(types.MintBetCountKey)
+	bz := store.Get(byteKey)
+
+	// Count doesn't exist: no element
+	if bz == nil {
+		return 0
+	}
+
+	// Parse bytes
+	count, err := strconv.ParseUint(string(bz), 10, 64)
+	if err != nil {
+		// Panic because the count should be always formattable to uint64
+		panic("cannot decode count")
+	}
+
+	return count
+}
+
+// SetMintCount set the total number of mintCount
+func (k Keeper) SetMintCount(ctx sdk.Context, count uint64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MintBetCountKey))
+	byteKey := types.KeyPrefix(types.MintBetCountKey)
+	bz := []byte(strconv.FormatUint(count, 10))
+	store.Set(byteKey, bz)
+}
+
 // AppendMintBet appends a mintBet in the store with a new id and update the count
 func (k Keeper) AppendMintBet(
 	ctx sdk.Context,
 	mintBet types.MintBet,
 ) uint64 {
-	// TODO add id
+	count := k.GetMintCount(ctx)
+
+	// Set the ID of the appended value
+	mintBet.Id = count
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MintBetKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&mintBet)
-	store.Set(GetMintBetIDBytes(uint64(mintBet.UserId)), appendedValue)
+	store.Set(GetMintBetIDBytes(uint64(mintBet.Id)), appendedValue)
 
-	return uint64(mintBet.UserId)
+	k.SetMintCount(ctx, count+1)
+
+	return count
 }
 
 // SetMintBet set a specific mintBet in the store
 func (k Keeper) SetMintBet(ctx sdk.Context, mintBet types.MintBet) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MintBetKey))
 	b := k.cdc.MustMarshalBinaryBare(&mintBet)
-	store.Set(GetMintBetIDBytes(uint64(mintBet.UserId)), b)
+	store.Set(GetMintBetIDBytes(uint64(mintBet.Id)), b)
 }
 
 // GetMintBet returns a mintBet from its id

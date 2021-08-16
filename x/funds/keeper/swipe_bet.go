@@ -2,31 +2,65 @@ package keeper
 
 import (
 	"encoding/binary"
+	"strconv"
 
 	"github.com/VoroshilovMax/bettery/x/funds/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// GetSwipeCount get the total number of TypeName.LowerCamel
+func (k Keeper) GetSwipeCount(ctx sdk.Context) uint64 {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SwipeBetCountKey))
+	byteKey := types.KeyPrefix(types.SwipeBetCountKey)
+	bz := store.Get(byteKey)
+
+	// Count doesn't exist: no element
+	if bz == nil {
+		return 0
+	}
+
+	// Parse bytes
+	count, err := strconv.ParseUint(string(bz), 10, 64)
+	if err != nil {
+		// Panic because the count should be always formattable to uint64
+		panic("cannot decode count")
+	}
+
+	return count
+}
+
+// SetSwipeCount set the total number of swipeCount
+func (k Keeper) SetSwipeCount(ctx sdk.Context, count uint64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SwipeBetCountKey))
+	byteKey := types.KeyPrefix(types.SwipeBetCountKey)
+	bz := []byte(strconv.FormatUint(count, 10))
+	store.Set(byteKey, bz)
+}
+
 // AppendSwipeBet appends a swipeBet in the store with a new id and update the count
 func (k Keeper) AppendSwipeBet(
 	ctx sdk.Context,
 	swipeBet types.SwipeBet,
 ) uint64 {
+	count := k.GetSwipeCount(ctx)
 
-	// TODO add id
+	// Set the ID of the appended value
+	swipeBet.Id = count
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SwipeBetKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&swipeBet)
-	store.Set(GetSwipeBetIDBytes(uint64(swipeBet.UserId)), appendedValue)
+	store.Set(GetSwipeBetIDBytes(uint64(swipeBet.Id)), appendedValue)
 
-	return uint64(swipeBet.UserId)
+	k.SetSwipeCount(ctx, count+1)
+
+	return count
 }
 
 // SetSwipeBet set a specific swipeBet in the store
 func (k Keeper) SetSwipeBet(ctx sdk.Context, swipeBet types.SwipeBet) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SwipeBetKey))
 	b := k.cdc.MustMarshalBinaryBare(&swipeBet)
-	store.Set(GetSwipeBetIDBytes(uint64(swipeBet.UserId)), b)
+	store.Set(GetSwipeBetIDBytes(uint64(swipeBet.Id)), b)
 }
 
 // GetSwipeBet returns a swipeBet from its id

@@ -19492,6 +19492,9 @@ paths:
                   properties:
                     creator:
                       type: string
+                    id:
+                      type: string
+                      format: uint64
                     amount:
                       type: string
                     userId:
@@ -19608,6 +19611,9 @@ paths:
                 properties:
                   creator:
                     type: string
+                  id:
+                    type: string
+                    format: uint64
                   amount:
                     type: string
                   userId:
@@ -19658,6 +19664,9 @@ paths:
                   properties:
                     creator:
                       type: string
+                    id:
+                      type: string
+                      format: uint64
                     amount:
                       type: string
                     userId:
@@ -19774,6 +19783,9 @@ paths:
                 properties:
                   creator:
                     type: string
+                  id:
+                    type: string
+                    format: uint64
                   amount:
                     type: string
                   userId:
@@ -31198,6 +31210,9 @@ definitions:
     properties:
       creator:
         type: string
+      id:
+        type: string
+        format: uint64
       amount:
         type: string
       userId:
@@ -31225,6 +31240,9 @@ definitions:
           properties:
             creator:
               type: string
+            id:
+              type: string
+              format: uint64
             amount:
               type: string
             userId:
@@ -31265,6 +31283,9 @@ definitions:
           properties:
             creator:
               type: string
+            id:
+              type: string
+              format: uint64
             amount:
               type: string
             userId:
@@ -31303,6 +31324,9 @@ definitions:
         properties:
           creator:
             type: string
+          id:
+            type: string
+            format: uint64
           amount:
             type: string
           userId:
@@ -31316,6 +31340,9 @@ definitions:
         properties:
           creator:
             type: string
+          id:
+            type: string
+            format: uint64
           amount:
             type: string
           userId:
@@ -31326,6 +31353,9 @@ definitions:
     properties:
       creator:
         type: string
+      id:
+        type: string
+        format: uint64
       amount:
         type: string
       userId:
