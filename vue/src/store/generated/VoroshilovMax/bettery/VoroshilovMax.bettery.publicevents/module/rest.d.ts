@@ -34,6 +34,8 @@ export interface PubliceventsMsgCreateValidPubEventsResponse {
 export interface PubliceventsPartPubEvents {
     creator?: string;
     /** @format uint64 */
+    id?: string;
+    /** @format uint64 */
     pubId?: string;
     answers?: string;
     amount?: string;
@@ -88,6 +90,8 @@ export interface PubliceventsQueryGetValidPubEventsResponse {
 }
 export interface PubliceventsValidPubEvents {
     creator?: string;
+    /** @format uint64 */
+    id?: string;
     /** @format uint64 */
     pubId?: string;
     answers?: string;

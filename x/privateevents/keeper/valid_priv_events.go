@@ -2,31 +2,66 @@ package keeper
 
 import (
 	"encoding/binary"
+	"strconv"
 
 	"github.com/VoroshilovMax/bettery/x/privateevents/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
+// GetValidPrivEventsCount get the total number of TypeName.LowerCamel
+func (k Keeper) GetValidPrivEventsCount(ctx sdk.Context) uint64 {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPrivEventsCountKey))
+	byteKey := types.KeyPrefix(types.ValidPrivEventsCountKey)
+	bz := store.Get(byteKey)
+
+	// Count doesn't exist: no element
+	if bz == nil {
+		return 0
+	}
+
+	// Parse bytes
+	count, err := strconv.ParseUint(string(bz), 10, 64)
+	if err != nil {
+		// Panic because the count should be always formattable to uint64
+		panic("cannot decode count")
+	}
+
+	return count
+}
+
+// SetValidPrivEventsCount set the total number of validPrivEvents
+func (k Keeper) SetValidPrivEventsCount(ctx sdk.Context, count uint64) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPrivEventsCountKey))
+	byteKey := types.KeyPrefix(types.ValidPrivEventsCountKey)
+	bz := []byte(strconv.FormatUint(count, 10))
+	store.Set(byteKey, bz)
+}
+
 // AppendValidPrivEvents appends a validPrivEvents in the store with a new id and update the count
 func (k Keeper) AppendValidPrivEvents(
 	ctx sdk.Context,
 	validPrivEvents types.ValidPrivEvents,
 ) uint64 {
+	count := k.GetValidPrivEventsCount(ctx)
 
-	// TODO add id
+	// Set the ID of the appended value
+	validPrivEvents.Id = count
+
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPrivEventsKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&validPrivEvents)
-	store.Set(GetValidPrivEventsIDBytes(validPrivEvents.PrivId), appendedValue)
+	store.Set(GetValidPrivEventsIDBytes(validPrivEvents.Id), appendedValue)
 
-	return validPrivEvents.PrivId
+	// Update createPrivEvents count
+	k.SetValidPrivEventsCount(ctx, count+1)
+	return count
 }
 
 // SetValidPrivEvents set a specific validPrivEvents in the store
 func (k Keeper) SetValidPrivEvents(ctx sdk.Context, validPrivEvents types.ValidPrivEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPrivEventsKey))
 	b := k.cdc.MustMarshalBinaryBare(&validPrivEvents)
-	store.Set(GetValidPrivEventsIDBytes(validPrivEvents.PrivId), b)
+	store.Set(GetValidPrivEventsIDBytes(validPrivEvents.Id), b)
 }
 
 // GetValidPrivEvents returns a validPrivEvents from its id

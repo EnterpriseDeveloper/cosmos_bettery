@@ -7,7 +7,8 @@ import "gogoproto/gogo.proto";
 
 message ValidPubEvents {
   string creator = 1;
-  uint64 pubId = 2; 
-  string answers = 3; 
-  int64 reput = 4; 
+  uint64 id = 2;
+  uint64 pubId = 3; 
+  string answers = 4; 
+  int64 reput = 5; 
 }

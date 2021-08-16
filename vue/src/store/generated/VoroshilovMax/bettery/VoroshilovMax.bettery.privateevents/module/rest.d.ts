@@ -27,6 +27,8 @@ export interface PrivateeventsMsgCreateValidPrivEventsResponse {
 export interface PrivateeventsPartPrivEvents {
     creator?: string;
     /** @format uint64 */
+    id?: string;
+    /** @format uint64 */
     privId?: string;
     answer?: string;
 }
@@ -80,6 +82,8 @@ export interface PrivateeventsQueryGetValidPrivEventsResponse {
 }
 export interface PrivateeventsValidPrivEvents {
     creator?: string;
+    /** @format uint64 */
+    id?: string;
     /** @format uint64 */
     privId?: string;
     answer?: string;

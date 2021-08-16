@@ -2,20 +2,23 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
-const basePartPubEvents = { creator: '', pubId: 0, answers: '', amount: '' };
+const basePartPubEvents = { creator: '', id: 0, pubId: 0, answers: '', amount: '' };
 export const PartPubEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
         }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
         if (message.pubId !== 0) {
-            writer.uint32(16).uint64(message.pubId);
+            writer.uint32(24).uint64(message.pubId);
         }
         if (message.answers !== '') {
-            writer.uint32(26).string(message.answers);
+            writer.uint32(34).string(message.answers);
         }
         if (message.amount !== '') {
-            writer.uint32(34).string(message.amount);
+            writer.uint32(42).string(message.amount);
         }
         return writer;
     },
@@ -30,12 +33,15 @@ export const PartPubEvents = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.pubId = longToNumber(reader.uint64());
+                    message.id = longToNumber(reader.uint64());
                     break;
                 case 3:
-                    message.answers = reader.string();
+                    message.pubId = longToNumber(reader.uint64());
                     break;
                 case 4:
+                    message.answers = reader.string();
+                    break;
+                case 5:
                     message.amount = reader.string();
                     break;
                 default:
@@ -52,6 +58,12 @@ export const PartPubEvents = {
         }
         else {
             message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
         }
         if (object.pubId !== undefined && object.pubId !== null) {
             message.pubId = Number(object.pubId);
@@ -76,6 +88,7 @@ export const PartPubEvents = {
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
         message.pubId !== undefined && (obj.pubId = message.pubId);
         message.answers !== undefined && (obj.answers = message.answers);
         message.amount !== undefined && (obj.amount = message.amount);
@@ -88,6 +101,12 @@ export const PartPubEvents = {
         }
         else {
             message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
         }
         if (object.pubId !== undefined && object.pubId !== null) {
             message.pubId = object.pubId;

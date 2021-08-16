@@ -2,17 +2,20 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.privateevents';
-const baseValidPrivEvents = { creator: '', privId: 0, answer: '' };
+const baseValidPrivEvents = { creator: '', id: 0, privId: 0, answer: '' };
 export const ValidPrivEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
         }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
         if (message.privId !== 0) {
-            writer.uint32(16).uint64(message.privId);
+            writer.uint32(24).uint64(message.privId);
         }
         if (message.answer !== '') {
-            writer.uint32(26).string(message.answer);
+            writer.uint32(34).string(message.answer);
         }
         return writer;
     },
@@ -27,9 +30,12 @@ export const ValidPrivEvents = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.privId = longToNumber(reader.uint64());
+                    message.id = longToNumber(reader.uint64());
                     break;
                 case 3:
+                    message.privId = longToNumber(reader.uint64());
+                    break;
+                case 4:
                     message.answer = reader.string();
                     break;
                 default:
@@ -46,6 +52,12 @@ export const ValidPrivEvents = {
         }
         else {
             message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
         }
         if (object.privId !== undefined && object.privId !== null) {
             message.privId = Number(object.privId);
@@ -64,6 +76,7 @@ export const ValidPrivEvents = {
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
         message.privId !== undefined && (obj.privId = message.privId);
         message.answer !== undefined && (obj.answer = message.answer);
         return obj;
@@ -75,6 +88,12 @@ export const ValidPrivEvents = {
         }
         else {
             message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
         }
         if (object.privId !== undefined && object.privId !== null) {
             message.privId = object.privId;
@@ -91,14 +110,17 @@ export const ValidPrivEvents = {
         return message;
     }
 };
-const baseallValidPrivEvent = { creator: '', privId: 0 };
+const baseallValidPrivEvent = { creator: '', id: 0, privId: 0 };
 export const allValidPrivEvent = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
         }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
         if (message.privId !== 0) {
-            writer.uint32(16).uint64(message.privId);
+            writer.uint32(24).uint64(message.privId);
         }
         return writer;
     },
@@ -113,6 +135,9 @@ export const allValidPrivEvent = {
                     message.creator = reader.string();
                     break;
                 case 2:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                case 3:
                     message.privId = longToNumber(reader.uint64());
                     break;
                 default:
@@ -130,6 +155,12 @@ export const allValidPrivEvent = {
         else {
             message.creator = '';
         }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
         if (object.privId !== undefined && object.privId !== null) {
             message.privId = Number(object.privId);
         }
@@ -141,6 +172,7 @@ export const allValidPrivEvent = {
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
         message.privId !== undefined && (obj.privId = message.privId);
         return obj;
     },
@@ -151,6 +183,12 @@ export const allValidPrivEvent = {
         }
         else {
             message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
         }
         if (object.privId !== undefined && object.privId !== null) {
             message.privId = object.privId;

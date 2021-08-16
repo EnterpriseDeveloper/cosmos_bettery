@@ -6,26 +6,30 @@ export const protobufPackage = 'VoroshilovMax.bettery.publicevents'
 
 export interface ValidPubEvents {
   creator: string
+  id: number
   pubId: number
   answers: string
   reput: number
 }
 
-const baseValidPubEvents: object = { creator: '', pubId: 0, answers: '', reput: 0 }
+const baseValidPubEvents: object = { creator: '', id: 0, pubId: 0, answers: '', reput: 0 }
 
 export const ValidPubEvents = {
   encode(message: ValidPubEvents, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
     if (message.pubId !== 0) {
-      writer.uint32(16).uint64(message.pubId)
+      writer.uint32(24).uint64(message.pubId)
     }
     if (message.answers !== '') {
-      writer.uint32(26).string(message.answers)
+      writer.uint32(34).string(message.answers)
     }
     if (message.reput !== 0) {
-      writer.uint32(32).int64(message.reput)
+      writer.uint32(40).int64(message.reput)
     }
     return writer
   },
@@ -41,12 +45,15 @@ export const ValidPubEvents = {
           message.creator = reader.string()
           break
         case 2:
-          message.pubId = longToNumber(reader.uint64() as Long)
+          message.id = longToNumber(reader.uint64() as Long)
           break
         case 3:
-          message.answers = reader.string()
+          message.pubId = longToNumber(reader.uint64() as Long)
           break
         case 4:
+          message.answers = reader.string()
+          break
+        case 5:
           message.reput = longToNumber(reader.int64() as Long)
           break
         default:
@@ -63,6 +70,11 @@ export const ValidPubEvents = {
       message.creator = String(object.creator)
     } else {
       message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
     }
     if (object.pubId !== undefined && object.pubId !== null) {
       message.pubId = Number(object.pubId)
@@ -85,6 +97,7 @@ export const ValidPubEvents = {
   toJSON(message: ValidPubEvents): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
     message.pubId !== undefined && (obj.pubId = message.pubId)
     message.answers !== undefined && (obj.answers = message.answers)
     message.reput !== undefined && (obj.reput = message.reput)
@@ -97,6 +110,11 @@ export const ValidPubEvents = {
       message.creator = object.creator
     } else {
       message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
     }
     if (object.pubId !== undefined && object.pubId !== null) {
       message.pubId = object.pubId

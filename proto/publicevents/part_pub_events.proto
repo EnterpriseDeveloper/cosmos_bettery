@@ -7,9 +7,10 @@ import "gogoproto/gogo.proto";
 
 message PartPubEvents {
   string creator = 1;
-  uint64 pubId = 2; 
-  string answers = 3; 
-  string amount = 4; 
+  uint64 id = 2;
+  uint64 pubId = 3; 
+  string answers = 4; 
+  string amount = 5; 
 }
 
 message allPartPubEvent {

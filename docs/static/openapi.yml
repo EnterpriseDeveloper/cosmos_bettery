@@ -20022,6 +20022,9 @@ paths:
                   properties:
                     creator:
                       type: string
+                    id:
+                      type: string
+                      format: uint64
                     privId:
                       type: string
                       format: uint64
@@ -20138,6 +20141,9 @@ paths:
                 properties:
                   creator:
                     type: string
+                  id:
+                    type: string
+                    format: uint64
                   privId:
                     type: string
                     format: uint64
@@ -20188,6 +20194,9 @@ paths:
                   properties:
                     creator:
                       type: string
+                    id:
+                      type: string
+                      format: uint64
                     privId:
                       type: string
                       format: uint64
@@ -20304,6 +20313,9 @@ paths:
                 properties:
                   creator:
                     type: string
+                  id:
+                    type: string
+                    format: uint64
                   privId:
                     type: string
                     format: uint64
@@ -20558,6 +20570,9 @@ paths:
                   properties:
                     creator:
                       type: string
+                    id:
+                      type: string
+                      format: uint64
                     pubId:
                       type: string
                       format: uint64
@@ -20676,6 +20691,9 @@ paths:
                 properties:
                   creator:
                     type: string
+                  id:
+                    type: string
+                    format: uint64
                   pubId:
                     type: string
                     format: uint64
@@ -20728,6 +20746,9 @@ paths:
                   properties:
                     creator:
                       type: string
+                    id:
+                      type: string
+                      format: uint64
                     pubId:
                       type: string
                       format: uint64
@@ -20847,6 +20868,9 @@ paths:
                 properties:
                   creator:
                     type: string
+                  id:
+                    type: string
+                    format: uint64
                   pubId:
                     type: string
                     format: uint64
@@ -31356,6 +31380,9 @@ definitions:
     properties:
       creator:
         type: string
+      id:
+        type: string
+        format: uint64
       privId:
         type: string
         format: uint64
@@ -31427,6 +31454,9 @@ definitions:
           properties:
             creator:
               type: string
+            id:
+              type: string
+              format: uint64
             privId:
               type: string
               format: uint64
@@ -31467,6 +31497,9 @@ definitions:
           properties:
             creator:
               type: string
+            id:
+              type: string
+              format: uint64
             privId:
               type: string
               format: uint64
@@ -31534,6 +31567,9 @@ definitions:
         properties:
           creator:
             type: string
+          id:
+            type: string
+            format: uint64
           privId:
             type: string
             format: uint64
@@ -31547,6 +31583,9 @@ definitions:
         properties:
           creator:
             type: string
+          id:
+            type: string
+            format: uint64
           privId:
             type: string
             format: uint64
@@ -31557,6 +31596,9 @@ definitions:
     properties:
       creator:
         type: string
+      id:
+        type: string
+        format: uint64
       privId:
         type: string
         format: uint64
@@ -31614,6 +31656,9 @@ definitions:
     properties:
       creator:
         type: string
+      id:
+        type: string
+        format: uint64
       pubId:
         type: string
         format: uint64
@@ -31690,6 +31735,9 @@ definitions:
           properties:
             creator:
               type: string
+            id:
+              type: string
+              format: uint64
             pubId:
               type: string
               format: uint64
@@ -31732,6 +31780,9 @@ definitions:
           properties:
             creator:
               type: string
+            id:
+              type: string
+              format: uint64
             pubId:
               type: string
               format: uint64
@@ -31805,6 +31856,9 @@ definitions:
         properties:
           creator:
             type: string
+          id:
+            type: string
+            format: uint64
           pubId:
             type: string
             format: uint64
@@ -31820,6 +31874,9 @@ definitions:
         properties:
           creator:
             type: string
+          id:
+            type: string
+            format: uint64
           pubId:
             type: string
             format: uint64
@@ -31833,6 +31890,9 @@ definitions:
     properties:
       creator:
         type: string
+      id:
+        type: string
+        format: uint64
       pubId:
         type: string
         format: uint64

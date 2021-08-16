@@ -15,16 +15,16 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 		k.SetValidPrivEvents(ctx, *elem)
 	}
 
-	// // Set validPrivEvents count
-	// k.SetValidPrivEventsCount(ctx, genState.ValidPrivEventsCount)
+	// Set validPrivEvents count
+	k.SetValidPrivEventsCount(ctx, genState.ValidPrivEventsCount)
 
-	// // Set all the partPrivEvents
-	// for _, elem := range genState.PartPrivEventsList {
-	// 	k.SetPartPrivEvents(ctx, *elem)
-	// }
+	// Set all the partPrivEvents
+	for _, elem := range genState.PartPrivEventsList {
+		k.SetPartPrivEvents(ctx, *elem)
+	}
 
-	// // Set partPrivEvents count
-	// k.SetPartPrivEventsCount(ctx, genState.PartPrivEventsCount)
+	// Set partPrivEvents count
+	k.SetPartPrivEventsCount(ctx, genState.PartPrivEventsCount)
 
 	// // Set all the createPrivEvents
 	// for _, elem := range genState.CreatePrivEventsList {
@@ -46,18 +46,18 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 		genesis.ValidPrivEventsList = append(genesis.ValidPrivEventsList, &elem)
 	}
 
+	//Set the current count
+	genesis.ValidPrivEventsCount = k.GetValidPrivEventsCount(ctx)
+
+	// Get all partPrivEvents
+	partPrivEventsList := k.GetAllPartPrivEvents(ctx)
+	for _, elem := range partPrivEventsList {
+		elem := elem
+		genesis.PartPrivEventsList = append(genesis.PartPrivEventsList, &elem)
+	}
+
 	// Set the current count
-	// genesis.ValidPrivEventsCount = k.GetValidPrivEventsCount(ctx)
-
-	// // Get all partPrivEvents
-	// partPrivEventsList := k.GetAllPartPrivEvents(ctx)
-	// for _, elem := range partPrivEventsList {
-	// 	elem := elem
-	// 	genesis.PartPrivEventsList = append(genesis.PartPrivEventsList, &elem)
-	// }
-
-	// // Set the current count
-	// genesis.PartPrivEventsCount = k.GetPartPrivEventsCount(ctx)
+	genesis.PartPrivEventsCount = k.GetPartPrivEventsCount(ctx)
 
 	// // Get all createPrivEvents
 	// createPrivEventsList := k.GetAllCreatePrivEvents(ctx)
