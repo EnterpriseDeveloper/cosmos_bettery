@@ -72,13 +72,13 @@ func (k msgServer) CreatePartPubEvents(goCtx context.Context, msg *types.MsgCrea
 	}
 
 	// check balance of user
-	cehckAmount, ok := new(big.Int).SetString(msg.Amount, 10)
+	sendAmount, ok := new(big.Int).SetString(msg.Amount, 10)
 	if !ok {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error, amount: %s, user: %s", msg.Creator, msg.Amount))
 	}
 
 	resAmount := k.bankKeeper.GetBalance(ctx, sender, types.BetToken)
-	if cehckAmount.Cmp(resAmount.Amount.BigInt()) == 1 {
+	if sendAmount.Cmp(resAmount.Amount.BigInt()) == 1 {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user does not have enought bet token, his amount: %s", resAmount.Amount.String()))
 	}
 	// send money to the event
@@ -91,6 +91,7 @@ func (k msgServer) CreatePartPubEvents(goCtx context.Context, msg *types.MsgCrea
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("send bet token to module error, amount: %s", err.Error()))
 	}
 
+	// TODO manage pool
 	var partPubEvents = types.PartPubEvents{
 		Creator:     msg.Creator,
 		PubId:       msg.PubId,

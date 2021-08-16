@@ -8,6 +8,7 @@ import (
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/spf13/cast"
 )
 
 func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCreateValidPubEvents) (*types.MsgCreateValidPubEventsResponse, error) {
@@ -56,7 +57,24 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 
 	// calculate validators
 
+	validNumber := k.GetValidatorsNumber(ctx, msg.PubId)
+	if validNumber == 0 {
+
+		eventId, err := cast.ToStringE(msg.PubId)
+		if err != nil {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("can't pars event id: %d, err: %s", msg.PubId, err.Error()))
+		}
+		ctx.EventManager().EmitEvent(
+			sdk.NewEvent(
+				"priv.event",
+				sdk.NewAttribute("calculateExpert", "true"),
+				sdk.NewAttribute("id", eventId),
+			),
+		)
+	}
+
 	// finish evend
+	// TODO
 
 	var validPubEvents = types.ValidPubEvents{
 		Creator:     msg.Creator,

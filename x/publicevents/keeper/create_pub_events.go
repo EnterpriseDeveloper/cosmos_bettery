@@ -64,6 +64,11 @@ func (k Keeper) GetEventFinished(ctx sdk.Context, id uint64) bool {
 	return k.GetCreatePubEvents(ctx, id).Finished
 }
 
+// get validators number
+func (k Keeper) GetValidatorsNumber(ctx sdk.Context, id uint64) int64 {
+	return k.GetCreatePubEvents(ctx, id).ExpertAmount
+}
+
 // GetAllCreatePubEvents returns all createPubEvents
 func (k Keeper) GetAllCreatePubEvents(ctx sdk.Context) (list []types.CreatePubEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePubEventsKey))
