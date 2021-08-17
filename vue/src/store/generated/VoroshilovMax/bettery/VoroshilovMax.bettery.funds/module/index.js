@@ -2,11 +2,11 @@
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreateSwipeBet } from "./types/funds/tx";
 import { MsgCreateMintBet } from "./types/funds/tx";
+import { MsgCreateSwipeBet } from "./types/funds/tx";
 const types = [
-    ["/VoroshilovMax.bettery.funds.MsgCreateSwipeBet", MsgCreateSwipeBet],
     ["/VoroshilovMax.bettery.funds.MsgCreateMintBet", MsgCreateMintBet],
+    ["/VoroshilovMax.bettery.funds.MsgCreateSwipeBet", MsgCreateSwipeBet],
 ];
 export const MissingWalletError = new Error("wallet is required");
 const registry = new Registry(types);
@@ -21,8 +21,8 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     const { address } = (await wallet.getAccounts())[0];
     return {
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
-        msgCreateSwipeBet: (data) => ({ typeUrl: "/VoroshilovMax.bettery.funds.MsgCreateSwipeBet", value: data }),
         msgCreateMintBet: (data) => ({ typeUrl: "/VoroshilovMax.bettery.funds.MsgCreateMintBet", value: data }),
+        msgCreateSwipeBet: (data) => ({ typeUrl: "/VoroshilovMax.bettery.funds.MsgCreateSwipeBet", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

@@ -62,19 +62,34 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 
 		eventId, err := cast.ToStringE(msg.PubId)
 		if err != nil {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("can't pars event id: %d, err: %s", msg.PubId, err.Error()))
+			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("calculate expert, can not pars event id: %d, err: %s", msg.PubId, err.Error()))
 		}
 		ctx.EventManager().EmitEvent(
 			sdk.NewEvent(
-				"priv.event",
+				"pub.event",
 				sdk.NewAttribute("calculateExpert", "true"),
 				sdk.NewAttribute("id", eventId),
 			),
 		)
-	}
+	} else {
 
-	// finish evend
-	// TODO
+		validated := k.GetValidPubEventLength(ctx, msg.PubId)
+
+		if validNumber == int64(validated+1) {
+
+			eventId, err := cast.ToStringE(msg.PubId)
+			if err != nil {
+				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event finish, can not pars event id: %d, err: %s", msg.PubId, err.Error()))
+			}
+			ctx.EventManager().EmitEvent(
+				sdk.NewEvent(
+					"pub.event",
+					sdk.NewAttribute("eventFinish", "true"),
+					sdk.NewAttribute("id", eventId),
+				),
+			)
+		}
+	}
 
 	var validPubEvents = types.ValidPubEvents{
 		Creator:     msg.Creator,

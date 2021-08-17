@@ -104,6 +104,22 @@ func (k Keeper) GetAllValidPubEvents(ctx sdk.Context) (list []types.ValidPubEven
 	return
 }
 
+func (k Keeper) GetValidPubEventLength(ctx sdk.Context, id uint64) int {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	var list []types.ValidPubEvents
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.ValidPubEvents
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		list = append(list, val)
+	}
+
+	return len(list)
+}
+
 // GetValidPubEventsIDBytes returns the byte representation of the ID
 func GetValidPubEventsIDBytes(id uint64) []byte {
 	bz := make([]byte, 8)

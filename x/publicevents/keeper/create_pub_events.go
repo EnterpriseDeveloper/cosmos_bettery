@@ -47,6 +47,11 @@ func (k Keeper) GetCreatePubEventsOwner(ctx sdk.Context, id uint64) string {
 	return k.GetCreatePubEvents(ctx, id).Creator
 }
 
+// GetAnswerLength returns the creator of the
+func (k Keeper) GetAnswerLength(ctx sdk.Context, id uint64) int {
+	return len(k.GetCreatePubEvents(ctx, id).Answers)
+}
+
 // RemoveCreatePubEvents removes a createPubEvents from the store
 func (k Keeper) RemoveCreatePubEvents(ctx sdk.Context, id uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePubEventsKey))
