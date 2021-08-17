@@ -29,6 +29,7 @@ export interface PubliceventsFihishPubEvent {
     /** @format int64 */
     correctAnswer?: number;
     tokenMinted?: string;
+    status?: string;
 }
 export interface PubliceventsMsgCreateCreatePubEventsResponse {
     /** @format uint64 */

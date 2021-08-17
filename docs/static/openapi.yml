@@ -20608,6 +20608,8 @@ paths:
                       format: int64
                     tokenMinted:
                       type: string
+                    status:
+                      type: string
               pagination:
                 type: object
                 properties:
@@ -20732,6 +20734,8 @@ paths:
                     type: integer
                     format: int64
                   tokenMinted:
+                    type: string
+                  status:
                     type: string
         default:
           description: An unexpected error response.
@@ -31908,6 +31912,8 @@ definitions:
         format: int64
       tokenMinted:
         type: string
+      status:
+        type: string
   VoroshilovMax.bettery.publicevents.MsgCreateCreatePubEventsResponse:
     type: object
     properties:
@@ -32032,6 +32038,8 @@ definitions:
               type: integer
               format: int64
             tokenMinted:
+              type: string
+            status:
               type: string
       pagination:
         type: object
@@ -32208,6 +32216,8 @@ definitions:
             type: integer
             format: int64
           tokenMinted:
+            type: string
+          status:
             type: string
   VoroshilovMax.bettery.publicevents.QueryGetPartPubEventsResponse:
     type: object

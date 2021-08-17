@@ -8,6 +8,7 @@ export interface FihishPubEvent {
     finised: boolean;
     correctAnswer: number;
     tokenMinted: string;
+    status: string;
 }
 export declare const FihishPubEvent: {
     encode(message: FihishPubEvent, writer?: Writer): Writer;

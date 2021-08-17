@@ -12,9 +12,10 @@ export interface FihishPubEvent {
   finised: boolean
   correctAnswer: number
   tokenMinted: string
+  status: string
 }
 
-const baseFihishPubEvent: object = { creator: '', pubId: 0, pool: false, reverted: false, finised: false, correctAnswer: 0, tokenMinted: '' }
+const baseFihishPubEvent: object = { creator: '', pubId: 0, pool: false, reverted: false, finised: false, correctAnswer: 0, tokenMinted: '', status: '' }
 
 export const FihishPubEvent = {
   encode(message: FihishPubEvent, writer: Writer = Writer.create()): Writer {
@@ -38,6 +39,9 @@ export const FihishPubEvent = {
     }
     if (message.tokenMinted !== '') {
       writer.uint32(58).string(message.tokenMinted)
+    }
+    if (message.status !== '') {
+      writer.uint32(66).string(message.status)
     }
     return writer
   },
@@ -69,6 +73,9 @@ export const FihishPubEvent = {
           break
         case 7:
           message.tokenMinted = reader.string()
+          break
+        case 8:
+          message.status = reader.string()
           break
         default:
           reader.skipType(tag & 7)
@@ -115,6 +122,11 @@ export const FihishPubEvent = {
     } else {
       message.tokenMinted = ''
     }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = String(object.status)
+    } else {
+      message.status = ''
+    }
     return message
   },
 
@@ -127,6 +139,7 @@ export const FihishPubEvent = {
     message.finised !== undefined && (obj.finised = message.finised)
     message.correctAnswer !== undefined && (obj.correctAnswer = message.correctAnswer)
     message.tokenMinted !== undefined && (obj.tokenMinted = message.tokenMinted)
+    message.status !== undefined && (obj.status = message.status)
     return obj
   },
 
@@ -166,6 +179,11 @@ export const FihishPubEvent = {
       message.tokenMinted = object.tokenMinted
     } else {
       message.tokenMinted = ''
+    }
+    if (object.status !== undefined && object.status !== null) {
+      message.status = object.status
+    } else {
+      message.status = ''
     }
     return message
   }

@@ -2,7 +2,7 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
-const baseFihishPubEvent = { creator: '', pubId: 0, pool: false, reverted: false, finised: false, correctAnswer: 0, tokenMinted: '' };
+const baseFihishPubEvent = { creator: '', pubId: 0, pool: false, reverted: false, finised: false, correctAnswer: 0, tokenMinted: '', status: '' };
 export const FihishPubEvent = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -25,6 +25,9 @@ export const FihishPubEvent = {
         }
         if (message.tokenMinted !== '') {
             writer.uint32(58).string(message.tokenMinted);
+        }
+        if (message.status !== '') {
+            writer.uint32(66).string(message.status);
         }
         return writer;
     },
@@ -55,6 +58,9 @@ export const FihishPubEvent = {
                     break;
                 case 7:
                     message.tokenMinted = reader.string();
+                    break;
+                case 8:
+                    message.status = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -107,6 +113,12 @@ export const FihishPubEvent = {
         else {
             message.tokenMinted = '';
         }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = String(object.status);
+        }
+        else {
+            message.status = '';
+        }
         return message;
     },
     toJSON(message) {
@@ -118,6 +130,7 @@ export const FihishPubEvent = {
         message.finised !== undefined && (obj.finised = message.finised);
         message.correctAnswer !== undefined && (obj.correctAnswer = message.correctAnswer);
         message.tokenMinted !== undefined && (obj.tokenMinted = message.tokenMinted);
+        message.status !== undefined && (obj.status = message.status);
         return obj;
     },
     fromPartial(object) {
@@ -163,6 +176,12 @@ export const FihishPubEvent = {
         }
         else {
             message.tokenMinted = '';
+        }
+        if (object.status !== undefined && object.status !== null) {
+            message.status = object.status;
+        }
+        else {
+            message.status = '';
         }
         return message;
     }

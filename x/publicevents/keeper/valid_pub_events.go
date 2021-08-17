@@ -104,6 +104,24 @@ func (k Keeper) GetAllValidPubEvents(ctx sdk.Context) (list []types.ValidPubEven
 	return
 }
 
+func (k Keeper) GetValidPubEventByAnswerLength(ctx sdk.Context, id uint64, answer int) int {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+	var list []types.ValidPubEvents
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.ValidPubEvents
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if val.PubId == id && int(val.AnswerIndex) == answer {
+			list = append(list, val)
+		}
+	}
+
+	return len(list)
+}
+
 func (k Keeper) GetValidPubEventLength(ctx sdk.Context, id uint64) int {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
@@ -114,7 +132,9 @@ func (k Keeper) GetValidPubEventLength(ctx sdk.Context, id uint64) int {
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPubEvents
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
-		list = append(list, val)
+		if val.PubId == id {
+			list = append(list, val)
+		}
 	}
 
 	return len(list)

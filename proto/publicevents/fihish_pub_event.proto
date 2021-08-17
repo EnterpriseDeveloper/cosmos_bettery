@@ -13,4 +13,5 @@ message FihishPubEvent {
   bool finised = 5;
   uint32 correctAnswer = 6;
   string tokenMinted = 7;
+  string status = 8;
 }

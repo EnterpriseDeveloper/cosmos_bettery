@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"encoding/binary"
+	"math/big"
 	"strconv"
 
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
@@ -102,6 +103,52 @@ func (k Keeper) GetAllPartPubEvents(ctx sdk.Context) (list []types.PartPubEvents
 	}
 
 	return
+}
+
+// GetWinPoolPubEvent returns big init pool of winners
+func (k Keeper) GetWinPoolPubEvent(ctx sdk.Context, id uint64, correctAnswer int) (*big.Int, string, bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+	var pool *big.Int
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.PartPubEvents
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if val.PubId == id && val.AnswerIndex == uint32(correctAnswer) {
+			amount, ok := new(big.Int).SetString(val.Amount, 10)
+			if !ok {
+				return new(big.Int).SetInt64(0), "error parse from pool", false
+			}
+			pool = pool.Add(pool, amount)
+		}
+	}
+
+	return pool, "", true
+}
+
+// GetPoolPubEvent returns big init pool of all part
+func (k Keeper) GetPoolPubEvent(ctx sdk.Context, id uint64) (*big.Int, string, bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+	var pool *big.Int
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.PartPubEvents
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if val.PubId == id {
+			amount, ok := new(big.Int).SetString(val.Amount, 10)
+			if !ok {
+				return new(big.Int).SetInt64(0), "error parse from pool", false
+			}
+			pool = pool.Add(pool, amount)
+		}
+	}
+
+	return pool, "", true
 }
 
 // GetPartPubEventsIDBytes returns the byte representation of the ID
