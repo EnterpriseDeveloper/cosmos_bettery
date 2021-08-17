@@ -19,7 +19,17 @@ export interface PubliceventsCreatePubEvents {
     advisor?: string;
     finished?: boolean;
 }
+export interface PubliceventsFihishPubEvent {
+    creator?: string;
+    /** @format uint64 */
+    id?: string;
+    pubId?: string;
+}
 export interface PubliceventsMsgCreateCreatePubEventsResponse {
+    /** @format uint64 */
+    id?: string;
+}
+export interface PubliceventsMsgCreateFihishPubEventResponse {
     /** @format uint64 */
     id?: string;
 }
@@ -31,6 +41,8 @@ export interface PubliceventsMsgCreateValidPubEventsResponse {
     /** @format uint64 */
     id?: string;
 }
+export declare type PubliceventsMsgDeleteFihishPubEventResponse = object;
+export declare type PubliceventsMsgUpdateFihishPubEventResponse = object;
 export interface PubliceventsPartPubEvents {
     creator?: string;
     /** @format uint64 */
@@ -44,6 +56,19 @@ export interface PubliceventsPartPubEvents {
 }
 export interface PubliceventsQueryAllCreatePubEventsResponse {
     CreatePubEvents?: PubliceventsCreatePubEvents[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
+export interface PubliceventsQueryAllFihishPubEventResponse {
+    FihishPubEvent?: PubliceventsFihishPubEvent[];
     /**
      * PageResponse is to be embedded in gRPC response messages where the
      * corresponding request message has used PageRequest.
@@ -83,6 +108,9 @@ export interface PubliceventsQueryAllValidPubEventsResponse {
 }
 export interface PubliceventsQueryGetCreatePubEventsResponse {
     CreatePubEvents?: PubliceventsCreatePubEvents;
+}
+export interface PubliceventsQueryGetFihishPubEventResponse {
+    FihishPubEvent?: PubliceventsFihishPubEvent;
 }
 export interface PubliceventsQueryGetPartPubEventsResponse {
     PartPubEvents?: PubliceventsPartPubEvents;
@@ -239,6 +267,29 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/VoroshilovMax/bettery/publicevents/createPubEvents/{id}
      */
     queryCreatePubEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryGetCreatePubEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryFihishPubEventAll
+     * @summary Queries a list of fihishPubEvent items.
+     * @request GET:/VoroshilovMax/bettery/publicevents/fihishPubEvent
+     */
+    queryFihishPubEventAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryAllFihishPubEventResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryFihishPubEvent
+     * @summary Queries a fihishPubEvent by id.
+     * @request GET:/VoroshilovMax/bettery/publicevents/fihishPubEvent/{id}
+     */
+    queryFihishPubEvent: (id: string, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryGetFihishPubEventResponse, RpcStatus>>;
     /**
      * No description
      *

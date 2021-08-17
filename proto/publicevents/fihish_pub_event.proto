@@ -1,0 +1,12 @@
+syntax = "proto3";
+package VoroshilovMax.bettery.publicevents;
+
+option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
+
+import "gogoproto/gogo.proto";
+
+message FihishPubEvent {
+  string creator = 1;
+  uint64 id = 2;
+  string pubId = 3; 
+}

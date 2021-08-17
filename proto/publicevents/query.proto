@@ -4,6 +4,7 @@ package VoroshilovMax.bettery.publicevents;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "publicevents/fihish_pub_event.proto";
 import "publicevents/valid_pub_events.proto";
 import "publicevents/part_pub_events.proto";
 import "publicevents/create_pub_events.proto";
@@ -13,6 +14,17 @@ option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a fihishPubEvent by id.
+	rpc FihishPubEvent(QueryGetFihishPubEventRequest) returns (QueryGetFihishPubEventResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/publicevents/fihishPubEvent/{id}";
+	}
+
+	// Queries a list of fihishPubEvent items.
+	rpc FihishPubEventAll(QueryAllFihishPubEventRequest) returns (QueryAllFihishPubEventResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/publicevents/fihishPubEvent";
+	}
+
 
 	// Queries a validPubEvents by id.
 	rpc ValidPubEvents(QueryGetValidPubEventsRequest) returns (QueryGetValidPubEventsResponse) {
@@ -49,6 +61,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetFihishPubEventRequest {
+	uint64 id = 1;
+}
+
+message QueryGetFihishPubEventResponse {
+	FihishPubEvent FihishPubEvent = 1;
+}
+
+message QueryAllFihishPubEventRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllFihishPubEventResponse {
+	repeated FihishPubEvent FihishPubEvent = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetValidPubEventsRequest {
 	uint64 id = 1;
 }

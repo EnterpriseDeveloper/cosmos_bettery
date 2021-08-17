@@ -41,3 +41,8 @@ const (
 	ValidPubEventsKey      = "ValidPubEvents-value-"
 	ValidPubEventsCountKey = "ValidPubEvents-count-"
 )
+
+const (
+	FihishPubEventKey      = "FihishPubEvent-value-"
+	FihishPubEventCountKey = "FihishPubEvent-count-"
+)

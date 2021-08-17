@@ -37,7 +37,20 @@ export interface PubliceventsCreatePubEvents {
   finished?: boolean;
 }
 
+export interface PubliceventsFihishPubEvent {
+  creator?: string;
+
+  /** @format uint64 */
+  id?: string;
+  pubId?: string;
+}
+
 export interface PubliceventsMsgCreateCreatePubEventsResponse {
+  /** @format uint64 */
+  id?: string;
+}
+
+export interface PubliceventsMsgCreateFihishPubEventResponse {
   /** @format uint64 */
   id?: string;
 }
@@ -51,6 +64,10 @@ export interface PubliceventsMsgCreateValidPubEventsResponse {
   /** @format uint64 */
   id?: string;
 }
+
+export type PubliceventsMsgDeleteFihishPubEventResponse = object;
+
+export type PubliceventsMsgUpdateFihishPubEventResponse = object;
 
 export interface PubliceventsPartPubEvents {
   creator?: string;
@@ -69,6 +86,21 @@ export interface PubliceventsPartPubEvents {
 
 export interface PubliceventsQueryAllCreatePubEventsResponse {
   CreatePubEvents?: PubliceventsCreatePubEvents[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface PubliceventsQueryAllFihishPubEventResponse {
+  FihishPubEvent?: PubliceventsFihishPubEvent[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -114,6 +146,10 @@ export interface PubliceventsQueryAllValidPubEventsResponse {
 
 export interface PubliceventsQueryGetCreatePubEventsResponse {
   CreatePubEvents?: PubliceventsCreatePubEvents;
+}
+
+export interface PubliceventsQueryGetFihishPubEventResponse {
+  FihishPubEvent?: PubliceventsFihishPubEvent;
 }
 
 export interface PubliceventsQueryGetPartPubEventsResponse {
@@ -436,6 +472,47 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryCreatePubEvents = (id: string, params: RequestParams = {}) =>
     this.request<PubliceventsQueryGetCreatePubEventsResponse, RpcStatus>({
       path: `/VoroshilovMax/bettery/publicevents/createPubEvents/${id}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryFihishPubEventAll
+   * @summary Queries a list of fihishPubEvent items.
+   * @request GET:/VoroshilovMax/bettery/publicevents/fihishPubEvent
+   */
+  queryFihishPubEventAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<PubliceventsQueryAllFihishPubEventResponse, RpcStatus>({
+      path: `/VoroshilovMax/bettery/publicevents/fihishPubEvent`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryFihishPubEvent
+   * @summary Queries a fihishPubEvent by id.
+   * @request GET:/VoroshilovMax/bettery/publicevents/fihishPubEvent/{id}
+   */
+  queryFihishPubEvent = (id: string, params: RequestParams = {}) =>
+    this.request<PubliceventsQueryGetFihishPubEventResponse, RpcStatus>({
+      path: `/VoroshilovMax/bettery/publicevents/fihishPubEvent/${id}`,
       method: "GET",
       format: "json",
       ...params,

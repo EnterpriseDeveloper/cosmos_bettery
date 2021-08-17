@@ -1,11 +1,241 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
-import { ValidPubEvents } from '../publicevents/valid_pub_events';
+import { FihishPubEvent } from '../publicevents/fihish_pub_event';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { ValidPubEvents } from '../publicevents/valid_pub_events';
 import { PartPubEvents } from '../publicevents/part_pub_events';
 import { CreatePubEvents } from '../publicevents/create_pub_events';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
+const baseQueryGetFihishPubEventRequest = { id: 0 };
+export const QueryGetFihishPubEventRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetFihishPubEventRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetFihishPubEventRequest };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetFihishPubEventRequest };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    }
+};
+const baseQueryGetFihishPubEventResponse = {};
+export const QueryGetFihishPubEventResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.FihishPubEvent !== undefined) {
+            FihishPubEvent.encode(message.FihishPubEvent, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetFihishPubEventResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.FihishPubEvent = FihishPubEvent.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetFihishPubEventResponse };
+        if (object.FihishPubEvent !== undefined && object.FihishPubEvent !== null) {
+            message.FihishPubEvent = FihishPubEvent.fromJSON(object.FihishPubEvent);
+        }
+        else {
+            message.FihishPubEvent = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.FihishPubEvent !== undefined && (obj.FihishPubEvent = message.FihishPubEvent ? FihishPubEvent.toJSON(message.FihishPubEvent) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetFihishPubEventResponse };
+        if (object.FihishPubEvent !== undefined && object.FihishPubEvent !== null) {
+            message.FihishPubEvent = FihishPubEvent.fromPartial(object.FihishPubEvent);
+        }
+        else {
+            message.FihishPubEvent = undefined;
+        }
+        return message;
+    }
+};
+const baseQueryAllFihishPubEventRequest = {};
+export const QueryAllFihishPubEventRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllFihishPubEventRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllFihishPubEventRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllFihishPubEventRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    }
+};
+const baseQueryAllFihishPubEventResponse = {};
+export const QueryAllFihishPubEventResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.FihishPubEvent) {
+            FihishPubEvent.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllFihishPubEventResponse };
+        message.FihishPubEvent = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.FihishPubEvent.push(FihishPubEvent.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllFihishPubEventResponse };
+        message.FihishPubEvent = [];
+        if (object.FihishPubEvent !== undefined && object.FihishPubEvent !== null) {
+            for (const e of object.FihishPubEvent) {
+                message.FihishPubEvent.push(FihishPubEvent.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.FihishPubEvent) {
+            obj.FihishPubEvent = message.FihishPubEvent.map((e) => (e ? FihishPubEvent.toJSON(e) : undefined));
+        }
+        else {
+            obj.FihishPubEvent = [];
+        }
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllFihishPubEventResponse };
+        message.FihishPubEvent = [];
+        if (object.FihishPubEvent !== undefined && object.FihishPubEvent !== null) {
+            for (const e of object.FihishPubEvent) {
+                message.FihishPubEvent.push(FihishPubEvent.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    }
+};
 const baseQueryGetValidPubEventsRequest = { id: 0 };
 export const QueryGetValidPubEventsRequest = {
     encode(message, writer = Writer.create()) {
@@ -696,6 +926,16 @@ export const QueryAllCreatePubEventsResponse = {
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    FihishPubEvent(request) {
+        const data = QueryGetFihishPubEventRequest.encode(request).finish();
+        const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'FihishPubEvent', data);
+        return promise.then((data) => QueryGetFihishPubEventResponse.decode(new Reader(data)));
+    }
+    FihishPubEventAll(request) {
+        const data = QueryAllFihishPubEventRequest.encode(request).finish();
+        const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'FihishPubEventAll', data);
+        return promise.then((data) => QueryAllFihishPubEventResponse.decode(new Reader(data)));
     }
     ValidPubEvents(request) {
         const data = QueryGetValidPubEventsRequest.encode(request).finish();

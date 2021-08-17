@@ -2,6 +2,350 @@
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
+const baseMsgCreateFihishPubEvent = { creator: '', pubId: '' };
+export const MsgCreateFihishPubEvent = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.pubId !== '') {
+            writer.uint32(18).string(message.pubId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateFihishPubEvent };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.pubId = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateFihishPubEvent };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.pubId !== undefined && object.pubId !== null) {
+            message.pubId = String(object.pubId);
+        }
+        else {
+            message.pubId = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.pubId !== undefined && (obj.pubId = message.pubId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateFihishPubEvent };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.pubId !== undefined && object.pubId !== null) {
+            message.pubId = object.pubId;
+        }
+        else {
+            message.pubId = '';
+        }
+        return message;
+    }
+};
+const baseMsgCreateFihishPubEventResponse = { id: 0 };
+export const MsgCreateFihishPubEventResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgCreateFihishPubEventResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgCreateFihishPubEventResponse };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgCreateFihishPubEventResponse };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    }
+};
+const baseMsgUpdateFihishPubEvent = { creator: '', id: 0, pubId: '' };
+export const MsgUpdateFihishPubEvent = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
+        if (message.pubId !== '') {
+            writer.uint32(26).string(message.pubId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateFihishPubEvent };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                case 3:
+                    message.pubId = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgUpdateFihishPubEvent };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.pubId !== undefined && object.pubId !== null) {
+            message.pubId = String(object.pubId);
+        }
+        else {
+            message.pubId = '';
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
+        message.pubId !== undefined && (obj.pubId = message.pubId);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgUpdateFihishPubEvent };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        if (object.pubId !== undefined && object.pubId !== null) {
+            message.pubId = object.pubId;
+        }
+        else {
+            message.pubId = '';
+        }
+        return message;
+    }
+};
+const baseMsgUpdateFihishPubEventResponse = {};
+export const MsgUpdateFihishPubEventResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgUpdateFihishPubEventResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgUpdateFihishPubEventResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgUpdateFihishPubEventResponse };
+        return message;
+    }
+};
+const baseMsgDeleteFihishPubEvent = { creator: '', id: 0 };
+export const MsgDeleteFihishPubEvent = {
+    encode(message, writer = Writer.create()) {
+        if (message.creator !== '') {
+            writer.uint32(10).string(message.creator);
+        }
+        if (message.id !== 0) {
+            writer.uint32(16).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteFihishPubEvent };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseMsgDeleteFihishPubEvent };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseMsgDeleteFihishPubEvent };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = '';
+        }
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    }
+};
+const baseMsgDeleteFihishPubEventResponse = {};
+export const MsgDeleteFihishPubEventResponse = {
+    encode(_, writer = Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseMsgDeleteFihishPubEventResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(_) {
+        const message = { ...baseMsgDeleteFihishPubEventResponse };
+        return message;
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    fromPartial(_) {
+        const message = { ...baseMsgDeleteFihishPubEventResponse };
+        return message;
+    }
+};
 const baseMsgCreateValidPubEvents = { creator: '', pubId: 0, answers: '', reput: 0 };
 export const MsgCreateValidPubEvents = {
     encode(message, writer = Writer.create()) {
@@ -593,6 +937,21 @@ export const MsgCreateCreatePubEventsResponse = {
 export class MsgClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    CreateFihishPubEvent(request) {
+        const data = MsgCreateFihishPubEvent.encode(request).finish();
+        const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'CreateFihishPubEvent', data);
+        return promise.then((data) => MsgCreateFihishPubEventResponse.decode(new Reader(data)));
+    }
+    UpdateFihishPubEvent(request) {
+        const data = MsgUpdateFihishPubEvent.encode(request).finish();
+        const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'UpdateFihishPubEvent', data);
+        return promise.then((data) => MsgUpdateFihishPubEventResponse.decode(new Reader(data)));
+    }
+    DeleteFihishPubEvent(request) {
+        const data = MsgDeleteFihishPubEvent.encode(request).finish();
+        const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'DeleteFihishPubEvent', data);
+        return promise.then((data) => MsgDeleteFihishPubEventResponse.decode(new Reader(data)));
     }
     CreateValidPubEvents(request) {
         const data = MsgCreateValidPubEvents.encode(request).finish();

@@ -1,14 +1,32 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal'
 import * as Long from 'long'
-import { ValidPubEvents } from '../publicevents/valid_pub_events'
+import { FihishPubEvent } from '../publicevents/fihish_pub_event'
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
+import { ValidPubEvents } from '../publicevents/valid_pub_events'
 import { PartPubEvents } from '../publicevents/part_pub_events'
 import { CreatePubEvents } from '../publicevents/create_pub_events'
 
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetFihishPubEventRequest {
+  id: number
+}
+
+export interface QueryGetFihishPubEventResponse {
+  FihishPubEvent: FihishPubEvent | undefined
+}
+
+export interface QueryAllFihishPubEventRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllFihishPubEventResponse {
+  FihishPubEvent: FihishPubEvent[]
+  pagination: PageResponse | undefined
+}
+
 export interface QueryGetValidPubEventsRequest {
   id: number
 }
@@ -58,6 +76,250 @@ export interface QueryAllCreatePubEventsRequest {
 export interface QueryAllCreatePubEventsResponse {
   CreatePubEvents: CreatePubEvents[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryGetFihishPubEventRequest: object = { id: 0 }
+
+export const QueryGetFihishPubEventRequest = {
+  encode(message: QueryGetFihishPubEventRequest, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetFihishPubEventRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetFihishPubEventRequest } as QueryGetFihishPubEventRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetFihishPubEventRequest {
+    const message = { ...baseQueryGetFihishPubEventRequest } as QueryGetFihishPubEventRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetFihishPubEventRequest): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetFihishPubEventRequest>): QueryGetFihishPubEventRequest {
+    const message = { ...baseQueryGetFihishPubEventRequest } as QueryGetFihishPubEventRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseQueryGetFihishPubEventResponse: object = {}
+
+export const QueryGetFihishPubEventResponse = {
+  encode(message: QueryGetFihishPubEventResponse, writer: Writer = Writer.create()): Writer {
+    if (message.FihishPubEvent !== undefined) {
+      FihishPubEvent.encode(message.FihishPubEvent, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetFihishPubEventResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetFihishPubEventResponse } as QueryGetFihishPubEventResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.FihishPubEvent = FihishPubEvent.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetFihishPubEventResponse {
+    const message = { ...baseQueryGetFihishPubEventResponse } as QueryGetFihishPubEventResponse
+    if (object.FihishPubEvent !== undefined && object.FihishPubEvent !== null) {
+      message.FihishPubEvent = FihishPubEvent.fromJSON(object.FihishPubEvent)
+    } else {
+      message.FihishPubEvent = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetFihishPubEventResponse): unknown {
+    const obj: any = {}
+    message.FihishPubEvent !== undefined && (obj.FihishPubEvent = message.FihishPubEvent ? FihishPubEvent.toJSON(message.FihishPubEvent) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetFihishPubEventResponse>): QueryGetFihishPubEventResponse {
+    const message = { ...baseQueryGetFihishPubEventResponse } as QueryGetFihishPubEventResponse
+    if (object.FihishPubEvent !== undefined && object.FihishPubEvent !== null) {
+      message.FihishPubEvent = FihishPubEvent.fromPartial(object.FihishPubEvent)
+    } else {
+      message.FihishPubEvent = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllFihishPubEventRequest: object = {}
+
+export const QueryAllFihishPubEventRequest = {
+  encode(message: QueryAllFihishPubEventRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllFihishPubEventRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllFihishPubEventRequest } as QueryAllFihishPubEventRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllFihishPubEventRequest {
+    const message = { ...baseQueryAllFihishPubEventRequest } as QueryAllFihishPubEventRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllFihishPubEventRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllFihishPubEventRequest>): QueryAllFihishPubEventRequest {
+    const message = { ...baseQueryAllFihishPubEventRequest } as QueryAllFihishPubEventRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllFihishPubEventResponse: object = {}
+
+export const QueryAllFihishPubEventResponse = {
+  encode(message: QueryAllFihishPubEventResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.FihishPubEvent) {
+      FihishPubEvent.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllFihishPubEventResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllFihishPubEventResponse } as QueryAllFihishPubEventResponse
+    message.FihishPubEvent = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.FihishPubEvent.push(FihishPubEvent.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllFihishPubEventResponse {
+    const message = { ...baseQueryAllFihishPubEventResponse } as QueryAllFihishPubEventResponse
+    message.FihishPubEvent = []
+    if (object.FihishPubEvent !== undefined && object.FihishPubEvent !== null) {
+      for (const e of object.FihishPubEvent) {
+        message.FihishPubEvent.push(FihishPubEvent.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllFihishPubEventResponse): unknown {
+    const obj: any = {}
+    if (message.FihishPubEvent) {
+      obj.FihishPubEvent = message.FihishPubEvent.map((e) => (e ? FihishPubEvent.toJSON(e) : undefined))
+    } else {
+      obj.FihishPubEvent = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllFihishPubEventResponse>): QueryAllFihishPubEventResponse {
+    const message = { ...baseQueryAllFihishPubEventResponse } as QueryAllFihishPubEventResponse
+    message.FihishPubEvent = []
+    if (object.FihishPubEvent !== undefined && object.FihishPubEvent !== null) {
+      for (const e of object.FihishPubEvent) {
+        message.FihishPubEvent.push(FihishPubEvent.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryGetValidPubEventsRequest: object = { id: 0 }
@@ -794,6 +1056,10 @@ export const QueryAllCreatePubEventsResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a fihishPubEvent by id. */
+  FihishPubEvent(request: QueryGetFihishPubEventRequest): Promise<QueryGetFihishPubEventResponse>
+  /** Queries a list of fihishPubEvent items. */
+  FihishPubEventAll(request: QueryAllFihishPubEventRequest): Promise<QueryAllFihishPubEventResponse>
   /** Queries a validPubEvents by id. */
   ValidPubEvents(request: QueryGetValidPubEventsRequest): Promise<QueryGetValidPubEventsResponse>
   /** Queries a list of validPubEvents items. */
@@ -813,6 +1079,18 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  FihishPubEvent(request: QueryGetFihishPubEventRequest): Promise<QueryGetFihishPubEventResponse> {
+    const data = QueryGetFihishPubEventRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'FihishPubEvent', data)
+    return promise.then((data) => QueryGetFihishPubEventResponse.decode(new Reader(data)))
+  }
+
+  FihishPubEventAll(request: QueryAllFihishPubEventRequest): Promise<QueryAllFihishPubEventResponse> {
+    const data = QueryAllFihishPubEventRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'FihishPubEventAll', data)
+    return promise.then((data) => QueryAllFihishPubEventResponse.decode(new Reader(data)))
+  }
+
   ValidPubEvents(request: QueryGetValidPubEventsRequest): Promise<QueryGetValidPubEventsResponse> {
     const data = QueryGetValidPubEventsRequest.encode(request).finish()
     const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'ValidPubEvents', data)

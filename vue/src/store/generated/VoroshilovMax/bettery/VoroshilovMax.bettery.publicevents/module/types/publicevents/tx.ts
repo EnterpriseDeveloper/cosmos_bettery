@@ -5,6 +5,30 @@ import * as Long from 'long'
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateFihishPubEvent {
+  creator: string
+  pubId: string
+}
+
+export interface MsgCreateFihishPubEventResponse {
+  id: number
+}
+
+export interface MsgUpdateFihishPubEvent {
+  creator: string
+  id: number
+  pubId: string
+}
+
+export interface MsgUpdateFihishPubEventResponse {}
+
+export interface MsgDeleteFihishPubEvent {
+  creator: string
+  id: number
+}
+
+export interface MsgDeleteFihishPubEventResponse {}
+
 export interface MsgCreateValidPubEvents {
   creator: string
   pubId: number
@@ -41,6 +65,370 @@ export interface MsgCreateCreatePubEvents {
 
 export interface MsgCreateCreatePubEventsResponse {
   id: number
+}
+
+const baseMsgCreateFihishPubEvent: object = { creator: '', pubId: '' }
+
+export const MsgCreateFihishPubEvent = {
+  encode(message: MsgCreateFihishPubEvent, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.pubId !== '') {
+      writer.uint32(18).string(message.pubId)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateFihishPubEvent {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateFihishPubEvent } as MsgCreateFihishPubEvent
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.pubId = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateFihishPubEvent {
+    const message = { ...baseMsgCreateFihishPubEvent } as MsgCreateFihishPubEvent
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.pubId !== undefined && object.pubId !== null) {
+      message.pubId = String(object.pubId)
+    } else {
+      message.pubId = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateFihishPubEvent): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.pubId !== undefined && (obj.pubId = message.pubId)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateFihishPubEvent>): MsgCreateFihishPubEvent {
+    const message = { ...baseMsgCreateFihishPubEvent } as MsgCreateFihishPubEvent
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.pubId !== undefined && object.pubId !== null) {
+      message.pubId = object.pubId
+    } else {
+      message.pubId = ''
+    }
+    return message
+  }
+}
+
+const baseMsgCreateFihishPubEventResponse: object = { id: 0 }
+
+export const MsgCreateFihishPubEventResponse = {
+  encode(message: MsgCreateFihishPubEventResponse, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateFihishPubEventResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateFihishPubEventResponse } as MsgCreateFihishPubEventResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateFihishPubEventResponse {
+    const message = { ...baseMsgCreateFihishPubEventResponse } as MsgCreateFihishPubEventResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateFihishPubEventResponse): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateFihishPubEventResponse>): MsgCreateFihishPubEventResponse {
+    const message = { ...baseMsgCreateFihishPubEventResponse } as MsgCreateFihishPubEventResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateFihishPubEvent: object = { creator: '', id: 0, pubId: '' }
+
+export const MsgUpdateFihishPubEvent = {
+  encode(message: MsgUpdateFihishPubEvent, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    if (message.pubId !== '') {
+      writer.uint32(26).string(message.pubId)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateFihishPubEvent {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateFihishPubEvent } as MsgUpdateFihishPubEvent
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 3:
+          message.pubId = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgUpdateFihishPubEvent {
+    const message = { ...baseMsgUpdateFihishPubEvent } as MsgUpdateFihishPubEvent
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    if (object.pubId !== undefined && object.pubId !== null) {
+      message.pubId = String(object.pubId)
+    } else {
+      message.pubId = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgUpdateFihishPubEvent): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    message.pubId !== undefined && (obj.pubId = message.pubId)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateFihishPubEvent>): MsgUpdateFihishPubEvent {
+    const message = { ...baseMsgUpdateFihishPubEvent } as MsgUpdateFihishPubEvent
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    if (object.pubId !== undefined && object.pubId !== null) {
+      message.pubId = object.pubId
+    } else {
+      message.pubId = ''
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateFihishPubEventResponse: object = {}
+
+export const MsgUpdateFihishPubEventResponse = {
+  encode(_: MsgUpdateFihishPubEventResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateFihishPubEventResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateFihishPubEventResponse } as MsgUpdateFihishPubEventResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgUpdateFihishPubEventResponse {
+    const message = { ...baseMsgUpdateFihishPubEventResponse } as MsgUpdateFihishPubEventResponse
+    return message
+  },
+
+  toJSON(_: MsgUpdateFihishPubEventResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateFihishPubEventResponse>): MsgUpdateFihishPubEventResponse {
+    const message = { ...baseMsgUpdateFihishPubEventResponse } as MsgUpdateFihishPubEventResponse
+    return message
+  }
+}
+
+const baseMsgDeleteFihishPubEvent: object = { creator: '', id: 0 }
+
+export const MsgDeleteFihishPubEvent = {
+  encode(message: MsgDeleteFihishPubEvent, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteFihishPubEvent {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteFihishPubEvent } as MsgDeleteFihishPubEvent
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgDeleteFihishPubEvent {
+    const message = { ...baseMsgDeleteFihishPubEvent } as MsgDeleteFihishPubEvent
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgDeleteFihishPubEvent): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteFihishPubEvent>): MsgDeleteFihishPubEvent {
+    const message = { ...baseMsgDeleteFihishPubEvent } as MsgDeleteFihishPubEvent
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgDeleteFihishPubEventResponse: object = {}
+
+export const MsgDeleteFihishPubEventResponse = {
+  encode(_: MsgDeleteFihishPubEventResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteFihishPubEventResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteFihishPubEventResponse } as MsgDeleteFihishPubEventResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgDeleteFihishPubEventResponse {
+    const message = { ...baseMsgDeleteFihishPubEventResponse } as MsgDeleteFihishPubEventResponse
+    return message
+  },
+
+  toJSON(_: MsgDeleteFihishPubEventResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteFihishPubEventResponse>): MsgDeleteFihishPubEventResponse {
+    const message = { ...baseMsgDeleteFihishPubEventResponse } as MsgDeleteFihishPubEventResponse
+    return message
+  }
 }
 
 const baseMsgCreateValidPubEvents: object = { creator: '', pubId: 0, answers: '', reput: 0 }
@@ -631,6 +1019,9 @@ export const MsgCreateCreatePubEventsResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateFihishPubEvent(request: MsgCreateFihishPubEvent): Promise<MsgCreateFihishPubEventResponse>
+  UpdateFihishPubEvent(request: MsgUpdateFihishPubEvent): Promise<MsgUpdateFihishPubEventResponse>
+  DeleteFihishPubEvent(request: MsgDeleteFihishPubEvent): Promise<MsgDeleteFihishPubEventResponse>
   CreateValidPubEvents(request: MsgCreateValidPubEvents): Promise<MsgCreateValidPubEventsResponse>
   CreatePartPubEvents(request: MsgCreatePartPubEvents): Promise<MsgCreatePartPubEventsResponse>
   CreateCreatePubEvents(request: MsgCreateCreatePubEvents): Promise<MsgCreateCreatePubEventsResponse>
@@ -641,6 +1032,24 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  CreateFihishPubEvent(request: MsgCreateFihishPubEvent): Promise<MsgCreateFihishPubEventResponse> {
+    const data = MsgCreateFihishPubEvent.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'CreateFihishPubEvent', data)
+    return promise.then((data) => MsgCreateFihishPubEventResponse.decode(new Reader(data)))
+  }
+
+  UpdateFihishPubEvent(request: MsgUpdateFihishPubEvent): Promise<MsgUpdateFihishPubEventResponse> {
+    const data = MsgUpdateFihishPubEvent.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'UpdateFihishPubEvent', data)
+    return promise.then((data) => MsgUpdateFihishPubEventResponse.decode(new Reader(data)))
+  }
+
+  DeleteFihishPubEvent(request: MsgDeleteFihishPubEvent): Promise<MsgDeleteFihishPubEventResponse> {
+    const data = MsgDeleteFihishPubEvent.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'DeleteFihishPubEvent', data)
+    return promise.then((data) => MsgDeleteFihishPubEventResponse.decode(new Reader(data)))
+  }
+
   CreateValidPubEvents(request: MsgCreateValidPubEvents): Promise<MsgCreateValidPubEventsResponse> {
     const data = MsgCreateValidPubEvents.encode(request).finish()
     const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'CreateValidPubEvents', data)
