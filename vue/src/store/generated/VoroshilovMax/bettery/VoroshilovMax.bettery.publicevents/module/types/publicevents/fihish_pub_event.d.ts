@@ -2,8 +2,12 @@ import { Writer, Reader } from 'protobufjs/minimal';
 export declare const protobufPackage = "VoroshilovMax.bettery.publicevents";
 export interface FihishPubEvent {
     creator: string;
-    id: number;
-    pubId: string;
+    pubId: number;
+    pool: boolean;
+    reverted: boolean;
+    finised: boolean;
+    correctAnswer: number;
+    tokenMinted: string;
 }
 export declare const FihishPubEvent: {
     encode(message: FihishPubEvent, writer?: Writer): Writer;

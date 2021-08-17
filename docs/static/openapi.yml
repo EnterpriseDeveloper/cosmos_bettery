@@ -20594,10 +20594,19 @@ paths:
                   properties:
                     creator:
                       type: string
-                    id:
+                    pubId:
                       type: string
                       format: uint64
-                    pubId:
+                    pool:
+                      type: boolean
+                    reverted:
+                      type: boolean
+                    finised:
+                      type: boolean
+                    correctAnswer:
+                      type: integer
+                      format: int64
+                    tokenMinted:
                       type: string
               pagination:
                 type: object
@@ -20710,10 +20719,19 @@ paths:
                 properties:
                   creator:
                     type: string
-                  id:
+                  pubId:
                     type: string
                     format: uint64
-                  pubId:
+                  pool:
+                    type: boolean
+                  reverted:
+                    type: boolean
+                  finised:
+                    type: boolean
+                  correctAnswer:
+                    type: integer
+                    format: int64
+                  tokenMinted:
                     type: string
         default:
           description: An unexpected error response.
@@ -31876,10 +31894,19 @@ definitions:
     properties:
       creator:
         type: string
-      id:
+      pubId:
         type: string
         format: uint64
-      pubId:
+      pool:
+        type: boolean
+      reverted:
+        type: boolean
+      finised:
+        type: boolean
+      correctAnswer:
+        type: integer
+        format: int64
+      tokenMinted:
         type: string
   VoroshilovMax.bettery.publicevents.MsgCreateCreatePubEventsResponse:
     type: object
@@ -31905,10 +31932,6 @@ definitions:
       id:
         type: string
         format: uint64
-  VoroshilovMax.bettery.publicevents.MsgDeleteFihishPubEventResponse:
-    type: object
-  VoroshilovMax.bettery.publicevents.MsgUpdateFihishPubEventResponse:
-    type: object
   VoroshilovMax.bettery.publicevents.PartPubEvents:
     type: object
     properties:
@@ -31996,10 +32019,19 @@ definitions:
           properties:
             creator:
               type: string
-            id:
+            pubId:
               type: string
               format: uint64
-            pubId:
+            pool:
+              type: boolean
+            reverted:
+              type: boolean
+            finised:
+              type: boolean
+            correctAnswer:
+              type: integer
+              format: int64
+            tokenMinted:
               type: string
       pagination:
         type: object
@@ -32163,10 +32195,19 @@ definitions:
         properties:
           creator:
             type: string
-          id:
+          pubId:
             type: string
             format: uint64
-          pubId:
+          pool:
+            type: boolean
+          reverted:
+            type: boolean
+          finised:
+            type: boolean
+          correctAnswer:
+            type: integer
+            format: int64
+          tokenMinted:
             type: string
   VoroshilovMax.bettery.publicevents.QueryGetPartPubEventsResponse:
     type: object

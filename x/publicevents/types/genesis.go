@@ -30,28 +30,28 @@ func (gs GenesisState) Validate() error {
 	fihishPubEventIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.FihishPubEventList {
-		if _, ok := fihishPubEventIdMap[elem.Id]; ok {
+		if _, ok := fihishPubEventIdMap[elem.PubId]; ok {
 			return fmt.Errorf("duplicated id for fihishPubEvent")
 		}
-		fihishPubEventIdMap[elem.Id] = true
+		fihishPubEventIdMap[elem.PubId] = true
 	}
 	// Check for duplicated ID in validPubEvents
 	validPubEventsIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.ValidPubEventsList {
-		if _, ok := validPubEventsIdMap[elem.PubId]; ok {
+		if _, ok := validPubEventsIdMap[elem.Id]; ok {
 			return fmt.Errorf("duplicated id for validPubEvents")
 		}
-		validPubEventsIdMap[elem.PubId] = true
+		validPubEventsIdMap[elem.Id] = true
 	}
 	// Check for duplicated ID in partPubEvents
 	partPubEventsIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.PartPubEventsList {
-		if _, ok := partPubEventsIdMap[elem.PubId]; ok {
+		if _, ok := partPubEventsIdMap[elem.Id]; ok {
 			return fmt.Errorf("duplicated id for partPubEvents")
 		}
-		partPubEventsIdMap[elem.PubId] = true
+		partPubEventsIdMap[elem.Id] = true
 	}
 	// Check for duplicated ID in createPubEvents
 	createPubEventsIdMap := make(map[uint64]bool)

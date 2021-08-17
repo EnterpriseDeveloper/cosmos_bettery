@@ -13,8 +13,6 @@ option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
   rpc CreateFihishPubEvent(MsgCreateFihishPubEvent) returns (MsgCreateFihishPubEventResponse);
-  rpc UpdateFihishPubEvent(MsgUpdateFihishPubEvent) returns (MsgUpdateFihishPubEventResponse);
-  rpc DeleteFihishPubEvent(MsgDeleteFihishPubEvent) returns (MsgDeleteFihishPubEventResponse);
   rpc CreateValidPubEvents(MsgCreateValidPubEvents) returns (MsgCreateValidPubEventsResponse);
   rpc CreatePartPubEvents(MsgCreatePartPubEvents) returns (MsgCreatePartPubEventsResponse);
   rpc CreateCreatePubEvents(MsgCreateCreatePubEvents) returns (MsgCreateCreatePubEventsResponse);
@@ -23,27 +21,12 @@ service Msg {
 // this line is used by starport scaffolding # proto/tx/message
 message MsgCreateFihishPubEvent {
   string creator = 1;
-  string pubId = 2;
+  uint64 pubId = 2;
 }
 
 message MsgCreateFihishPubEventResponse {
   uint64 id = 1;
 }
-
-message MsgUpdateFihishPubEvent {
-  string creator = 1;
-  uint64 id = 2;
-  string pubId = 3;
-}
-
-message MsgUpdateFihishPubEventResponse { }
-
-message MsgDeleteFihishPubEvent {
-  string creator = 1;
-  uint64 id = 2;
-}
-
-message MsgDeleteFihishPubEventResponse { }
 
 message MsgCreateValidPubEvents {
   string creator = 1;

@@ -41,8 +41,14 @@ export interface PubliceventsFihishPubEvent {
   creator?: string;
 
   /** @format uint64 */
-  id?: string;
   pubId?: string;
+  pool?: boolean;
+  reverted?: boolean;
+  finised?: boolean;
+
+  /** @format int64 */
+  correctAnswer?: number;
+  tokenMinted?: string;
 }
 
 export interface PubliceventsMsgCreateCreatePubEventsResponse {
@@ -64,10 +70,6 @@ export interface PubliceventsMsgCreateValidPubEventsResponse {
   /** @format uint64 */
   id?: string;
 }
-
-export type PubliceventsMsgDeleteFihishPubEventResponse = object;
-
-export type PubliceventsMsgUpdateFihishPubEventResponse = object;
 
 export interface PubliceventsPartPubEvents {
   creator?: string;

@@ -2,67 +2,29 @@ package keeper
 
 import (
 	"encoding/binary"
+
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"strconv"
 )
-
-// GetFihishPubEventCount get the total number of TypeName.LowerCamel
-func (k Keeper) GetFihishPubEventCount(ctx sdk.Context) uint64 {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FihishPubEventCountKey))
-	byteKey := types.KeyPrefix(types.FihishPubEventCountKey)
-	bz := store.Get(byteKey)
-
-	// Count doesn't exist: no element
-	if bz == nil {
-		return 0
-	}
-
-	// Parse bytes
-	count, err := strconv.ParseUint(string(bz), 10, 64)
-	if err != nil {
-		// Panic because the count should be always formattable to uint64
-		panic("cannot decode count")
-	}
-
-	return count
-}
-
-// SetFihishPubEventCount set the total number of fihishPubEvent
-func (k Keeper) SetFihishPubEventCount(ctx sdk.Context, count uint64) {
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FihishPubEventCountKey))
-	byteKey := types.KeyPrefix(types.FihishPubEventCountKey)
-	bz := []byte(strconv.FormatUint(count, 10))
-	store.Set(byteKey, bz)
-}
 
 // AppendFihishPubEvent appends a fihishPubEvent in the store with a new id and update the count
 func (k Keeper) AppendFihishPubEvent(
 	ctx sdk.Context,
 	fihishPubEvent types.FihishPubEvent,
 ) uint64 {
-	// Create the fihishPubEvent
-	count := k.GetFihishPubEventCount(ctx)
-
-	// Set the ID of the appended value
-	fihishPubEvent.Id = count
-
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FihishPubEventKey))
 	appendedValue := k.cdc.MustMarshalBinaryBare(&fihishPubEvent)
-	store.Set(GetFihishPubEventIDBytes(fihishPubEvent.Id), appendedValue)
+	store.Set(GetFihishPubEventIDBytes(fihishPubEvent.PubId), appendedValue)
 
-	// Update fihishPubEvent count
-	k.SetFihishPubEventCount(ctx, count+1)
-
-	return count
+	return fihishPubEvent.PubId
 }
 
 // SetFihishPubEvent set a specific fihishPubEvent in the store
 func (k Keeper) SetFihishPubEvent(ctx sdk.Context, fihishPubEvent types.FihishPubEvent) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FihishPubEventKey))
 	b := k.cdc.MustMarshalBinaryBare(&fihishPubEvent)
-	store.Set(GetFihishPubEventIDBytes(fihishPubEvent.Id), b)
+	store.Set(GetFihishPubEventIDBytes(fihishPubEvent.PubId), b)
 }
 
 // GetFihishPubEvent returns a fihishPubEvent from its id

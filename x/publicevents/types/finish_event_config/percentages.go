@@ -1,4 +1,4 @@
-package finish_event_config
+package types
 
 // Players
 const (

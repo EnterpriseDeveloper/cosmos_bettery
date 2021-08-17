@@ -7,6 +7,10 @@ import "gogoproto/gogo.proto";
 
 message FihishPubEvent {
   string creator = 1;
-  uint64 id = 2;
-  string pubId = 3; 
+  uint64 pubId = 2; 
+  bool pool = 3;
+  bool reverted = 4;
+  bool finised = 5;
+  uint32 correctAnswer = 6;
+  string tokenMinted = 7;
 }
