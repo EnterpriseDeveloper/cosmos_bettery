@@ -68,6 +68,11 @@ func (k Keeper) GetAllFihishPubEvent(ctx sdk.Context) (list []types.FihishPubEve
 	return
 }
 
+// check if event finished
+func (k Keeper) GetEventFinished(ctx sdk.Context, id uint64) bool {
+	return k.GetFihishPubEvent(ctx, id).Finished
+}
+
 // GetFihishPubEventIDBytes returns the byte representation of the ID
 func GetFihishPubEventIDBytes(id uint64) []byte {
 	bz := make([]byte, 8)

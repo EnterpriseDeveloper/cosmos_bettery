@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"math/big"
 
-	//	"fmt"
-
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -41,7 +39,7 @@ func (k msgServer) CreateCreatePubEvents(goCtx context.Context, msg *types.MsgCr
 		done, err := sendPremTokenToEvent(msg, ctx, k)
 		fmt.Println(done, err)
 		if !done {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf(err))
+			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("send premium token to module err: %s", err))
 		}
 	}
 

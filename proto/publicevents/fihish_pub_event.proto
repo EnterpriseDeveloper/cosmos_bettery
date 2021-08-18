@@ -10,7 +10,7 @@ message FihishPubEvent {
   uint64 pubId = 2; 
   bool pool = 3;
   bool reverted = 4;
-  bool finised = 5;
+  bool finished = 5;
   uint32 correctAnswer = 6;
   string tokenMinted = 7;
   string status = 8;

@@ -12,7 +12,7 @@ const baseCreatePubEvents = {
     endTime: 0,
     expertAmount: 0,
     advisor: '',
-    finished: false
+    calcExpert: false
 };
 export const CreatePubEvents = {
     encode(message, writer = Writer.create()) {
@@ -43,8 +43,8 @@ export const CreatePubEvents = {
         if (message.advisor !== '') {
             writer.uint32(74).string(message.advisor);
         }
-        if (message.finished === true) {
-            writer.uint32(80).bool(message.finished);
+        if (message.calcExpert === true) {
+            writer.uint32(80).bool(message.calcExpert);
         }
         return writer;
     },
@@ -84,7 +84,7 @@ export const CreatePubEvents = {
                     message.advisor = reader.string();
                     break;
                 case 10:
-                    message.finished = reader.bool();
+                    message.calcExpert = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -149,11 +149,11 @@ export const CreatePubEvents = {
         else {
             message.advisor = '';
         }
-        if (object.finished !== undefined && object.finished !== null) {
-            message.finished = Boolean(object.finished);
+        if (object.calcExpert !== undefined && object.calcExpert !== null) {
+            message.calcExpert = Boolean(object.calcExpert);
         }
         else {
-            message.finished = false;
+            message.calcExpert = false;
         }
         return message;
     },
@@ -173,7 +173,7 @@ export const CreatePubEvents = {
         message.endTime !== undefined && (obj.endTime = message.endTime);
         message.expertAmount !== undefined && (obj.expertAmount = message.expertAmount);
         message.advisor !== undefined && (obj.advisor = message.advisor);
-        message.finished !== undefined && (obj.finished = message.finished);
+        message.calcExpert !== undefined && (obj.calcExpert = message.calcExpert);
         return obj;
     },
     fromPartial(object) {
@@ -232,11 +232,11 @@ export const CreatePubEvents = {
         else {
             message.advisor = '';
         }
-        if (object.finished !== undefined && object.finished !== null) {
-            message.finished = object.finished;
+        if (object.calcExpert !== undefined && object.calcExpert !== null) {
+            message.calcExpert = object.calcExpert;
         }
         else {
-            message.finished = false;
+            message.calcExpert = false;
         }
         return message;
     }

@@ -2,7 +2,7 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
-const baseFihishPubEvent = { creator: '', pubId: 0, pool: false, reverted: false, finised: false, correctAnswer: 0, tokenMinted: '', status: '' };
+const baseFihishPubEvent = { creator: '', pubId: 0, pool: false, reverted: false, finished: false, correctAnswer: 0, tokenMinted: '', status: '' };
 export const FihishPubEvent = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -17,8 +17,8 @@ export const FihishPubEvent = {
         if (message.reverted === true) {
             writer.uint32(32).bool(message.reverted);
         }
-        if (message.finised === true) {
-            writer.uint32(40).bool(message.finised);
+        if (message.finished === true) {
+            writer.uint32(40).bool(message.finished);
         }
         if (message.correctAnswer !== 0) {
             writer.uint32(48).uint32(message.correctAnswer);
@@ -51,7 +51,7 @@ export const FihishPubEvent = {
                     message.reverted = reader.bool();
                     break;
                 case 5:
-                    message.finised = reader.bool();
+                    message.finished = reader.bool();
                     break;
                 case 6:
                     message.correctAnswer = reader.uint32();
@@ -95,11 +95,11 @@ export const FihishPubEvent = {
         else {
             message.reverted = false;
         }
-        if (object.finised !== undefined && object.finised !== null) {
-            message.finised = Boolean(object.finised);
+        if (object.finished !== undefined && object.finished !== null) {
+            message.finished = Boolean(object.finished);
         }
         else {
-            message.finised = false;
+            message.finished = false;
         }
         if (object.correctAnswer !== undefined && object.correctAnswer !== null) {
             message.correctAnswer = Number(object.correctAnswer);
@@ -127,7 +127,7 @@ export const FihishPubEvent = {
         message.pubId !== undefined && (obj.pubId = message.pubId);
         message.pool !== undefined && (obj.pool = message.pool);
         message.reverted !== undefined && (obj.reverted = message.reverted);
-        message.finised !== undefined && (obj.finised = message.finised);
+        message.finished !== undefined && (obj.finished = message.finished);
         message.correctAnswer !== undefined && (obj.correctAnswer = message.correctAnswer);
         message.tokenMinted !== undefined && (obj.tokenMinted = message.tokenMinted);
         message.status !== undefined && (obj.status = message.status);
@@ -159,11 +159,11 @@ export const FihishPubEvent = {
         else {
             message.reverted = false;
         }
-        if (object.finised !== undefined && object.finised !== null) {
-            message.finised = object.finised;
+        if (object.finished !== undefined && object.finished !== null) {
+            message.finished = object.finished;
         }
         else {
-            message.finised = false;
+            message.finished = false;
         }
         if (object.correctAnswer !== undefined && object.correctAnswer !== null) {
             message.correctAnswer = object.correctAnswer;

@@ -20412,7 +20412,7 @@ paths:
                       format: int64
                     advisor:
                       type: string
-                    finished:
+                    calcExpert:
                       type: boolean
               pagination:
                 type: object
@@ -20547,7 +20547,7 @@ paths:
                     format: int64
                   advisor:
                     type: string
-                  finished:
+                  calcExpert:
                     type: boolean
         default:
           description: An unexpected error response.
@@ -20601,7 +20601,7 @@ paths:
                       type: boolean
                     reverted:
                       type: boolean
-                    finised:
+                    finished:
                       type: boolean
                     correctAnswer:
                       type: integer
@@ -20728,7 +20728,7 @@ paths:
                     type: boolean
                   reverted:
                     type: boolean
-                  finised:
+                  finished:
                     type: boolean
                   correctAnswer:
                     type: integer
@@ -31891,7 +31891,7 @@ definitions:
         format: int64
       advisor:
         type: string
-      finished:
+      calcExpert:
         type: boolean
   VoroshilovMax.bettery.publicevents.FihishPubEvent:
     type: object
@@ -31905,7 +31905,7 @@ definitions:
         type: boolean
       reverted:
         type: boolean
-      finised:
+      finished:
         type: boolean
       correctAnswer:
         type: integer
@@ -31988,7 +31988,7 @@ definitions:
               format: int64
             advisor:
               type: string
-            finished:
+            calcExpert:
               type: boolean
       pagination:
         type: object
@@ -32032,7 +32032,7 @@ definitions:
               type: boolean
             reverted:
               type: boolean
-            finised:
+            finished:
               type: boolean
             correctAnswer:
               type: integer
@@ -32193,7 +32193,7 @@ definitions:
             format: int64
           advisor:
             type: string
-          finished:
+          calcExpert:
             type: boolean
   VoroshilovMax.bettery.publicevents.QueryGetFihishPubEventResponse:
     type: object
@@ -32210,7 +32210,7 @@ definitions:
             type: boolean
           reverted:
             type: boolean
-          finised:
+          finished:
             type: boolean
           correctAnswer:
             type: integer

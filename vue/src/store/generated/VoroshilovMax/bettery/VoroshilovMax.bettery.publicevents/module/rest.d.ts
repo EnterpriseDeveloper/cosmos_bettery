@@ -17,7 +17,7 @@ export interface PubliceventsCreatePubEvents {
     /** @format int64 */
     expertAmount?: string;
     advisor?: string;
-    finished?: boolean;
+    calcExpert?: boolean;
 }
 export interface PubliceventsFihishPubEvent {
     creator?: string;
@@ -25,7 +25,7 @@ export interface PubliceventsFihishPubEvent {
     pubId?: string;
     pool?: boolean;
     reverted?: boolean;
-    finised?: boolean;
+    finished?: boolean;
     /** @format int64 */
     correctAnswer?: number;
     tokenMinted?: string;

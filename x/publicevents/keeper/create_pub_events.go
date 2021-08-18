@@ -64,11 +64,6 @@ func (k Keeper) GetTimesPubEvents(ctx sdk.Context, id uint64) (int64, int64) {
 	return data.StartTime, data.EndTime
 }
 
-// check if event finished
-func (k Keeper) GetEventFinished(ctx sdk.Context, id uint64) bool {
-	return k.GetCreatePubEvents(ctx, id).Finished
-}
-
 // get validators number
 func (k Keeper) GetValidatorsNumber(ctx sdk.Context, id uint64) int64 {
 	return k.GetCreatePubEvents(ctx, id).ExpertAmount

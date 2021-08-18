@@ -5,7 +5,7 @@ export interface FihishPubEvent {
     pubId: number;
     pool: boolean;
     reverted: boolean;
-    finised: boolean;
+    finished: boolean;
     correctAnswer: number;
     tokenMinted: string;
     status: string;
