@@ -151,6 +151,43 @@ func (k Keeper) GetPoolPubEvent(ctx sdk.Context, id uint64) (*big.Int, string, b
 	return pool, "", true
 }
 
+// GetPlayAmountByAnswer returns all players by answer index
+func (k Keeper) GetPlayAmountByAnswer(ctx sdk.Context, id uint64, i int) int {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+	var list []types.PartPubEvents
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.PartPubEvents
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if val.PubId == id && val.AnswerIndex == uint32(i) {
+			list = append(list, val)
+		}
+	}
+
+	return len(list)
+}
+
+func (k Keeper) GetAllPlayAmount(ctx sdk.Context, id uint64) int {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+	var list []types.PartPubEvents
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.PartPubEvents
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if val.PubId == id {
+			list = append(list, val)
+		}
+	}
+
+	return len(list)
+}
+
 // GetPartPubEventsIDBytes returns the byte representation of the ID
 func GetPartPubEventsIDBytes(id uint64) []byte {
 	bz := make([]byte, 8)

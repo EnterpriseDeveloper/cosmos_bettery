@@ -2,29 +2,66 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 	"math/big"
 
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
+	FEtypes "github.com/VoroshilovMax/bettery/x/publicevents/types/finish_event_config"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/spf13/cast"
 )
 
 func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCreateFihishPubEvent) (*types.MsgCreateFihishPubEventResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+	eventId, err := cast.ToStringE(msg.PubId)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event finish, can not pars event id: %d, err: %s", msg.PubId, err.Error()))
+	}
 
 	correctAnswer, reverted, status := findCorrectAnswer(k, ctx, msg.PubId)
 	if reverted {
-		// event reverted
-		// emit reverted event
+		// TODO reverted paymant
+		ctx.EventManager().EmitEvent(
+			sdk.NewEvent(
+				"pub.event",
+				sdk.NewAttribute("reverted", "true"),
+				sdk.NewAttribute("id", eventId),
+				sdk.NewAttribute("status", status),
+			),
+		)
+		return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 	} else {
 		// find looser pool
+		looserPool, mintedToken, reverted, ok, errString := findLosersPool(k, ctx, msg.PubId, correctAnswer)
+		if ok {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event from find loser pool, event id %d, error message: %s", msg.PubId, errString))
+		}
+		if reverted {
+			// TODO reverted paymant
+			ctx.EventManager().EmitEvent(
+				sdk.NewEvent(
+					"pub.event",
+					sdk.NewAttribute("reverted", "true"),
+					sdk.NewAttribute("id", eventId),
+					sdk.NewAttribute("status", errString),
+				),
+			)
+			return sendToStorage(ctx, k, msg, correctAnswer, reverted, errString, mintedToken.String())
+		} else {
+			// TODO lets pay to company
+		}
 	}
+}
 
+func sendToStorage(ctx sdk.Context, k msgServer, msg *types.MsgCreateFihishPubEvent, correctAnswer int, reverted bool, status string, tokenMinted string) (*types.MsgCreateFihishPubEventResponse, error) {
 	var fihishPubEvent = types.FihishPubEvent{
 		Creator:       msg.Creator,
 		PubId:         msg.PubId,
 		CorrectAnswer: uint32(correctAnswer),
 		Reverted:      reverted,
 		Status:        status,
+		TokenMinted:   tokenMinted,
 	}
 
 	id := k.AppendFihishPubEvent(
@@ -72,7 +109,7 @@ func findLosersPool(k msgServer, ctx sdk.Context, id uint64, correctAnswer int) 
 	}
 	lp := new(big.Int).Sub(B, pool)
 	if lp.Cmp(zero) == 1 && B.Cmp(zero) == 1 {
-		mintedToken := calcMintedTokens()
+		mintedToken := calcMintedTokens(k, ctx, id, pool)
 		return lp, mintedToken, false, false, ""
 
 	} else {
@@ -80,12 +117,41 @@ func findLosersPool(k msgServer, ctx sdk.Context, id uint64, correctAnswer int) 
 	}
 }
 
-// TODO
 func canMint(k msgServer, ctx sdk.Context, id uint64) bool {
-	return true
+	calcExpet := k.CalculateValidatorsAmount(ctx, id)
+	startTime, endTime := k.GetTimesPubEvents(ctx, id)
+	if calcExpet && endTime-startTime >= int64(FEtypes.MinTime) {
+		return true
+	} else {
+		return false
+	}
 }
 
-// TODO
-func calcMintedTokens() *big.Int {
-	return new(big.Int)
+func calcMintedTokens(k msgServer, ctx sdk.Context, id uint64, poll *big.Int) *big.Int {
+	if canMint(k, ctx, id) {
+		bigValue := 0
+		bigValue2 := 0
+
+		for i := 0; i < k.GetQuestAmountPubEvent(ctx, id); i++ {
+			playAmount := k.GetPlayAmountByAnswer(ctx, id, i)
+			if playAmount > bigValue {
+				bigValue2 = bigValue
+				bigValue = playAmount
+			} else if playAmount > bigValue2 {
+				bigValue2 = bigValue
+			}
+		}
+		activPlay := k.GetAllPlayAmount(ctx, id)
+		controversy := (100 - calcPercent(bigValue, activPlay) + calcPercent(bigValue2, activPlay))
+		averageBet := poll.Div(poll, new(big.Int).SetInt64(int64(activPlay)))
+		mint := averageBet.Mul(averageBet, new(big.Int).SetInt64(int64(activPlay)))
+		mint = mint.Mul(mint, new(big.Int).SetInt64(int64(controversy*FEtypes.GFindex)))
+		return mint.Div(mint, new(big.Int).SetInt64(10000))
+	} else {
+		return new(big.Int).SetInt64(0)
+	}
+}
+
+func calcPercent(number int, from int) int {
+	return number * 100 / from
 }
