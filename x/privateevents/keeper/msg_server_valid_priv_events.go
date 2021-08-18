@@ -16,7 +16,8 @@ func (k msgServer) CreateValidPrivEvents(goCtx context.Context, msg *types.MsgCr
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// check if event not finished
-	if k.GetEventFinished(ctx, msg.PrivId) {
+	expert := k.GetAmountOfValidPrivEvents(ctx, msg.PrivId)
+	if expert > 0 {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event already finished by id: %d", msg.PrivId))
 	}
 
@@ -44,15 +45,6 @@ func (k msgServer) CreateValidPrivEvents(goCtx context.Context, msg *types.MsgCr
 
 	if creator == msg.Creator {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("the event creator: %s cant be validator in event by id: %d", msg.Creator, msg.PrivId))
-	}
-
-	// alredy validated
-	allValid := k.GetEachValidPrivEvents(ctx, msg.PrivId)
-
-	for _, v := range allValid {
-		if v.Creator == msg.Creator {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("user: %s alredy validate in event by id: %d", msg.Creator, msg.PrivId))
-		}
 	}
 
 	// find answer index

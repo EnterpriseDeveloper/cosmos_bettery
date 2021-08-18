@@ -2,7 +2,7 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.privateevents';
-const baseCreatePrivEvents = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '', startTime: 0, endTime: 0, finished: false };
+const baseCreatePrivEvents = { creator: '', privId: 0, question: '', answers: '', winner: '', loser: '', startTime: 0, endTime: 0 };
 export const CreatePrivEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -28,9 +28,6 @@ export const CreatePrivEvents = {
         }
         if (message.endTime !== 0) {
             writer.uint32(64).uint64(message.endTime);
-        }
-        if (message.finished === true) {
-            writer.uint32(72).bool(message.finished);
         }
         return writer;
     },
@@ -65,9 +62,6 @@ export const CreatePrivEvents = {
                     break;
                 case 8:
                     message.endTime = longToNumber(reader.uint64());
-                    break;
-                case 9:
-                    message.finished = reader.bool();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -126,12 +120,6 @@ export const CreatePrivEvents = {
         else {
             message.endTime = 0;
         }
-        if (object.finished !== undefined && object.finished !== null) {
-            message.finished = Boolean(object.finished);
-        }
-        else {
-            message.finished = false;
-        }
         return message;
     },
     toJSON(message) {
@@ -149,7 +137,6 @@ export const CreatePrivEvents = {
         message.loser !== undefined && (obj.loser = message.loser);
         message.startTime !== undefined && (obj.startTime = message.startTime);
         message.endTime !== undefined && (obj.endTime = message.endTime);
-        message.finished !== undefined && (obj.finished = message.finished);
         return obj;
     },
     fromPartial(object) {
@@ -201,12 +188,6 @@ export const CreatePrivEvents = {
         }
         else {
             message.endTime = 0;
-        }
-        if (object.finished !== undefined && object.finished !== null) {
-            message.finished = object.finished;
-        }
-        else {
-            message.finished = false;
         }
         return message;
     }

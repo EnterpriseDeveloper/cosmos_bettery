@@ -52,11 +52,6 @@ func (k Keeper) GetTimesPrivEvents(ctx sdk.Context, id uint64) (uint64, uint64) 
 	return data.StartTime, data.EndTime
 }
 
-// check if event finished
-func (k Keeper) GetEventFinished(ctx sdk.Context, id uint64) bool {
-	return k.GetCreatePrivEvents(ctx, id).Finished
-}
-
 // get answer index
 func (k Keeper) GetAnswerIndex(ctx sdk.Context, id uint64, answer string) int {
 	answers := k.GetCreatePrivEvents(ctx, id).Answers

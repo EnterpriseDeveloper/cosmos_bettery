@@ -24,7 +24,6 @@ export interface PrivateeventsCreatePrivEvents {
 
   /** @format uint64 */
   endTime?: string;
-  finished?: boolean;
 }
 
 export interface PrivateeventsMsgCreateCreatePrivEventsResponse {

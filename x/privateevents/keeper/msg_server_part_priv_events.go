@@ -14,7 +14,8 @@ func (k msgServer) CreatePartPrivEvents(goCtx context.Context, msg *types.MsgCre
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// check if event finish
-	if k.GetEventFinished(ctx, msg.PrivId) {
+	expert := k.GetAmountOfValidPrivEvents(ctx, msg.PrivId)
+	if expert > 0 {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event already finished by id: %d", msg.PrivId))
 	}
 

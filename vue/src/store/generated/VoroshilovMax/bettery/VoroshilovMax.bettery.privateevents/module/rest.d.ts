@@ -10,7 +10,6 @@ export interface PrivateeventsCreatePrivEvents {
     startTime?: string;
     /** @format uint64 */
     endTime?: string;
-    finished?: boolean;
 }
 export interface PrivateeventsMsgCreateCreatePrivEventsResponse {
     /** @format uint64 */
