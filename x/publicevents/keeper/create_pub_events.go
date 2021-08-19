@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"encoding/binary"
+	"math/big"
 
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
@@ -47,6 +48,11 @@ func (k Keeper) GetCreatePubEventsOwner(ctx sdk.Context, id uint64) string {
 	return k.GetCreatePubEvents(ctx, id).Creator
 }
 
+// GetAdvisorPubEvent returns the creator of the
+func (k Keeper) GetAdvisorPubEvent(ctx sdk.Context, id uint64) string {
+	return k.GetCreatePubEvents(ctx, id).Advisor
+}
+
 // GetAnswerLength returns the creator of the
 func (k Keeper) GetAnswerLength(ctx sdk.Context, id uint64) int {
 	return len(k.GetCreatePubEvents(ctx, id).Answers)
@@ -67,6 +73,11 @@ func (k Keeper) GetTimesPubEvents(ctx sdk.Context, id uint64) (int64, int64) {
 // get validators number
 func (k Keeper) GetValidatorsNumber(ctx sdk.Context, id uint64) int64 {
 	return k.GetCreatePubEvents(ctx, id).ExpertAmount
+}
+
+// get premium amount
+func (k Keeper) GetPremAmountPubEvent(ctx sdk.Context, id uint64) (*big.Int, bool) {
+	return new(big.Int).SetString(k.GetCreatePubEvents(ctx, id).PremAmount, 10)
 }
 
 // calculate validators amount
