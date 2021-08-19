@@ -16,6 +16,8 @@ export interface ValidPubEvents {
 export interface allValidPubEvent {
   creator: string
   privId: number
+  reput: number
+  answerIndex: number
 }
 
 const baseValidPubEvents: object = { creator: '', id: 0, pubId: 0, answers: '', reput: 0, answerIndex: 0 }
@@ -158,7 +160,7 @@ export const ValidPubEvents = {
   }
 }
 
-const baseallValidPubEvent: object = { creator: '', privId: 0 }
+const baseallValidPubEvent: object = { creator: '', privId: 0, reput: 0, answerIndex: 0 }
 
 export const allValidPubEvent = {
   encode(message: allValidPubEvent, writer: Writer = Writer.create()): Writer {
@@ -167,6 +169,12 @@ export const allValidPubEvent = {
     }
     if (message.privId !== 0) {
       writer.uint32(16).uint64(message.privId)
+    }
+    if (message.reput !== 0) {
+      writer.uint32(24).int64(message.reput)
+    }
+    if (message.answerIndex !== 0) {
+      writer.uint32(32).uint32(message.answerIndex)
     }
     return writer
   },
@@ -183,6 +191,12 @@ export const allValidPubEvent = {
           break
         case 2:
           message.privId = longToNumber(reader.uint64() as Long)
+          break
+        case 3:
+          message.reput = longToNumber(reader.int64() as Long)
+          break
+        case 4:
+          message.answerIndex = reader.uint32()
           break
         default:
           reader.skipType(tag & 7)
@@ -204,6 +218,16 @@ export const allValidPubEvent = {
     } else {
       message.privId = 0
     }
+    if (object.reput !== undefined && object.reput !== null) {
+      message.reput = Number(object.reput)
+    } else {
+      message.reput = 0
+    }
+    if (object.answerIndex !== undefined && object.answerIndex !== null) {
+      message.answerIndex = Number(object.answerIndex)
+    } else {
+      message.answerIndex = 0
+    }
     return message
   },
 
@@ -211,6 +235,8 @@ export const allValidPubEvent = {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
     message.privId !== undefined && (obj.privId = message.privId)
+    message.reput !== undefined && (obj.reput = message.reput)
+    message.answerIndex !== undefined && (obj.answerIndex = message.answerIndex)
     return obj
   },
 
@@ -225,6 +251,16 @@ export const allValidPubEvent = {
       message.privId = object.privId
     } else {
       message.privId = 0
+    }
+    if (object.reput !== undefined && object.reput !== null) {
+      message.reput = object.reput
+    } else {
+      message.reput = 0
+    }
+    if (object.answerIndex !== undefined && object.answerIndex !== null) {
+      message.answerIndex = object.answerIndex
+    } else {
+      message.answerIndex = 0
     }
     return message
   }

@@ -104,10 +104,9 @@ func (k Keeper) GetAllValidPubEvents(ctx sdk.Context) (list []types.ValidPubEven
 	return
 }
 
-func (k Keeper) GetValidPubEventByAnswerLength(ctx sdk.Context, id uint64, answer int) int {
+func (k Keeper) GetValidPubEventByAnswer(ctx sdk.Context, id uint64, answer int) (list []types.ValidPubEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
-	var list []types.ValidPubEvents
 
 	defer iterator.Close()
 
@@ -119,7 +118,7 @@ func (k Keeper) GetValidPubEventByAnswerLength(ctx sdk.Context, id uint64, answe
 		}
 	}
 
-	return len(list)
+	return list
 }
 
 func (k Keeper) GetValidPubEventLength(ctx sdk.Context, id uint64) int {
@@ -167,4 +166,21 @@ func (k Keeper) findValidPubEvent(ctx sdk.Context, id uint64, valid string) bool
 	}
 
 	return false
+}
+
+func (k Keeper) GetAllExperReputPubEvent(ctx sdk.Context, id uint64, correctAnswer int) int {
+	allReputation := 0
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.AllValidPubEvent
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if id == val.PrivId && correctAnswer == int(val.AnswerIndex) && val.Reput > 0 {
+			allReputation = allReputation + int(val.Reput+1)
+		}
+	}
+	return allReputation
 }

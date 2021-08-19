@@ -11,6 +11,8 @@ export interface ValidPubEvents {
 export interface allValidPubEvent {
     creator: string;
     privId: number;
+    reput: number;
+    answerIndex: number;
 }
 export declare const ValidPubEvents: {
     encode(message: ValidPubEvents, writer?: Writer): Writer;
