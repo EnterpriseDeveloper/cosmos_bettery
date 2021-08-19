@@ -33,7 +33,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 		return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 	} else {
 		// find looser pool
-		_, mintedToken, reverted, ok, errString := findLosersPool(k, ctx, msg.PubId, correctAnswer)
+		loserPool, mintedToken, reverted, ok, errString := findLosersPool(k, ctx, msg.PubId, correctAnswer)
 		if ok {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event from find loser pool, event id %d, error message: %s", msg.PubId, errString))
 		}
@@ -50,59 +50,100 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 			return sendToStorage(ctx, k, msg, correctAnswer, reverted, errString, mintedToken.String())
 		} else {
 			// lets pay to company
-			letsPayToCompanies(k, ctx, msg.PubId, mintedToken)
-			// TODO pay to host
+			ok, errString := letsPayToCompanies(k, ctx, msg.PubId, mintedToken)
+			if !ok {
+				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Companies event by id %d, error message: %s", msg.PubId, errString))
+			}
+
+			// lets pay to host
+			ok, errString = letsPayToHost(k, ctx, msg.PubId, mintedToken, loserPool)
+			if !ok {
+				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Companies event by id %d, error message: %s", msg.PubId, errString))
+			}
+
+			// TODO lets pay to experts
+			// TODO lets pay to players
+			// TODO lets pay to losers
+			// TODO lets pay to ref
 			return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 		}
 	}
 }
 
-func letsPayToCompanies(k msgServer, ctx sdk.Context, id uint64, tokenMinted *big.Int) (bool, string) {
-	var percentCMF int
-	owner, err := sdk.AccAddressFromBech32(FEtypes.Owner)
-	if err != nil {
-		return false, err.Error()
-	}
+func letsPayToHost(k msgServer, ctx sdk.Context, id uint64, tokenMinted *big.Int, loserPool *big.Int) (bool, string) {
+	host := k.GetCreatePubEventsOwner(ctx, id)
+	if len(k.GetAdvisorPubEvent(ctx, id)) > 1 {
+		advisor := k.GetAdvisorPubEvent(ctx, id)
+		if canMint(k, ctx, id) {
+			// mint tokens to host
+			mintHostPerc := FEtypes.HostPercMint + FEtypes.ExtraHostPercMint
+			ok, err := letsMint(tokenMinted, k, ctx, host, mintHostPerc)
+			if !ok {
+				return ok, err
+			}
 
-	if canMint(k, ctx, id) {
-		// pay to Development Fund
-		mintDF := getPercent(tokenMinted, new(big.Int).SetInt64(int64(FEtypes.DevelopFundPerc)))
-
-		amount := sdk.NewIntFromBigInt(mintDF)
-		err = k.MintTokens(ctx, owner, sdk.NewCoin(types.BetToken, amount))
-		if err != nil {
-			return false, err.Error()
+			// mint token to advisor
+			ok, err = letsMint(tokenMinted, k, ctx, advisor, FEtypes.AdvisorPercMint)
+			if !ok {
+				return ok, err
+			}
+		}
+		// pay tokens to host
+		payHostPerc := FEtypes.HostPerc + FEtypes.ExtraHostPerc
+		ok, err := letsPay(loserPool, k, ctx, host, payHostPerc)
+		if !ok {
+			return ok, err
 		}
 
-		// pay to Community Marketing Fund
+		ok, err = letsPay(loserPool, k, ctx, advisor, FEtypes.AdvisorPepc)
+		if !ok {
+			return ok, err
+		}
+		return true, ""
+	} else {
+		if canMint(k, ctx, id) {
+			// mint to host
+			ok, err := letsMint(tokenMinted, k, ctx, host, FEtypes.HostPercMint)
+			if !ok {
+				return ok, err
+			}
+		}
+
+		// pay to host
+		ok, err := letsPay(loserPool, k, ctx, host, FEtypes.HostPerc)
+		if !ok {
+			return ok, err
+		}
+		return true, ""
+	}
+}
+
+func letsPayToCompanies(k msgServer, ctx sdk.Context, id uint64, tokenMinted *big.Int) (bool, string) {
+	var percentCMF int
+
+	if canMint(k, ctx, id) {
+		// mint to Development Fund
+		ok, err := letsMint(tokenMinted, k, ctx, FEtypes.Owner, FEtypes.DevelopFundPerc)
+		if !ok {
+			return ok, err
+		}
+
+		// mint to Community Marketing Fund
 		if len(k.GetAdvisorPubEvent(ctx, id)) > 1 {
 			percentCMF = FEtypes.ComMarketFundPerc
 		} else {
 			percentCMF = FEtypes.ComMarketFundPerc + FEtypes.ExtraHostPercMint + FEtypes.AdvisorPercMint
 		}
 
-		mintCMF := getPercent(tokenMinted, new(big.Int).SetInt64(int64(percentCMF)))
-
-		comMarketFundWallet, err := sdk.AccAddressFromBech32(FEtypes.ComMarketFundAddr)
-		if err != nil {
-			return false, err.Error()
-		}
-		amount = sdk.NewIntFromBigInt(mintCMF)
-		err = k.MintTokens(ctx, comMarketFundWallet, sdk.NewCoin(types.BetToken, amount))
-		if err != nil {
-			return false, err.Error()
+		ok, err = letsMint(tokenMinted, k, ctx, FEtypes.ComMarketFundAddr, percentCMF)
+		if !ok {
+			return ok, err
 		}
 
-		// pay to Moderators Fund
-		mintMF := getPercent(tokenMinted, new(big.Int).SetInt64(int64(FEtypes.ModeratorsFundPerc)))
-		ModeratorsFundWallet, err := sdk.AccAddressFromBech32(FEtypes.ModeratorsFundAddr)
-		if err != nil {
-			return false, err.Error()
-		}
-		amount = sdk.NewIntFromBigInt(mintMF)
-		err = k.MintTokens(ctx, ModeratorsFundWallet, sdk.NewCoin(types.BetToken, amount))
-		if err != nil {
-			return false, err.Error()
+		// mint to Moderators Fund
+		ok, err = letsMint(tokenMinted, k, ctx, FEtypes.ModeratorsFundAddr, FEtypes.ModeratorsFundPerc)
+		if !ok {
+			return ok, err
 		}
 
 	}
@@ -112,13 +153,42 @@ func letsPayToCompanies(k msgServer, ctx sdk.Context, id uint64, tokenMinted *bi
 		return false, "err from parse premium amount"
 	}
 
+	// pay to advisor
 	if premAmount.Cmp(new(big.Int).SetInt64(0)) > 1 {
-		premDF := getPercent(premAmount, new(big.Int).SetInt64(int64(FEtypes.DevelopFundPercPremim)))
-		amount := sdk.NewIntFromBigInt(premDF)
-		err = k.MintTokens(ctx, owner, sdk.NewCoin(types.BetToken, amount))
-		if err != nil {
-			return false, err.Error()
+		ok, err := letsPay(premAmount, k, ctx, FEtypes.Owner, FEtypes.DevelopFundPercPremim)
+		if !ok {
+			return ok, err
 		}
+	}
+	return true, ""
+}
+
+func letsPay(tokenMinted *big.Int, k msgServer, ctx sdk.Context, addr string, percent int) (bool, string) {
+	reciever, err := sdk.AccAddressFromBech32(addr)
+	if err != nil {
+		return false, err.Error()
+	}
+
+	mintDF := getPercent(tokenMinted, new(big.Int).SetInt64(int64(percent)))
+	amount := sdk.NewIntFromBigInt(mintDF)
+	err = k.PayTokens(ctx, reciever, sdk.NewCoin(types.BetToken, amount))
+	if err != nil {
+		return false, err.Error()
+	}
+	return true, ""
+}
+
+func letsMint(tokenMinted *big.Int, k msgServer, ctx sdk.Context, addr string, percent int) (bool, string) {
+	reciever, err := sdk.AccAddressFromBech32(addr)
+	if err != nil {
+		return false, err.Error()
+	}
+
+	mintDF := getPercent(tokenMinted, new(big.Int).SetInt64(int64(percent)))
+	amount := sdk.NewIntFromBigInt(mintDF)
+	err = k.MintTokens(ctx, reciever, sdk.NewCoin(types.BetToken, amount))
+	if err != nil {
+		return false, err.Error()
 	}
 	return true, ""
 }

@@ -67,3 +67,18 @@ func (k Keeper) MintTokens(
 
 	return nil
 }
+
+func (k Keeper) PayTokens(
+	ctx sdk.Context,
+	receiver sdk.AccAddress,
+	tokens sdk.Coin,
+) error {
+	// send to receiver
+	if err := k.bankKeeper.SendCoinsFromModuleToAccount(
+		ctx, types.ModuleName, receiver, sdk.NewCoins(tokens),
+	); err != nil {
+		panic(fmt.Sprintf("unable to send coins from module to account from PayTokens, err: %v", err))
+	}
+
+	return nil
+}
