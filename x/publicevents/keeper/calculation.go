@@ -25,3 +25,47 @@ func CalcPayForExpert(percent *big.Int, loserPool *big.Int, reputation *big.Int,
 	}
 	return amount
 }
+
+func CalcWinPool(playersPers *big.Int, loserPool *big.Int, rightPlay *big.Int) *big.Int {
+	perc := GetPercent(playersPers, loserPool)
+	return perc.Div(perc, rightPlay)
+}
+
+func CalcPremiumWin(rightPlay *big.Int, premToken *big.Int, playersPersPremiun *big.Int) *big.Int {
+	if premToken.Cmp(new(big.Int).SetInt64(int64(0))) == 0 {
+		premiumToken := GetPercent(playersPersPremiun, premToken)
+		return premiumToken.Div(premiumToken, rightPlay)
+	} else {
+		return new(big.Int).SetInt64(int64(0))
+	}
+}
+
+func CalcPremiumPubEvent(canMint bool, pool *big.Int, activePlay *big.Int, mintedToken *big.Int, playersPersMint *big.Int) (*big.Int, *big.Int) {
+	avarageBet := new(big.Int).SetInt64(int64(0))
+	calcMintedToken := new(big.Int).SetInt64(int64(0))
+	if canMint {
+		avarageBet = avarageBet.Div(pool, activePlay)
+		calcMintedToken = GetPercent(playersPersMint, mintedToken)
+	}
+
+	return avarageBet, calcMintedToken
+}
+
+func PlayersFormula(calcMintedToken *big.Int, userBet *big.Int, avarageBet *big.Int, activePlay *big.Int) *big.Int {
+	x := calcMintedToken.Mul(calcMintedToken, userBet)
+	z := avarageBet.Mul(avarageBet, activePlay)
+	return x.Div(x, z)
+}
+
+func CalcPlayerPay(premAmount *big.Int, winPool *big.Int, userBet *big.Int, avarageBetWin *big.Int, premimWin *big.Int) *big.Int {
+	x := winPool.Mul(winPool, userBet)
+	z := x.Div(x, avarageBetWin)
+	amount := z.Add(z, userBet)
+	if premAmount.Cmp(new(big.Int).SetInt64(int64(0))) == 1 {
+		// add premium tokens to amount
+		y := premimWin.Mul(premimWin, userBet)
+		o := y.Div(y, avarageBetWin)
+		amount = amount.Add(amount, o)
+	}
+	return amount
+}

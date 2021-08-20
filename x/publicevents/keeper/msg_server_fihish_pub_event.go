@@ -67,40 +67,85 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Expert event by id %d, error message: %s", msg.PubId, errString))
 			}
 			// lets pay to players
-			ok, errString = letsPayToPlayers()
+			ok, errString, avarageBet, calcMintedToken = letsPayToPlayers(k, ctx, msg.PubId, correctAnswer, loserPool, mintedToken)
 			if !ok {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Players event by id %d, error message: %s", msg.PubId, errString))
 			}
-
-			// TODO lets pay to losers
-			// TODO lets pay to ref
-			return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
+			if canMint(k, ctx, msg.PubId) {
+				// TODO lets pay to losers
+				// TODO lets pay to ref
+				return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
+			} else {
+				// TODO event finish emit
+				return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
+			}
 		}
 	}
 }
 
-func letsPayToPlayers() (bool, string) {
-	// uint activePlay = eventsData.getActivePlayers(_id);
-	// uint rightPlay = eventsData.getPlayerAmount(_id, mpData.getCorrectAnswer(_id));
-	// uint winPool = getPercent(playersPers, mpData.getLoserPool(_id)) / rightPlay;
-	// uint premimWin = calcPremiumWin(_id, rightPlay);
-	// uint betAmount = 0;
+func letsPayToPlayers(k msgServer, ctx sdk.Context, id uint64, correctAnswer int, loserPool *big.Int, mintedToken *big.Int) (bool, string, *big.Int, *big.Int) {
+	zero := new(big.Int).SetInt64(int64(0))
+	activePlay := k.GetAllPlayAmount(ctx, id)
+	rightPlay := k.GetPlayAmountByAnswer(ctx, id, correctAnswer)
+	rightPlayLenght := len(rightPlay)
+	winPool := CalcWinPool(new(big.Int).SetInt64(int64(FEtypes.PlayersPers)), loserPool, new(big.Int).SetInt64(int64(rightPlayLenght)))
+	premAmount, ok := k.GetPremAmountPubEvent(ctx, id)
+	if !ok {
+		return false, "error parse premium amount from letsPayToPlayers", zero, zero
+	}
+	premimWin := CalcPremiumWin(new(big.Int).SetInt64(int64(rightPlayLenght)), premAmount, new(big.Int).SetInt64(int64(FEtypes.PlayersPersPremiun)))
+	betAmount, errMess, ok := k.GetPoolByAnswerPubEvent(ctx, id, correctAnswer)
+	if !ok {
+		return false, errMess, zero, zero
+	}
 
-	// for ( uint i = 0; i < rightPlay; i++ ) {
-	// 	betAmount += eventsData.getPlayerTokens(_id, mpData.getCorrectAnswer(_id), i);
-	// }
+	cm := canMint(k, ctx, id)
+	pool, errMess, ok := k.GetPoolPubEvent(ctx, id)
+	if !ok {
+		return false, errMess, zero, zero
+	}
+	avarageBetWin := betAmount.Div(betAmount, new(big.Int).SetInt64(int64(rightPlayLenght)))
+	avarageBet, calcMintedToken := CalcPremiumPubEvent(cm, pool, new(big.Int).SetInt64(int64(activePlay)), mintedToken, new(big.Int).SetInt64(int64(FEtypes.PlayersPersMint)))
 
-	// uint avarageBet = 0;
-	// uint calcMintedToken = 0;
-	// if(PublicAddr.canMint(_id)){
-	// 	avarageBet = eventsData.getPool(_id) / activePlay;
-	// 	calcMintedToken = getPercent(playersPersMint, mpData.getTokenMinted(_id));
-	// }
-
-	// uint avarageBetWin = betAmount / rightPlay;
-	// payToPlay(_id, rightPlay, avarageBet, calcMintedToken, avarageBetWin, winPool, activePlay, premimWin);
-	return true, ""
+	for i := 0; i < rightPlayLenght; i++ {
+		userBet := rightPlay[i].Amount
+		wallet := rightPlay[i].Creator
+		uB, ok := new(big.Int).SetString(userBet, 10)
+		if !ok {
+			return false, "error parse user bet from letsPayToPlayers", zero, zero
+		}
+		if cm {
+			// mint token to users
+			ok, err := letsMint(k, ctx, wallet, PlayersFormula(calcMintedToken, uB, avarageBet, new(big.Int).SetInt64(int64(activePlay))))
+			if !ok {
+				return ok, err, zero, zero
+			}
+		}
+		// pay token
+		ok, err := letsPay(k, ctx, wallet, CalcPlayerPay(premAmount, winPool, uB, avarageBetWin, premimWin))
+		if !ok {
+			return ok, err, zero, zero
+		}
+	}
+	return true, "", avarageBet, calcMintedToken
 }
+
+// TODO
+// function letsPayToLoosers(
+// 	int _id,
+// 	uint _avarageBet,
+// 	uint _calcMintedToken
+// ) public {
+// 	for (uint i = 0; i < eventsData.getQuestAmount(_id); i++) {
+// 		if (mpData.getCorrectAnswer(_id) != i && eventsData.getPlayerAmount(_id, i) != 0) {
+// 			for (uint z = 0; z < eventsData.getPlayerAmount(_id, i); z++) {
+// 				uint mintLost = (_calcMintedToken * eventsData.getPlayerTokens(_id, i, z)) / ( _avarageBet * eventsData.getActivePlayers(_id));
+// 				require(PublicAddr.mint(eventsData.getPlayerWallet(_id, i, z), mintLost), "pay to losers");
+// 			}
+// 		}
+// 	}
+//    emit payToRefferers(_id);
+// }
 
 func letsPayToExperts(k msgServer, ctx sdk.Context, id uint64, correctAnswer int, loserPool *big.Int, tokenMinted *big.Int) (bool, string) {
 	var percent int
@@ -119,20 +164,20 @@ func letsPayToExperts(k msgServer, ctx sdk.Context, id uint64, correctAnswer int
 			if reputation >= 0 {
 				if canMint(k, ctx, id) {
 					// mint tokens
-					ok, err := letsMint(loserPool, k, ctx, wallet, ExpertFormula(tokenMinted, new(big.Int).SetInt64(int64(FEtypes.ExpertPercMint)), new(big.Int).SetInt64(int64(reputation)), new(big.Int).SetInt64(int64(allReputation))))
+					ok, err := letsMint(k, ctx, wallet, ExpertFormula(tokenMinted, new(big.Int).SetInt64(int64(FEtypes.ExpertPercMint)), new(big.Int).SetInt64(int64(reputation)), new(big.Int).SetInt64(int64(allReputation))))
 					if !ok {
-						return ok, err
+						return false, err
 					}
 				}
 
 				// pay to expert
 				premAmount, ok := k.GetPremAmountPubEvent(ctx, id)
 				if !ok {
-					return ok, "get premium amount error from letsPayToExperts"
+					return false, "get premium amount error from letsPayToExperts"
 				}
-				ok, err := letsPay(loserPool, k, ctx, wallet, CalcPayForExpert(new(big.Int).SetInt64(int64(percent)), loserPool, new(big.Int).SetInt64(int64(reputation)), new(big.Int).SetInt64(int64(allReputation)), premAmount, new(big.Int).SetInt64((int64(FEtypes.ExpertPremiumPerc)))))
+				ok, err := letsPay(k, ctx, wallet, CalcPayForExpert(new(big.Int).SetInt64(int64(percent)), loserPool, new(big.Int).SetInt64(int64(reputation)), new(big.Int).SetInt64(int64(allReputation)), premAmount, new(big.Int).SetInt64((int64(FEtypes.ExpertPremiumPerc)))))
 				if !ok {
-					return ok, err
+					return false, err
 				}
 			}
 		}
@@ -140,7 +185,7 @@ func letsPayToExperts(k msgServer, ctx sdk.Context, id uint64, correctAnswer int
 	} else {
 		ok, err := letsPayWithFormula(loserPool, k, ctx, FEtypes.ComMarketFundAddr, percent)
 		if !ok {
-			return ok, err
+			return false, err
 		}
 		return true, ""
 	}
@@ -239,7 +284,7 @@ func letsPayToCompanies(k msgServer, ctx sdk.Context, id uint64, tokenMinted *bi
 	return true, ""
 }
 
-func letsPay(tokenMinted *big.Int, k msgServer, ctx sdk.Context, addr string, am *big.Int) (bool, string) {
+func letsPay(k msgServer, ctx sdk.Context, addr string, am *big.Int) (bool, string) {
 	reciever, err := sdk.AccAddressFromBech32(addr)
 	if err != nil {
 		return false, err.Error()
@@ -253,7 +298,7 @@ func letsPay(tokenMinted *big.Int, k msgServer, ctx sdk.Context, addr string, am
 	return true, ""
 }
 
-func letsMint(tokenMinted *big.Int, k msgServer, ctx sdk.Context, addr string, am *big.Int) (bool, string) {
+func letsMint(k msgServer, ctx sdk.Context, addr string, am *big.Int) (bool, string) {
 	reciever, err := sdk.AccAddressFromBech32(addr)
 	if err != nil {
 		return false, err.Error()
@@ -341,7 +386,7 @@ func findCorrectAnswer(k msgServer, ctx sdk.Context, id uint64) (int, bool, stri
 
 func findLosersPool(k msgServer, ctx sdk.Context, id uint64, correctAnswer int) (*big.Int, *big.Int, bool, bool, string) {
 	zero := new(big.Int).SetInt64(0)
-	B, errString, ok := k.GetWinPoolPubEvent(ctx, id, correctAnswer)
+	B, errString, ok := k.GetPoolByAnswerPubEvent(ctx, id, correctAnswer)
 	if !ok {
 		return zero, zero, false, true, errString
 	}
@@ -376,7 +421,7 @@ func calcMintedTokens(k msgServer, ctx sdk.Context, id uint64, poll *big.Int) *b
 		bigValue2 := 0
 
 		for i := 0; i < k.GetQuestAmountPubEvent(ctx, id); i++ {
-			playAmount := k.GetPlayAmountByAnswer(ctx, id, i)
+			playAmount := len(k.GetPlayAmountByAnswer(ctx, id, i))
 			if playAmount > bigValue {
 				bigValue2 = bigValue
 				bigValue = playAmount

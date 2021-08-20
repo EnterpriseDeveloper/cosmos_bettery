@@ -105,8 +105,8 @@ func (k Keeper) GetAllPartPubEvents(ctx sdk.Context) (list []types.PartPubEvents
 	return
 }
 
-// GetWinPoolPubEvent returns big init pool of winners
-func (k Keeper) GetWinPoolPubEvent(ctx sdk.Context, id uint64, correctAnswer int) (*big.Int, string, bool) {
+// GetPoolByAnswerPubEvent returns big init pool of winners
+func (k Keeper) GetPoolByAnswerPubEvent(ctx sdk.Context, id uint64, answer int) (*big.Int, string, bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
@@ -116,7 +116,7 @@ func (k Keeper) GetWinPoolPubEvent(ctx sdk.Context, id uint64, correctAnswer int
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
-		if val.PubId == id && val.AnswerIndex == uint32(correctAnswer) {
+		if val.PubId == id && val.AnswerIndex == uint32(answer) {
 			amount, ok := new(big.Int).SetString(val.Amount, 10)
 			if !ok {
 				return new(big.Int).SetInt64(0), "error parse from pool", false
@@ -152,12 +152,11 @@ func (k Keeper) GetPoolPubEvent(ctx sdk.Context, id uint64) (*big.Int, string, b
 }
 
 // GetPlayAmountByAnswer returns all players by answer index
-func (k Keeper) GetPlayAmountByAnswer(ctx sdk.Context, id uint64, i int) int {
+func (k Keeper) GetPlayAmountByAnswer(ctx sdk.Context, id uint64, i int) (list []types.PartPubEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
-	var list []types.PartPubEvents
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents
@@ -167,7 +166,7 @@ func (k Keeper) GetPlayAmountByAnswer(ctx sdk.Context, id uint64, i int) int {
 		}
 	}
 
-	return len(list)
+	return list
 }
 
 func (k Keeper) GetAllPlayAmount(ctx sdk.Context, id uint64) int {
