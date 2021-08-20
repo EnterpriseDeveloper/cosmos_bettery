@@ -20,7 +20,9 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 	}
 
 	correctAnswer, reverted, status := findCorrectAnswer(k, ctx, msg.PubId)
+	fmt.Println(correctAnswer, reverted, status)
 	if reverted {
+		fmt.Println("REVETED")
 		// TODO reverted paymant
 		ctx.EventManager().EmitEvent(
 			sdk.NewEvent(
@@ -34,6 +36,9 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 	} else {
 		// find looser pool
 		loserPool, mintedToken, reverted, ok, errString := findLosersPool(k, ctx, msg.PubId, correctAnswer)
+		fmt.Println("loserPool: %s", loserPool.String())
+		fmt.Println("mintedToken: %s", mintedToken.String())
+		fmt.Println(reverted)
 		if ok {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event from find loser pool, event id %d, error message: %s", msg.PubId, errString))
 		}
@@ -68,6 +73,8 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 			}
 			// lets pay to players
 			ok, errString, avarageBet, calcMintedToken := letsPayToPlayers(k, ctx, msg.PubId, correctAnswer, loserPool, mintedToken)
+			fmt.Println("avarageBet %s", avarageBet.String())
+			fmt.Println("calcMintedToken %s", calcMintedToken.String())
 			if !ok {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Players event by id %d, error message: %s", msg.PubId, errString))
 			}
@@ -77,12 +84,28 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 				if !ok {
 					return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Loser event by id %d, error message: %s", msg.PubId, errString))
 				}
+				fmt.Printf("event finish mint WORK")
 				// TODO lets pay to ref
 				// TODO event finish emit
+				ctx.EventManager().EmitEvent(
+					sdk.NewEvent(
+						"pub.event",
+						sdk.NewAttribute("finished", "true"),
+						sdk.NewAttribute("id", eventId),
+					),
+				)
 				// TODO send to storage correct data
 				return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 			} else {
+				fmt.Printf("event finish WORK")
 				// TODO event finish emit
+				ctx.EventManager().EmitEvent(
+					sdk.NewEvent(
+						"pub.event",
+						sdk.NewAttribute("finished_minted", "true"),
+						sdk.NewAttribute("id", eventId),
+					),
+				)
 				// TODO send to storage correct data
 				return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 			}

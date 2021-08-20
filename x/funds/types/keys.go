@@ -22,8 +22,8 @@ const (
 )
 
 var (
-	CompanyAccount = "cosmos1n4rk6xjanrkuxc9xz22pcevxd3rnc9v4gkwhxj"
-	CompanyMemo    = "bleak donor lounge close mail street flush quote design agree offer antenna gloom turkey they habit often topic clap curious seed pupil matrix wish"
+	CompanyAccount = "cosmos19faur34faa99qeq5t6utyt79fllgzge73n57gq"
+	CompanyMemo    = "hood beauty predict neck despair robust afford resemble have announce ignore dawn arrive end inquiry escape virus certain need capital balance solve bulb trap"
 )
 
 // this line is used by starport scaffolding # ibc/keys/port
