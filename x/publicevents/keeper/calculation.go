@@ -69,3 +69,9 @@ func CalcPlayerPay(premAmount *big.Int, winPool *big.Int, userBet *big.Int, avar
 	}
 	return amount
 }
+
+func CalcLoserMint(calcMintedToken *big.Int, avarageBet *big.Int, activePlay *big.Int, playToken *big.Int) *big.Int {
+	z := calcMintedToken.Mul(calcMintedToken, playToken)
+	x := avarageBet.Mul(avarageBet, activePlay)
+	return z.Div(z, x)
+}

@@ -67,20 +67,49 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Expert event by id %d, error message: %s", msg.PubId, errString))
 			}
 			// lets pay to players
-			ok, errString, avarageBet, calcMintedToken = letsPayToPlayers(k, ctx, msg.PubId, correctAnswer, loserPool, mintedToken)
+			ok, errString, avarageBet, calcMintedToken := letsPayToPlayers(k, ctx, msg.PubId, correctAnswer, loserPool, mintedToken)
 			if !ok {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Players event by id %d, error message: %s", msg.PubId, errString))
 			}
 			if canMint(k, ctx, msg.PubId) {
-				// TODO lets pay to losers
+				// lets pay to losers
+				ok, errString := letsPayToLosers(k, ctx, msg.PubId, correctAnswer, avarageBet, calcMintedToken)
+				if !ok {
+					return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Loser event by id %d, error message: %s", msg.PubId, errString))
+				}
 				// TODO lets pay to ref
+				// TODO event finish emit
+				// TODO send to storage correct data
 				return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 			} else {
 				// TODO event finish emit
+				// TODO send to storage correct data
 				return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 			}
 		}
 	}
+}
+
+func letsPayToLosers(k msgServer, ctx sdk.Context, id uint64, correctAnswer int, avarageBet *big.Int, calcMintedToken *big.Int) (bool, string) {
+	activePlay := k.GetAllPlayAmount(ctx, id)
+	for i := 0; i < k.GetQuestAmountPubEvent(ctx, id); i++ {
+		players := k.GetPlayAmountByAnswer(ctx, id, i)
+		if correctAnswer != i && len(players) != 0 {
+			for z := 0; z < len(players); z++ {
+				wallet := players[i].Creator
+				userBet := players[i].Amount
+				uB, ok := new(big.Int).SetString(userBet, 10)
+				if !ok {
+					return false, "error parse user bet from letsPayToPlayers"
+				}
+				ok, err := letsMint(k, ctx, wallet, CalcLoserMint(calcMintedToken, avarageBet, new(big.Int).SetInt64(int64(activePlay)), uB))
+				if !ok {
+					return ok, err
+				}
+			}
+		}
+	}
+	return true, ""
 }
 
 func letsPayToPlayers(k msgServer, ctx sdk.Context, id uint64, correctAnswer int, loserPool *big.Int, mintedToken *big.Int) (bool, string, *big.Int, *big.Int) {
@@ -129,23 +158,6 @@ func letsPayToPlayers(k msgServer, ctx sdk.Context, id uint64, correctAnswer int
 	}
 	return true, "", avarageBet, calcMintedToken
 }
-
-// TODO
-// function letsPayToLoosers(
-// 	int _id,
-// 	uint _avarageBet,
-// 	uint _calcMintedToken
-// ) public {
-// 	for (uint i = 0; i < eventsData.getQuestAmount(_id); i++) {
-// 		if (mpData.getCorrectAnswer(_id) != i && eventsData.getPlayerAmount(_id, i) != 0) {
-// 			for (uint z = 0; z < eventsData.getPlayerAmount(_id, i); z++) {
-// 				uint mintLost = (_calcMintedToken * eventsData.getPlayerTokens(_id, i, z)) / ( _avarageBet * eventsData.getActivePlayers(_id));
-// 				require(PublicAddr.mint(eventsData.getPlayerWallet(_id, i, z), mintLost), "pay to losers");
-// 			}
-// 		}
-// 	}
-//    emit payToRefferers(_id);
-// }
 
 func letsPayToExperts(k msgServer, ctx sdk.Context, id uint64, correctAnswer int, loserPool *big.Int, tokenMinted *big.Int) (bool, string) {
 	var percent int
