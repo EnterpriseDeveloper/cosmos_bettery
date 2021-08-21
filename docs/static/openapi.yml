@@ -19495,6 +19495,8 @@ paths:
                     id:
                       type: string
                       format: uint64
+                    reciever:
+                      type: string
                     amount:
                       type: string
                     userId:
@@ -19614,6 +19616,8 @@ paths:
                   id:
                     type: string
                     format: uint64
+                  reciever:
+                    type: string
                   amount:
                     type: string
                   userId:
@@ -31421,6 +31425,8 @@ definitions:
       id:
         type: string
         format: uint64
+      reciever:
+        type: string
       amount:
         type: string
       userId:
@@ -31451,6 +31457,8 @@ definitions:
             id:
               type: string
               format: uint64
+            reciever:
+              type: string
             amount:
               type: string
             userId:
@@ -31535,6 +31543,8 @@ definitions:
           id:
             type: string
             format: uint64
+          reciever:
+            type: string
           amount:
             type: string
           userId:

@@ -3,6 +3,7 @@ export declare const protobufPackage = "VoroshilovMax.bettery.funds";
 export interface MintBet {
     creator: string;
     id: number;
+    reciever: string;
     amount: string;
     userId: number;
 }

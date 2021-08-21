@@ -11,6 +11,7 @@ export interface MsgCreateSwipeBetResponse {
 }
 export interface MsgCreateMintBet {
     creator: string;
+    reciever: string;
     amount: string;
     userId: number;
 }

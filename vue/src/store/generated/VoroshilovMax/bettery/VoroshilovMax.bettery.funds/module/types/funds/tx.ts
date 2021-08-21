@@ -17,6 +17,7 @@ export interface MsgCreateSwipeBetResponse {
 
 export interface MsgCreateMintBet {
   creator: string
+  reciever: string
   amount: string
   userId: number
 }
@@ -169,18 +170,21 @@ export const MsgCreateSwipeBetResponse = {
   }
 }
 
-const baseMsgCreateMintBet: object = { creator: '', amount: '', userId: 0 }
+const baseMsgCreateMintBet: object = { creator: '', reciever: '', amount: '', userId: 0 }
 
 export const MsgCreateMintBet = {
   encode(message: MsgCreateMintBet, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
+    if (message.reciever !== '') {
+      writer.uint32(18).string(message.reciever)
+    }
     if (message.amount !== '') {
-      writer.uint32(18).string(message.amount)
+      writer.uint32(26).string(message.amount)
     }
     if (message.userId !== 0) {
-      writer.uint32(24).int64(message.userId)
+      writer.uint32(32).int64(message.userId)
     }
     return writer
   },
@@ -196,9 +200,12 @@ export const MsgCreateMintBet = {
           message.creator = reader.string()
           break
         case 2:
-          message.amount = reader.string()
+          message.reciever = reader.string()
           break
         case 3:
+          message.amount = reader.string()
+          break
+        case 4:
           message.userId = longToNumber(reader.int64() as Long)
           break
         default:
@@ -216,6 +223,11 @@ export const MsgCreateMintBet = {
     } else {
       message.creator = ''
     }
+    if (object.reciever !== undefined && object.reciever !== null) {
+      message.reciever = String(object.reciever)
+    } else {
+      message.reciever = ''
+    }
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = String(object.amount)
     } else {
@@ -232,6 +244,7 @@ export const MsgCreateMintBet = {
   toJSON(message: MsgCreateMintBet): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
+    message.reciever !== undefined && (obj.reciever = message.reciever)
     message.amount !== undefined && (obj.amount = message.amount)
     message.userId !== undefined && (obj.userId = message.userId)
     return obj
@@ -243,6 +256,11 @@ export const MsgCreateMintBet = {
       message.creator = object.creator
     } else {
       message.creator = ''
+    }
+    if (object.reciever !== undefined && object.reciever !== null) {
+      message.reciever = object.reciever
+    } else {
+      message.reciever = ''
     }
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = object.amount

@@ -14,6 +14,7 @@ export interface FundsMintBet {
 
   /** @format uint64 */
   id?: string;
+  reciever?: string;
   amount?: string;
 
   /** @format int64 */

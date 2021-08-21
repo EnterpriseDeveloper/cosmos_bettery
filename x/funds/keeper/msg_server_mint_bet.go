@@ -13,12 +13,13 @@ func (k msgServer) CreateMintBet(goCtx context.Context, msg *types.MsgCreateMint
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	var mintBet = types.MintBet{
-		Creator: msg.Creator,
-		Amount:  msg.Amount,
-		UserId:  msg.UserId,
+		Creator:  msg.Creator,
+		Amount:   msg.Amount,
+		UserId:   msg.UserId,
+		Reciever: msg.Reciever,
 	}
 
-	reciever, err := sdk.AccAddressFromBech32(msg.Creator)
+	reciever, err := sdk.AccAddressFromBech32(msg.Reciever)
 	if err != nil {
 		return nil, err
 	}

@@ -14,7 +14,7 @@ import (
 
 func CmdCreateMintBet() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "create-mint-bet [amount] [userId]",
+		Use:   "create-mint-bet [amount] [userId] [reciever]",
 		Short: "Create a new mintBet",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -28,12 +28,17 @@ func CmdCreateMintBet() *cobra.Command {
 				return err
 			}
 
+			reciever, err := cast.ToStringE(args[2])
+			if err != nil {
+				return err
+			}
+
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreateMintBet(clientCtx.GetFromAddress().String(), argsAmount, argsUserId)
+			msg := types.NewMsgCreateMintBet(clientCtx.GetFromAddress().String(), argsAmount, argsUserId, reciever)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

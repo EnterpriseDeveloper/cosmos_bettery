@@ -8,6 +8,7 @@ import "gogoproto/gogo.proto";
 message MintBet {
   string creator = 1;
   uint64 id = 2;
-  string amount = 3; 
-  int64 userId = 4;
+  string reciever = 3;
+  string amount = 4; 
+  int64 userId = 5;
 }

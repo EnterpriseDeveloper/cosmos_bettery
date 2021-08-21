@@ -2,7 +2,7 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.funds';
-const baseMintBet = { creator: '', id: 0, amount: '', userId: 0 };
+const baseMintBet = { creator: '', id: 0, reciever: '', amount: '', userId: 0 };
 export const MintBet = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
@@ -11,11 +11,14 @@ export const MintBet = {
         if (message.id !== 0) {
             writer.uint32(16).uint64(message.id);
         }
+        if (message.reciever !== '') {
+            writer.uint32(26).string(message.reciever);
+        }
         if (message.amount !== '') {
-            writer.uint32(26).string(message.amount);
+            writer.uint32(34).string(message.amount);
         }
         if (message.userId !== 0) {
-            writer.uint32(32).int64(message.userId);
+            writer.uint32(40).int64(message.userId);
         }
         return writer;
     },
@@ -33,9 +36,12 @@ export const MintBet = {
                     message.id = longToNumber(reader.uint64());
                     break;
                 case 3:
-                    message.amount = reader.string();
+                    message.reciever = reader.string();
                     break;
                 case 4:
+                    message.amount = reader.string();
+                    break;
+                case 5:
                     message.userId = longToNumber(reader.int64());
                     break;
                 default:
@@ -59,6 +65,12 @@ export const MintBet = {
         else {
             message.id = 0;
         }
+        if (object.reciever !== undefined && object.reciever !== null) {
+            message.reciever = String(object.reciever);
+        }
+        else {
+            message.reciever = '';
+        }
         if (object.amount !== undefined && object.amount !== null) {
             message.amount = String(object.amount);
         }
@@ -77,6 +89,7 @@ export const MintBet = {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
         message.id !== undefined && (obj.id = message.id);
+        message.reciever !== undefined && (obj.reciever = message.reciever);
         message.amount !== undefined && (obj.amount = message.amount);
         message.userId !== undefined && (obj.userId = message.userId);
         return obj;
@@ -94,6 +107,12 @@ export const MintBet = {
         }
         else {
             message.id = 0;
+        }
+        if (object.reciever !== undefined && object.reciever !== null) {
+            message.reciever = object.reciever;
+        }
+        else {
+            message.reciever = '';
         }
         if (object.amount !== undefined && object.amount !== null) {
             message.amount = object.amount;
