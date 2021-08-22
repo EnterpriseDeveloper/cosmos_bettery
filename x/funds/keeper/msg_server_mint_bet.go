@@ -25,11 +25,11 @@ func (k msgServer) CreateMintBet(goCtx context.Context, msg *types.MsgCreateMint
 	}
 	amount, ok := sdk.NewIntFromString(msg.Amount)
 	if !ok {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse string to init error, amount: %s, user: %s", msg.Amount, msg.Creator))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse string to init error, amount: %s, user: %s", msg.Amount, msg.Reciever))
 	}
 	err = k.MintTokens(ctx, reciever, sdk.NewCoin(types.BetToken, amount))
 	if err != nil {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("error from burn mint, amount: %s, user: %s", msg.Amount, msg.Creator))
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("error from burn mint, amount: %s, user: %s", msg.Amount, msg.Reciever))
 	}
 
 	id := k.AppendMintBet(

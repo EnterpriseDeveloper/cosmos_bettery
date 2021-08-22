@@ -16,7 +16,7 @@ func CmdCreateMintBet() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create-mint-bet [amount] [userId] [reciever]",
 		Short: "Create a new mintBet",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.MinimumNArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			argsAmount, err := cast.ToStringE(args[0])
 			if err != nil {
