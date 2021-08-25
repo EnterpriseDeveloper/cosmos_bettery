@@ -31,7 +31,7 @@ func (k Keeper) BurnTokens(
 	return nil
 }
 
-func (k Keeper) TransferToModule(
+func (k Keeper) MintToModule(
 	ctx sdk.Context,
 	receiver sdk.AccAddress,
 	tokens sdk.Coin,
@@ -39,6 +39,20 @@ func (k Keeper) TransferToModule(
 	// mint new tokens if the source of the transfer is the same chain
 	if err := k.bankKeeper.MintCoins(
 		ctx, types.ModuleName, sdk.NewCoins(tokens),
+	); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (k Keeper) TransferToModule(
+	ctx sdk.Context,
+	sender sdk.AccAddress,
+	tokens sdk.Coin,
+) error {
+	if err := k.bankKeeper.SendCoinsFromAccountToModule(
+		ctx, sender, types.ModuleName, sdk.NewCoins(tokens),
 	); err != nil {
 		return err
 	}

@@ -91,7 +91,6 @@ func (k msgServer) CreatePartPubEvents(goCtx context.Context, msg *types.MsgCrea
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("send bet token to module error, amount: %s", err.Error()))
 	}
 
-	// TODO manage pool
 	var partPubEvents = types.PartPubEvents{
 		Creator:     msg.Creator,
 		PubId:       msg.PubId,
