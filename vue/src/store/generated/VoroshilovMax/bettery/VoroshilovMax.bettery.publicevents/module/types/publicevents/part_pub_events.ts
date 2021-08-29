@@ -13,11 +13,6 @@ export interface PartPubEvents {
   answerIndex: number
 }
 
-export interface allPartPubEvent {
-  creator: string
-  privId: number
-}
-
 const basePartPubEvents: object = { creator: '', id: 0, pubId: 0, answers: '', amount: '', answerIndex: 0 }
 
 export const PartPubEvents = {
@@ -153,78 +148,6 @@ export const PartPubEvents = {
       message.answerIndex = object.answerIndex
     } else {
       message.answerIndex = 0
-    }
-    return message
-  }
-}
-
-const baseallPartPubEvent: object = { creator: '', privId: 0 }
-
-export const allPartPubEvent = {
-  encode(message: allPartPubEvent, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== '') {
-      writer.uint32(10).string(message.creator)
-    }
-    if (message.privId !== 0) {
-      writer.uint32(16).uint64(message.privId)
-    }
-    return writer
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): allPartPubEvent {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
-    let end = length === undefined ? reader.len : reader.pos + length
-    const message = { ...baseallPartPubEvent } as allPartPubEvent
-    while (reader.pos < end) {
-      const tag = reader.uint32()
-      switch (tag >>> 3) {
-        case 1:
-          message.creator = reader.string()
-          break
-        case 2:
-          message.privId = longToNumber(reader.uint64() as Long)
-          break
-        default:
-          reader.skipType(tag & 7)
-          break
-      }
-    }
-    return message
-  },
-
-  fromJSON(object: any): allPartPubEvent {
-    const message = { ...baseallPartPubEvent } as allPartPubEvent
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator)
-    } else {
-      message.creator = ''
-    }
-    if (object.privId !== undefined && object.privId !== null) {
-      message.privId = Number(object.privId)
-    } else {
-      message.privId = 0
-    }
-    return message
-  },
-
-  toJSON(message: allPartPubEvent): unknown {
-    const obj: any = {}
-    message.creator !== undefined && (obj.creator = message.creator)
-    message.privId !== undefined && (obj.privId = message.privId)
-    return obj
-  },
-
-  fromPartial(object: DeepPartial<allPartPubEvent>): allPartPubEvent {
-    const message = { ...baseallPartPubEvent } as allPartPubEvent
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator
-    } else {
-      message.creator = ''
-    }
-    if (object.privId !== undefined && object.privId !== null) {
-      message.privId = object.privId
-    } else {
-      message.privId = 0
     }
     return message
   }

@@ -12,9 +12,3 @@ message ValidPrivEvents {
   string answer = 4; 
   uint32 answerIndex = 5;
 }
-
-message allValidPrivEvent {
-  string creator = 1;
-  uint64 id = 2;
-  uint64 privId = 3; 
-}

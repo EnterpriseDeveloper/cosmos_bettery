@@ -4,12 +4,10 @@ import { SpVuexError } from '@starport/vuex'
 
 import { CreatePrivEvents } from "./module/types/privateevents/create_priv_events"
 import { PartPrivEvents } from "./module/types/privateevents/part_priv_events"
-import { allPartPrivEvent } from "./module/types/privateevents/part_priv_events"
 import { ValidPrivEvents } from "./module/types/privateevents/valid_priv_events"
-import { allValidPrivEvent } from "./module/types/privateevents/valid_priv_events"
 
 
-export { CreatePrivEvents, PartPrivEvents, allPartPrivEvent, ValidPrivEvents, allValidPrivEvent };
+export { CreatePrivEvents, PartPrivEvents, ValidPrivEvents };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -57,9 +55,7 @@ const getDefaultState = () => {
 				_Structure: {
 						CreatePrivEvents: getStructure(CreatePrivEvents.fromPartial({})),
 						PartPrivEvents: getStructure(PartPrivEvents.fromPartial({})),
-						allPartPrivEvent: getStructure(allPartPrivEvent.fromPartial({})),
 						ValidPrivEvents: getStructure(ValidPrivEvents.fromPartial({})),
-						allValidPrivEvent: getStructure(allValidPrivEvent.fromPartial({})),
 						
 		},
 		_Subscriptions: new Set(),
@@ -291,6 +287,21 @@ export default {
 		},
 		
 		
+		async sendMsgCreateCreatePrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateCreatePrivEvents(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateCreatePrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateCreatePrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		async sendMsgCreateValidPrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -321,22 +332,21 @@ export default {
 				}
 			}
 		},
-		async sendMsgCreateCreatePrivEvents({ rootGetters }, { value, fee = [], memo = '' }) {
+		
+		async MsgCreateCreatePrivEvents({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgCreateCreatePrivEvents(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
+				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
 					throw new SpVuexError('TxClient:MsgCreateCreatePrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgCreateCreatePrivEvents:Send', 'Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgCreateCreatePrivEvents:Create', 'Could not create message: ' + e.message)
+					
 				}
 			}
 		},
-		
 		async MsgCreateValidPrivEvents({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -361,20 +371,6 @@ export default {
 					throw new SpVuexError('TxClient:MsgCreatePartPrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgCreatePartPrivEvents:Create', 'Could not create message: ' + e.message)
-					
-				}
-			}
-		},
-		async MsgCreateCreatePrivEvents({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateCreatePrivEvents(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgCreateCreatePrivEvents:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgCreateCreatePrivEvents:Create', 'Could not create message: ' + e.message)
 					
 				}
 			}

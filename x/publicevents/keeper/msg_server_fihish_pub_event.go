@@ -15,6 +15,7 @@ import (
 func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCreateFihishPubEvent) (*types.MsgCreateFihishPubEventResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	eventId, err := cast.ToStringE(msg.PubId)
+	fmt.Println(eventId)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event finish, can not pars event id: %d, err: %s", msg.PubId, err.Error()))
 	}
@@ -102,7 +103,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 				ctx.EventManager().EmitEvent(
 					sdk.NewEvent(
 						"pub.event",
-						sdk.NewAttribute("finished_minted", "true"),
+						sdk.NewAttribute("finished", "true"),
 						sdk.NewAttribute("id", eventId),
 					),
 				)
@@ -399,11 +400,13 @@ func sendToStorage(ctx sdk.Context, k msgServer, msg *types.MsgCreateFihishPubEv
 
 func findCorrectAnswer(k msgServer, ctx sdk.Context, id uint64) (int, bool, string) {
 	bigValue := 0
-	candDub := 0
+	var candDub int
 	var correctAnswer int
 	questAmount := k.GetAnswerLength(ctx, id)
+	fmt.Println(questAmount)
 	for i := 0; i < questAmount; i++ {
 		expNum := len(k.GetValidPubEventByAnswer(ctx, id, i))
+		fmt.Println(expNum)
 		if expNum > bigValue {
 			bigValue = expNum
 			correctAnswer = i

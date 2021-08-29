@@ -206,9 +206,9 @@ func (k Keeper) findPartPubEvent(ctx sdk.Context, id uint64, part string) bool {
 	defer iterator.Close()
 
 	for ; iterator.Valid(); iterator.Next() {
-		var val types.AllPartPubEvent
+		var val types.PartPubEvents
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
-		if id == val.PrivId && part == val.Creator {
+		if id == val.PubId && part == val.Creator {
 			return true
 		}
 	}

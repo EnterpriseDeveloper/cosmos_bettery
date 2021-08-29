@@ -13,10 +13,3 @@ message ValidPubEvents {
   int64 reput = 5; 
   uint32 answerIndex = 6;
 }
-
-message allValidPubEvent {
-  string creator = 1;
-  uint64 privId = 2; 
-  int64 reput = 3; 
-  uint32 answerIndex = 4;
-}

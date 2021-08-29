@@ -12,12 +12,6 @@ export interface PartPrivEvents {
   answerIndex: number
 }
 
-export interface allPartPrivEvent {
-  creator: string
-  id: number
-  privId: number
-}
-
 const basePartPrivEvents: object = { creator: '', id: 0, privId: 0, answer: '', answerIndex: 0 }
 
 export const PartPrivEvents = {
@@ -136,95 +130,6 @@ export const PartPrivEvents = {
       message.answerIndex = object.answerIndex
     } else {
       message.answerIndex = 0
-    }
-    return message
-  }
-}
-
-const baseallPartPrivEvent: object = { creator: '', id: 0, privId: 0 }
-
-export const allPartPrivEvent = {
-  encode(message: allPartPrivEvent, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== '') {
-      writer.uint32(10).string(message.creator)
-    }
-    if (message.id !== 0) {
-      writer.uint32(16).uint64(message.id)
-    }
-    if (message.privId !== 0) {
-      writer.uint32(24).uint64(message.privId)
-    }
-    return writer
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): allPartPrivEvent {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
-    let end = length === undefined ? reader.len : reader.pos + length
-    const message = { ...baseallPartPrivEvent } as allPartPrivEvent
-    while (reader.pos < end) {
-      const tag = reader.uint32()
-      switch (tag >>> 3) {
-        case 1:
-          message.creator = reader.string()
-          break
-        case 2:
-          message.id = longToNumber(reader.uint64() as Long)
-          break
-        case 3:
-          message.privId = longToNumber(reader.uint64() as Long)
-          break
-        default:
-          reader.skipType(tag & 7)
-          break
-      }
-    }
-    return message
-  },
-
-  fromJSON(object: any): allPartPrivEvent {
-    const message = { ...baseallPartPrivEvent } as allPartPrivEvent
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator)
-    } else {
-      message.creator = ''
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Number(object.id)
-    } else {
-      message.id = 0
-    }
-    if (object.privId !== undefined && object.privId !== null) {
-      message.privId = Number(object.privId)
-    } else {
-      message.privId = 0
-    }
-    return message
-  },
-
-  toJSON(message: allPartPrivEvent): unknown {
-    const obj: any = {}
-    message.creator !== undefined && (obj.creator = message.creator)
-    message.id !== undefined && (obj.id = message.id)
-    message.privId !== undefined && (obj.privId = message.privId)
-    return obj
-  },
-
-  fromPartial(object: DeepPartial<allPartPrivEvent>): allPartPrivEvent {
-    const message = { ...baseallPartPrivEvent } as allPartPrivEvent
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator
-    } else {
-      message.creator = ''
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id
-    } else {
-      message.id = 0
-    }
-    if (object.privId !== undefined && object.privId !== null) {
-      message.privId = object.privId
-    } else {
-      message.privId = 0
     }
     return message
   }

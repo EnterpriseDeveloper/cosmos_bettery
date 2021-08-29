@@ -110,10 +110,10 @@ func (k Keeper) GetAmountOfValidPrivEvents(ctx sdk.Context, id uint64) int {
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
-	var list []types.AllValidPrivEvent
+	var list []types.ValidPrivEvents
 
 	for ; iterator.Valid(); iterator.Next() {
-		var val types.AllValidPrivEvent
+		var val types.ValidPrivEvents
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
 		if id == val.PrivId {
 			list = append(list, val)

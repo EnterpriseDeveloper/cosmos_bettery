@@ -84,7 +84,7 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 			ctx.EventManager().EmitEvent(
 				sdk.NewEvent(
 					"pub.event",
-					sdk.NewAttribute("eventFinish", "true"),
+					sdk.NewAttribute("letfinishevent", "true"),
 					sdk.NewAttribute("id", eventId),
 				),
 			)

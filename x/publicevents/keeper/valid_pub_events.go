@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"encoding/binary"
+	"fmt"
 	"strconv"
 
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
@@ -113,6 +114,7 @@ func (k Keeper) GetValidPubEventByAnswer(ctx sdk.Context, id uint64, answer int)
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPubEvents
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		fmt.Println(val.PubId)
 		if val.PubId == id && int(val.AnswerIndex) == answer {
 			list = append(list, val)
 		}
@@ -158,9 +160,9 @@ func (k Keeper) findValidPubEvent(ctx sdk.Context, id uint64, valid string) bool
 	defer iterator.Close()
 
 	for ; iterator.Valid(); iterator.Next() {
-		var val types.AllValidPubEvent
+		var val types.ValidPubEvents
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
-		if id == val.PrivId && valid == val.Creator {
+		if id == val.PubId && valid == val.Creator {
 			return true
 		}
 	}
@@ -176,9 +178,9 @@ func (k Keeper) GetAllExperReputPubEvent(ctx sdk.Context, id uint64, correctAnsw
 	defer iterator.Close()
 
 	for ; iterator.Valid(); iterator.Next() {
-		var val types.AllValidPubEvent
+		var val types.ValidPubEvents
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
-		if id == val.PrivId && correctAnswer == int(val.AnswerIndex) && val.Reput > 0 {
+		if id == val.PubId && correctAnswer == int(val.AnswerIndex) && val.Reput > 0 {
 			allReputation = allReputation + int(val.Reput+1)
 		}
 	}
