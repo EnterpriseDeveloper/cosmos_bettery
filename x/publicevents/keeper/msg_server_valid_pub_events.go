@@ -55,39 +55,58 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("answer %s not found in event by id: %d", msg.Answers, msg.PubId))
 	}
 
-	// calculate validators
+	eventId, err := cast.ToStringE(msg.PubId)
+	if err != nil {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event finish, can not pars event id: %d, err: %s", msg.PubId, err.Error()))
+	}
 
-	validNumber := k.GetValidatorsNumber(ctx, msg.PubId)
-	if validNumber == 0 {
-
-		eventId, err := cast.ToStringE(msg.PubId)
-		if err != nil {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("calculate expert, can not pars event id: %d, err: %s", msg.PubId, err.Error()))
-		}
+	//check user amount
+	playAmount := k.GetAllPlayAmount(ctx, msg.PubId)
+	if playAmount == 0 {
 		ctx.EventManager().EmitEvent(
 			sdk.NewEvent(
 				"pub.event",
-				sdk.NewAttribute("calculateExpert", "true"),
+				sdk.NewAttribute("reverted", "true"),
+				sdk.NewAttribute("status", "no players"),
 				sdk.NewAttribute("id", eventId),
 			),
 		)
+	} else if playAmount == 1 {
+		ctx.EventManager().EmitEvent(
+			sdk.NewEvent(
+				"pub.event",
+				sdk.NewAttribute("reverted", "true"),
+				sdk.NewAttribute("status", "only one player joined"),
+				sdk.NewAttribute("id", eventId),
+			),
+		)
+
+		// TODO execute reverted function for pay back tokens to part
 	} else {
+		// calculate validators
+		validNumber := k.GetValidatorsNumber(ctx, msg.PubId)
+		if validNumber == 0 {
 
-		validated := k.GetValidPubEventLength(ctx, msg.PubId)
-
-		if validNumber == int64(validated+1) {
-
-			eventId, err := cast.ToStringE(msg.PubId)
-			if err != nil {
-				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event finish, can not pars event id: %d, err: %s", msg.PubId, err.Error()))
-			}
 			ctx.EventManager().EmitEvent(
 				sdk.NewEvent(
 					"pub.event",
-					sdk.NewAttribute("letfinishevent", "true"),
+					sdk.NewAttribute("calculateExpert", "true"),
 					sdk.NewAttribute("id", eventId),
 				),
 			)
+		} else {
+
+			validated := k.GetValidPubEventLength(ctx, msg.PubId)
+
+			if validNumber == int64(validated+1) {
+				ctx.EventManager().EmitEvent(
+					sdk.NewEvent(
+						"pub.event",
+						sdk.NewAttribute("letfinishevent", "true"),
+						sdk.NewAttribute("id", eventId),
+					),
+				)
+			}
 		}
 	}
 
