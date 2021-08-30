@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"encoding/binary"
-	"fmt"
 	"strconv"
 
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
@@ -114,7 +113,6 @@ func (k Keeper) GetValidPubEventByAnswer(ctx sdk.Context, id uint64, answer int)
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPubEvents
 		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
-		fmt.Println(val.PubId)
 		if val.PubId == id && int(val.AnswerIndex) == answer {
 			list = append(list, val)
 		}

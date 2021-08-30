@@ -15,13 +15,11 @@ import (
 func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCreateFihishPubEvent) (*types.MsgCreateFihishPubEventResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	eventId, err := cast.ToStringE(msg.PubId)
-	fmt.Println(eventId)
 	if err != nil {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event finish, can not pars event id: %d, err: %s", msg.PubId, err.Error()))
 	}
 
 	correctAnswer, reverted, status := findCorrectAnswer(k, ctx, msg.PubId)
-	fmt.Println(correctAnswer, reverted, status)
 	if reverted {
 		fmt.Println("REVETED")
 		// TODO reverted paymant
@@ -37,8 +35,8 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 	} else {
 		// find looser pool
 		loserPool, mintedToken, reverted, ok, errString := findLosersPool(k, ctx, msg.PubId, correctAnswer)
-		fmt.Println("loserPool: %s", loserPool.String())
-		fmt.Println("mintedToken: %s", mintedToken.String())
+		fmt.Printf("loserPool: %s", loserPool.String())
+		fmt.Printf("mintedToken: %s", mintedToken.String())
 		fmt.Println(reverted)
 		if ok {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event from find loser pool, event id %d, error message: %s", msg.PubId, errString))
@@ -55,6 +53,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 			)
 			return sendToStorage(ctx, k, msg, correctAnswer, reverted, errString, mintedToken.String())
 		} else {
+			// Start debug here
 			// lets pay to company
 			ok, errString := letsPayToCompanies(k, ctx, msg.PubId, mintedToken)
 			if !ok {
@@ -74,8 +73,6 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 			}
 			// lets pay to players
 			ok, errString, avarageBet, calcMintedToken := letsPayToPlayers(k, ctx, msg.PubId, correctAnswer, loserPool, mintedToken)
-			fmt.Println("avarageBet %s", avarageBet.String())
-			fmt.Println("calcMintedToken %s", calcMintedToken.String())
 			if !ok {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Players event by id %d, error message: %s", msg.PubId, errString))
 			}
@@ -403,10 +400,8 @@ func findCorrectAnswer(k msgServer, ctx sdk.Context, id uint64) (int, bool, stri
 	var candDub int
 	var correctAnswer int
 	questAmount := k.GetAnswerLength(ctx, id)
-	fmt.Println(questAmount)
-	for i := 0; i < questAmount; i++ {
+	for i := 0; i < *questAmount; i++ {
 		expNum := len(k.GetValidPubEventByAnswer(ctx, id, i))
-		fmt.Println(expNum)
 		if expNum > bigValue {
 			bigValue = expNum
 			correctAnswer = i
@@ -418,7 +413,7 @@ func findCorrectAnswer(k msgServer, ctx sdk.Context, id uint64) (int, bool, stri
 	if candDub == bigValue {
 		return 0, true, "experts can't decide"
 	} else {
-		return correctAnswer, false, "experts can't decide"
+		return correctAnswer, false, ""
 	}
 }
 
@@ -433,7 +428,7 @@ func findLosersPool(k msgServer, ctx sdk.Context, id uint64, correctAnswer int) 
 	if !ok {
 		return zero, zero, false, true, errString
 	}
-	lp := new(big.Int).Sub(B, pool)
+	lp := new(big.Int).Sub(pool, B)
 	if lp.Cmp(zero) == 1 && B.Cmp(zero) == 1 {
 		mintedToken := calcMintedTokens(k, ctx, id, pool)
 		return lp, mintedToken, false, false, ""
@@ -443,6 +438,7 @@ func findLosersPool(k msgServer, ctx sdk.Context, id uint64, correctAnswer int) 
 	}
 }
 
+// TODO debug calcul
 func canMint(k msgServer, ctx sdk.Context, id uint64) bool {
 	calcExpet := k.CalculateValidatorsAmount(ctx, id)
 	startTime, endTime := k.GetTimesPubEvents(ctx, id)
@@ -453,6 +449,7 @@ func canMint(k msgServer, ctx sdk.Context, id uint64) bool {
 	}
 }
 
+// TODO debug calculation
 func calcMintedTokens(k msgServer, ctx sdk.Context, id uint64, poll *big.Int) *big.Int {
 	if canMint(k, ctx, id) {
 		bigValue := 0

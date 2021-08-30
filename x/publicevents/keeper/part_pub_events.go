@@ -111,7 +111,7 @@ func (k Keeper) GetPoolByAnswerPubEvent(ctx sdk.Context, id uint64, answer int) 
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
-	var pool *big.Int
+	pool := new(big.Int).SetInt64(0)
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents
@@ -134,7 +134,7 @@ func (k Keeper) GetPoolPubEvent(ctx sdk.Context, id uint64) (*big.Int, string, b
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})
 
 	defer iterator.Close()
-	var pool *big.Int
+	pool := new(big.Int).SetInt64(0)
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents

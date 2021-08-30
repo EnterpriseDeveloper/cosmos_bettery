@@ -54,8 +54,9 @@ func (k Keeper) GetAdvisorPubEvent(ctx sdk.Context, id uint64) string {
 }
 
 // GetAnswerLength returns the creator of the
-func (k Keeper) GetAnswerLength(ctx sdk.Context, id uint64) int {
-	return len(k.GetCreatePubEvents(ctx, id).Answers)
+func (k *Keeper) GetAnswerLength(ctx sdk.Context, id uint64) *int {
+	am := len(k.GetCreatePubEvents(ctx, id).Answers)
+	return &am
 }
 
 // RemoveCreatePubEvents removes a createPubEvents from the store
