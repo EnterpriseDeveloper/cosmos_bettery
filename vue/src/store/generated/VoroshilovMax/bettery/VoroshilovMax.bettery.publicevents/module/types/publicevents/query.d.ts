@@ -1,11 +1,25 @@
 import { Reader, Writer } from 'protobufjs/minimal';
-import { FihishPubEvent } from '../publicevents/fihish_pub_event';
+import { RefPubEvents } from '../publicevents/ref_pub_events';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { FihishPubEvent } from '../publicevents/fihish_pub_event';
 import { ValidPubEvents } from '../publicevents/valid_pub_events';
 import { PartPubEvents } from '../publicevents/part_pub_events';
 import { CreatePubEvents } from '../publicevents/create_pub_events';
 export declare const protobufPackage = "VoroshilovMax.bettery.publicevents";
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetRefPubEventsRequest {
+    id: number;
+}
+export interface QueryGetRefPubEventsResponse {
+    RefPubEvents: RefPubEvents | undefined;
+}
+export interface QueryAllRefPubEventsRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllRefPubEventsResponse {
+    RefPubEvents: RefPubEvents[];
+    pagination: PageResponse | undefined;
+}
 export interface QueryGetFihishPubEventRequest {
     id: number;
 }
@@ -58,6 +72,34 @@ export interface QueryAllCreatePubEventsResponse {
     CreatePubEvents: CreatePubEvents[];
     pagination: PageResponse | undefined;
 }
+export declare const QueryGetRefPubEventsRequest: {
+    encode(message: QueryGetRefPubEventsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetRefPubEventsRequest;
+    fromJSON(object: any): QueryGetRefPubEventsRequest;
+    toJSON(message: QueryGetRefPubEventsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetRefPubEventsRequest>): QueryGetRefPubEventsRequest;
+};
+export declare const QueryGetRefPubEventsResponse: {
+    encode(message: QueryGetRefPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetRefPubEventsResponse;
+    fromJSON(object: any): QueryGetRefPubEventsResponse;
+    toJSON(message: QueryGetRefPubEventsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetRefPubEventsResponse>): QueryGetRefPubEventsResponse;
+};
+export declare const QueryAllRefPubEventsRequest: {
+    encode(message: QueryAllRefPubEventsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllRefPubEventsRequest;
+    fromJSON(object: any): QueryAllRefPubEventsRequest;
+    toJSON(message: QueryAllRefPubEventsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllRefPubEventsRequest>): QueryAllRefPubEventsRequest;
+};
+export declare const QueryAllRefPubEventsResponse: {
+    encode(message: QueryAllRefPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllRefPubEventsResponse;
+    fromJSON(object: any): QueryAllRefPubEventsResponse;
+    toJSON(message: QueryAllRefPubEventsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllRefPubEventsResponse>): QueryAllRefPubEventsResponse;
+};
 export declare const QueryGetFihishPubEventRequest: {
     encode(message: QueryGetFihishPubEventRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryGetFihishPubEventRequest;
@@ -172,6 +214,10 @@ export declare const QueryAllCreatePubEventsResponse: {
 };
 /** Query defines the gRPC querier service. */
 export interface Query {
+    /** Queries a refPubEvents by id. */
+    RefPubEvents(request: QueryGetRefPubEventsRequest): Promise<QueryGetRefPubEventsResponse>;
+    /** Queries a list of refPubEvents items. */
+    RefPubEventsAll(request: QueryAllRefPubEventsRequest): Promise<QueryAllRefPubEventsResponse>;
     /** Queries a fihishPubEvent by id. */
     FihishPubEvent(request: QueryGetFihishPubEventRequest): Promise<QueryGetFihishPubEventResponse>;
     /** Queries a list of fihishPubEvent items. */
@@ -192,6 +238,8 @@ export interface Query {
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
+    RefPubEvents(request: QueryGetRefPubEventsRequest): Promise<QueryGetRefPubEventsResponse>;
+    RefPubEventsAll(request: QueryAllRefPubEventsRequest): Promise<QueryAllRefPubEventsResponse>;
     FihishPubEvent(request: QueryGetFihishPubEventRequest): Promise<QueryGetFihishPubEventResponse>;
     FihishPubEventAll(request: QueryAllFihishPubEventRequest): Promise<QueryAllFihishPubEventResponse>;
     ValidPubEvents(request: QueryGetValidPubEventsRequest): Promise<QueryGetValidPubEventsResponse>;

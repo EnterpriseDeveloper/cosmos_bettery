@@ -5,6 +5,36 @@ import * as Long from 'long'
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents'
 
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateRefPubEvents {
+  creator: string
+  pubId: string
+  refOne: string
+  refTwo: string
+  refThree: string
+}
+
+export interface MsgCreateRefPubEventsResponse {
+  id: number
+}
+
+export interface MsgUpdateRefPubEvents {
+  creator: string
+  id: number
+  pubId: string
+  refOne: string
+  refTwo: string
+  refThree: string
+}
+
+export interface MsgUpdateRefPubEventsResponse {}
+
+export interface MsgDeleteRefPubEvents {
+  creator: string
+  id: number
+}
+
+export interface MsgDeleteRefPubEventsResponse {}
+
 export interface MsgCreateFihishPubEvent {
   creator: string
   pubId: number
@@ -50,6 +80,472 @@ export interface MsgCreateCreatePubEvents {
 
 export interface MsgCreateCreatePubEventsResponse {
   id: number
+}
+
+const baseMsgCreateRefPubEvents: object = { creator: '', pubId: '', refOne: '', refTwo: '', refThree: '' }
+
+export const MsgCreateRefPubEvents = {
+  encode(message: MsgCreateRefPubEvents, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.pubId !== '') {
+      writer.uint32(18).string(message.pubId)
+    }
+    if (message.refOne !== '') {
+      writer.uint32(26).string(message.refOne)
+    }
+    if (message.refTwo !== '') {
+      writer.uint32(34).string(message.refTwo)
+    }
+    if (message.refThree !== '') {
+      writer.uint32(42).string(message.refThree)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateRefPubEvents {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateRefPubEvents } as MsgCreateRefPubEvents
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.pubId = reader.string()
+          break
+        case 3:
+          message.refOne = reader.string()
+          break
+        case 4:
+          message.refTwo = reader.string()
+          break
+        case 5:
+          message.refThree = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateRefPubEvents {
+    const message = { ...baseMsgCreateRefPubEvents } as MsgCreateRefPubEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.pubId !== undefined && object.pubId !== null) {
+      message.pubId = String(object.pubId)
+    } else {
+      message.pubId = ''
+    }
+    if (object.refOne !== undefined && object.refOne !== null) {
+      message.refOne = String(object.refOne)
+    } else {
+      message.refOne = ''
+    }
+    if (object.refTwo !== undefined && object.refTwo !== null) {
+      message.refTwo = String(object.refTwo)
+    } else {
+      message.refTwo = ''
+    }
+    if (object.refThree !== undefined && object.refThree !== null) {
+      message.refThree = String(object.refThree)
+    } else {
+      message.refThree = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateRefPubEvents): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.pubId !== undefined && (obj.pubId = message.pubId)
+    message.refOne !== undefined && (obj.refOne = message.refOne)
+    message.refTwo !== undefined && (obj.refTwo = message.refTwo)
+    message.refThree !== undefined && (obj.refThree = message.refThree)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateRefPubEvents>): MsgCreateRefPubEvents {
+    const message = { ...baseMsgCreateRefPubEvents } as MsgCreateRefPubEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.pubId !== undefined && object.pubId !== null) {
+      message.pubId = object.pubId
+    } else {
+      message.pubId = ''
+    }
+    if (object.refOne !== undefined && object.refOne !== null) {
+      message.refOne = object.refOne
+    } else {
+      message.refOne = ''
+    }
+    if (object.refTwo !== undefined && object.refTwo !== null) {
+      message.refTwo = object.refTwo
+    } else {
+      message.refTwo = ''
+    }
+    if (object.refThree !== undefined && object.refThree !== null) {
+      message.refThree = object.refThree
+    } else {
+      message.refThree = ''
+    }
+    return message
+  }
+}
+
+const baseMsgCreateRefPubEventsResponse: object = { id: 0 }
+
+export const MsgCreateRefPubEventsResponse = {
+  encode(message: MsgCreateRefPubEventsResponse, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateRefPubEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgCreateRefPubEventsResponse } as MsgCreateRefPubEventsResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgCreateRefPubEventsResponse {
+    const message = { ...baseMsgCreateRefPubEventsResponse } as MsgCreateRefPubEventsResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgCreateRefPubEventsResponse): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateRefPubEventsResponse>): MsgCreateRefPubEventsResponse {
+    const message = { ...baseMsgCreateRefPubEventsResponse } as MsgCreateRefPubEventsResponse
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateRefPubEvents: object = { creator: '', id: 0, pubId: '', refOne: '', refTwo: '', refThree: '' }
+
+export const MsgUpdateRefPubEvents = {
+  encode(message: MsgUpdateRefPubEvents, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    if (message.pubId !== '') {
+      writer.uint32(26).string(message.pubId)
+    }
+    if (message.refOne !== '') {
+      writer.uint32(34).string(message.refOne)
+    }
+    if (message.refTwo !== '') {
+      writer.uint32(42).string(message.refTwo)
+    }
+    if (message.refThree !== '') {
+      writer.uint32(50).string(message.refThree)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateRefPubEvents {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateRefPubEvents } as MsgUpdateRefPubEvents
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 3:
+          message.pubId = reader.string()
+          break
+        case 4:
+          message.refOne = reader.string()
+          break
+        case 5:
+          message.refTwo = reader.string()
+          break
+        case 6:
+          message.refThree = reader.string()
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgUpdateRefPubEvents {
+    const message = { ...baseMsgUpdateRefPubEvents } as MsgUpdateRefPubEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    if (object.pubId !== undefined && object.pubId !== null) {
+      message.pubId = String(object.pubId)
+    } else {
+      message.pubId = ''
+    }
+    if (object.refOne !== undefined && object.refOne !== null) {
+      message.refOne = String(object.refOne)
+    } else {
+      message.refOne = ''
+    }
+    if (object.refTwo !== undefined && object.refTwo !== null) {
+      message.refTwo = String(object.refTwo)
+    } else {
+      message.refTwo = ''
+    }
+    if (object.refThree !== undefined && object.refThree !== null) {
+      message.refThree = String(object.refThree)
+    } else {
+      message.refThree = ''
+    }
+    return message
+  },
+
+  toJSON(message: MsgUpdateRefPubEvents): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    message.pubId !== undefined && (obj.pubId = message.pubId)
+    message.refOne !== undefined && (obj.refOne = message.refOne)
+    message.refTwo !== undefined && (obj.refTwo = message.refTwo)
+    message.refThree !== undefined && (obj.refThree = message.refThree)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateRefPubEvents>): MsgUpdateRefPubEvents {
+    const message = { ...baseMsgUpdateRefPubEvents } as MsgUpdateRefPubEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    if (object.pubId !== undefined && object.pubId !== null) {
+      message.pubId = object.pubId
+    } else {
+      message.pubId = ''
+    }
+    if (object.refOne !== undefined && object.refOne !== null) {
+      message.refOne = object.refOne
+    } else {
+      message.refOne = ''
+    }
+    if (object.refTwo !== undefined && object.refTwo !== null) {
+      message.refTwo = object.refTwo
+    } else {
+      message.refTwo = ''
+    }
+    if (object.refThree !== undefined && object.refThree !== null) {
+      message.refThree = object.refThree
+    } else {
+      message.refThree = ''
+    }
+    return message
+  }
+}
+
+const baseMsgUpdateRefPubEventsResponse: object = {}
+
+export const MsgUpdateRefPubEventsResponse = {
+  encode(_: MsgUpdateRefPubEventsResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateRefPubEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgUpdateRefPubEventsResponse } as MsgUpdateRefPubEventsResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgUpdateRefPubEventsResponse {
+    const message = { ...baseMsgUpdateRefPubEventsResponse } as MsgUpdateRefPubEventsResponse
+    return message
+  },
+
+  toJSON(_: MsgUpdateRefPubEventsResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgUpdateRefPubEventsResponse>): MsgUpdateRefPubEventsResponse {
+    const message = { ...baseMsgUpdateRefPubEventsResponse } as MsgUpdateRefPubEventsResponse
+    return message
+  }
+}
+
+const baseMsgDeleteRefPubEvents: object = { creator: '', id: 0 }
+
+export const MsgDeleteRefPubEvents = {
+  encode(message: MsgDeleteRefPubEvents, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== '') {
+      writer.uint32(10).string(message.creator)
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteRefPubEvents {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteRefPubEvents } as MsgDeleteRefPubEvents
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string()
+          break
+        case 2:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): MsgDeleteRefPubEvents {
+    const message = { ...baseMsgDeleteRefPubEvents } as MsgDeleteRefPubEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator)
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: MsgDeleteRefPubEvents): unknown {
+    const obj: any = {}
+    message.creator !== undefined && (obj.creator = message.creator)
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteRefPubEvents>): MsgDeleteRefPubEvents {
+    const message = { ...baseMsgDeleteRefPubEvents } as MsgDeleteRefPubEvents
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator
+    } else {
+      message.creator = ''
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseMsgDeleteRefPubEventsResponse: object = {}
+
+export const MsgDeleteRefPubEventsResponse = {
+  encode(_: MsgDeleteRefPubEventsResponse, writer: Writer = Writer.create()): Writer {
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteRefPubEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseMsgDeleteRefPubEventsResponse } as MsgDeleteRefPubEventsResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(_: any): MsgDeleteRefPubEventsResponse {
+    const message = { ...baseMsgDeleteRefPubEventsResponse } as MsgDeleteRefPubEventsResponse
+    return message
+  },
+
+  toJSON(_: MsgDeleteRefPubEventsResponse): unknown {
+    const obj: any = {}
+    return obj
+  },
+
+  fromPartial(_: DeepPartial<MsgDeleteRefPubEventsResponse>): MsgDeleteRefPubEventsResponse {
+    const message = { ...baseMsgDeleteRefPubEventsResponse } as MsgDeleteRefPubEventsResponse
+    return message
+  }
 }
 
 const baseMsgCreateFihishPubEvent: object = { creator: '', pubId: 0 }
@@ -767,6 +1263,9 @@ export const MsgCreateCreatePubEventsResponse = {
 /** Msg defines the Msg service. */
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
+  CreateRefPubEvents(request: MsgCreateRefPubEvents): Promise<MsgCreateRefPubEventsResponse>
+  UpdateRefPubEvents(request: MsgUpdateRefPubEvents): Promise<MsgUpdateRefPubEventsResponse>
+  DeleteRefPubEvents(request: MsgDeleteRefPubEvents): Promise<MsgDeleteRefPubEventsResponse>
   CreateFihishPubEvent(request: MsgCreateFihishPubEvent): Promise<MsgCreateFihishPubEventResponse>
   CreateValidPubEvents(request: MsgCreateValidPubEvents): Promise<MsgCreateValidPubEventsResponse>
   CreatePartPubEvents(request: MsgCreatePartPubEvents): Promise<MsgCreatePartPubEventsResponse>
@@ -778,6 +1277,24 @@ export class MsgClientImpl implements Msg {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  CreateRefPubEvents(request: MsgCreateRefPubEvents): Promise<MsgCreateRefPubEventsResponse> {
+    const data = MsgCreateRefPubEvents.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'CreateRefPubEvents', data)
+    return promise.then((data) => MsgCreateRefPubEventsResponse.decode(new Reader(data)))
+  }
+
+  UpdateRefPubEvents(request: MsgUpdateRefPubEvents): Promise<MsgUpdateRefPubEventsResponse> {
+    const data = MsgUpdateRefPubEvents.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'UpdateRefPubEvents', data)
+    return promise.then((data) => MsgUpdateRefPubEventsResponse.decode(new Reader(data)))
+  }
+
+  DeleteRefPubEvents(request: MsgDeleteRefPubEvents): Promise<MsgDeleteRefPubEventsResponse> {
+    const data = MsgDeleteRefPubEvents.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'DeleteRefPubEvents', data)
+    return promise.then((data) => MsgDeleteRefPubEventsResponse.decode(new Reader(data)))
+  }
+
   CreateFihishPubEvent(request: MsgCreateFihishPubEvent): Promise<MsgCreateFihishPubEventResponse> {
     const data = MsgCreateFihishPubEvent.encode(request).finish()
     const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'CreateFihishPubEvent', data)

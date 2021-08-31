@@ -46,3 +46,8 @@ const (
 	FihishPubEventKey      = "FihishPubEvent-value-"
 	FihishPubEventCountKey = "FihishPubEvent-count-"
 )
+
+const (
+	RefPubEventsKey      = "RefPubEvents-value-"
+	RefPubEventsCountKey = "RefPubEvents-count-"
+)

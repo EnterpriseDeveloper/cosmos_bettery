@@ -13,6 +13,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # ibc/genesistype/default
 		// this line is used by starport scaffolding # genesis/types/default
+		RefPubEventsList:    []*RefPubEvents{},
 		FihishPubEventList:  []*FihishPubEvent{},
 		ValidPubEventsList:  []*ValidPubEvents{},
 		PartPubEventsList:   []*PartPubEvents{},
@@ -26,6 +27,15 @@ func (gs GenesisState) Validate() error {
 	// this line is used by starport scaffolding # ibc/genesistype/validate
 
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated ID in refPubEvents
+	refPubEventsIdMap := make(map[uint64]bool)
+
+	for _, elem := range gs.RefPubEventsList {
+		if _, ok := refPubEventsIdMap[elem.Id]; ok {
+			return fmt.Errorf("duplicated id for refPubEvents")
+		}
+		refPubEventsIdMap[elem.Id] = true
+	}
 	// Check for duplicated ID in fihishPubEvent
 	fihishPubEventIdMap := make(map[uint64]bool)
 

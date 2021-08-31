@@ -2,6 +2,7 @@ syntax = "proto3";
 package VoroshilovMax.bettery.publicevents;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "publicevents/ref_pub_events.proto";
 import "publicevents/fihish_pub_event.proto";
 import "publicevents/valid_pub_events.proto";
 import "publicevents/part_pub_events.proto";
@@ -12,6 +13,9 @@ option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateRefPubEvents(MsgCreateRefPubEvents) returns (MsgCreateRefPubEventsResponse);
+  rpc UpdateRefPubEvents(MsgUpdateRefPubEvents) returns (MsgUpdateRefPubEventsResponse);
+  rpc DeleteRefPubEvents(MsgDeleteRefPubEvents) returns (MsgDeleteRefPubEventsResponse);
   rpc CreateFihishPubEvent(MsgCreateFihishPubEvent) returns (MsgCreateFihishPubEventResponse);
   rpc CreateValidPubEvents(MsgCreateValidPubEvents) returns (MsgCreateValidPubEventsResponse);
   rpc CreatePartPubEvents(MsgCreatePartPubEvents) returns (MsgCreatePartPubEventsResponse);
@@ -19,6 +23,36 @@ service Msg {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateRefPubEvents {
+  string creator = 1;
+  string pubId = 2;
+  string refOne = 3;
+  string refTwo = 4;
+  string refThree = 5;
+}
+
+message MsgCreateRefPubEventsResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateRefPubEvents {
+  string creator = 1;
+  uint64 id = 2;
+  string pubId = 3;
+  string refOne = 4;
+  string refTwo = 5;
+  string refThree = 6;
+}
+
+message MsgUpdateRefPubEventsResponse { }
+
+message MsgDeleteRefPubEvents {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteRefPubEventsResponse { }
+
 message MsgCreateFihishPubEvent {
   string creator = 1;
   uint64 pubId = 2;

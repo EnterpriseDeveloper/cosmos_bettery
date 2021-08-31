@@ -1,6 +1,32 @@
 import { Reader, Writer } from 'protobufjs/minimal';
 export declare const protobufPackage = "VoroshilovMax.bettery.publicevents";
 /** this line is used by starport scaffolding # proto/tx/message */
+export interface MsgCreateRefPubEvents {
+    creator: string;
+    pubId: string;
+    refOne: string;
+    refTwo: string;
+    refThree: string;
+}
+export interface MsgCreateRefPubEventsResponse {
+    id: number;
+}
+export interface MsgUpdateRefPubEvents {
+    creator: string;
+    id: number;
+    pubId: string;
+    refOne: string;
+    refTwo: string;
+    refThree: string;
+}
+export interface MsgUpdateRefPubEventsResponse {
+}
+export interface MsgDeleteRefPubEvents {
+    creator: string;
+    id: number;
+}
+export interface MsgDeleteRefPubEventsResponse {
+}
 export interface MsgCreateFihishPubEvent {
     creator: string;
     pubId: number;
@@ -40,6 +66,48 @@ export interface MsgCreateCreatePubEvents {
 export interface MsgCreateCreatePubEventsResponse {
     id: number;
 }
+export declare const MsgCreateRefPubEvents: {
+    encode(message: MsgCreateRefPubEvents, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateRefPubEvents;
+    fromJSON(object: any): MsgCreateRefPubEvents;
+    toJSON(message: MsgCreateRefPubEvents): unknown;
+    fromPartial(object: DeepPartial<MsgCreateRefPubEvents>): MsgCreateRefPubEvents;
+};
+export declare const MsgCreateRefPubEventsResponse: {
+    encode(message: MsgCreateRefPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreateRefPubEventsResponse;
+    fromJSON(object: any): MsgCreateRefPubEventsResponse;
+    toJSON(message: MsgCreateRefPubEventsResponse): unknown;
+    fromPartial(object: DeepPartial<MsgCreateRefPubEventsResponse>): MsgCreateRefPubEventsResponse;
+};
+export declare const MsgUpdateRefPubEvents: {
+    encode(message: MsgUpdateRefPubEvents, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateRefPubEvents;
+    fromJSON(object: any): MsgUpdateRefPubEvents;
+    toJSON(message: MsgUpdateRefPubEvents): unknown;
+    fromPartial(object: DeepPartial<MsgUpdateRefPubEvents>): MsgUpdateRefPubEvents;
+};
+export declare const MsgUpdateRefPubEventsResponse: {
+    encode(_: MsgUpdateRefPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgUpdateRefPubEventsResponse;
+    fromJSON(_: any): MsgUpdateRefPubEventsResponse;
+    toJSON(_: MsgUpdateRefPubEventsResponse): unknown;
+    fromPartial(_: DeepPartial<MsgUpdateRefPubEventsResponse>): MsgUpdateRefPubEventsResponse;
+};
+export declare const MsgDeleteRefPubEvents: {
+    encode(message: MsgDeleteRefPubEvents, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteRefPubEvents;
+    fromJSON(object: any): MsgDeleteRefPubEvents;
+    toJSON(message: MsgDeleteRefPubEvents): unknown;
+    fromPartial(object: DeepPartial<MsgDeleteRefPubEvents>): MsgDeleteRefPubEvents;
+};
+export declare const MsgDeleteRefPubEventsResponse: {
+    encode(_: MsgDeleteRefPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgDeleteRefPubEventsResponse;
+    fromJSON(_: any): MsgDeleteRefPubEventsResponse;
+    toJSON(_: MsgDeleteRefPubEventsResponse): unknown;
+    fromPartial(_: DeepPartial<MsgDeleteRefPubEventsResponse>): MsgDeleteRefPubEventsResponse;
+};
 export declare const MsgCreateFihishPubEvent: {
     encode(message: MsgCreateFihishPubEvent, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateFihishPubEvent;
@@ -99,6 +167,9 @@ export declare const MsgCreateCreatePubEventsResponse: {
 /** Msg defines the Msg service. */
 export interface Msg {
     /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreateRefPubEvents(request: MsgCreateRefPubEvents): Promise<MsgCreateRefPubEventsResponse>;
+    UpdateRefPubEvents(request: MsgUpdateRefPubEvents): Promise<MsgUpdateRefPubEventsResponse>;
+    DeleteRefPubEvents(request: MsgDeleteRefPubEvents): Promise<MsgDeleteRefPubEventsResponse>;
     CreateFihishPubEvent(request: MsgCreateFihishPubEvent): Promise<MsgCreateFihishPubEventResponse>;
     CreateValidPubEvents(request: MsgCreateValidPubEvents): Promise<MsgCreateValidPubEventsResponse>;
     CreatePartPubEvents(request: MsgCreatePartPubEvents): Promise<MsgCreatePartPubEventsResponse>;
@@ -107,6 +178,9 @@ export interface Msg {
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
     constructor(rpc: Rpc);
+    CreateRefPubEvents(request: MsgCreateRefPubEvents): Promise<MsgCreateRefPubEventsResponse>;
+    UpdateRefPubEvents(request: MsgUpdateRefPubEvents): Promise<MsgUpdateRefPubEventsResponse>;
+    DeleteRefPubEvents(request: MsgDeleteRefPubEvents): Promise<MsgDeleteRefPubEventsResponse>;
     CreateFihishPubEvent(request: MsgCreateFihishPubEvent): Promise<MsgCreateFihishPubEventResponse>;
     CreateValidPubEvents(request: MsgCreateValidPubEvents): Promise<MsgCreateValidPubEventsResponse>;
     CreatePartPubEvents(request: MsgCreatePartPubEvents): Promise<MsgCreatePartPubEventsResponse>;

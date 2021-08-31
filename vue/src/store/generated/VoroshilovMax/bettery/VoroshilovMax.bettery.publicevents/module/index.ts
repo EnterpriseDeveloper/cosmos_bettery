@@ -4,16 +4,22 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreatePartPubEvents } from "./types/publicevents/tx";
-import { MsgCreateFihishPubEvent } from "./types/publicevents/tx";
+import { MsgCreateRefPubEvents } from "./types/publicevents/tx";
 import { MsgCreateValidPubEvents } from "./types/publicevents/tx";
+import { MsgCreateFihishPubEvent } from "./types/publicevents/tx";
+import { MsgCreatePartPubEvents } from "./types/publicevents/tx";
+import { MsgUpdateRefPubEvents } from "./types/publicevents/tx";
+import { MsgDeleteRefPubEvents } from "./types/publicevents/tx";
 import { MsgCreateCreatePubEvents } from "./types/publicevents/tx";
 
 
 const types = [
-  ["/VoroshilovMax.bettery.publicevents.MsgCreatePartPubEvents", MsgCreatePartPubEvents],
-  ["/VoroshilovMax.bettery.publicevents.MsgCreateFihishPubEvent", MsgCreateFihishPubEvent],
+  ["/VoroshilovMax.bettery.publicevents.MsgCreateRefPubEvents", MsgCreateRefPubEvents],
   ["/VoroshilovMax.bettery.publicevents.MsgCreateValidPubEvents", MsgCreateValidPubEvents],
+  ["/VoroshilovMax.bettery.publicevents.MsgCreateFihishPubEvent", MsgCreateFihishPubEvent],
+  ["/VoroshilovMax.bettery.publicevents.MsgCreatePartPubEvents", MsgCreatePartPubEvents],
+  ["/VoroshilovMax.bettery.publicevents.MsgUpdateRefPubEvents", MsgUpdateRefPubEvents],
+  ["/VoroshilovMax.bettery.publicevents.MsgDeleteRefPubEvents", MsgDeleteRefPubEvents],
   ["/VoroshilovMax.bettery.publicevents.MsgCreateCreatePubEvents", MsgCreateCreatePubEvents],
   
 ];
@@ -43,9 +49,12 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgCreatePartPubEvents: (data: MsgCreatePartPubEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreatePartPubEvents", value: data }),
-    msgCreateFihishPubEvent: (data: MsgCreateFihishPubEvent): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreateFihishPubEvent", value: data }),
+    msgCreateRefPubEvents: (data: MsgCreateRefPubEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreateRefPubEvents", value: data }),
     msgCreateValidPubEvents: (data: MsgCreateValidPubEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreateValidPubEvents", value: data }),
+    msgCreateFihishPubEvent: (data: MsgCreateFihishPubEvent): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreateFihishPubEvent", value: data }),
+    msgCreatePartPubEvents: (data: MsgCreatePartPubEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreatePartPubEvents", value: data }),
+    msgUpdateRefPubEvents: (data: MsgUpdateRefPubEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgUpdateRefPubEvents", value: data }),
+    msgDeleteRefPubEvents: (data: MsgDeleteRefPubEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgDeleteRefPubEvents", value: data }),
     msgCreateCreatePubEvents: (data: MsgCreateCreatePubEvents): EncodeObject => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreateCreatePubEvents", value: data }),
     
   };

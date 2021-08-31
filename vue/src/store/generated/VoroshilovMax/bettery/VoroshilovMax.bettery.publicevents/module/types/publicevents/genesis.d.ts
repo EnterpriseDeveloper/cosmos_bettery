@@ -1,4 +1,5 @@
 import { Writer, Reader } from 'protobufjs/minimal';
+import { RefPubEvents } from '../publicevents/ref_pub_events';
 import { FihishPubEvent } from '../publicevents/fihish_pub_event';
 import { ValidPubEvents } from '../publicevents/valid_pub_events';
 import { PartPubEvents } from '../publicevents/part_pub_events';
@@ -7,6 +8,10 @@ export declare const protobufPackage = "VoroshilovMax.bettery.publicevents";
 /** GenesisState defines the publicevents module's genesis state. */
 export interface GenesisState {
     /** this line is used by starport scaffolding # genesis/proto/state */
+    refPubEventsList: RefPubEvents[];
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
+    refPubEventsCount: number;
+    /** this line is used by starport scaffolding # genesis/proto/stateField */
     fihishPubEventList: FihishPubEvent[];
     /** this line is used by starport scaffolding # genesis/proto/stateField */
     fihishPubEventCount: number;

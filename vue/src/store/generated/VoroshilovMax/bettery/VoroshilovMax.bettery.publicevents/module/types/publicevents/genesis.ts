@@ -1,6 +1,7 @@
 /* eslint-disable */
 import * as Long from 'long'
 import { util, configure, Writer, Reader } from 'protobufjs/minimal'
+import { RefPubEvents } from '../publicevents/ref_pub_events'
 import { FihishPubEvent } from '../publicevents/fihish_pub_event'
 import { ValidPubEvents } from '../publicevents/valid_pub_events'
 import { PartPubEvents } from '../publicevents/part_pub_events'
@@ -11,6 +12,10 @@ export const protobufPackage = 'VoroshilovMax.bettery.publicevents'
 /** GenesisState defines the publicevents module's genesis state. */
 export interface GenesisState {
   /** this line is used by starport scaffolding # genesis/proto/state */
+  refPubEventsList: RefPubEvents[]
+  /** this line is used by starport scaffolding # genesis/proto/stateField */
+  refPubEventsCount: number
+  /** this line is used by starport scaffolding # genesis/proto/stateField */
   fihishPubEventList: FihishPubEvent[]
   /** this line is used by starport scaffolding # genesis/proto/stateField */
   fihishPubEventCount: number
@@ -28,10 +33,16 @@ export interface GenesisState {
   createPubEventsCount: number
 }
 
-const baseGenesisState: object = { fihishPubEventCount: 0, validPubEventsCount: 0, partPubEventsCount: 0, createPubEventsCount: 0 }
+const baseGenesisState: object = { refPubEventsCount: 0, fihishPubEventCount: 0, validPubEventsCount: 0, partPubEventsCount: 0, createPubEventsCount: 0 }
 
 export const GenesisState = {
   encode(message: GenesisState, writer: Writer = Writer.create()): Writer {
+    for (const v of message.refPubEventsList) {
+      RefPubEvents.encode(v!, writer.uint32(74).fork()).ldelim()
+    }
+    if (message.refPubEventsCount !== 0) {
+      writer.uint32(80).uint64(message.refPubEventsCount)
+    }
     for (const v of message.fihishPubEventList) {
       FihishPubEvent.encode(v!, writer.uint32(58).fork()).ldelim()
     }
@@ -63,6 +74,7 @@ export const GenesisState = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input
     let end = length === undefined ? reader.len : reader.pos + length
     const message = { ...baseGenesisState } as GenesisState
+    message.refPubEventsList = []
     message.fihishPubEventList = []
     message.validPubEventsList = []
     message.partPubEventsList = []
@@ -70,6 +82,12 @@ export const GenesisState = {
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
+        case 9:
+          message.refPubEventsList.push(RefPubEvents.decode(reader, reader.uint32()))
+          break
+        case 10:
+          message.refPubEventsCount = longToNumber(reader.uint64() as Long)
+          break
         case 7:
           message.fihishPubEventList.push(FihishPubEvent.decode(reader, reader.uint32()))
           break
@@ -104,10 +122,21 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState
+    message.refPubEventsList = []
     message.fihishPubEventList = []
     message.validPubEventsList = []
     message.partPubEventsList = []
     message.createPubEventsList = []
+    if (object.refPubEventsList !== undefined && object.refPubEventsList !== null) {
+      for (const e of object.refPubEventsList) {
+        message.refPubEventsList.push(RefPubEvents.fromJSON(e))
+      }
+    }
+    if (object.refPubEventsCount !== undefined && object.refPubEventsCount !== null) {
+      message.refPubEventsCount = Number(object.refPubEventsCount)
+    } else {
+      message.refPubEventsCount = 0
+    }
     if (object.fihishPubEventList !== undefined && object.fihishPubEventList !== null) {
       for (const e of object.fihishPubEventList) {
         message.fihishPubEventList.push(FihishPubEvent.fromJSON(e))
@@ -153,6 +182,12 @@ export const GenesisState = {
 
   toJSON(message: GenesisState): unknown {
     const obj: any = {}
+    if (message.refPubEventsList) {
+      obj.refPubEventsList = message.refPubEventsList.map((e) => (e ? RefPubEvents.toJSON(e) : undefined))
+    } else {
+      obj.refPubEventsList = []
+    }
+    message.refPubEventsCount !== undefined && (obj.refPubEventsCount = message.refPubEventsCount)
     if (message.fihishPubEventList) {
       obj.fihishPubEventList = message.fihishPubEventList.map((e) => (e ? FihishPubEvent.toJSON(e) : undefined))
     } else {
@@ -182,10 +217,21 @@ export const GenesisState = {
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState
+    message.refPubEventsList = []
     message.fihishPubEventList = []
     message.validPubEventsList = []
     message.partPubEventsList = []
     message.createPubEventsList = []
+    if (object.refPubEventsList !== undefined && object.refPubEventsList !== null) {
+      for (const e of object.refPubEventsList) {
+        message.refPubEventsList.push(RefPubEvents.fromPartial(e))
+      }
+    }
+    if (object.refPubEventsCount !== undefined && object.refPubEventsCount !== null) {
+      message.refPubEventsCount = object.refPubEventsCount
+    } else {
+      message.refPubEventsCount = 0
+    }
     if (object.fihishPubEventList !== undefined && object.fihishPubEventList !== null) {
       for (const e of object.fihishPubEventList) {
         message.fihishPubEventList.push(FihishPubEvent.fromPartial(e))

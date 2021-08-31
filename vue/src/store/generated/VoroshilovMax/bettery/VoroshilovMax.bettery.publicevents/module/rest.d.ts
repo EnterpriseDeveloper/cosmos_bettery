@@ -43,10 +43,16 @@ export interface PubliceventsMsgCreatePartPubEventsResponse {
     /** @format uint64 */
     id?: string;
 }
+export interface PubliceventsMsgCreateRefPubEventsResponse {
+    /** @format uint64 */
+    id?: string;
+}
 export interface PubliceventsMsgCreateValidPubEventsResponse {
     /** @format uint64 */
     id?: string;
 }
+export declare type PubliceventsMsgDeleteRefPubEventsResponse = object;
+export declare type PubliceventsMsgUpdateRefPubEventsResponse = object;
 export interface PubliceventsPartPubEvents {
     creator?: string;
     /** @format uint64 */
@@ -97,6 +103,19 @@ export interface PubliceventsQueryAllPartPubEventsResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface PubliceventsQueryAllRefPubEventsResponse {
+    RefPubEvents?: PubliceventsRefPubEvents[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface PubliceventsQueryAllValidPubEventsResponse {
     ValidPubEvents?: PubliceventsValidPubEvents[];
     /**
@@ -119,8 +138,20 @@ export interface PubliceventsQueryGetFihishPubEventResponse {
 export interface PubliceventsQueryGetPartPubEventsResponse {
     PartPubEvents?: PubliceventsPartPubEvents;
 }
+export interface PubliceventsQueryGetRefPubEventsResponse {
+    RefPubEvents?: PubliceventsRefPubEvents;
+}
 export interface PubliceventsQueryGetValidPubEventsResponse {
     ValidPubEvents?: PubliceventsValidPubEvents;
+}
+export interface PubliceventsRefPubEvents {
+    creator?: string;
+    /** @format uint64 */
+    id?: string;
+    pubId?: string;
+    refOne?: string;
+    refTwo?: string;
+    refThree?: string;
 }
 export interface PubliceventsValidPubEvents {
     creator?: string;
@@ -317,6 +348,29 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/VoroshilovMax/bettery/publicevents/partPubEvents/{id}
      */
     queryPartPubEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryGetPartPubEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryRefPubEventsAll
+     * @summary Queries a list of refPubEvents items.
+     * @request GET:/VoroshilovMax/bettery/publicevents/refPubEvents
+     */
+    queryRefPubEventsAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryAllRefPubEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryRefPubEvents
+     * @summary Queries a refPubEvents by id.
+     * @request GET:/VoroshilovMax/bettery/publicevents/refPubEvents/{id}
+     */
+    queryRefPubEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryGetRefPubEventsResponse, RpcStatus>>;
     /**
      * No description
      *
