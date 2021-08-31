@@ -117,6 +117,12 @@ func (k Keeper) GetAnswerIndex(ctx sdk.Context, id uint64, answer string) int {
 	return -1
 }
 
+func (k Keeper) setExpertAmount(ctx sdk.Context, id uint64, amount int64) {
+	data := k.GetCreatePubEvents(ctx, id)
+	data.ExpertAmount = amount
+	k.SetCreatePubEvents(ctx, data)
+}
+
 // GetCreatePubEventsIDBytes returns the byte representation of the ID
 func GetCreatePubEventsIDBytes(id uint64) []byte {
 	bz := make([]byte, 8)

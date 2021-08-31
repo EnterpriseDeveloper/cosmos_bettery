@@ -21,8 +21,10 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 
 	correctAnswer, reverted, status := findCorrectAnswer(k, ctx, msg.PubId)
 	if reverted {
-		fmt.Println("REVETED")
-		// TODO reverted paymant
+		ok, errString := payBackToPlayers(k, ctx, msg.PubId)
+		if !ok {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("payBackToPlayers err, event id %d, error message: %s", msg.PubId, errString))
+		}
 		ctx.EventManager().EmitEvent(
 			sdk.NewEvent(
 				"pub.event",
@@ -31,18 +33,19 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 				sdk.NewAttribute("status", status),
 			),
 		)
+		// TODO send to storage correct data
 		return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 	} else {
 		// find looser pool
 		loserPool, mintedToken, reverted, ok, errString := findLosersPool(k, ctx, msg.PubId, correctAnswer)
-		fmt.Printf("loserPool: %s", loserPool.String())
-		fmt.Printf("mintedToken: %s", mintedToken.String())
-		fmt.Println(reverted)
 		if ok {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event from find loser pool, event id %d, error message: %s", msg.PubId, errString))
 		}
 		if reverted {
-			// TODO reverted paymant
+			ok, errString := payBackToPlayers(k, ctx, msg.PubId)
+			if !ok {
+				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("payBackToPlayers err, event id %d, error message: %s", msg.PubId, errString))
+			}
 			ctx.EventManager().EmitEvent(
 				sdk.NewEvent(
 					"pub.event",
@@ -51,6 +54,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 					sdk.NewAttribute("status", errString),
 				),
 			)
+			// TODO send to storage correct data
 			return sendToStorage(ctx, k, msg, correctAnswer, reverted, errString, mintedToken.String())
 		} else {
 			// Start debug here
@@ -82,9 +86,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 				if !ok {
 					return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Loser event by id %d, error message: %s", msg.PubId, errString))
 				}
-				fmt.Printf("event finish mint WORK")
 				// TODO lets pay to ref
-				// TODO event finish emit
 				ctx.EventManager().EmitEvent(
 					sdk.NewEvent(
 						"pub.event",
@@ -95,8 +97,6 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 				// TODO send to storage correct data
 				return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 			} else {
-				fmt.Printf("event finish WORK")
-				// TODO event finish emit
 				ctx.EventManager().EmitEvent(
 					sdk.NewEvent(
 						"pub.event",
@@ -109,6 +109,18 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 			}
 		}
 	}
+}
+
+func payBackToPlayers(k msgServer, ctx sdk.Context, id uint64) (bool, string) {
+	players := k.GetAllPlayersById(ctx, id)
+	for i := 0; i < len(players); i++ {
+		amount, ok := new(big.Int).SetString(players[i].Amount, 10)
+		if !ok {
+			return false, "error parse user bet from reverted"
+		}
+		letsPay(k, ctx, players[i].Creator, amount)
+	}
+	return true, ""
 }
 
 func letsPayToLosers(k msgServer, ctx sdk.Context, id uint64, correctAnswer int, avarageBet *big.Int, calcMintedToken *big.Int) (bool, string) {

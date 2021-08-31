@@ -169,6 +169,23 @@ func (k Keeper) GetPlayAmountByAnswer(ctx sdk.Context, id uint64, i int) (list [
 	return list
 }
 
+func (k Keeper) GetAllPlayersById(ctx sdk.Context, id uint64) (list []types.PartPubEvents) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
+	iterator := sdk.KVStorePrefixIterator(store, []byte{})
+
+	defer iterator.Close()
+
+	for ; iterator.Valid(); iterator.Next() {
+		var val types.PartPubEvents
+		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		if val.PubId == id {
+			list = append(list, val)
+		}
+	}
+
+	return list
+}
+
 func (k Keeper) GetAllPlayAmount(ctx sdk.Context, id uint64) int {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
 	iterator := sdk.KVStorePrefixIterator(store, []byte{})

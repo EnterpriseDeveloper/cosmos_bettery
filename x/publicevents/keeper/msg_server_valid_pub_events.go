@@ -3,6 +3,8 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"math"
+	"math/big"
 	"time"
 
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
@@ -72,6 +74,10 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 			),
 		)
 	} else if playAmount == 1 {
+		ok, errString := payBack(k, ctx, msg.PubId)
+		if !ok {
+			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("payBack err, event id %d, error message: %s", msg.PubId, errString))
+		}
 		ctx.EventManager().EmitEvent(
 			sdk.NewEvent(
 				"pub.event",
@@ -80,24 +86,29 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 				sdk.NewAttribute("id", eventId),
 			),
 		)
-
-		// TODO execute reverted function for pay back tokens to part
 	} else {
 		// calculate validators
 		validNumber := k.GetValidatorsNumber(ctx, msg.PubId)
 		if validNumber == 0 {
 
+			exp := calcExpet(playAmount)
+			k.setExpertAmount(ctx, msg.PubId, exp)
+
+			expAmount, err := cast.ToStringE(exp)
+			if err != nil {
+				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event finish, can not pars expert amount: %d, err: %s", msg.PubId, err.Error()))
+			}
 			ctx.EventManager().EmitEvent(
 				sdk.NewEvent(
 					"pub.event",
 					sdk.NewAttribute("calculateExpert", "true"),
 					sdk.NewAttribute("id", eventId),
+					sdk.NewAttribute("experts", expAmount),
 				),
 			)
 		} else {
 
 			validated := k.GetValidPubEventLength(ctx, msg.PubId)
-
 			if validNumber == int64(validated+1) {
 				ctx.EventManager().EmitEvent(
 					sdk.NewEvent(
@@ -126,4 +137,24 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 	return &types.MsgCreateValidPubEventsResponse{
 		Id: id,
 	}, nil
+}
+
+// ASK fedor amount calculation formula
+func calcExpet(players int) int64 {
+	percent := 0.5
+	var y float64 = float64(players)
+	calc := y / (math.Pow(y, percent) + 2 - (math.Pow(2, percent)))
+	return int64(math.Round(calc))
+}
+
+func payBack(k msgServer, ctx sdk.Context, id uint64) (bool, string) {
+	players := k.GetAllPlayersById(ctx, id)
+	for i := 0; i < len(players); i++ {
+		amount, ok := new(big.Int).SetString(players[i].Amount, 10)
+		if !ok {
+			return false, "error parse user bet from reverted"
+		}
+		letsPay(k, ctx, players[i].Creator, amount)
+	}
+	return true, ""
 }
