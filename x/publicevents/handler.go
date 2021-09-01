@@ -22,14 +22,6 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 			res, err := msgServer.CreateRefPubEvents(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
 
-		case *types.MsgUpdateRefPubEvents:
-			res, err := msgServer.UpdateRefPubEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
-		case *types.MsgDeleteRefPubEvents:
-			res, err := msgServer.DeleteRefPubEvents(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
-
 		case *types.MsgCreateFihishPubEvent:
 			res, err := msgServer.CreateFihishPubEvent(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)

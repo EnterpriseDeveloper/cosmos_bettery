@@ -13,18 +13,6 @@ import (
 func (k msgServer) CreateCreatePubEvents(goCtx context.Context, msg *types.MsgCreateCreatePubEvents) (*types.MsgCreateCreatePubEventsResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	var createPubEvents = types.CreatePubEvents{
-		Creator:      msg.Creator,
-		PubId:        msg.PubId,
-		Question:     msg.Question,
-		Answers:      msg.Answers,
-		PremAmount:   msg.PremAmount,
-		StartTime:    msg.StartTime,
-		EndTime:      msg.EndTime,
-		ExpertAmount: msg.ExpertAmount,
-		Advisor:      msg.Advisor,
-	}
-
 	smlNumb, ok := new(big.Int).SetString("1", 10)
 	if !ok {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse min big init error, amount: %s, user: %s", msg.Creator, msg.PremAmount))
@@ -41,6 +29,24 @@ func (k msgServer) CreateCreatePubEvents(goCtx context.Context, msg *types.MsgCr
 		if !done {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("send premium token to module err: %s", err))
 		}
+	}
+
+	calcExpert := false
+	if msg.ExpertAmount == 0 {
+		calcExpert = true
+	}
+
+	var createPubEvents = types.CreatePubEvents{
+		Creator:      msg.Creator,
+		PubId:        msg.PubId,
+		Question:     msg.Question,
+		Answers:      msg.Answers,
+		PremAmount:   msg.PremAmount,
+		StartTime:    msg.StartTime,
+		EndTime:      msg.EndTime,
+		ExpertAmount: msg.ExpertAmount,
+		Advisor:      msg.Advisor,
+		CalcExpert:   calcExpert,
 	}
 
 	id := k.AppendCreatePubEvents(

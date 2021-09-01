@@ -2,26 +2,23 @@
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
-const baseRefPubEvents = { creator: '', id: 0, pubId: '', refOne: '', refTwo: '', refThree: '' };
+const baseRefPubEvents = { creator: '', pubId: 0, refOne: '', refTwo: '', refThree: '' };
 export const RefPubEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
         }
-        if (message.id !== 0) {
-            writer.uint32(16).uint64(message.id);
-        }
-        if (message.pubId !== '') {
-            writer.uint32(26).string(message.pubId);
+        if (message.pubId !== 0) {
+            writer.uint32(16).uint64(message.pubId);
         }
         if (message.refOne !== '') {
-            writer.uint32(34).string(message.refOne);
+            writer.uint32(26).string(message.refOne);
         }
         if (message.refTwo !== '') {
-            writer.uint32(42).string(message.refTwo);
+            writer.uint32(34).string(message.refTwo);
         }
         if (message.refThree !== '') {
-            writer.uint32(50).string(message.refThree);
+            writer.uint32(42).string(message.refThree);
         }
         return writer;
     },
@@ -36,18 +33,15 @@ export const RefPubEvents = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.id = longToNumber(reader.uint64());
+                    message.pubId = longToNumber(reader.uint64());
                     break;
                 case 3:
-                    message.pubId = reader.string();
-                    break;
-                case 4:
                     message.refOne = reader.string();
                     break;
-                case 5:
+                case 4:
                     message.refTwo = reader.string();
                     break;
-                case 6:
+                case 5:
                     message.refThree = reader.string();
                     break;
                 default:
@@ -65,17 +59,11 @@ export const RefPubEvents = {
         else {
             message.creator = '';
         }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = Number(object.id);
-        }
-        else {
-            message.id = 0;
-        }
         if (object.pubId !== undefined && object.pubId !== null) {
-            message.pubId = String(object.pubId);
+            message.pubId = Number(object.pubId);
         }
         else {
-            message.pubId = '';
+            message.pubId = 0;
         }
         if (object.refOne !== undefined && object.refOne !== null) {
             message.refOne = String(object.refOne);
@@ -100,7 +88,6 @@ export const RefPubEvents = {
     toJSON(message) {
         const obj = {};
         message.creator !== undefined && (obj.creator = message.creator);
-        message.id !== undefined && (obj.id = message.id);
         message.pubId !== undefined && (obj.pubId = message.pubId);
         message.refOne !== undefined && (obj.refOne = message.refOne);
         message.refTwo !== undefined && (obj.refTwo = message.refTwo);
@@ -115,17 +102,11 @@ export const RefPubEvents = {
         else {
             message.creator = '';
         }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = 0;
-        }
         if (object.pubId !== undefined && object.pubId !== null) {
             message.pubId = object.pubId;
         }
         else {
-            message.pubId = '';
+            message.pubId = 0;
         }
         if (object.refOne !== undefined && object.refOne !== null) {
             message.refOne = object.refOne;

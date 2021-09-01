@@ -10,8 +10,6 @@ import (
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	// this line is used by starport scaffolding # 2
 	cdc.RegisterConcrete(&MsgCreateRefPubEvents{}, "publicevents/CreateRefPubEvents", nil)
-	cdc.RegisterConcrete(&MsgUpdateRefPubEvents{}, "publicevents/UpdateRefPubEvents", nil)
-	cdc.RegisterConcrete(&MsgDeleteRefPubEvents{}, "publicevents/DeleteRefPubEvents", nil)
 
 	cdc.RegisterConcrete(&MsgCreateFihishPubEvent{}, "publicevents/CreateFihishPubEvent", nil)
 
@@ -27,8 +25,6 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	// this line is used by starport scaffolding # 3
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateRefPubEvents{},
-		&MsgUpdateRefPubEvents{},
-		&MsgDeleteRefPubEvents{},
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateFihishPubEvent{},

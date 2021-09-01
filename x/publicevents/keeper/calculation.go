@@ -1,19 +1,23 @@
 package keeper
 
-import "math/big"
+import (
+	"math/big"
+)
 
 func CalcPercent(number int, from int) int {
 	return number * 100 / from
 }
 
 func GetPercent(percent *big.Int, from *big.Int) *big.Int {
-	am := new(big.Int).Mul(percent, from)
+	b := new(big.Int).SetInt64(int64(0))
+	am := b.Mul(percent, from)
 	return am.Div(am, new(big.Int).SetInt64(int64(100)))
 }
 
 func ExpertFormula(from *big.Int, percent *big.Int, reputation *big.Int, allReputation *big.Int) *big.Int {
-	perc := GetPercent(from, percent)
-	reput := reputation.Add(reputation, new(big.Int).SetInt64(int64(1)))
+	perc := GetPercent(percent, from)
+	b := new(big.Int).SetInt64(int64(0))
+	reput := b.Add(reputation, new(big.Int).SetInt64(int64(1)))
 	perc = perc.Mul(perc, reput)
 	return perc.Div(perc, allReputation)
 }
@@ -52,18 +56,22 @@ func CalcPremiumPubEvent(canMint bool, pool *big.Int, activePlay *big.Int, minte
 }
 
 func PlayersFormula(calcMintedToken *big.Int, userBet *big.Int, avarageBet *big.Int, activePlay *big.Int) *big.Int {
-	x := calcMintedToken.Mul(calcMintedToken, userBet)
-	z := avarageBet.Mul(avarageBet, activePlay)
+	b := new(big.Int).SetInt64(int64(0))
+	x := b.Mul(calcMintedToken, userBet)
+	y := new(big.Int).SetInt64(int64(0))
+	z := y.Mul(avarageBet, activePlay)
 	return x.Div(x, z)
 }
 
 func CalcPlayerPay(premAmount *big.Int, winPool *big.Int, userBet *big.Int, avarageBetWin *big.Int, premimWin *big.Int) *big.Int {
-	x := winPool.Mul(winPool, userBet)
+	b := new(big.Int).SetInt64(int64(0))
+	x := b.Mul(winPool, userBet)
 	z := x.Div(x, avarageBetWin)
 	amount := z.Add(z, userBet)
 	if premAmount.Cmp(new(big.Int).SetInt64(int64(0))) == 1 {
 		// add premium tokens to amount
-		y := premimWin.Mul(premimWin, userBet)
+		c := new(big.Int).SetInt64(int64(0))
+		y := c.Mul(premimWin, userBet)
 		o := y.Div(y, avarageBetWin)
 		amount = amount.Add(amount, o)
 	}
@@ -71,7 +79,9 @@ func CalcPlayerPay(premAmount *big.Int, winPool *big.Int, userBet *big.Int, avar
 }
 
 func CalcLoserMint(calcMintedToken *big.Int, avarageBet *big.Int, activePlay *big.Int, playToken *big.Int) *big.Int {
-	z := calcMintedToken.Mul(calcMintedToken, playToken)
-	x := avarageBet.Mul(avarageBet, activePlay)
+	b := new(big.Int).SetInt64(int64(0))
+	z := b.Mul(calcMintedToken, playToken)
+	c := new(big.Int).SetInt64(int64(0))
+	x := c.Mul(avarageBet, activePlay)
 	return z.Div(z, x)
 }

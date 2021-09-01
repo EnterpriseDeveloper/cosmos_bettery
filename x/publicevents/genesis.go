@@ -16,7 +16,7 @@ func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) 
 	}
 
 	// Set refPubEvents count
-	k.SetRefPubEventsCount(ctx, genState.RefPubEventsCount)
+	// k.SetRefPubEventsCount(ctx, genState.RefPubEventsCount)
 
 	// Set all the fihishPubEvent
 	for _, elem := range genState.FihishPubEventList {
@@ -66,7 +66,7 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	}
 
 	// Set the current count
-	genesis.RefPubEventsCount = k.GetRefPubEventsCount(ctx)
+	// genesis.RefPubEventsCount = k.GetRefPubEventsCount(ctx)
 
 	// Get all fihishPubEvent
 	fihishPubEventList := k.GetAllFihishPubEvent(ctx)

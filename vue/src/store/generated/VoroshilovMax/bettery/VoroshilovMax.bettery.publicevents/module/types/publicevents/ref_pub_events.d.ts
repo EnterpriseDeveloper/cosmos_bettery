@@ -2,8 +2,7 @@ import { Writer, Reader } from 'protobufjs/minimal';
 export declare const protobufPackage = "VoroshilovMax.bettery.publicevents";
 export interface RefPubEvents {
     creator: string;
-    id: number;
-    pubId: string;
+    pubId: number;
     refOne: string;
     refTwo: string;
     refThree: string;

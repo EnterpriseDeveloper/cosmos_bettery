@@ -54,7 +54,7 @@ func (k Keeper) GetAdvisorPubEvent(ctx sdk.Context, id uint64) string {
 }
 
 // GetAnswerLength returns the creator of the
-func (k *Keeper) GetAnswerLength(ctx sdk.Context, id uint64) *int {
+func (k *Keeper) GetQuestAmountPubEvent(ctx sdk.Context, id uint64) *int {
 	am := len(k.GetCreatePubEvents(ctx, id).Answers)
 	return &am
 }
@@ -84,11 +84,6 @@ func (k Keeper) GetPremAmountPubEvent(ctx sdk.Context, id uint64) (*big.Int, boo
 // calculate validators amount
 func (k Keeper) CalculateValidatorsAmount(ctx sdk.Context, id uint64) bool {
 	return k.GetCreatePubEvents(ctx, id).CalcExpert
-}
-
-// get question amount public event
-func (k Keeper) GetQuestAmountPubEvent(ctx sdk.Context, id uint64) int {
-	return len(k.GetCreatePubEvents(ctx, id).Answers)
 }
 
 // GetAllCreatePubEvents returns all createPubEvents

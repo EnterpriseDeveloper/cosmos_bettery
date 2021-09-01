@@ -63,7 +63,6 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 			if !ok {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Companies event by id %d, error message: %s", msg.PubId, errString))
 			}
-
 			// lets pay to host
 			ok, errString = letsPayToHost(k, ctx, msg.PubId, mintedToken, loserPool)
 			if !ok {
@@ -125,19 +124,21 @@ func payBackToPlayers(k msgServer, ctx sdk.Context, id uint64) (bool, string) {
 
 func letsPayToLosers(k msgServer, ctx sdk.Context, id uint64, correctAnswer int, avarageBet *big.Int, calcMintedToken *big.Int) (bool, string) {
 	activePlay := k.GetAllPlayAmount(ctx, id)
-	for i := 0; i < k.GetQuestAmountPubEvent(ctx, id); i++ {
+	questionAmount := k.GetQuestAmountPubEvent(ctx, id)
+	for i := 0; i < *questionAmount; i++ {
 		players := k.GetPlayAmountByAnswer(ctx, id, i)
 		if correctAnswer != i && len(players) != 0 {
 			for z := 0; z < len(players); z++ {
-				wallet := players[i].Creator
-				userBet := players[i].Amount
+				wallet := players[z].Creator
+				userBet := players[z].Amount
 				uB, ok := new(big.Int).SetString(userBet, 10)
 				if !ok {
 					return false, "error parse user bet from letsPayToPlayers"
 				}
-				ok, err := letsMint(k, ctx, wallet, CalcLoserMint(calcMintedToken, avarageBet, new(big.Int).SetInt64(int64(activePlay)), uB))
+				amount := CalcLoserMint(calcMintedToken, avarageBet, new(big.Int).SetInt64(int64(activePlay)), uB)
+				ok, err := letsMint(k, ctx, wallet, amount)
 				if !ok {
-					return ok, err
+					return false, err
 				}
 			}
 		}
@@ -411,7 +412,7 @@ func findCorrectAnswer(k msgServer, ctx sdk.Context, id uint64) (int, bool, stri
 	bigValue := 0
 	var candDub int
 	var correctAnswer int
-	questAmount := k.GetAnswerLength(ctx, id)
+	questAmount := k.GetQuestAmountPubEvent(ctx, id)
 	for i := 0; i < *questAmount; i++ {
 		expNum := len(k.GetValidPubEventByAnswer(ctx, id, i))
 		if expNum > bigValue {
@@ -450,7 +451,6 @@ func findLosersPool(k msgServer, ctx sdk.Context, id uint64, correctAnswer int) 
 	}
 }
 
-// TODO debug calcul
 func canMint(k msgServer, ctx sdk.Context, id uint64) bool {
 	calcExpet := k.CalculateValidatorsAmount(ctx, id)
 	startTime, endTime := k.GetTimesPubEvents(ctx, id)
@@ -461,13 +461,12 @@ func canMint(k msgServer, ctx sdk.Context, id uint64) bool {
 	}
 }
 
-// TODO debug calculation
 func calcMintedTokens(k msgServer, ctx sdk.Context, id uint64, poll *big.Int) *big.Int {
 	if canMint(k, ctx, id) {
 		bigValue := 0
 		bigValue2 := 0
-
-		for i := 0; i < k.GetQuestAmountPubEvent(ctx, id); i++ {
+		questionAmount := k.GetQuestAmountPubEvent(ctx, id)
+		for i := 0; i < *questionAmount; i++ {
 			playAmount := len(k.GetPlayAmountByAnswer(ctx, id, i))
 			if playAmount > bigValue {
 				bigValue2 = bigValue

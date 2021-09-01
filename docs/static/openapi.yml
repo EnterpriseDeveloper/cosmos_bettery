@@ -20964,11 +20964,9 @@ paths:
                   properties:
                     creator:
                       type: string
-                    id:
-                      type: string
-                      format: uint64
                     pubId:
                       type: string
+                      format: uint64
                     refOne:
                       type: string
                     refTwo:
@@ -21086,11 +21084,9 @@ paths:
                 properties:
                   creator:
                     type: string
-                  id:
-                    type: string
-                    format: uint64
                   pubId:
                     type: string
+                    format: uint64
                   refOne:
                     type: string
                   refTwo:
@@ -32122,10 +32118,6 @@ definitions:
       id:
         type: string
         format: uint64
-  VoroshilovMax.bettery.publicevents.MsgDeleteRefPubEventsResponse:
-    type: object
-  VoroshilovMax.bettery.publicevents.MsgUpdateRefPubEventsResponse:
-    type: object
   VoroshilovMax.bettery.publicevents.PartPubEvents:
     type: object
     properties:
@@ -32312,11 +32304,9 @@ definitions:
           properties:
             creator:
               type: string
-            id:
-              type: string
-              format: uint64
             pubId:
               type: string
+              format: uint64
             refOne:
               type: string
             refTwo:
@@ -32482,11 +32472,9 @@ definitions:
         properties:
           creator:
             type: string
-          id:
-            type: string
-            format: uint64
           pubId:
             type: string
+            format: uint64
           refOne:
             type: string
           refTwo:
@@ -32520,11 +32508,9 @@ definitions:
     properties:
       creator:
         type: string
-      id:
-        type: string
-        format: uint64
       pubId:
         type: string
+        format: uint64
       refOne:
         type: string
       refTwo:

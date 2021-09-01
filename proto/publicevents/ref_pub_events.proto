@@ -7,9 +7,8 @@ import "gogoproto/gogo.proto";
 
 message RefPubEvents {
   string creator = 1;
-  uint64 id = 2;
-  string pubId = 3; 
-  string refOne = 4; 
-  string refTwo = 5; 
-  string refThree = 6; 
+  uint64 pubId = 2; 
+  string refOne = 3; 
+  string refTwo = 4; 
+  string refThree = 5; 
 }

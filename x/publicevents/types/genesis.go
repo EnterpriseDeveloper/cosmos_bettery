@@ -31,10 +31,10 @@ func (gs GenesisState) Validate() error {
 	refPubEventsIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.RefPubEventsList {
-		if _, ok := refPubEventsIdMap[elem.Id]; ok {
+		if _, ok := refPubEventsIdMap[elem.PubId]; ok {
 			return fmt.Errorf("duplicated id for refPubEvents")
 		}
-		refPubEventsIdMap[elem.Id] = true
+		refPubEventsIdMap[elem.PubId] = true
 	}
 	// Check for duplicated ID in fihishPubEvent
 	fihishPubEventIdMap := make(map[uint64]bool)

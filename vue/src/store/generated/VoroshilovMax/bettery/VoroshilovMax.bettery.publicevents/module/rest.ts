@@ -77,10 +77,6 @@ export interface PubliceventsMsgCreateValidPubEventsResponse {
   id?: string;
 }
 
-export type PubliceventsMsgDeleteRefPubEventsResponse = object;
-
-export type PubliceventsMsgUpdateRefPubEventsResponse = object;
-
 export interface PubliceventsPartPubEvents {
   creator?: string;
 
@@ -195,7 +191,6 @@ export interface PubliceventsRefPubEvents {
   creator?: string;
 
   /** @format uint64 */
-  id?: string;
   pubId?: string;
   refOne?: string;
   refTwo?: string;

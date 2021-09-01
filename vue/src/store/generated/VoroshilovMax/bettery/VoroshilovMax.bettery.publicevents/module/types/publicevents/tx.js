@@ -2,14 +2,14 @@
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
-const baseMsgCreateRefPubEvents = { creator: '', pubId: '', refOne: '', refTwo: '', refThree: '' };
+const baseMsgCreateRefPubEvents = { creator: '', pubId: 0, refOne: '', refTwo: '', refThree: '' };
 export const MsgCreateRefPubEvents = {
     encode(message, writer = Writer.create()) {
         if (message.creator !== '') {
             writer.uint32(10).string(message.creator);
         }
-        if (message.pubId !== '') {
-            writer.uint32(18).string(message.pubId);
+        if (message.pubId !== 0) {
+            writer.uint32(16).uint64(message.pubId);
         }
         if (message.refOne !== '') {
             writer.uint32(26).string(message.refOne);
@@ -33,7 +33,7 @@ export const MsgCreateRefPubEvents = {
                     message.creator = reader.string();
                     break;
                 case 2:
-                    message.pubId = reader.string();
+                    message.pubId = longToNumber(reader.uint64());
                     break;
                 case 3:
                     message.refOne = reader.string();
@@ -60,10 +60,10 @@ export const MsgCreateRefPubEvents = {
             message.creator = '';
         }
         if (object.pubId !== undefined && object.pubId !== null) {
-            message.pubId = String(object.pubId);
+            message.pubId = Number(object.pubId);
         }
         else {
-            message.pubId = '';
+            message.pubId = 0;
         }
         if (object.refOne !== undefined && object.refOne !== null) {
             message.refOne = String(object.refOne);
@@ -106,7 +106,7 @@ export const MsgCreateRefPubEvents = {
             message.pubId = object.pubId;
         }
         else {
-            message.pubId = '';
+            message.pubId = 0;
         }
         if (object.refOne !== undefined && object.refOne !== null) {
             message.refOne = object.refOne;
@@ -177,286 +177,6 @@ export const MsgCreateRefPubEventsResponse = {
         else {
             message.id = 0;
         }
-        return message;
-    }
-};
-const baseMsgUpdateRefPubEvents = { creator: '', id: 0, pubId: '', refOne: '', refTwo: '', refThree: '' };
-export const MsgUpdateRefPubEvents = {
-    encode(message, writer = Writer.create()) {
-        if (message.creator !== '') {
-            writer.uint32(10).string(message.creator);
-        }
-        if (message.id !== 0) {
-            writer.uint32(16).uint64(message.id);
-        }
-        if (message.pubId !== '') {
-            writer.uint32(26).string(message.pubId);
-        }
-        if (message.refOne !== '') {
-            writer.uint32(34).string(message.refOne);
-        }
-        if (message.refTwo !== '') {
-            writer.uint32(42).string(message.refTwo);
-        }
-        if (message.refThree !== '') {
-            writer.uint32(50).string(message.refThree);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgUpdateRefPubEvents };
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.creator = reader.string();
-                    break;
-                case 2:
-                    message.id = longToNumber(reader.uint64());
-                    break;
-                case 3:
-                    message.pubId = reader.string();
-                    break;
-                case 4:
-                    message.refOne = reader.string();
-                    break;
-                case 5:
-                    message.refTwo = reader.string();
-                    break;
-                case 6:
-                    message.refThree = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        const message = { ...baseMsgUpdateRefPubEvents };
-        if (object.creator !== undefined && object.creator !== null) {
-            message.creator = String(object.creator);
-        }
-        else {
-            message.creator = '';
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = Number(object.id);
-        }
-        else {
-            message.id = 0;
-        }
-        if (object.pubId !== undefined && object.pubId !== null) {
-            message.pubId = String(object.pubId);
-        }
-        else {
-            message.pubId = '';
-        }
-        if (object.refOne !== undefined && object.refOne !== null) {
-            message.refOne = String(object.refOne);
-        }
-        else {
-            message.refOne = '';
-        }
-        if (object.refTwo !== undefined && object.refTwo !== null) {
-            message.refTwo = String(object.refTwo);
-        }
-        else {
-            message.refTwo = '';
-        }
-        if (object.refThree !== undefined && object.refThree !== null) {
-            message.refThree = String(object.refThree);
-        }
-        else {
-            message.refThree = '';
-        }
-        return message;
-    },
-    toJSON(message) {
-        const obj = {};
-        message.creator !== undefined && (obj.creator = message.creator);
-        message.id !== undefined && (obj.id = message.id);
-        message.pubId !== undefined && (obj.pubId = message.pubId);
-        message.refOne !== undefined && (obj.refOne = message.refOne);
-        message.refTwo !== undefined && (obj.refTwo = message.refTwo);
-        message.refThree !== undefined && (obj.refThree = message.refThree);
-        return obj;
-    },
-    fromPartial(object) {
-        const message = { ...baseMsgUpdateRefPubEvents };
-        if (object.creator !== undefined && object.creator !== null) {
-            message.creator = object.creator;
-        }
-        else {
-            message.creator = '';
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = 0;
-        }
-        if (object.pubId !== undefined && object.pubId !== null) {
-            message.pubId = object.pubId;
-        }
-        else {
-            message.pubId = '';
-        }
-        if (object.refOne !== undefined && object.refOne !== null) {
-            message.refOne = object.refOne;
-        }
-        else {
-            message.refOne = '';
-        }
-        if (object.refTwo !== undefined && object.refTwo !== null) {
-            message.refTwo = object.refTwo;
-        }
-        else {
-            message.refTwo = '';
-        }
-        if (object.refThree !== undefined && object.refThree !== null) {
-            message.refThree = object.refThree;
-        }
-        else {
-            message.refThree = '';
-        }
-        return message;
-    }
-};
-const baseMsgUpdateRefPubEventsResponse = {};
-export const MsgUpdateRefPubEventsResponse = {
-    encode(_, writer = Writer.create()) {
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgUpdateRefPubEventsResponse };
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(_) {
-        const message = { ...baseMsgUpdateRefPubEventsResponse };
-        return message;
-    },
-    toJSON(_) {
-        const obj = {};
-        return obj;
-    },
-    fromPartial(_) {
-        const message = { ...baseMsgUpdateRefPubEventsResponse };
-        return message;
-    }
-};
-const baseMsgDeleteRefPubEvents = { creator: '', id: 0 };
-export const MsgDeleteRefPubEvents = {
-    encode(message, writer = Writer.create()) {
-        if (message.creator !== '') {
-            writer.uint32(10).string(message.creator);
-        }
-        if (message.id !== 0) {
-            writer.uint32(16).uint64(message.id);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgDeleteRefPubEvents };
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.creator = reader.string();
-                    break;
-                case 2:
-                    message.id = longToNumber(reader.uint64());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        const message = { ...baseMsgDeleteRefPubEvents };
-        if (object.creator !== undefined && object.creator !== null) {
-            message.creator = String(object.creator);
-        }
-        else {
-            message.creator = '';
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = Number(object.id);
-        }
-        else {
-            message.id = 0;
-        }
-        return message;
-    },
-    toJSON(message) {
-        const obj = {};
-        message.creator !== undefined && (obj.creator = message.creator);
-        message.id !== undefined && (obj.id = message.id);
-        return obj;
-    },
-    fromPartial(object) {
-        const message = { ...baseMsgDeleteRefPubEvents };
-        if (object.creator !== undefined && object.creator !== null) {
-            message.creator = object.creator;
-        }
-        else {
-            message.creator = '';
-        }
-        if (object.id !== undefined && object.id !== null) {
-            message.id = object.id;
-        }
-        else {
-            message.id = 0;
-        }
-        return message;
-    }
-};
-const baseMsgDeleteRefPubEventsResponse = {};
-export const MsgDeleteRefPubEventsResponse = {
-    encode(_, writer = Writer.create()) {
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof Uint8Array ? new Reader(input) : input;
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = { ...baseMsgDeleteRefPubEventsResponse };
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(_) {
-        const message = { ...baseMsgDeleteRefPubEventsResponse };
-        return message;
-    },
-    toJSON(_) {
-        const obj = {};
-        return obj;
-    },
-    fromPartial(_) {
-        const message = { ...baseMsgDeleteRefPubEventsResponse };
         return message;
     }
 };
@@ -1177,16 +897,6 @@ export class MsgClientImpl {
         const data = MsgCreateRefPubEvents.encode(request).finish();
         const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'CreateRefPubEvents', data);
         return promise.then((data) => MsgCreateRefPubEventsResponse.decode(new Reader(data)));
-    }
-    UpdateRefPubEvents(request) {
-        const data = MsgUpdateRefPubEvents.encode(request).finish();
-        const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'UpdateRefPubEvents', data);
-        return promise.then((data) => MsgUpdateRefPubEventsResponse.decode(new Reader(data)));
-    }
-    DeleteRefPubEvents(request) {
-        const data = MsgDeleteRefPubEvents.encode(request).finish();
-        const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'DeleteRefPubEvents', data);
-        return promise.then((data) => MsgDeleteRefPubEventsResponse.decode(new Reader(data)));
     }
     CreateFihishPubEvent(request) {
         const data = MsgCreateFihishPubEvent.encode(request).finish();
