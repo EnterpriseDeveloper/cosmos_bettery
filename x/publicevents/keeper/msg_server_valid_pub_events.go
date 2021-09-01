@@ -155,7 +155,7 @@ func payBack(k msgServer, ctx sdk.Context, id uint64) (bool, string) {
 		if !ok {
 			return false, "error parse user bet from reverted"
 		}
-		letsPay(k, ctx, players[i].Creator, amount)
+		k.LetsPay(ctx, players[i].Creator, amount)
 	}
 	return true, ""
 }

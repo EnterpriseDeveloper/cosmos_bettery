@@ -25,7 +25,6 @@ func (k msgServer) CreateCreatePubEvents(goCtx context.Context, msg *types.MsgCr
 
 	if premAmount.Cmp(smlNumb) == 1 {
 		done, err := sendPremTokenToEvent(msg, ctx, k)
-		fmt.Println(done, err)
 		if !done {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("send premium token to module err: %s", err))
 		}
