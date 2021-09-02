@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"math"
 	"math/big"
 	"time"
 
@@ -138,14 +139,12 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 	}, nil
 }
 
-// TODO remo from test
 // ASK fedor amount calculation formula
 func calcExpet(players int) int64 {
-	// percent := 0.5
-	// var y float64 = float64(players)
-	// calc := y / (math.Pow(y, percent) + 2 - (math.Pow(2, percent)))
-	//return int64(math.Round(calc))
-	return int64(6)
+	percent := 0.5
+	var y float64 = float64(players)
+	calc := y / (math.Pow(y, percent) + 2 - (math.Pow(2, percent)))
+	return int64(math.Round(calc))
 }
 
 func payBack(k msgServer, ctx sdk.Context, id uint64) (bool, string) {

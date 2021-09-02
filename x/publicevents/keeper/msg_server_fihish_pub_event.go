@@ -33,7 +33,6 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 				sdk.NewAttribute("status", status),
 			),
 		)
-		// TODO send to storage correct data
 		return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 	} else {
 		// find looser pool
@@ -54,10 +53,8 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 					sdk.NewAttribute("status", errString),
 				),
 			)
-			// TODO send to storage correct data
 			return sendToStorage(ctx, k, msg, correctAnswer, reverted, errString, mintedToken.String())
 		} else {
-			// Start debug here
 			// lets pay to company
 			ok, errString := k.letsPayToCompanies(ctx, msg.PubId, mintedToken)
 			if !ok {
@@ -85,7 +82,6 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 				if !ok {
 					return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Loser event by id %d, error message: %s", msg.PubId, errString))
 				}
-				// TODO lets pay to ref
 				ctx.EventManager().EmitEvent(
 					sdk.NewEvent(
 						"pub.event",
@@ -93,8 +89,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 						sdk.NewAttribute("id", eventId),
 					),
 				)
-				// TODO send to storage correct data
-				return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
+				return sendToStorage(ctx, k, msg, correctAnswer, reverted, "finished minted event", mintedToken.String())
 			} else {
 				ctx.EventManager().EmitEvent(
 					sdk.NewEvent(
@@ -103,8 +98,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 						sdk.NewAttribute("id", eventId),
 					),
 				)
-				// TODO send to storage correct data
-				return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
+				return sendToStorage(ctx, k, msg, correctAnswer, reverted, "finished event", mintedToken.String())
 			}
 		}
 	}
