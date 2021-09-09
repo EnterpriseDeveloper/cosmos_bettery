@@ -20967,11 +20967,31 @@ paths:
                     pubId:
                       type: string
                       format: uint64
-                    refOne:
-                      type: string
-                    refTwo:
-                      type: string
-                    refThree:
+                    refOneAddr:
+                      type: array
+                      items:
+                        type: string
+                    refOneAmount:
+                      type: array
+                      items:
+                        type: string
+                    refTwoAddr:
+                      type: array
+                      items:
+                        type: string
+                    refTwoAmount:
+                      type: array
+                      items:
+                        type: string
+                    refThreeAddr:
+                      type: array
+                      items:
+                        type: string
+                    refThreeAmount:
+                      type: array
+                      items:
+                        type: string
+                    payToComp:
                       type: string
               pagination:
                 type: object
@@ -21087,11 +21107,31 @@ paths:
                   pubId:
                     type: string
                     format: uint64
-                  refOne:
-                    type: string
-                  refTwo:
-                    type: string
-                  refThree:
+                  refOneAddr:
+                    type: array
+                    items:
+                      type: string
+                  refOneAmount:
+                    type: array
+                    items:
+                      type: string
+                  refTwoAddr:
+                    type: array
+                    items:
+                      type: string
+                  refTwoAmount:
+                    type: array
+                    items:
+                      type: string
+                  refThreeAddr:
+                    type: array
+                    items:
+                      type: string
+                  refThreeAmount:
+                    type: array
+                    items:
+                      type: string
+                  payToComp:
                     type: string
         default:
           description: An unexpected error response.
@@ -32307,11 +32347,31 @@ definitions:
             pubId:
               type: string
               format: uint64
-            refOne:
-              type: string
-            refTwo:
-              type: string
-            refThree:
+            refOneAddr:
+              type: array
+              items:
+                type: string
+            refOneAmount:
+              type: array
+              items:
+                type: string
+            refTwoAddr:
+              type: array
+              items:
+                type: string
+            refTwoAmount:
+              type: array
+              items:
+                type: string
+            refThreeAddr:
+              type: array
+              items:
+                type: string
+            refThreeAmount:
+              type: array
+              items:
+                type: string
+            payToComp:
               type: string
       pagination:
         type: object
@@ -32475,11 +32535,31 @@ definitions:
           pubId:
             type: string
             format: uint64
-          refOne:
-            type: string
-          refTwo:
-            type: string
-          refThree:
+          refOneAddr:
+            type: array
+            items:
+              type: string
+          refOneAmount:
+            type: array
+            items:
+              type: string
+          refTwoAddr:
+            type: array
+            items:
+              type: string
+          refTwoAmount:
+            type: array
+            items:
+              type: string
+          refThreeAddr:
+            type: array
+            items:
+              type: string
+          refThreeAmount:
+            type: array
+            items:
+              type: string
+          payToComp:
             type: string
   VoroshilovMax.bettery.publicevents.QueryGetValidPubEventsResponse:
     type: object
@@ -32511,11 +32591,31 @@ definitions:
       pubId:
         type: string
         format: uint64
-      refOne:
-        type: string
-      refTwo:
-        type: string
-      refThree:
+      refOneAddr:
+        type: array
+        items:
+          type: string
+      refOneAmount:
+        type: array
+        items:
+          type: string
+      refTwoAddr:
+        type: array
+        items:
+          type: string
+      refTwoAmount:
+        type: array
+        items:
+          type: string
+      refThreeAddr:
+        type: array
+        items:
+          type: string
+      refThreeAmount:
+        type: array
+        items:
+          type: string
+      payToComp:
         type: string
   VoroshilovMax.bettery.publicevents.ValidPubEvents:
     type: object

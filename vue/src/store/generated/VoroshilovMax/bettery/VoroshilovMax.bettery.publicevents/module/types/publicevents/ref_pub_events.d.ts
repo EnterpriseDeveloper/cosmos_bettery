@@ -3,9 +3,13 @@ export declare const protobufPackage = "VoroshilovMax.bettery.publicevents";
 export interface RefPubEvents {
     creator: string;
     pubId: number;
-    refOne: string;
-    refTwo: string;
-    refThree: string;
+    refOneAddr: string[];
+    refOneAmount: string[];
+    refTwoAddr: string[];
+    refTwoAmount: string[];
+    refThreeAddr: string[];
+    refThreeAmount: string[];
+    payToComp: string;
 }
 export declare const RefPubEvents: {
     encode(message: RefPubEvents, writer?: Writer): Writer;

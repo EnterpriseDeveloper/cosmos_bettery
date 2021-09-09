@@ -23,15 +23,19 @@ func CmdCreateRefPubEvents() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argsRefOne, err := cast.ToStringE(args[1])
-			if err != nil {
-				return err
-			}
-			argsRefTwo, err := cast.ToStringE(args[2])
-			if err != nil {
-				return err
-			}
-			argsRefThree, err := cast.ToStringE(args[3])
+			argsRefOneAddr := args[1:len(args)]
+
+			argsRefOneAmount := args[2:len(args)]
+
+			argsRefTwoAddr := args[3:len(args)]
+
+			argsRefTwoAmount := args[4:len(args)]
+
+			argsRefThreeAddr := args[5:len(args)]
+
+			argsRefThreeAmount := args[6:len(args)]
+
+			companyAmount, err := cast.ToStringE(args[7])
 			if err != nil {
 				return err
 			}
@@ -41,7 +45,7 @@ func CmdCreateRefPubEvents() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgCreateRefPubEvents(clientCtx.GetFromAddress().String(), argsPubId, argsRefOne, argsRefTwo, argsRefThree)
+			msg := types.NewMsgCreateRefPubEvents(clientCtx.GetFromAddress().String(), argsPubId, argsRefOneAddr, argsRefOneAmount, argsRefTwoAddr, argsRefTwoAmount, argsRefThreeAddr, argsRefThreeAmount, companyAmount)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

@@ -8,7 +8,11 @@ import "gogoproto/gogo.proto";
 message RefPubEvents {
   string creator = 1;
   uint64 pubId = 2; 
-  string refOne = 3; 
-  string refTwo = 4; 
-  string refThree = 5; 
+  repeated string refOneAddr = 3; 
+  repeated string refOneAmount = 4;
+  repeated string refTwoAddr = 5; 
+  repeated string refTwoAmount = 6;
+  repeated string refThreeAddr = 7; 
+  repeated string refThreeAmount = 8;
+  string payToComp = 9;
 }

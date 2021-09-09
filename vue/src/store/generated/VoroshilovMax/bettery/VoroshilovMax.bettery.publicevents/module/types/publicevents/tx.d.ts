@@ -4,9 +4,13 @@ export declare const protobufPackage = "VoroshilovMax.bettery.publicevents";
 export interface MsgCreateRefPubEvents {
     creator: string;
     pubId: number;
-    refOne: string;
-    refTwo: string;
-    refThree: string;
+    refOneAddr: string[];
+    refOneAmount: string[];
+    refTwoAddr: string[];
+    refTwoAmount: string[];
+    refThreeAddr: string[];
+    refThreeAmount: string[];
+    payToComp: string;
 }
 export interface MsgCreateRefPubEventsResponse {
     id: number;

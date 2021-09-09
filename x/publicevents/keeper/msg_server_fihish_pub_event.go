@@ -13,6 +13,10 @@ import (
 )
 
 func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCreateFihishPubEvent) (*types.MsgCreateFihishPubEventResponse, error) {
+	// TODO Only comapny can execute function
+	// TODO think abount refactoring
+	// TODO think abount scaling function if event reach more that 1000 people on event
+
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	eventId, err := cast.ToStringE(msg.PubId)
 	if err != nil {
@@ -86,6 +90,8 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 					sdk.NewEvent(
 						"pub.event",
 						sdk.NewAttribute("finished", "true"),
+						sdk.NewAttribute("minted", "true"),
+						sdk.NewAttribute("mintedTokens", mintedToken.String()),
 						sdk.NewAttribute("id", eventId),
 					),
 				)
@@ -95,6 +101,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 					sdk.NewEvent(
 						"pub.event",
 						sdk.NewAttribute("finished", "true"),
+						sdk.NewAttribute("minted", "false"),
 						sdk.NewAttribute("id", eventId),
 					),
 				)

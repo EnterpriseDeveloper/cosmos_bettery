@@ -146,9 +146,13 @@ export interface PubliceventsRefPubEvents {
     creator?: string;
     /** @format uint64 */
     pubId?: string;
-    refOne?: string;
-    refTwo?: string;
-    refThree?: string;
+    refOneAddr?: string[];
+    refOneAmount?: string[];
+    refTwoAddr?: string[];
+    refTwoAmount?: string[];
+    refThreeAddr?: string[];
+    refThreeAmount?: string[];
+    payToComp?: string;
 }
 export interface PubliceventsValidPubEvents {
     creator?: string;

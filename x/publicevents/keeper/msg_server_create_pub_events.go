@@ -13,11 +13,12 @@ import (
 func (k msgServer) CreateCreatePubEvents(goCtx context.Context, msg *types.MsgCreateCreatePubEvents) (*types.MsgCreateCreatePubEventsResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	smlNumb, ok := new(big.Int).SetString("1", 10)
-	if !ok {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse min big init error, amount: %s, user: %s", msg.Creator, msg.PremAmount))
+	// check if event exist
+	if k.HasCreatePubEvents(ctx, msg.PubId) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event already exist: %d", msg.PubId))
 	}
 
+	smlNumb := new(big.Int).SetInt64(int64(0))
 	premAmount, ok := new(big.Int).SetString(msg.PremAmount, 10)
 	if !ok {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error, amount: %s, user: %s", msg.Creator, msg.PremAmount))

@@ -7,13 +7,17 @@ import (
 
 var _ sdk.Msg = &MsgCreateRefPubEvents{}
 
-func NewMsgCreateRefPubEvents(creator string, pubId uint64, refOne string, refTwo string, refThree string) *MsgCreateRefPubEvents {
+func NewMsgCreateRefPubEvents(creator string, pubId uint64, refOneAddr []string, refOneAmount []string, refTwoAddr []string, refTwoAmount []string, refThreeAddr []string, refThreeAmount []string, companyAmount string) *MsgCreateRefPubEvents {
 	return &MsgCreateRefPubEvents{
-		Creator:  creator,
-		PubId:    pubId,
-		RefOne:   refOne,
-		RefTwo:   refTwo,
-		RefThree: refThree,
+		Creator:        creator,
+		PubId:          pubId,
+		RefOneAddr:     refOneAddr,
+		RefOneAmount:   refOneAmount,
+		RefTwoAddr:     refTwoAddr,
+		RefTwoAmount:   refTwoAmount,
+		RefThreeAddr:   refThreeAddr,
+		RefThreeAmount: refThreeAmount,
+		PayToComp:      companyAmount,
 	}
 }
 
