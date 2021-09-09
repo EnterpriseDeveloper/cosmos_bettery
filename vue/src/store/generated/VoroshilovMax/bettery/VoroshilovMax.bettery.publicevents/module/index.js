@@ -3,16 +3,16 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgCreateFihishPubEvent } from "./types/publicevents/tx";
-import { MsgCreateRefPubEvents } from "./types/publicevents/tx";
 import { MsgCreateCreatePubEvents } from "./types/publicevents/tx";
 import { MsgCreatePartPubEvents } from "./types/publicevents/tx";
 import { MsgCreateValidPubEvents } from "./types/publicevents/tx";
+import { MsgCreateRefPubEvents } from "./types/publicevents/tx";
 const types = [
     ["/VoroshilovMax.bettery.publicevents.MsgCreateFihishPubEvent", MsgCreateFihishPubEvent],
-    ["/VoroshilovMax.bettery.publicevents.MsgCreateRefPubEvents", MsgCreateRefPubEvents],
     ["/VoroshilovMax.bettery.publicevents.MsgCreateCreatePubEvents", MsgCreateCreatePubEvents],
     ["/VoroshilovMax.bettery.publicevents.MsgCreatePartPubEvents", MsgCreatePartPubEvents],
     ["/VoroshilovMax.bettery.publicevents.MsgCreateValidPubEvents", MsgCreateValidPubEvents],
+    ["/VoroshilovMax.bettery.publicevents.MsgCreateRefPubEvents", MsgCreateRefPubEvents],
 ];
 export const MissingWalletError = new Error("wallet is required");
 const registry = new Registry(types);
@@ -28,10 +28,10 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     return {
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
         msgCreateFihishPubEvent: (data) => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreateFihishPubEvent", value: data }),
-        msgCreateRefPubEvents: (data) => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreateRefPubEvents", value: data }),
         msgCreateCreatePubEvents: (data) => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreateCreatePubEvents", value: data }),
         msgCreatePartPubEvents: (data) => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreatePartPubEvents", value: data }),
         msgCreateValidPubEvents: (data) => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreateValidPubEvents", value: data }),
+        msgCreateRefPubEvents: (data) => ({ typeUrl: "/VoroshilovMax.bettery.publicevents.MsgCreateRefPubEvents", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {
