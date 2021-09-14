@@ -1,19 +1,19 @@
 accounts:
   - name: alice
-    coins: ["20000token", "200000000stake"]
+    coins: ["20000bty", "200000000bet"]
   - name: bob
-    coins: ["10000token", "20000000000stake"]
+    coins: ["10000bty", "20000000000bet"]
   - name: sim
-    coins: ["10000token", "100000000stake"]
+    coins: ["10000bty", "100000000bet"]
   - name: shane
-    coins: ["10000token", "100000000stake"]
+    coins: ["10000bty", "100000000bet"]
   - name: max
-    coins: ["10000token", "100000000stake"]
+    coins: ["10000bty", "100000000bet"]
   - name: fedor
-    coins: ["10000token", "100000000stake"]
+    coins: ["10000bty", "100000000bet"]
 validator:
   name: alice
-  staked: "100000000stake"
+  staked: "100000000bet"
 client:
   vuex:
     path: "vue/src/store"
@@ -21,4 +21,4 @@ client:
     path: "docs/static/openapi.yml"
 faucet:
   name: bob
-  coins: ["5token", "2000000000stake"]
+  coins: ["5bty", "2000000000bet"]

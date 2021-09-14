@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math/big"
+	"strconv"
 
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
 	FEtypes "github.com/VoroshilovMax/bettery/x/publicevents/types/finish_event_config"
@@ -86,22 +87,28 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 				if !ok {
 					return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Loser event by id %d, error message: %s", msg.PubId, errString))
 				}
+				answer := k.GetAnswerByIndexPubEvent(ctx, msg.PubId, correctAnswer)
 				ctx.EventManager().EmitEvent(
 					sdk.NewEvent(
 						"pub.event",
 						sdk.NewAttribute("finished", "true"),
 						sdk.NewAttribute("minted", "true"),
 						sdk.NewAttribute("mintedTokens", mintedToken.String()),
+						sdk.NewAttribute("answer", answer),
+						sdk.NewAttribute("answerIndex", strconv.Itoa(correctAnswer)),
 						sdk.NewAttribute("id", eventId),
 					),
 				)
 				return sendToStorage(ctx, k, msg, correctAnswer, reverted, "finished minted event", mintedToken.String())
 			} else {
+				answer := k.GetAnswerByIndexPubEvent(ctx, msg.PubId, correctAnswer)
 				ctx.EventManager().EmitEvent(
 					sdk.NewEvent(
 						"pub.event",
 						sdk.NewAttribute("finished", "true"),
 						sdk.NewAttribute("minted", "false"),
+						sdk.NewAttribute("answer", answer),
+						sdk.NewAttribute("answerIndex", strconv.Itoa(correctAnswer)),
 						sdk.NewAttribute("id", eventId),
 					),
 				)

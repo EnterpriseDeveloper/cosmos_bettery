@@ -59,6 +59,10 @@ func (k *Keeper) GetQuestAmountPubEvent(ctx sdk.Context, id uint64) *int {
 	return &am
 }
 
+func (k *Keeper) GetAnswerByIndexPubEvent(ctx sdk.Context, id uint64, index int) string {
+	return k.GetCreatePubEvents(ctx, id).Answers[index]
+}
+
 // RemoveCreatePubEvents removes a createPubEvents from the store
 func (k Keeper) RemoveCreatePubEvents(ctx sdk.Context, id uint64) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePubEventsKey))
