@@ -61,21 +61,24 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 			return sendToStorage(ctx, k, msg, correctAnswer, reverted, errString, mintedToken.String())
 		} else {
 			// lets pay to company
-			ok, errString := k.letsPayToCompanies(ctx, msg.PubId, mintedToken)
-			if !ok {
-				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Companies event by id %d, error message: %s", msg.PubId, errString))
-			}
+			//ok, errString =
+			go k.letsPayToCompanies(ctx, msg.PubId, mintedToken)
+			//	if !ok {
+			//		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Companies event by id %d, error message: %s", msg.PubId, errString))
+			//	}
 			// lets pay to host
-			ok, errString = k.letsPayToHost(ctx, msg.PubId, mintedToken, loserPool)
-			if !ok {
-				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Companies event by id %d, error message: %s", msg.PubId, errString))
-			}
+			//ok, errString =
+			go k.letsPayToHost(ctx, msg.PubId, mintedToken, loserPool)
+			// if !ok {
+			// 	return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Companies event by id %d, error message: %s", msg.PubId, errString))
+			// }
 
 			// lets pay to experts
-			ok, errString = k.letsPayToExperts(ctx, msg.PubId, correctAnswer, loserPool, mintedToken)
-			if !ok {
-				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Expert event by id %d, error message: %s", msg.PubId, errString))
-			}
+			// ok, errString =
+			go k.letsPayToExperts(ctx, msg.PubId, correctAnswer, loserPool, mintedToken)
+			// if !ok {
+			// 	return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("lets Pay To Expert event by id %d, error message: %s", msg.PubId, errString))
+			// }
 			// lets pay to players
 			ok, errString, avarageBet, calcMintedToken := k.letsPayToPlayers(ctx, msg.PubId, correctAnswer, loserPool, mintedToken)
 			if !ok {
