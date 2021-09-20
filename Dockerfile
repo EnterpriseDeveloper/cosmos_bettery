@@ -1,8 +1,9 @@
 FROM amd64/ubuntu:20.04
 
 RUN apt-get update \ 
+    && apt-get install -y sudo \
     && apt-get install -y wget \
-    && apt-get -y install sudo
+    && apt-get install -y build-essential
 
 RUN adduser --disabled-password --gecos '' docker && adduser docker sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 USER docker
@@ -22,4 +23,5 @@ EXPOSE 26656
 EXPOSE 6060 
 EXPOSE 9090 
 EXPOSE 1317 
+RUN  /go/src/github.com/VoroshilovMax/bettery/main init bettery --chain-id my-test-chain
 CMD ["betteryd", "start"]
