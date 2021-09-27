@@ -4,6 +4,7 @@ package VoroshilovMax.bettery.publicevents;
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 // this line is used by starport scaffolding # 1
+import "publicevents/refund_pub_events.proto";
 import "publicevents/ref_pub_events.proto";
 import "publicevents/fihish_pub_event.proto";
 import "publicevents/valid_pub_events.proto";
@@ -15,6 +16,17 @@ option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
 // Query defines the gRPC querier service.
 service Query {
     // this line is used by starport scaffolding # 2
+
+	// Queries a refundPubEvents by id.
+	rpc RefundPubEvents(QueryGetRefundPubEventsRequest) returns (QueryGetRefundPubEventsResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/publicevents/refundPubEvents/{id}";
+	}
+
+	// Queries a list of refundPubEvents items.
+	rpc RefundPubEventsAll(QueryAllRefundPubEventsRequest) returns (QueryAllRefundPubEventsResponse) {
+		option (google.api.http).get = "/VoroshilovMax/bettery/publicevents/refundPubEvents";
+	}
+
 
 	// Queries a refPubEvents by id.
 	rpc RefPubEvents(QueryGetRefPubEventsRequest) returns (QueryGetRefPubEventsResponse) {
@@ -73,6 +85,22 @@ service Query {
 }
 
 // this line is used by starport scaffolding # 3
+message QueryGetRefundPubEventsRequest {
+	uint64 id = 1;
+}
+
+message QueryGetRefundPubEventsResponse {
+	RefundPubEvents RefundPubEvents = 1;
+}
+
+message QueryAllRefundPubEventsRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllRefundPubEventsResponse {
+	repeated RefundPubEvents RefundPubEvents = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 message QueryGetRefPubEventsRequest {
 	uint64 id = 1;
 }

@@ -2,6 +2,7 @@ syntax = "proto3";
 package VoroshilovMax.bettery.publicevents;
 
 // this line is used by starport scaffolding # genesis/proto/import
+import "publicevents/refund_pub_events.proto";
 import "publicevents/ref_pub_events.proto";
 import "publicevents/fihish_pub_event.proto";
 import "publicevents/valid_pub_events.proto";
@@ -13,6 +14,8 @@ option go_package = "github.com/VoroshilovMax/bettery/x/publicevents/types";
 // GenesisState defines the publicevents module's genesis state.
 message GenesisState {
     // this line is used by starport scaffolding # genesis/proto/state
+		repeated RefundPubEvents refundPubEventsList = 11; // this line is used by starport scaffolding # genesis/proto/stateField
+		uint64 refundPubEventsCount = 12; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated RefPubEvents refPubEventsList = 9; // this line is used by starport scaffolding # genesis/proto/stateField
 		uint64 refPubEventsCount = 10; // this line is used by starport scaffolding # genesis/proto/stateField
 		repeated FihishPubEvent fihishPubEventList = 7; // this line is used by starport scaffolding # genesis/proto/stateField

@@ -1,13 +1,243 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
-import { RefPubEvents } from '../publicevents/ref_pub_events';
+import { RefundPubEvents } from '../publicevents/refund_pub_events';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { RefPubEvents } from '../publicevents/ref_pub_events';
 import { FihishPubEvent } from '../publicevents/fihish_pub_event';
 import { ValidPubEvents } from '../publicevents/valid_pub_events';
 import { PartPubEvents } from '../publicevents/part_pub_events';
 import { CreatePubEvents } from '../publicevents/create_pub_events';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
+const baseQueryGetRefundPubEventsRequest = { id: 0 };
+export const QueryGetRefundPubEventsRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.id !== 0) {
+            writer.uint32(8).uint64(message.id);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetRefundPubEventsRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.id = longToNumber(reader.uint64());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetRefundPubEventsRequest };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = Number(object.id);
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.id !== undefined && (obj.id = message.id);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetRefundPubEventsRequest };
+        if (object.id !== undefined && object.id !== null) {
+            message.id = object.id;
+        }
+        else {
+            message.id = 0;
+        }
+        return message;
+    }
+};
+const baseQueryGetRefundPubEventsResponse = {};
+export const QueryGetRefundPubEventsResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.RefundPubEvents !== undefined) {
+            RefundPubEvents.encode(message.RefundPubEvents, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryGetRefundPubEventsResponse };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.RefundPubEvents = RefundPubEvents.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryGetRefundPubEventsResponse };
+        if (object.RefundPubEvents !== undefined && object.RefundPubEvents !== null) {
+            message.RefundPubEvents = RefundPubEvents.fromJSON(object.RefundPubEvents);
+        }
+        else {
+            message.RefundPubEvents = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.RefundPubEvents !== undefined && (obj.RefundPubEvents = message.RefundPubEvents ? RefundPubEvents.toJSON(message.RefundPubEvents) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetRefundPubEventsResponse };
+        if (object.RefundPubEvents !== undefined && object.RefundPubEvents !== null) {
+            message.RefundPubEvents = RefundPubEvents.fromPartial(object.RefundPubEvents);
+        }
+        else {
+            message.RefundPubEvents = undefined;
+        }
+        return message;
+    }
+};
+const baseQueryAllRefundPubEventsRequest = {};
+export const QueryAllRefundPubEventsRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllRefundPubEventsRequest };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllRefundPubEventsRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllRefundPubEventsRequest };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    }
+};
+const baseQueryAllRefundPubEventsResponse = {};
+export const QueryAllRefundPubEventsResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.RefundPubEvents) {
+            RefundPubEvents.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = { ...baseQueryAllRefundPubEventsResponse };
+        message.RefundPubEvents = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.RefundPubEvents.push(RefundPubEvents.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = { ...baseQueryAllRefundPubEventsResponse };
+        message.RefundPubEvents = [];
+        if (object.RefundPubEvents !== undefined && object.RefundPubEvents !== null) {
+            for (const e of object.RefundPubEvents) {
+                message.RefundPubEvents.push(RefundPubEvents.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.RefundPubEvents) {
+            obj.RefundPubEvents = message.RefundPubEvents.map((e) => (e ? RefundPubEvents.toJSON(e) : undefined));
+        }
+        else {
+            obj.RefundPubEvents = [];
+        }
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryAllRefundPubEventsResponse };
+        message.RefundPubEvents = [];
+        if (object.RefundPubEvents !== undefined && object.RefundPubEvents !== null) {
+            for (const e of object.RefundPubEvents) {
+                message.RefundPubEvents.push(RefundPubEvents.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    }
+};
 const baseQueryGetRefPubEventsRequest = { id: 0 };
 export const QueryGetRefPubEventsRequest = {
     encode(message, writer = Writer.create()) {
@@ -1156,6 +1386,16 @@ export const QueryAllCreatePubEventsResponse = {
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
+    }
+    RefundPubEvents(request) {
+        const data = QueryGetRefundPubEventsRequest.encode(request).finish();
+        const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'RefundPubEvents', data);
+        return promise.then((data) => QueryGetRefundPubEventsResponse.decode(new Reader(data)));
+    }
+    RefundPubEventsAll(request) {
+        const data = QueryAllRefundPubEventsRequest.encode(request).finish();
+        const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'RefundPubEventsAll', data);
+        return promise.then((data) => QueryAllRefundPubEventsResponse.decode(new Reader(data)));
     }
     RefPubEvents(request) {
         const data = QueryGetRefPubEventsRequest.encode(request).finish();

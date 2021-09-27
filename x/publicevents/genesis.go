@@ -10,6 +10,14 @@ import (
 // state.
 func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
 	// this line is used by starport scaffolding # genesis/module/init
+	// Set all the refundPubEvents
+	for _, elem := range genState.RefundPubEventsList {
+		k.SetRefundPubEvents(ctx, *elem)
+	}
+
+	// Set refundPubEvents count
+	k.SetRefundPubEventsCount(ctx, genState.RefundPubEventsCount)
+
 	// Set all the refPubEvents
 	for _, elem := range genState.RefPubEventsList {
 		k.SetRefPubEvents(ctx, *elem)
@@ -58,6 +66,16 @@ func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
 	genesis := types.DefaultGenesis()
 
 	// this line is used by starport scaffolding # genesis/module/export
+	// Get all refundPubEvents
+	refundPubEventsList := k.GetAllRefundPubEvents(ctx)
+	for _, elem := range refundPubEventsList {
+		elem := elem
+		genesis.RefundPubEventsList = append(genesis.RefundPubEventsList, &elem)
+	}
+
+	// Set the current count
+	genesis.RefundPubEventsCount = k.GetRefundPubEventsCount(ctx)
+
 	// Get all refPubEvents
 	refPubEventsList := k.GetAllRefPubEvents(ctx)
 	for _, elem := range refPubEventsList {

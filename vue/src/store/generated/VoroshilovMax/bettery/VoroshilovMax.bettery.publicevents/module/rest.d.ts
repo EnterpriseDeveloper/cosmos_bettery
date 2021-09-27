@@ -47,10 +47,16 @@ export interface PubliceventsMsgCreateRefPubEventsResponse {
     /** @format uint64 */
     id?: string;
 }
+export interface PubliceventsMsgCreateRefundPubEventsResponse {
+    /** @format uint64 */
+    id?: string;
+}
 export interface PubliceventsMsgCreateValidPubEventsResponse {
     /** @format uint64 */
     id?: string;
 }
+export declare type PubliceventsMsgDeleteRefundPubEventsResponse = object;
+export declare type PubliceventsMsgUpdateRefundPubEventsResponse = object;
 export interface PubliceventsPartPubEvents {
     creator?: string;
     /** @format uint64 */
@@ -114,6 +120,19 @@ export interface PubliceventsQueryAllRefPubEventsResponse {
      */
     pagination?: V1Beta1PageResponse;
 }
+export interface PubliceventsQueryAllRefundPubEventsResponse {
+    RefundPubEvents?: PubliceventsRefundPubEvents[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
+}
 export interface PubliceventsQueryAllValidPubEventsResponse {
     ValidPubEvents?: PubliceventsValidPubEvents[];
     /**
@@ -139,6 +158,9 @@ export interface PubliceventsQueryGetPartPubEventsResponse {
 export interface PubliceventsQueryGetRefPubEventsResponse {
     RefPubEvents?: PubliceventsRefPubEvents;
 }
+export interface PubliceventsQueryGetRefundPubEventsResponse {
+    RefundPubEvents?: PubliceventsRefundPubEvents;
+}
 export interface PubliceventsQueryGetValidPubEventsResponse {
     ValidPubEvents?: PubliceventsValidPubEvents;
 }
@@ -153,6 +175,13 @@ export interface PubliceventsRefPubEvents {
     refThreeAddr?: string[];
     refThreeAmount?: string[];
     payToComp?: string;
+}
+export interface PubliceventsRefundPubEvents {
+    creator?: string;
+    /** @format uint64 */
+    id?: string;
+    pubId?: string;
+    purpose?: string;
 }
 export interface PubliceventsValidPubEvents {
     creator?: string;
@@ -372,6 +401,29 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/VoroshilovMax/bettery/publicevents/refPubEvents/{id}
      */
     queryRefPubEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryGetRefPubEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryRefundPubEventsAll
+     * @summary Queries a list of refundPubEvents items.
+     * @request GET:/VoroshilovMax/bettery/publicevents/refundPubEvents
+     */
+    queryRefundPubEventsAll: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryAllRefundPubEventsResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryRefundPubEvents
+     * @summary Queries a refundPubEvents by id.
+     * @request GET:/VoroshilovMax/bettery/publicevents/refundPubEvents/{id}
+     */
+    queryRefundPubEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PubliceventsQueryGetRefundPubEventsResponse, RpcStatus>>;
     /**
      * No description
      *

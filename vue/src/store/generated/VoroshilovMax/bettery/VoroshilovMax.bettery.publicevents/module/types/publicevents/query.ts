@@ -1,8 +1,9 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal'
 import * as Long from 'long'
-import { RefPubEvents } from '../publicevents/ref_pub_events'
+import { RefundPubEvents } from '../publicevents/refund_pub_events'
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination'
+import { RefPubEvents } from '../publicevents/ref_pub_events'
 import { FihishPubEvent } from '../publicevents/fihish_pub_event'
 import { ValidPubEvents } from '../publicevents/valid_pub_events'
 import { PartPubEvents } from '../publicevents/part_pub_events'
@@ -11,6 +12,23 @@ import { CreatePubEvents } from '../publicevents/create_pub_events'
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents'
 
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetRefundPubEventsRequest {
+  id: number
+}
+
+export interface QueryGetRefundPubEventsResponse {
+  RefundPubEvents: RefundPubEvents | undefined
+}
+
+export interface QueryAllRefundPubEventsRequest {
+  pagination: PageRequest | undefined
+}
+
+export interface QueryAllRefundPubEventsResponse {
+  RefundPubEvents: RefundPubEvents[]
+  pagination: PageResponse | undefined
+}
+
 export interface QueryGetRefPubEventsRequest {
   id: number
 }
@@ -94,6 +112,250 @@ export interface QueryAllCreatePubEventsRequest {
 export interface QueryAllCreatePubEventsResponse {
   CreatePubEvents: CreatePubEvents[]
   pagination: PageResponse | undefined
+}
+
+const baseQueryGetRefundPubEventsRequest: object = { id: 0 }
+
+export const QueryGetRefundPubEventsRequest = {
+  encode(message: QueryGetRefundPubEventsRequest, writer: Writer = Writer.create()): Writer {
+    if (message.id !== 0) {
+      writer.uint32(8).uint64(message.id)
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetRefundPubEventsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetRefundPubEventsRequest } as QueryGetRefundPubEventsRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.id = longToNumber(reader.uint64() as Long)
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetRefundPubEventsRequest {
+    const message = { ...baseQueryGetRefundPubEventsRequest } as QueryGetRefundPubEventsRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id)
+    } else {
+      message.id = 0
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetRefundPubEventsRequest): unknown {
+    const obj: any = {}
+    message.id !== undefined && (obj.id = message.id)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetRefundPubEventsRequest>): QueryGetRefundPubEventsRequest {
+    const message = { ...baseQueryGetRefundPubEventsRequest } as QueryGetRefundPubEventsRequest
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id
+    } else {
+      message.id = 0
+    }
+    return message
+  }
+}
+
+const baseQueryGetRefundPubEventsResponse: object = {}
+
+export const QueryGetRefundPubEventsResponse = {
+  encode(message: QueryGetRefundPubEventsResponse, writer: Writer = Writer.create()): Writer {
+    if (message.RefundPubEvents !== undefined) {
+      RefundPubEvents.encode(message.RefundPubEvents, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetRefundPubEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryGetRefundPubEventsResponse } as QueryGetRefundPubEventsResponse
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.RefundPubEvents = RefundPubEvents.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryGetRefundPubEventsResponse {
+    const message = { ...baseQueryGetRefundPubEventsResponse } as QueryGetRefundPubEventsResponse
+    if (object.RefundPubEvents !== undefined && object.RefundPubEvents !== null) {
+      message.RefundPubEvents = RefundPubEvents.fromJSON(object.RefundPubEvents)
+    } else {
+      message.RefundPubEvents = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryGetRefundPubEventsResponse): unknown {
+    const obj: any = {}
+    message.RefundPubEvents !== undefined && (obj.RefundPubEvents = message.RefundPubEvents ? RefundPubEvents.toJSON(message.RefundPubEvents) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryGetRefundPubEventsResponse>): QueryGetRefundPubEventsResponse {
+    const message = { ...baseQueryGetRefundPubEventsResponse } as QueryGetRefundPubEventsResponse
+    if (object.RefundPubEvents !== undefined && object.RefundPubEvents !== null) {
+      message.RefundPubEvents = RefundPubEvents.fromPartial(object.RefundPubEvents)
+    } else {
+      message.RefundPubEvents = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllRefundPubEventsRequest: object = {}
+
+export const QueryAllRefundPubEventsRequest = {
+  encode(message: QueryAllRefundPubEventsRequest, writer: Writer = Writer.create()): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllRefundPubEventsRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllRefundPubEventsRequest } as QueryAllRefundPubEventsRequest
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllRefundPubEventsRequest {
+    const message = { ...baseQueryAllRefundPubEventsRequest } as QueryAllRefundPubEventsRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllRefundPubEventsRequest): unknown {
+    const obj: any = {}
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllRefundPubEventsRequest>): QueryAllRefundPubEventsRequest {
+    const message = { ...baseQueryAllRefundPubEventsRequest } as QueryAllRefundPubEventsRequest
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
+}
+
+const baseQueryAllRefundPubEventsResponse: object = {}
+
+export const QueryAllRefundPubEventsResponse = {
+  encode(message: QueryAllRefundPubEventsResponse, writer: Writer = Writer.create()): Writer {
+    for (const v of message.RefundPubEvents) {
+      RefundPubEvents.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
+    return writer
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllRefundPubEventsResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input
+    let end = length === undefined ? reader.len : reader.pos + length
+    const message = { ...baseQueryAllRefundPubEventsResponse } as QueryAllRefundPubEventsResponse
+    message.RefundPubEvents = []
+    while (reader.pos < end) {
+      const tag = reader.uint32()
+      switch (tag >>> 3) {
+        case 1:
+          message.RefundPubEvents.push(RefundPubEvents.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
+          break
+        default:
+          reader.skipType(tag & 7)
+          break
+      }
+    }
+    return message
+  },
+
+  fromJSON(object: any): QueryAllRefundPubEventsResponse {
+    const message = { ...baseQueryAllRefundPubEventsResponse } as QueryAllRefundPubEventsResponse
+    message.RefundPubEvents = []
+    if (object.RefundPubEvents !== undefined && object.RefundPubEvents !== null) {
+      for (const e of object.RefundPubEvents) {
+        message.RefundPubEvents.push(RefundPubEvents.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  },
+
+  toJSON(message: QueryAllRefundPubEventsResponse): unknown {
+    const obj: any = {}
+    if (message.RefundPubEvents) {
+      obj.RefundPubEvents = message.RefundPubEvents.map((e) => (e ? RefundPubEvents.toJSON(e) : undefined))
+    } else {
+      obj.RefundPubEvents = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
+    return obj
+  },
+
+  fromPartial(object: DeepPartial<QueryAllRefundPubEventsResponse>): QueryAllRefundPubEventsResponse {
+    const message = { ...baseQueryAllRefundPubEventsResponse } as QueryAllRefundPubEventsResponse
+    message.RefundPubEvents = []
+    if (object.RefundPubEvents !== undefined && object.RefundPubEvents !== null) {
+      for (const e of object.RefundPubEvents) {
+        message.RefundPubEvents.push(RefundPubEvents.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
+    return message
+  }
 }
 
 const baseQueryGetRefPubEventsRequest: object = { id: 0 }
@@ -1318,6 +1580,10 @@ export const QueryAllCreatePubEventsResponse = {
 
 /** Query defines the gRPC querier service. */
 export interface Query {
+  /** Queries a refundPubEvents by id. */
+  RefundPubEvents(request: QueryGetRefundPubEventsRequest): Promise<QueryGetRefundPubEventsResponse>
+  /** Queries a list of refundPubEvents items. */
+  RefundPubEventsAll(request: QueryAllRefundPubEventsRequest): Promise<QueryAllRefundPubEventsResponse>
   /** Queries a refPubEvents by id. */
   RefPubEvents(request: QueryGetRefPubEventsRequest): Promise<QueryGetRefPubEventsResponse>
   /** Queries a list of refPubEvents items. */
@@ -1345,6 +1611,18 @@ export class QueryClientImpl implements Query {
   constructor(rpc: Rpc) {
     this.rpc = rpc
   }
+  RefundPubEvents(request: QueryGetRefundPubEventsRequest): Promise<QueryGetRefundPubEventsResponse> {
+    const data = QueryGetRefundPubEventsRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'RefundPubEvents', data)
+    return promise.then((data) => QueryGetRefundPubEventsResponse.decode(new Reader(data)))
+  }
+
+  RefundPubEventsAll(request: QueryAllRefundPubEventsRequest): Promise<QueryAllRefundPubEventsResponse> {
+    const data = QueryAllRefundPubEventsRequest.encode(request).finish()
+    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'RefundPubEventsAll', data)
+    return promise.then((data) => QueryAllRefundPubEventsResponse.decode(new Reader(data)))
+  }
+
   RefPubEvents(request: QueryGetRefPubEventsRequest): Promise<QueryGetRefPubEventsResponse> {
     const data = QueryGetRefPubEventsRequest.encode(request).finish()
     const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Query', 'RefPubEvents', data)

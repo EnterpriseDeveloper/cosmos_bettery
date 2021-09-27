@@ -51,3 +51,8 @@ const (
 	RefPubEventsKey      = "RefPubEvents-value-"
 	RefPubEventsCountKey = "RefPubEvents-count-"
 )
+
+const (
+	RefundPubEventsKey      = "RefundPubEvents-value-"
+	RefundPubEventsCountKey = "RefundPubEvents-count-"
+)

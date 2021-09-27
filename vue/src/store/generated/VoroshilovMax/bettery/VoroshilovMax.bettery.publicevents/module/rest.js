@@ -256,6 +256,35 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryRefundPubEventsAll
+         * @summary Queries a list of refundPubEvents items.
+         * @request GET:/VoroshilovMax/bettery/publicevents/refundPubEvents
+         */
+        this.queryRefundPubEventsAll = (query, params = {}) => this.request({
+            path: `/VoroshilovMax/bettery/publicevents/refundPubEvents`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
+         * @name QueryRefundPubEvents
+         * @summary Queries a refundPubEvents by id.
+         * @request GET:/VoroshilovMax/bettery/publicevents/refundPubEvents/{id}
+         */
+        this.queryRefundPubEvents = (id, params = {}) => this.request({
+            path: `/VoroshilovMax/bettery/publicevents/refundPubEvents/${id}`,
+            method: "GET",
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryValidPubEventsAll
          * @summary Queries a list of validPubEvents items.
          * @request GET:/VoroshilovMax/bettery/publicevents/validPubEvents

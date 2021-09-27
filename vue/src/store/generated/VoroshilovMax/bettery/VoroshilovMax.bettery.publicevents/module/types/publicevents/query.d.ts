@@ -1,12 +1,26 @@
 import { Reader, Writer } from 'protobufjs/minimal';
-import { RefPubEvents } from '../publicevents/ref_pub_events';
+import { RefundPubEvents } from '../publicevents/refund_pub_events';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { RefPubEvents } from '../publicevents/ref_pub_events';
 import { FihishPubEvent } from '../publicevents/fihish_pub_event';
 import { ValidPubEvents } from '../publicevents/valid_pub_events';
 import { PartPubEvents } from '../publicevents/part_pub_events';
 import { CreatePubEvents } from '../publicevents/create_pub_events';
 export declare const protobufPackage = "VoroshilovMax.bettery.publicevents";
 /** this line is used by starport scaffolding # 3 */
+export interface QueryGetRefundPubEventsRequest {
+    id: number;
+}
+export interface QueryGetRefundPubEventsResponse {
+    RefundPubEvents: RefundPubEvents | undefined;
+}
+export interface QueryAllRefundPubEventsRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllRefundPubEventsResponse {
+    RefundPubEvents: RefundPubEvents[];
+    pagination: PageResponse | undefined;
+}
 export interface QueryGetRefPubEventsRequest {
     id: number;
 }
@@ -72,6 +86,34 @@ export interface QueryAllCreatePubEventsResponse {
     CreatePubEvents: CreatePubEvents[];
     pagination: PageResponse | undefined;
 }
+export declare const QueryGetRefundPubEventsRequest: {
+    encode(message: QueryGetRefundPubEventsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetRefundPubEventsRequest;
+    fromJSON(object: any): QueryGetRefundPubEventsRequest;
+    toJSON(message: QueryGetRefundPubEventsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetRefundPubEventsRequest>): QueryGetRefundPubEventsRequest;
+};
+export declare const QueryGetRefundPubEventsResponse: {
+    encode(message: QueryGetRefundPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetRefundPubEventsResponse;
+    fromJSON(object: any): QueryGetRefundPubEventsResponse;
+    toJSON(message: QueryGetRefundPubEventsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetRefundPubEventsResponse>): QueryGetRefundPubEventsResponse;
+};
+export declare const QueryAllRefundPubEventsRequest: {
+    encode(message: QueryAllRefundPubEventsRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllRefundPubEventsRequest;
+    fromJSON(object: any): QueryAllRefundPubEventsRequest;
+    toJSON(message: QueryAllRefundPubEventsRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllRefundPubEventsRequest>): QueryAllRefundPubEventsRequest;
+};
+export declare const QueryAllRefundPubEventsResponse: {
+    encode(message: QueryAllRefundPubEventsResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllRefundPubEventsResponse;
+    fromJSON(object: any): QueryAllRefundPubEventsResponse;
+    toJSON(message: QueryAllRefundPubEventsResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllRefundPubEventsResponse>): QueryAllRefundPubEventsResponse;
+};
 export declare const QueryGetRefPubEventsRequest: {
     encode(message: QueryGetRefPubEventsRequest, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): QueryGetRefPubEventsRequest;
@@ -214,6 +256,10 @@ export declare const QueryAllCreatePubEventsResponse: {
 };
 /** Query defines the gRPC querier service. */
 export interface Query {
+    /** Queries a refundPubEvents by id. */
+    RefundPubEvents(request: QueryGetRefundPubEventsRequest): Promise<QueryGetRefundPubEventsResponse>;
+    /** Queries a list of refundPubEvents items. */
+    RefundPubEventsAll(request: QueryAllRefundPubEventsRequest): Promise<QueryAllRefundPubEventsResponse>;
     /** Queries a refPubEvents by id. */
     RefPubEvents(request: QueryGetRefPubEventsRequest): Promise<QueryGetRefPubEventsResponse>;
     /** Queries a list of refPubEvents items. */
@@ -238,6 +284,8 @@ export interface Query {
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
     constructor(rpc: Rpc);
+    RefundPubEvents(request: QueryGetRefundPubEventsRequest): Promise<QueryGetRefundPubEventsResponse>;
+    RefundPubEventsAll(request: QueryAllRefundPubEventsRequest): Promise<QueryAllRefundPubEventsResponse>;
     RefPubEvents(request: QueryGetRefPubEventsRequest): Promise<QueryGetRefPubEventsResponse>;
     RefPubEventsAll(request: QueryAllRefPubEventsRequest): Promise<QueryAllRefPubEventsResponse>;
     FihishPubEvent(request: QueryGetFihishPubEventRequest): Promise<QueryGetFihishPubEventResponse>;

@@ -1,15 +1,29 @@
 /* eslint-disable */
 import * as Long from 'long';
 import { util, configure, Writer, Reader } from 'protobufjs/minimal';
+import { RefundPubEvents } from '../publicevents/refund_pub_events';
 import { RefPubEvents } from '../publicevents/ref_pub_events';
 import { FihishPubEvent } from '../publicevents/fihish_pub_event';
 import { ValidPubEvents } from '../publicevents/valid_pub_events';
 import { PartPubEvents } from '../publicevents/part_pub_events';
 import { CreatePubEvents } from '../publicevents/create_pub_events';
 export const protobufPackage = 'VoroshilovMax.bettery.publicevents';
-const baseGenesisState = { refPubEventsCount: 0, fihishPubEventCount: 0, validPubEventsCount: 0, partPubEventsCount: 0, createPubEventsCount: 0 };
+const baseGenesisState = {
+    refundPubEventsCount: 0,
+    refPubEventsCount: 0,
+    fihishPubEventCount: 0,
+    validPubEventsCount: 0,
+    partPubEventsCount: 0,
+    createPubEventsCount: 0
+};
 export const GenesisState = {
     encode(message, writer = Writer.create()) {
+        for (const v of message.refundPubEventsList) {
+            RefundPubEvents.encode(v, writer.uint32(90).fork()).ldelim();
+        }
+        if (message.refundPubEventsCount !== 0) {
+            writer.uint32(96).uint64(message.refundPubEventsCount);
+        }
         for (const v of message.refPubEventsList) {
             RefPubEvents.encode(v, writer.uint32(74).fork()).ldelim();
         }
@@ -46,6 +60,7 @@ export const GenesisState = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseGenesisState };
+        message.refundPubEventsList = [];
         message.refPubEventsList = [];
         message.fihishPubEventList = [];
         message.validPubEventsList = [];
@@ -54,6 +69,12 @@ export const GenesisState = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 11:
+                    message.refundPubEventsList.push(RefundPubEvents.decode(reader, reader.uint32()));
+                    break;
+                case 12:
+                    message.refundPubEventsCount = longToNumber(reader.uint64());
+                    break;
                 case 9:
                     message.refPubEventsList.push(RefPubEvents.decode(reader, reader.uint32()));
                     break;
@@ -93,11 +114,23 @@ export const GenesisState = {
     },
     fromJSON(object) {
         const message = { ...baseGenesisState };
+        message.refundPubEventsList = [];
         message.refPubEventsList = [];
         message.fihishPubEventList = [];
         message.validPubEventsList = [];
         message.partPubEventsList = [];
         message.createPubEventsList = [];
+        if (object.refundPubEventsList !== undefined && object.refundPubEventsList !== null) {
+            for (const e of object.refundPubEventsList) {
+                message.refundPubEventsList.push(RefundPubEvents.fromJSON(e));
+            }
+        }
+        if (object.refundPubEventsCount !== undefined && object.refundPubEventsCount !== null) {
+            message.refundPubEventsCount = Number(object.refundPubEventsCount);
+        }
+        else {
+            message.refundPubEventsCount = 0;
+        }
         if (object.refPubEventsList !== undefined && object.refPubEventsList !== null) {
             for (const e of object.refPubEventsList) {
                 message.refPubEventsList.push(RefPubEvents.fromJSON(e));
@@ -157,6 +190,13 @@ export const GenesisState = {
     },
     toJSON(message) {
         const obj = {};
+        if (message.refundPubEventsList) {
+            obj.refundPubEventsList = message.refundPubEventsList.map((e) => (e ? RefundPubEvents.toJSON(e) : undefined));
+        }
+        else {
+            obj.refundPubEventsList = [];
+        }
+        message.refundPubEventsCount !== undefined && (obj.refundPubEventsCount = message.refundPubEventsCount);
         if (message.refPubEventsList) {
             obj.refPubEventsList = message.refPubEventsList.map((e) => (e ? RefPubEvents.toJSON(e) : undefined));
         }
@@ -196,11 +236,23 @@ export const GenesisState = {
     },
     fromPartial(object) {
         const message = { ...baseGenesisState };
+        message.refundPubEventsList = [];
         message.refPubEventsList = [];
         message.fihishPubEventList = [];
         message.validPubEventsList = [];
         message.partPubEventsList = [];
         message.createPubEventsList = [];
+        if (object.refundPubEventsList !== undefined && object.refundPubEventsList !== null) {
+            for (const e of object.refundPubEventsList) {
+                message.refundPubEventsList.push(RefundPubEvents.fromPartial(e));
+            }
+        }
+        if (object.refundPubEventsCount !== undefined && object.refundPubEventsCount !== null) {
+            message.refundPubEventsCount = object.refundPubEventsCount;
+        }
+        else {
+            message.refundPubEventsCount = 0;
+        }
         if (object.refPubEventsList !== undefined && object.refPubEventsList !== null) {
             for (const e of object.refPubEventsList) {
                 message.refPubEventsList.push(RefPubEvents.fromPartial(e));
