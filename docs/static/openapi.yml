@@ -21178,11 +21178,9 @@ paths:
                   properties:
                     creator:
                       type: string
-                    id:
-                      type: string
-                      format: uint64
                     pubId:
                       type: string
+                      format: uint64
                     purpose:
                       type: string
               pagination:
@@ -21296,11 +21294,9 @@ paths:
                 properties:
                   creator:
                     type: string
-                  id:
-                    type: string
-                    format: uint64
                   pubId:
                     type: string
+                    format: uint64
                   purpose:
                     type: string
         default:
@@ -32334,10 +32330,6 @@ definitions:
       id:
         type: string
         format: uint64
-  VoroshilovMax.bettery.publicevents.MsgDeleteRefundPubEventsResponse:
-    type: object
-  VoroshilovMax.bettery.publicevents.MsgUpdateRefundPubEventsResponse:
-    type: object
   VoroshilovMax.bettery.publicevents.PartPubEvents:
     type: object
     properties:
@@ -32588,11 +32580,9 @@ definitions:
           properties:
             creator:
               type: string
-            id:
-              type: string
-              format: uint64
             pubId:
               type: string
+              format: uint64
             purpose:
               type: string
       pagination:
@@ -32791,11 +32781,9 @@ definitions:
         properties:
           creator:
             type: string
-          id:
-            type: string
-            format: uint64
           pubId:
             type: string
+            format: uint64
           purpose:
             type: string
   VoroshilovMax.bettery.publicevents.QueryGetValidPubEventsResponse:
@@ -32859,11 +32847,9 @@ definitions:
     properties:
       creator:
         type: string
-      id:
-        type: string
-        format: uint64
       pubId:
         type: string
+        format: uint64
       purpose:
         type: string
   VoroshilovMax.bettery.publicevents.ValidPubEvents:

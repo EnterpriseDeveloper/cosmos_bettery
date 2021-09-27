@@ -1,6 +1,8 @@
 package cli
 
 import (
+	"strconv"
+
 	"github.com/spf13/cobra"
 
 	"github.com/spf13/cast"
@@ -17,7 +19,7 @@ func CmdCreateRefundPubEvents() *cobra.Command {
 		Short: "Create a new refundPubEvents",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			argsPubId, err := cast.ToStringE(args[0])
+			argsPubId, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
 				return err
 			}

@@ -6,26 +6,22 @@ export const protobufPackage = 'VoroshilovMax.bettery.publicevents'
 
 export interface RefundPubEvents {
   creator: string
-  id: number
-  pubId: string
+  pubId: number
   purpose: string
 }
 
-const baseRefundPubEvents: object = { creator: '', id: 0, pubId: '', purpose: '' }
+const baseRefundPubEvents: object = { creator: '', pubId: 0, purpose: '' }
 
 export const RefundPubEvents = {
   encode(message: RefundPubEvents, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
-    if (message.id !== 0) {
-      writer.uint32(16).uint64(message.id)
-    }
-    if (message.pubId !== '') {
-      writer.uint32(26).string(message.pubId)
+    if (message.pubId !== 0) {
+      writer.uint32(16).uint64(message.pubId)
     }
     if (message.purpose !== '') {
-      writer.uint32(34).string(message.purpose)
+      writer.uint32(26).string(message.purpose)
     }
     return writer
   },
@@ -41,12 +37,9 @@ export const RefundPubEvents = {
           message.creator = reader.string()
           break
         case 2:
-          message.id = longToNumber(reader.uint64() as Long)
+          message.pubId = longToNumber(reader.uint64() as Long)
           break
         case 3:
-          message.pubId = reader.string()
-          break
-        case 4:
           message.purpose = reader.string()
           break
         default:
@@ -64,15 +57,10 @@ export const RefundPubEvents = {
     } else {
       message.creator = ''
     }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Number(object.id)
-    } else {
-      message.id = 0
-    }
     if (object.pubId !== undefined && object.pubId !== null) {
-      message.pubId = String(object.pubId)
+      message.pubId = Number(object.pubId)
     } else {
-      message.pubId = ''
+      message.pubId = 0
     }
     if (object.purpose !== undefined && object.purpose !== null) {
       message.purpose = String(object.purpose)
@@ -85,7 +73,6 @@ export const RefundPubEvents = {
   toJSON(message: RefundPubEvents): unknown {
     const obj: any = {}
     message.creator !== undefined && (obj.creator = message.creator)
-    message.id !== undefined && (obj.id = message.id)
     message.pubId !== undefined && (obj.pubId = message.pubId)
     message.purpose !== undefined && (obj.purpose = message.purpose)
     return obj
@@ -98,15 +85,10 @@ export const RefundPubEvents = {
     } else {
       message.creator = ''
     }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id
-    } else {
-      message.id = 0
-    }
     if (object.pubId !== undefined && object.pubId !== null) {
       message.pubId = object.pubId
     } else {
-      message.pubId = ''
+      message.pubId = 0
     }
     if (object.purpose !== undefined && object.purpose !== null) {
       message.purpose = object.purpose

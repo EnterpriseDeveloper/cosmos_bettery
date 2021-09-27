@@ -7,7 +7,7 @@ import (
 
 var _ sdk.Msg = &MsgCreateRefundPubEvents{}
 
-func NewMsgCreateRefundPubEvents(creator string, pubId string, purpose string) *MsgCreateRefundPubEvents {
+func NewMsgCreateRefundPubEvents(creator string, pubId uint64, purpose string) *MsgCreateRefundPubEvents {
 	return &MsgCreateRefundPubEvents{
 		Creator: creator,
 		PubId:   pubId,

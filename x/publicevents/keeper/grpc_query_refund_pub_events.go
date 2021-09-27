@@ -6,7 +6,6 @@ import (
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -46,14 +45,10 @@ func (k Keeper) RefundPubEvents(c context.Context, req *types.QueryGetRefundPubE
 	}
 
 	var refundPubEvents types.RefundPubEvents
-	ctx := sdk.UnwrapSDKContext(c)
+	//	ctx := sdk.UnwrapSDKContext(c)
 
-	if !k.HasRefundPubEvents(ctx, req.Id) {
-		return nil, sdkerrors.ErrKeyNotFound
-	}
-
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.RefundPubEventsKey))
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetRefundPubEventsIDBytes(req.Id)), &refundPubEvents)
+	//	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.RefundPubEventsKey))
+	//	k.cdc.MustUnmarshalBinaryBare(store.Get(GetRefundPubEventsIDBytes(req.Id)), &refundPubEvents)
 
 	return &types.QueryGetRefundPubEventsResponse{RefundPubEvents: &refundPubEvents}, nil
 }

@@ -55,8 +55,6 @@ export interface PubliceventsMsgCreateValidPubEventsResponse {
     /** @format uint64 */
     id?: string;
 }
-export declare type PubliceventsMsgDeleteRefundPubEventsResponse = object;
-export declare type PubliceventsMsgUpdateRefundPubEventsResponse = object;
 export interface PubliceventsPartPubEvents {
     creator?: string;
     /** @format uint64 */
@@ -179,7 +177,6 @@ export interface PubliceventsRefPubEvents {
 export interface PubliceventsRefundPubEvents {
     creator?: string;
     /** @format uint64 */
-    id?: string;
     pubId?: string;
     purpose?: string;
 }

@@ -7,29 +7,13 @@ export const protobufPackage = 'VoroshilovMax.bettery.publicevents'
 /** this line is used by starport scaffolding # proto/tx/message */
 export interface MsgCreateRefundPubEvents {
   creator: string
-  pubId: string
+  pubId: number
   purpose: string
 }
 
 export interface MsgCreateRefundPubEventsResponse {
   id: number
 }
-
-export interface MsgUpdateRefundPubEvents {
-  creator: string
-  id: number
-  pubId: string
-  purpose: string
-}
-
-export interface MsgUpdateRefundPubEventsResponse {}
-
-export interface MsgDeleteRefundPubEvents {
-  creator: string
-  id: number
-}
-
-export interface MsgDeleteRefundPubEventsResponse {}
 
 export interface MsgCreateRefPubEvents {
   creator: string
@@ -94,15 +78,15 @@ export interface MsgCreateCreatePubEventsResponse {
   id: number
 }
 
-const baseMsgCreateRefundPubEvents: object = { creator: '', pubId: '', purpose: '' }
+const baseMsgCreateRefundPubEvents: object = { creator: '', pubId: 0, purpose: '' }
 
 export const MsgCreateRefundPubEvents = {
   encode(message: MsgCreateRefundPubEvents, writer: Writer = Writer.create()): Writer {
     if (message.creator !== '') {
       writer.uint32(10).string(message.creator)
     }
-    if (message.pubId !== '') {
-      writer.uint32(18).string(message.pubId)
+    if (message.pubId !== 0) {
+      writer.uint32(16).uint64(message.pubId)
     }
     if (message.purpose !== '') {
       writer.uint32(26).string(message.purpose)
@@ -121,7 +105,7 @@ export const MsgCreateRefundPubEvents = {
           message.creator = reader.string()
           break
         case 2:
-          message.pubId = reader.string()
+          message.pubId = longToNumber(reader.uint64() as Long)
           break
         case 3:
           message.purpose = reader.string()
@@ -142,9 +126,9 @@ export const MsgCreateRefundPubEvents = {
       message.creator = ''
     }
     if (object.pubId !== undefined && object.pubId !== null) {
-      message.pubId = String(object.pubId)
+      message.pubId = Number(object.pubId)
     } else {
-      message.pubId = ''
+      message.pubId = 0
     }
     if (object.purpose !== undefined && object.purpose !== null) {
       message.purpose = String(object.purpose)
@@ -172,7 +156,7 @@ export const MsgCreateRefundPubEvents = {
     if (object.pubId !== undefined && object.pubId !== null) {
       message.pubId = object.pubId
     } else {
-      message.pubId = ''
+      message.pubId = 0
     }
     if (object.purpose !== undefined && object.purpose !== null) {
       message.purpose = object.purpose
@@ -234,260 +218,6 @@ export const MsgCreateRefundPubEventsResponse = {
     } else {
       message.id = 0
     }
-    return message
-  }
-}
-
-const baseMsgUpdateRefundPubEvents: object = { creator: '', id: 0, pubId: '', purpose: '' }
-
-export const MsgUpdateRefundPubEvents = {
-  encode(message: MsgUpdateRefundPubEvents, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== '') {
-      writer.uint32(10).string(message.creator)
-    }
-    if (message.id !== 0) {
-      writer.uint32(16).uint64(message.id)
-    }
-    if (message.pubId !== '') {
-      writer.uint32(26).string(message.pubId)
-    }
-    if (message.purpose !== '') {
-      writer.uint32(34).string(message.purpose)
-    }
-    return writer
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): MsgUpdateRefundPubEvents {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
-    let end = length === undefined ? reader.len : reader.pos + length
-    const message = { ...baseMsgUpdateRefundPubEvents } as MsgUpdateRefundPubEvents
-    while (reader.pos < end) {
-      const tag = reader.uint32()
-      switch (tag >>> 3) {
-        case 1:
-          message.creator = reader.string()
-          break
-        case 2:
-          message.id = longToNumber(reader.uint64() as Long)
-          break
-        case 3:
-          message.pubId = reader.string()
-          break
-        case 4:
-          message.purpose = reader.string()
-          break
-        default:
-          reader.skipType(tag & 7)
-          break
-      }
-    }
-    return message
-  },
-
-  fromJSON(object: any): MsgUpdateRefundPubEvents {
-    const message = { ...baseMsgUpdateRefundPubEvents } as MsgUpdateRefundPubEvents
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator)
-    } else {
-      message.creator = ''
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Number(object.id)
-    } else {
-      message.id = 0
-    }
-    if (object.pubId !== undefined && object.pubId !== null) {
-      message.pubId = String(object.pubId)
-    } else {
-      message.pubId = ''
-    }
-    if (object.purpose !== undefined && object.purpose !== null) {
-      message.purpose = String(object.purpose)
-    } else {
-      message.purpose = ''
-    }
-    return message
-  },
-
-  toJSON(message: MsgUpdateRefundPubEvents): unknown {
-    const obj: any = {}
-    message.creator !== undefined && (obj.creator = message.creator)
-    message.id !== undefined && (obj.id = message.id)
-    message.pubId !== undefined && (obj.pubId = message.pubId)
-    message.purpose !== undefined && (obj.purpose = message.purpose)
-    return obj
-  },
-
-  fromPartial(object: DeepPartial<MsgUpdateRefundPubEvents>): MsgUpdateRefundPubEvents {
-    const message = { ...baseMsgUpdateRefundPubEvents } as MsgUpdateRefundPubEvents
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator
-    } else {
-      message.creator = ''
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id
-    } else {
-      message.id = 0
-    }
-    if (object.pubId !== undefined && object.pubId !== null) {
-      message.pubId = object.pubId
-    } else {
-      message.pubId = ''
-    }
-    if (object.purpose !== undefined && object.purpose !== null) {
-      message.purpose = object.purpose
-    } else {
-      message.purpose = ''
-    }
-    return message
-  }
-}
-
-const baseMsgUpdateRefundPubEventsResponse: object = {}
-
-export const MsgUpdateRefundPubEventsResponse = {
-  encode(_: MsgUpdateRefundPubEventsResponse, writer: Writer = Writer.create()): Writer {
-    return writer
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): MsgUpdateRefundPubEventsResponse {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
-    let end = length === undefined ? reader.len : reader.pos + length
-    const message = { ...baseMsgUpdateRefundPubEventsResponse } as MsgUpdateRefundPubEventsResponse
-    while (reader.pos < end) {
-      const tag = reader.uint32()
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7)
-          break
-      }
-    }
-    return message
-  },
-
-  fromJSON(_: any): MsgUpdateRefundPubEventsResponse {
-    const message = { ...baseMsgUpdateRefundPubEventsResponse } as MsgUpdateRefundPubEventsResponse
-    return message
-  },
-
-  toJSON(_: MsgUpdateRefundPubEventsResponse): unknown {
-    const obj: any = {}
-    return obj
-  },
-
-  fromPartial(_: DeepPartial<MsgUpdateRefundPubEventsResponse>): MsgUpdateRefundPubEventsResponse {
-    const message = { ...baseMsgUpdateRefundPubEventsResponse } as MsgUpdateRefundPubEventsResponse
-    return message
-  }
-}
-
-const baseMsgDeleteRefundPubEvents: object = { creator: '', id: 0 }
-
-export const MsgDeleteRefundPubEvents = {
-  encode(message: MsgDeleteRefundPubEvents, writer: Writer = Writer.create()): Writer {
-    if (message.creator !== '') {
-      writer.uint32(10).string(message.creator)
-    }
-    if (message.id !== 0) {
-      writer.uint32(16).uint64(message.id)
-    }
-    return writer
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): MsgDeleteRefundPubEvents {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
-    let end = length === undefined ? reader.len : reader.pos + length
-    const message = { ...baseMsgDeleteRefundPubEvents } as MsgDeleteRefundPubEvents
-    while (reader.pos < end) {
-      const tag = reader.uint32()
-      switch (tag >>> 3) {
-        case 1:
-          message.creator = reader.string()
-          break
-        case 2:
-          message.id = longToNumber(reader.uint64() as Long)
-          break
-        default:
-          reader.skipType(tag & 7)
-          break
-      }
-    }
-    return message
-  },
-
-  fromJSON(object: any): MsgDeleteRefundPubEvents {
-    const message = { ...baseMsgDeleteRefundPubEvents } as MsgDeleteRefundPubEvents
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator)
-    } else {
-      message.creator = ''
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = Number(object.id)
-    } else {
-      message.id = 0
-    }
-    return message
-  },
-
-  toJSON(message: MsgDeleteRefundPubEvents): unknown {
-    const obj: any = {}
-    message.creator !== undefined && (obj.creator = message.creator)
-    message.id !== undefined && (obj.id = message.id)
-    return obj
-  },
-
-  fromPartial(object: DeepPartial<MsgDeleteRefundPubEvents>): MsgDeleteRefundPubEvents {
-    const message = { ...baseMsgDeleteRefundPubEvents } as MsgDeleteRefundPubEvents
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator
-    } else {
-      message.creator = ''
-    }
-    if (object.id !== undefined && object.id !== null) {
-      message.id = object.id
-    } else {
-      message.id = 0
-    }
-    return message
-  }
-}
-
-const baseMsgDeleteRefundPubEventsResponse: object = {}
-
-export const MsgDeleteRefundPubEventsResponse = {
-  encode(_: MsgDeleteRefundPubEventsResponse, writer: Writer = Writer.create()): Writer {
-    return writer
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): MsgDeleteRefundPubEventsResponse {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input
-    let end = length === undefined ? reader.len : reader.pos + length
-    const message = { ...baseMsgDeleteRefundPubEventsResponse } as MsgDeleteRefundPubEventsResponse
-    while (reader.pos < end) {
-      const tag = reader.uint32()
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7)
-          break
-      }
-    }
-    return message
-  },
-
-  fromJSON(_: any): MsgDeleteRefundPubEventsResponse {
-    const message = { ...baseMsgDeleteRefundPubEventsResponse } as MsgDeleteRefundPubEventsResponse
-    return message
-  },
-
-  toJSON(_: MsgDeleteRefundPubEventsResponse): unknown {
-    const obj: any = {}
-    return obj
-  },
-
-  fromPartial(_: DeepPartial<MsgDeleteRefundPubEventsResponse>): MsgDeleteRefundPubEventsResponse {
-    const message = { ...baseMsgDeleteRefundPubEventsResponse } as MsgDeleteRefundPubEventsResponse
     return message
   }
 }
@@ -1506,8 +1236,6 @@ export const MsgCreateCreatePubEventsResponse = {
 export interface Msg {
   /** this line is used by starport scaffolding # proto/tx/rpc */
   CreateRefundPubEvents(request: MsgCreateRefundPubEvents): Promise<MsgCreateRefundPubEventsResponse>
-  UpdateRefundPubEvents(request: MsgUpdateRefundPubEvents): Promise<MsgUpdateRefundPubEventsResponse>
-  DeleteRefundPubEvents(request: MsgDeleteRefundPubEvents): Promise<MsgDeleteRefundPubEventsResponse>
   CreateRefPubEvents(request: MsgCreateRefPubEvents): Promise<MsgCreateRefPubEventsResponse>
   CreateFihishPubEvent(request: MsgCreateFihishPubEvent): Promise<MsgCreateFihishPubEventResponse>
   CreateValidPubEvents(request: MsgCreateValidPubEvents): Promise<MsgCreateValidPubEventsResponse>
@@ -1524,18 +1252,6 @@ export class MsgClientImpl implements Msg {
     const data = MsgCreateRefundPubEvents.encode(request).finish()
     const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'CreateRefundPubEvents', data)
     return promise.then((data) => MsgCreateRefundPubEventsResponse.decode(new Reader(data)))
-  }
-
-  UpdateRefundPubEvents(request: MsgUpdateRefundPubEvents): Promise<MsgUpdateRefundPubEventsResponse> {
-    const data = MsgUpdateRefundPubEvents.encode(request).finish()
-    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'UpdateRefundPubEvents', data)
-    return promise.then((data) => MsgUpdateRefundPubEventsResponse.decode(new Reader(data)))
-  }
-
-  DeleteRefundPubEvents(request: MsgDeleteRefundPubEvents): Promise<MsgDeleteRefundPubEventsResponse> {
-    const data = MsgDeleteRefundPubEvents.encode(request).finish()
-    const promise = this.rpc.request('VoroshilovMax.bettery.publicevents.Msg', 'DeleteRefundPubEvents', data)
-    return promise.then((data) => MsgDeleteRefundPubEventsResponse.decode(new Reader(data)))
   }
 
   CreateRefPubEvents(request: MsgCreateRefPubEvents): Promise<MsgCreateRefPubEventsResponse> {

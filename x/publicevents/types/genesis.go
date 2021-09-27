@@ -32,10 +32,10 @@ func (gs GenesisState) Validate() error {
 	refundPubEventsIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.RefundPubEventsList {
-		if _, ok := refundPubEventsIdMap[elem.Id]; ok {
+		if _, ok := refundPubEventsIdMap[elem.PubId]; ok {
 			return fmt.Errorf("duplicated id for refundPubEvents")
 		}
-		refundPubEventsIdMap[elem.Id] = true
+		refundPubEventsIdMap[elem.PubId] = true
 	}
 	// Check for duplicated ID in refPubEvents
 	refPubEventsIdMap := make(map[uint64]bool)
