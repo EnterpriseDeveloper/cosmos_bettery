@@ -141,10 +141,14 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 
 // ASK fedor amount calculation formula
 func calcExpet(players int) int64 {
-	percent := 0.5
-	var y float64 = float64(players)
-	calc := y / (math.Pow(y, percent) + 2 - (math.Pow(2, percent)))
-	return int64(math.Round(calc))
+	if players < 11 {
+		return 3
+	} else {
+		percent := 0.5
+		var y float64 = float64(players)
+		calc := y / (math.Pow(y, percent) + 2 - (math.Pow(2, percent)))
+		return int64(math.Round(calc))
+	}
 }
 
 func payBack(k msgServer, ctx sdk.Context, id uint64) (bool, string) {

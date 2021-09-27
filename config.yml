@@ -1,16 +1,16 @@
 accounts:
   - name: alice
-    coins: ["20000bty", "200000000stake"]
+    coins: ["20000bet", "200000000stake"]
   - name: bob
-    coins: ["10000bty", "20000000000stake"]
+    coins: ["10000bet", "20000000000stake"]
   - name: sim
-    coins: ["10000bty", "100000000stake"]
+    coins: ["10000bet", "100000000stake"]
   - name: shane
-    coins: ["10000bty", "100000000stake"]
+    coins: ["10000bet", "100000000stake"]
   - name: max
-    coins: ["10000bty", "100000000stake"]
+    coins: ["10000bet", "100000000stake"]
   - name: fedor
-    coins: ["10000bty", "100000000stake"]
+    coins: ["10000bet", "100000000stake"]
 validator:
   name: alice
   staked: "100000000stake"
@@ -21,4 +21,4 @@ client:
     path: "docs/static/openapi.yml"
 faucet:
   name: bob
-  coins: ["5bty", "2000000000stake"]
+  coins: ["5bet", "2000000000stake"]
