@@ -7,7 +7,6 @@ import "gogoproto/gogo.proto";
 
 message RefundPubEvents {
   string creator = 1;
-  uint64 id = 2;
-  string pubId = 3; 
-  string purpose = 4; 
+  uint64 pubId = 2; 
+  string purpose = 3; 
 }
