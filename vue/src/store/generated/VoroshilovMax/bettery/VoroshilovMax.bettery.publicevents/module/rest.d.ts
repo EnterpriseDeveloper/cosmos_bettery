@@ -1,7 +1,5 @@
 export interface ProtobufAny {
-    typeUrl?: string;
-    /** @format byte */
-    value?: string;
+    "@type"?: string;
 }
 export interface PubliceventsCreatePubEvents {
     creator?: string;
