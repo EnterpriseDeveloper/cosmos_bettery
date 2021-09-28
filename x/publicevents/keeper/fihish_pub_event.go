@@ -73,6 +73,11 @@ func (k Keeper) GetEventFinished(ctx sdk.Context, id uint64) bool {
 	return k.GetFihishPubEvent(ctx, id).Finished
 }
 
+// check if event reverted
+func (k Keeper) GetEventReverted(ctx sdk.Context, id uint64) bool {
+	return k.GetFihishPubEvent(ctx, id).Reverted
+}
+
 // GetFihishPubEventIDBytes returns the byte representation of the ID
 func GetFihishPubEventIDBytes(id uint64) []byte {
 	bz := make([]byte, 8)

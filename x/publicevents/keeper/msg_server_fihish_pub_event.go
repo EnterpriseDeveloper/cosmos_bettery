@@ -26,7 +26,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 
 	correctAnswer, reverted, status := k.findCorrectAnswer(ctx, msg.PubId)
 	if reverted {
-		ok, errString := k.payBackToPlayers(ctx, msg.PubId)
+		ok, errString := k.PayBackToPlayers(ctx, msg.PubId)
 		if !ok {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("payBackToPlayers err, event id %d, error message: %s", msg.PubId, errString))
 		}
@@ -46,7 +46,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event from find loser pool, event id %d, error message: %s", msg.PubId, errString))
 		}
 		if reverted {
-			ok, errString := k.payBackToPlayers(ctx, msg.PubId)
+			ok, errString := k.PayBackToPlayers(ctx, msg.PubId)
 			if !ok {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("payBackToPlayers err, event id %d, error message: %s", msg.PubId, errString))
 			}
@@ -121,7 +121,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 	}
 }
 
-func (k msgServer) payBackToPlayers(ctx sdk.Context, id uint64) (bool, string) {
+func (k msgServer) PayBackToPlayers(ctx sdk.Context, id uint64) (bool, string) {
 	players := k.GetAllPlayersById(ctx, id)
 	for i := 0; i < len(players); i++ {
 		amount, ok := new(big.Int).SetString(players[i].Amount, 10)
