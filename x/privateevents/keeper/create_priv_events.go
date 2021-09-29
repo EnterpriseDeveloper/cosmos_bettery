@@ -14,7 +14,7 @@ func (k Keeper) AppendCreatePrivEvents(
 	createPrivEvents types.CreatePrivEvents,
 ) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePrivEventsKey))
-	appendedValue := k.cdc.MustMarshalBinaryBare(&createPrivEvents)
+	appendedValue := k.cdc.MustMarshal(&createPrivEvents)
 	store.Set(GetCreatePrivEventsIDBytes(createPrivEvents.PrivId), appendedValue)
 
 	return createPrivEvents.PrivId
@@ -23,7 +23,7 @@ func (k Keeper) AppendCreatePrivEvents(
 // SetCreatePrivEvents set a specific createPrivEvents in the store
 func (k Keeper) SetCreatePrivEvents(ctx sdk.Context, createPrivEvents types.CreatePrivEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePrivEventsKey))
-	b := k.cdc.MustMarshalBinaryBare(&createPrivEvents)
+	b := k.cdc.MustMarshal(&createPrivEvents)
 	store.Set(GetCreatePrivEventsIDBytes(createPrivEvents.PrivId), b)
 }
 
@@ -31,7 +31,7 @@ func (k Keeper) SetCreatePrivEvents(ctx sdk.Context, createPrivEvents types.Crea
 func (k Keeper) GetCreatePrivEvents(ctx sdk.Context, id uint64) types.CreatePrivEvents {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePrivEventsKey))
 	var createPrivEvents types.CreatePrivEvents
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetCreatePrivEventsIDBytes(id)), &createPrivEvents)
+	k.cdc.MustUnmarshal(store.Get(GetCreatePrivEventsIDBytes(id)), &createPrivEvents)
 	return createPrivEvents
 }
 
@@ -78,7 +78,7 @@ func (k Keeper) GetAllCreatePrivEvents(ctx sdk.Context) (list []types.CreatePriv
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.CreatePrivEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
 

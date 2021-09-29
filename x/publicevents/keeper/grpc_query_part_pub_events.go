@@ -25,7 +25,7 @@ func (k Keeper) PartPubEventsAll(c context.Context, req *types.QueryAllPartPubEv
 
 	pageRes, err := query.Paginate(partPubEventsStore, req.Pagination, func(key []byte, value []byte) error {
 		var partPubEvents types.PartPubEvents
-		if err := k.cdc.UnmarshalBinaryBare(value, &partPubEvents); err != nil {
+		if err := k.cdc.Unmarshal(value, &partPubEvents); err != nil {
 			return err
 		}
 
@@ -53,7 +53,7 @@ func (k Keeper) PartPubEvents(c context.Context, req *types.QueryGetPartPubEvent
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetPartPubEventsIDBytes(req.Id)), &partPubEvents)
+	k.cdc.MustUnmarshal(store.Get(GetPartPubEventsIDBytes(req.Id)), &partPubEvents)
 
 	return &types.QueryGetPartPubEventsResponse{PartPubEvents: &partPubEvents}, nil
 }

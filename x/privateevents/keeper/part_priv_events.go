@@ -48,7 +48,7 @@ func (k Keeper) AppendPartPrivEvents(
 	// Set the ID of the appended value
 	partPrivEvents.Id = count
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPrivEventsKey))
-	appendedValue := k.cdc.MustMarshalBinaryBare(&partPrivEvents)
+	appendedValue := k.cdc.MustMarshal(&partPrivEvents)
 	store.Set(GetPartPrivEventsIDBytes(partPrivEvents.Id), appendedValue)
 
 	k.SetPartPrivEventsCount(ctx, count+1)
@@ -59,7 +59,7 @@ func (k Keeper) AppendPartPrivEvents(
 // SetPartPrivEvents set a specific partPrivEvents in the store
 func (k Keeper) SetPartPrivEvents(ctx sdk.Context, partPrivEvents types.PartPrivEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPrivEventsKey))
-	b := k.cdc.MustMarshalBinaryBare(&partPrivEvents)
+	b := k.cdc.MustMarshal(&partPrivEvents)
 	store.Set(GetPartPrivEventsIDBytes(partPrivEvents.Id), b)
 }
 
@@ -67,7 +67,7 @@ func (k Keeper) SetPartPrivEvents(ctx sdk.Context, partPrivEvents types.PartPriv
 func (k Keeper) GetPartPrivEvents(ctx sdk.Context, id uint64) types.PartPrivEvents {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPrivEventsKey))
 	var partPrivEvents types.PartPrivEvents
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetPartPrivEventsIDBytes(id)), &partPrivEvents)
+	k.cdc.MustUnmarshal(store.Get(GetPartPrivEventsIDBytes(id)), &partPrivEvents)
 	return partPrivEvents
 }
 
@@ -97,7 +97,7 @@ func (k Keeper) GetAllPartPrivEvents(ctx sdk.Context) (list []types.PartPrivEven
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPrivEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
 
@@ -113,7 +113,7 @@ func (k Keeper) findPartPrivEvent(ctx sdk.Context, id uint64, part string) bool 
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPrivEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if id == val.PrivId && part == val.Creator {
 			return true
 		}

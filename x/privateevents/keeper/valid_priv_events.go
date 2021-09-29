@@ -49,7 +49,7 @@ func (k Keeper) AppendValidPrivEvents(
 	validPrivEvents.Id = count
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPrivEventsKey))
-	appendedValue := k.cdc.MustMarshalBinaryBare(&validPrivEvents)
+	appendedValue := k.cdc.MustMarshal(&validPrivEvents)
 	store.Set(GetValidPrivEventsIDBytes(validPrivEvents.Id), appendedValue)
 
 	k.SetValidPrivEventsCount(ctx, count+1)
@@ -59,7 +59,7 @@ func (k Keeper) AppendValidPrivEvents(
 // SetValidPrivEvents set a specific validPrivEvents in the store
 func (k Keeper) SetValidPrivEvents(ctx sdk.Context, validPrivEvents types.ValidPrivEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPrivEventsKey))
-	b := k.cdc.MustMarshalBinaryBare(&validPrivEvents)
+	b := k.cdc.MustMarshal(&validPrivEvents)
 	store.Set(GetValidPrivEventsIDBytes(validPrivEvents.Id), b)
 }
 
@@ -67,7 +67,7 @@ func (k Keeper) SetValidPrivEvents(ctx sdk.Context, validPrivEvents types.ValidP
 func (k Keeper) GetValidPrivEvents(ctx sdk.Context, id uint64) types.ValidPrivEvents {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPrivEventsKey))
 	var validPrivEvents types.ValidPrivEvents
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetValidPrivEventsIDBytes(id)), &validPrivEvents)
+	k.cdc.MustUnmarshal(store.Get(GetValidPrivEventsIDBytes(id)), &validPrivEvents)
 	return validPrivEvents
 }
 
@@ -97,7 +97,7 @@ func (k Keeper) GetAllValidPrivEvents(ctx sdk.Context) (list []types.ValidPrivEv
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPrivEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
 
@@ -114,7 +114,7 @@ func (k Keeper) GetAmountOfValidPrivEvents(ctx sdk.Context, id uint64) int {
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPrivEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if id == val.PrivId {
 			list = append(list, val)
 		}

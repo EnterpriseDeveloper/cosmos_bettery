@@ -25,7 +25,7 @@ func (k Keeper) SwipeBetAll(c context.Context, req *types.QueryAllSwipeBetReques
 
 	pageRes, err := query.Paginate(swipeBetStore, req.Pagination, func(key []byte, value []byte) error {
 		var swipeBet types.SwipeBet
-		if err := k.cdc.UnmarshalBinaryBare(value, &swipeBet); err != nil {
+		if err := k.cdc.Unmarshal(value, &swipeBet); err != nil {
 			return err
 		}
 
@@ -53,7 +53,7 @@ func (k Keeper) SwipeBet(c context.Context, req *types.QueryGetSwipeBetRequest) 
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SwipeBetKey))
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetSwipeBetIDBytes(req.Id)), &swipeBet)
+	k.cdc.MustUnmarshal(store.Get(GetSwipeBetIDBytes(req.Id)), &swipeBet)
 
 	return &types.QueryGetSwipeBetResponse{SwipeBet: &swipeBet}, nil
 }

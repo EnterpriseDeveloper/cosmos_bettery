@@ -24,7 +24,7 @@ func (k Keeper) RefundPubEventsAll(c context.Context, req *types.QueryAllRefundP
 
 	pageRes, err := query.Paginate(refundPubEventsStore, req.Pagination, func(key []byte, value []byte) error {
 		var refundPubEvents types.RefundPubEvents
-		if err := k.cdc.UnmarshalBinaryBare(value, &refundPubEvents); err != nil {
+		if err := k.cdc.Unmarshal(value, &refundPubEvents); err != nil {
 			return err
 		}
 

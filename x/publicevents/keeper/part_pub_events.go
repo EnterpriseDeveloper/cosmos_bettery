@@ -49,7 +49,7 @@ func (k Keeper) AppendPartPubEvents(
 	// Set the ID of the appended value
 	partPubEvents.Id = count
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
-	appendedValue := k.cdc.MustMarshalBinaryBare(&partPubEvents)
+	appendedValue := k.cdc.MustMarshal(&partPubEvents)
 	store.Set(GetPartPubEventsIDBytes(partPubEvents.Id), appendedValue)
 
 	k.SetPartPubEventsCount(ctx, count+1)
@@ -60,7 +60,7 @@ func (k Keeper) AppendPartPubEvents(
 // SetPartPubEvents set a specific partPubEvents in the store
 func (k Keeper) SetPartPubEvents(ctx sdk.Context, partPubEvents types.PartPubEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
-	b := k.cdc.MustMarshalBinaryBare(&partPubEvents)
+	b := k.cdc.MustMarshal(&partPubEvents)
 	store.Set(GetPartPubEventsIDBytes(partPubEvents.Id), b)
 }
 
@@ -68,7 +68,7 @@ func (k Keeper) SetPartPubEvents(ctx sdk.Context, partPubEvents types.PartPubEve
 func (k Keeper) GetPartPubEvents(ctx sdk.Context, id uint64) types.PartPubEvents {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPubEventsKey))
 	var partPubEvents types.PartPubEvents
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetPartPubEventsIDBytes(id)), &partPubEvents)
+	k.cdc.MustUnmarshal(store.Get(GetPartPubEventsIDBytes(id)), &partPubEvents)
 	return partPubEvents
 }
 
@@ -98,7 +98,7 @@ func (k Keeper) GetAllPartPubEvents(ctx sdk.Context) (list []types.PartPubEvents
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
 
@@ -115,7 +115,7 @@ func (k Keeper) GetPoolByAnswerPubEvent(ctx sdk.Context, id uint64, answer int) 
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if val.PubId == id && val.AnswerIndex == uint32(answer) {
 			amount, ok := new(big.Int).SetString(val.Amount, 10)
 			if !ok {
@@ -138,7 +138,7 @@ func (k Keeper) GetPoolPubEvent(ctx sdk.Context, id uint64) (*big.Int, string, b
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if val.PubId == id {
 			amount, ok := new(big.Int).SetString(val.Amount, 10)
 			if !ok {
@@ -160,7 +160,7 @@ func (k Keeper) GetPlayAmountByAnswer(ctx sdk.Context, id uint64, i int) (list [
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if val.PubId == id && val.AnswerIndex == uint32(i) {
 			list = append(list, val)
 		}
@@ -177,7 +177,7 @@ func (k Keeper) GetAllPlayersById(ctx sdk.Context, id uint64) (list []types.Part
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if val.PubId == id {
 			list = append(list, val)
 		}
@@ -195,7 +195,7 @@ func (k Keeper) GetAllPlayAmount(ctx sdk.Context, id uint64) int {
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if val.PubId == id {
 			list = append(list, val)
 		}
@@ -224,7 +224,7 @@ func (k Keeper) findPartPubEvent(ctx sdk.Context, id uint64, part string) bool {
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.PartPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if id == val.PubId && part == val.Creator {
 			return true
 		}

@@ -48,7 +48,7 @@ func (k Keeper) AppendSwipeBet(
 	// Set the ID of the appended value
 	swipeBet.Id = count
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SwipeBetKey))
-	appendedValue := k.cdc.MustMarshalBinaryBare(&swipeBet)
+	appendedValue := k.cdc.MustMarshal(&swipeBet)
 	store.Set(GetSwipeBetIDBytes(uint64(swipeBet.Id)), appendedValue)
 
 	k.SetSwipeCount(ctx, count+1)
@@ -59,7 +59,7 @@ func (k Keeper) AppendSwipeBet(
 // SetSwipeBet set a specific swipeBet in the store
 func (k Keeper) SetSwipeBet(ctx sdk.Context, swipeBet types.SwipeBet) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SwipeBetKey))
-	b := k.cdc.MustMarshalBinaryBare(&swipeBet)
+	b := k.cdc.MustMarshal(&swipeBet)
 	store.Set(GetSwipeBetIDBytes(uint64(swipeBet.Id)), b)
 }
 
@@ -67,7 +67,7 @@ func (k Keeper) SetSwipeBet(ctx sdk.Context, swipeBet types.SwipeBet) {
 func (k Keeper) GetSwipeBet(ctx sdk.Context, id uint64) types.SwipeBet {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.SwipeBetKey))
 	var swipeBet types.SwipeBet
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetSwipeBetIDBytes(id)), &swipeBet)
+	k.cdc.MustUnmarshal(store.Get(GetSwipeBetIDBytes(id)), &swipeBet)
 	return swipeBet
 }
 
@@ -97,7 +97,7 @@ func (k Keeper) GetAllSwipeBet(ctx sdk.Context) (list []types.SwipeBet) {
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.SwipeBet
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
 

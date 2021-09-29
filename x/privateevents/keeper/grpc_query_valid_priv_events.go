@@ -25,7 +25,7 @@ func (k Keeper) ValidPrivEventsAll(c context.Context, req *types.QueryAllValidPr
 
 	pageRes, err := query.Paginate(validPrivEventsStore, req.Pagination, func(key []byte, value []byte) error {
 		var validPrivEvents types.ValidPrivEvents
-		if err := k.cdc.UnmarshalBinaryBare(value, &validPrivEvents); err != nil {
+		if err := k.cdc.Unmarshal(value, &validPrivEvents); err != nil {
 			return err
 		}
 
@@ -53,7 +53,7 @@ func (k Keeper) ValidPrivEvents(c context.Context, req *types.QueryGetValidPrivE
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPrivEventsKey))
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetValidPrivEventsIDBytes(req.Id)), &validPrivEvents)
+	k.cdc.MustUnmarshal(store.Get(GetValidPrivEventsIDBytes(req.Id)), &validPrivEvents)
 
 	return &types.QueryGetValidPrivEventsResponse{ValidPrivEvents: &validPrivEvents}, nil
 }

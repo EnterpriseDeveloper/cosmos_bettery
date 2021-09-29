@@ -25,7 +25,7 @@ func (k Keeper) ValidPubEventsAll(c context.Context, req *types.QueryAllValidPub
 
 	pageRes, err := query.Paginate(validPubEventsStore, req.Pagination, func(key []byte, value []byte) error {
 		var validPubEvents types.ValidPubEvents
-		if err := k.cdc.UnmarshalBinaryBare(value, &validPubEvents); err != nil {
+		if err := k.cdc.Unmarshal(value, &validPubEvents); err != nil {
 			return err
 		}
 
@@ -53,7 +53,7 @@ func (k Keeper) ValidPubEvents(c context.Context, req *types.QueryGetValidPubEve
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetValidPubEventsIDBytes(req.Id)), &validPubEvents)
+	k.cdc.MustUnmarshal(store.Get(GetValidPubEventsIDBytes(req.Id)), &validPubEvents)
 
 	return &types.QueryGetValidPubEventsResponse{ValidPubEvents: &validPubEvents}, nil
 }

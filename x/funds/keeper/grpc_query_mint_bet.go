@@ -25,7 +25,7 @@ func (k Keeper) MintBetAll(c context.Context, req *types.QueryAllMintBetRequest)
 
 	pageRes, err := query.Paginate(mintBetStore, req.Pagination, func(key []byte, value []byte) error {
 		var mintBet types.MintBet
-		if err := k.cdc.UnmarshalBinaryBare(value, &mintBet); err != nil {
+		if err := k.cdc.Unmarshal(value, &mintBet); err != nil {
 			return err
 		}
 
@@ -53,7 +53,7 @@ func (k Keeper) MintBet(c context.Context, req *types.QueryGetMintBetRequest) (*
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MintBetKey))
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetMintBetIDBytes(req.Id)), &mintBet)
+	k.cdc.MustUnmarshal(store.Get(GetMintBetIDBytes(req.Id)), &mintBet)
 
 	return &types.QueryGetMintBetResponse{MintBet: &mintBet}, nil
 }

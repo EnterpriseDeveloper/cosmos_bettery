@@ -48,7 +48,7 @@ func (k Keeper) AppendMintBet(
 	// Set the ID of the appended value
 	mintBet.Id = count
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MintBetKey))
-	appendedValue := k.cdc.MustMarshalBinaryBare(&mintBet)
+	appendedValue := k.cdc.MustMarshal(&mintBet)
 	store.Set(GetMintBetIDBytes(uint64(mintBet.Id)), appendedValue)
 
 	k.SetMintCount(ctx, count+1)
@@ -59,7 +59,7 @@ func (k Keeper) AppendMintBet(
 // SetMintBet set a specific mintBet in the store
 func (k Keeper) SetMintBet(ctx sdk.Context, mintBet types.MintBet) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MintBetKey))
-	b := k.cdc.MustMarshalBinaryBare(&mintBet)
+	b := k.cdc.MustMarshal(&mintBet)
 	store.Set(GetMintBetIDBytes(uint64(mintBet.Id)), b)
 }
 
@@ -67,7 +67,7 @@ func (k Keeper) SetMintBet(ctx sdk.Context, mintBet types.MintBet) {
 func (k Keeper) GetMintBet(ctx sdk.Context, id uint64) types.MintBet {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.MintBetKey))
 	var mintBet types.MintBet
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetMintBetIDBytes(id)), &mintBet)
+	k.cdc.MustUnmarshal(store.Get(GetMintBetIDBytes(id)), &mintBet)
 	return mintBet
 }
 
@@ -97,7 +97,7 @@ func (k Keeper) GetAllMintBet(ctx sdk.Context) (list []types.MintBet) {
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.MintBet
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
 

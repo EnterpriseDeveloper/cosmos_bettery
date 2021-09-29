@@ -16,7 +16,7 @@ func (k Keeper) AppendCreatePubEvents(
 ) uint64 {
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePubEventsKey))
-	appendedValue := k.cdc.MustMarshalBinaryBare(&createPubEvents)
+	appendedValue := k.cdc.MustMarshal(&createPubEvents)
 	store.Set(GetCreatePubEventsIDBytes(createPubEvents.PubId), appendedValue)
 
 	return createPubEvents.PubId
@@ -25,7 +25,7 @@ func (k Keeper) AppendCreatePubEvents(
 // SetCreatePubEvents set a specific createPubEvents in the store
 func (k Keeper) SetCreatePubEvents(ctx sdk.Context, createPubEvents types.CreatePubEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePubEventsKey))
-	b := k.cdc.MustMarshalBinaryBare(&createPubEvents)
+	b := k.cdc.MustMarshal(&createPubEvents)
 	store.Set(GetCreatePubEventsIDBytes(createPubEvents.PubId), b)
 }
 
@@ -33,7 +33,7 @@ func (k Keeper) SetCreatePubEvents(ctx sdk.Context, createPubEvents types.Create
 func (k Keeper) GetCreatePubEvents(ctx sdk.Context, id uint64) types.CreatePubEvents {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePubEventsKey))
 	var createPubEvents types.CreatePubEvents
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetCreatePubEventsIDBytes(id)), &createPubEvents)
+	k.cdc.MustUnmarshal(store.Get(GetCreatePubEventsIDBytes(id)), &createPubEvents)
 	return createPubEvents
 }
 
@@ -99,7 +99,7 @@ func (k Keeper) GetAllCreatePubEvents(ctx sdk.Context) (list []types.CreatePubEv
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.CreatePubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
 

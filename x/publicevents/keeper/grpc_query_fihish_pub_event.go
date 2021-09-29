@@ -25,7 +25,7 @@ func (k Keeper) FihishPubEventAll(c context.Context, req *types.QueryAllFihishPu
 
 	pageRes, err := query.Paginate(fihishPubEventStore, req.Pagination, func(key []byte, value []byte) error {
 		var fihishPubEvent types.FihishPubEvent
-		if err := k.cdc.UnmarshalBinaryBare(value, &fihishPubEvent); err != nil {
+		if err := k.cdc.Unmarshal(value, &fihishPubEvent); err != nil {
 			return err
 		}
 
@@ -53,7 +53,7 @@ func (k Keeper) FihishPubEvent(c context.Context, req *types.QueryGetFihishPubEv
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FihishPubEventKey))
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetFihishPubEventIDBytes(req.Id)), &fihishPubEvent)
+	k.cdc.MustUnmarshal(store.Get(GetFihishPubEventIDBytes(req.Id)), &fihishPubEvent)
 
 	return &types.QueryGetFihishPubEventResponse{FihishPubEvent: &fihishPubEvent}, nil
 }

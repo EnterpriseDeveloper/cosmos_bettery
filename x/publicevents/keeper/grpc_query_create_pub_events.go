@@ -25,7 +25,7 @@ func (k Keeper) CreatePubEventsAll(c context.Context, req *types.QueryAllCreateP
 
 	pageRes, err := query.Paginate(createPubEventsStore, req.Pagination, func(key []byte, value []byte) error {
 		var createPubEvents types.CreatePubEvents
-		if err := k.cdc.UnmarshalBinaryBare(value, &createPubEvents); err != nil {
+		if err := k.cdc.Unmarshal(value, &createPubEvents); err != nil {
 			return err
 		}
 
@@ -53,7 +53,7 @@ func (k Keeper) CreatePubEvents(c context.Context, req *types.QueryGetCreatePubE
 	}
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.CreatePubEventsKey))
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetCreatePubEventsIDBytes(req.Id)), &createPubEvents)
+	k.cdc.MustUnmarshal(store.Get(GetCreatePubEventsIDBytes(req.Id)), &createPubEvents)
 
 	return &types.QueryGetCreatePubEventsResponse{CreatePubEvents: &createPubEvents}, nil
 }

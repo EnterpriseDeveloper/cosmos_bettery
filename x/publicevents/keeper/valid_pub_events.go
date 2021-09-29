@@ -49,7 +49,7 @@ func (k Keeper) AppendValidPubEvents(
 	validPubEvents.Id = count
 
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
-	appendedValue := k.cdc.MustMarshalBinaryBare(&validPubEvents)
+	appendedValue := k.cdc.MustMarshal(&validPubEvents)
 	store.Set(GetValidPubEventsIDBytes(validPubEvents.Id), appendedValue)
 
 	k.SetValidPubEventsCount(ctx, count+1)
@@ -59,7 +59,7 @@ func (k Keeper) AppendValidPubEvents(
 // SetValidPubEvents set a specific validPubEvents in the store
 func (k Keeper) SetValidPubEvents(ctx sdk.Context, validPubEvents types.ValidPubEvents) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
-	b := k.cdc.MustMarshalBinaryBare(&validPubEvents)
+	b := k.cdc.MustMarshal(&validPubEvents)
 	store.Set(GetValidPubEventsIDBytes(validPubEvents.Id), b)
 }
 
@@ -67,7 +67,7 @@ func (k Keeper) SetValidPubEvents(ctx sdk.Context, validPubEvents types.ValidPub
 func (k Keeper) GetValidPubEvents(ctx sdk.Context, id uint64) types.ValidPubEvents {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
 	var validPubEvents types.ValidPubEvents
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetValidPubEventsIDBytes(id)), &validPubEvents)
+	k.cdc.MustUnmarshal(store.Get(GetValidPubEventsIDBytes(id)), &validPubEvents)
 	return validPubEvents
 }
 
@@ -97,7 +97,7 @@ func (k Keeper) GetAllValidPubEvents(ctx sdk.Context) (list []types.ValidPubEven
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
 
@@ -112,7 +112,7 @@ func (k Keeper) GetValidPubEventByAnswer(ctx sdk.Context, id uint64, answer int)
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if val.PubId == id && int(val.AnswerIndex) == answer {
 			list = append(list, val)
 		}
@@ -130,7 +130,7 @@ func (k Keeper) GetValidPubEventLength(ctx sdk.Context, id uint64) int {
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if val.PubId == id {
 			list = append(list, val)
 		}
@@ -159,7 +159,7 @@ func (k Keeper) findValidPubEvent(ctx sdk.Context, id uint64, valid string) bool
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if id == val.PubId && valid == val.Creator {
 			return true
 		}
@@ -177,7 +177,7 @@ func (k Keeper) GetAllExperReputPubEvent(ctx sdk.Context, id uint64, correctAnsw
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPubEvents
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		if id == val.PubId && correctAnswer == int(val.AnswerIndex) && val.Reput > 0 {
 			allReputation = allReputation + int(val.Reput+1)
 		}

@@ -14,7 +14,7 @@ func (k Keeper) AppendFihishPubEvent(
 	fihishPubEvent types.FihishPubEvent,
 ) uint64 {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FihishPubEventKey))
-	appendedValue := k.cdc.MustMarshalBinaryBare(&fihishPubEvent)
+	appendedValue := k.cdc.MustMarshal(&fihishPubEvent)
 	store.Set(GetFihishPubEventIDBytes(fihishPubEvent.PubId), appendedValue)
 
 	return fihishPubEvent.PubId
@@ -23,7 +23,7 @@ func (k Keeper) AppendFihishPubEvent(
 // SetFihishPubEvent set a specific fihishPubEvent in the store
 func (k Keeper) SetFihishPubEvent(ctx sdk.Context, fihishPubEvent types.FihishPubEvent) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FihishPubEventKey))
-	b := k.cdc.MustMarshalBinaryBare(&fihishPubEvent)
+	b := k.cdc.MustMarshal(&fihishPubEvent)
 	store.Set(GetFihishPubEventIDBytes(fihishPubEvent.PubId), b)
 }
 
@@ -31,7 +31,7 @@ func (k Keeper) SetFihishPubEvent(ctx sdk.Context, fihishPubEvent types.FihishPu
 func (k Keeper) GetFihishPubEvent(ctx sdk.Context, id uint64) types.FihishPubEvent {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.FihishPubEventKey))
 	var fihishPubEvent types.FihishPubEvent
-	k.cdc.MustUnmarshalBinaryBare(store.Get(GetFihishPubEventIDBytes(id)), &fihishPubEvent)
+	k.cdc.MustUnmarshal(store.Get(GetFihishPubEventIDBytes(id)), &fihishPubEvent)
 	return fihishPubEvent
 }
 
@@ -61,7 +61,7 @@ func (k Keeper) GetAllFihishPubEvent(ctx sdk.Context) (list []types.FihishPubEve
 
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.FihishPubEvent
-		k.cdc.MustUnmarshalBinaryBare(iterator.Value(), &val)
+		k.cdc.MustUnmarshal(iterator.Value(), &val)
 		list = append(list, val)
 	}
 
