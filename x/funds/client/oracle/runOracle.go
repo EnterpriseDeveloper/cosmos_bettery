@@ -7,7 +7,7 @@ import (
 	"math/big"
 	"strings"
 
-	transfer "github.com/VoroshilovMax/bettery/x/funds/client/oracle/contracts"
+	//	transfer "github.com/VoroshilovMax/bettery/x/funds/client/oracle/contracts"
 	mintTypes "github.com/VoroshilovMax/bettery/x/funds/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -62,8 +62,8 @@ func getEvent(contract string, rpc string, clientCtx client.Context) error {
 	if err != nil {
 		return err
 	}
-
-	contractAbi, err := abi.JSON(strings.NewReader(string(transfer.TransferABI)))
+	// TODO
+	contractAbi, err := abi.JSON(strings.NewReader("TODO"))
 	if err != nil {
 		return err
 	}
@@ -100,7 +100,7 @@ func transferEthEvent(vLog types.Log, contractAbi abi.ABI, clientCtx client.Cont
 		Amount       *big.Int
 		Sender       common.Address
 	}{}
-	err := contractAbi.Unpack(&event, "transferETHEvent", vLog.Data)
+	err := contractAbi.UnpackIntoInterface(&event, "transferETHEvent", vLog.Data)
 	if err != nil {
 		log.Fatal("unpack err", err)
 	}

@@ -3,9 +3,7 @@ module github.com/VoroshilovMax/bettery
 go 1.16
 
 require (
-	github.com/allegro/bigcache v1.2.1 // indirect
 	github.com/aristanetworks/goarista v0.0.0-20210715113802-a1396632fc37 // indirect
-	github.com/cespare/cp v1.1.1 // indirect
 	github.com/cosmos/cosmos-sdk v0.44.0
 	github.com/cosmos/go-bip39 v1.0.0
 	github.com/cosmos/ibc-go v1.2.0
