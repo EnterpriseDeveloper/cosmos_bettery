@@ -121,7 +121,7 @@ func (k Keeper) GetPoolByAnswerPubEvent(ctx sdk.Context, id uint64, answer int) 
 			if !ok {
 				return new(big.Int).SetInt64(0), "error parse from pool", false
 			}
-			pool = pool.Add(pool, amount)
+			pool.Add(pool, amount)
 		}
 	}
 
@@ -144,7 +144,7 @@ func (k Keeper) GetPoolPubEvent(ctx sdk.Context, id uint64) (*big.Int, string, b
 			if !ok {
 				return new(big.Int).SetInt64(0), "error parse from pool", false
 			}
-			pool = pool.Add(pool, amount)
+			pool.Add(pool, amount)
 		}
 	}
 
