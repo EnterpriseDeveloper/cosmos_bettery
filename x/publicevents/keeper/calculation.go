@@ -18,7 +18,7 @@ func ExpertFormula(from *big.Int, percent *big.Int, reputation *big.Int, allRepu
 	perc := GetPercent(percent, from)
 	b := new(big.Int).SetInt64(int64(0))
 	reput := b.Add(reputation, new(big.Int).SetInt64(int64(1)))
-	perc = perc.Mul(perc, reput)
+	perc.Mul(perc, reput)
 	return perc.Div(perc, allReputation)
 }
 

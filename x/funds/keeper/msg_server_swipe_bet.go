@@ -24,7 +24,7 @@ func (k msgServer) CreateSwipeBet(goCtx context.Context, msg *types.MsgCreateSwi
 		return nil, err
 	}
 
-	cehckAmount, ok := new(big.Int).SetString(msg.Amount, 10)
+	cehckAmount, ok := new(big.Int).SetString(msg.Amount, 0)
 	if !ok {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error, amount: %s, user: %s", msg.Creator, msg.Amount))
 	}

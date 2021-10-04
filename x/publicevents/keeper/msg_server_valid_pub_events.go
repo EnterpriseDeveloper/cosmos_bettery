@@ -64,7 +64,7 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 
 	//check user amount
 	playAmount := k.GetAllPlayAmount(ctx, msg.PubId)
-	if playAmount == 0 {
+	if *playAmount == 0 {
 		ctx.EventManager().EmitEvent(
 			sdk.NewEvent(
 				"pub.event",
@@ -73,7 +73,7 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 				sdk.NewAttribute("id", eventId),
 			),
 		)
-	} else if playAmount == 1 {
+	} else if *playAmount == 1 {
 		ok, errString := payBack(k, ctx, msg.PubId)
 		if !ok {
 			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("payBack err, event id %d, error message: %s", msg.PubId, errString))
@@ -91,7 +91,7 @@ func (k msgServer) CreateValidPubEvents(goCtx context.Context, msg *types.MsgCre
 		validNumber := k.GetValidatorsNumber(ctx, msg.PubId)
 		if validNumber == 0 {
 
-			exp := calcExpet(playAmount)
+			exp := calcExpet(*playAmount)
 			k.setExpertAmount(ctx, msg.PubId, exp)
 
 			expAmount, err := cast.ToStringE(exp)
@@ -154,7 +154,7 @@ func calcExpet(players int) int64 {
 func payBack(k msgServer, ctx sdk.Context, id uint64) (bool, string) {
 	players := k.GetAllPlayersById(ctx, id)
 	for i := 0; i < len(players); i++ {
-		amount, ok := new(big.Int).SetString(players[i].Amount, 10)
+		amount, ok := new(big.Int).SetString(players[i].Amount, 0)
 		if !ok {
 			return false, "error parse user bet from reverted"
 		}

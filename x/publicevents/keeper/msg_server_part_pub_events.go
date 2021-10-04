@@ -29,11 +29,11 @@ func (k msgServer) CreatePartPubEvents(goCtx context.Context, msg *types.MsgCrea
 
 	// check mimimum bet amount
 	mAm := "10000000000000000"
-	minAmoun, ok := new(big.Int).SetString(mAm, 10)
+	minAmoun, ok := new(big.Int).SetString(mAm, 0)
 	if !ok {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("err parse min amount,  id: %d", msg.PubId))
 	}
-	amount, ok := new(big.Int).SetString(msg.Amount, 10)
+	amount, ok := new(big.Int).SetString(msg.Amount, 0)
 	if !ok {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("err parse user bet amount,  id: %d", msg.PubId))
 	}
@@ -72,7 +72,7 @@ func (k msgServer) CreatePartPubEvents(goCtx context.Context, msg *types.MsgCrea
 	}
 
 	// check balance of user
-	sendAmount, ok := new(big.Int).SetString(msg.Amount, 10)
+	sendAmount, ok := new(big.Int).SetString(msg.Amount, 0)
 	if !ok {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error, amount: %s, user: %s", msg.Creator, msg.Amount))
 	}

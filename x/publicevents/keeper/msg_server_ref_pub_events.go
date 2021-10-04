@@ -29,7 +29,7 @@ func (k msgServer) CreateRefPubEvents(goCtx context.Context, msg *types.MsgCreat
 	// payment lvl 1
 	if msg.RefOneAddr[0] != "none" {
 		for i := 0; i < len(msg.RefOneAddr); i++ {
-			refMintAm, ok := new(big.Int).SetString(msg.RefOneAmount[i], 10)
+			refMintAm, ok := new(big.Int).SetString(msg.RefOneAmount[i], 0)
 			if !ok {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error from lvl 1 payment, amount: %s, user: %s", msg.Creator, msg.RefOneAmount[i]))
 			}
@@ -41,7 +41,7 @@ func (k msgServer) CreateRefPubEvents(goCtx context.Context, msg *types.MsgCreat
 	// payment lvl 2
 	if msg.RefTwoAddr[0] != "none" {
 		for i := 0; i < len(msg.RefTwoAddr); i++ {
-			refMintAm, ok := new(big.Int).SetString(msg.RefTwoAmount[i], 10)
+			refMintAm, ok := new(big.Int).SetString(msg.RefTwoAmount[i], 0)
 			if !ok {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error from lvl 2 payment, amount: %s, user: %s", msg.Creator, msg.RefTwoAmount[i]))
 			}
@@ -53,7 +53,7 @@ func (k msgServer) CreateRefPubEvents(goCtx context.Context, msg *types.MsgCreat
 	// payment lvl 3
 	if msg.RefThreeAddr[0] != "none" {
 		for i := 0; i < len(msg.RefThreeAddr); i++ {
-			refMintAm, ok := new(big.Int).SetString(msg.RefThreeAmount[i], 10)
+			refMintAm, ok := new(big.Int).SetString(msg.RefThreeAmount[i], 0)
 			if !ok {
 				return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error from lvl 2 payment, amount: %s, user: %s", msg.Creator, msg.RefTwoAmount[i]))
 			}
@@ -63,7 +63,7 @@ func (k msgServer) CreateRefPubEvents(goCtx context.Context, msg *types.MsgCreat
 	}
 
 	//pay to company
-	compAmount, ok := new(big.Int).SetString(msg.PayToComp, 10)
+	compAmount, ok := new(big.Int).SetString(msg.PayToComp, 0)
 	if !ok {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error, amount: %s, user: %s", msg.Creator, msg.PayToComp))
 	}

@@ -124,7 +124,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 func (k msgServer) PayBackToPlayers(ctx sdk.Context, id uint64) (bool, string) {
 	players := k.GetAllPlayersById(ctx, id)
 	for i := 0; i < len(players); i++ {
-		amount, ok := new(big.Int).SetString(players[i].Amount, 10)
+		amount, ok := new(big.Int).SetString(players[i].Amount, 0)
 		if !ok {
 			return false, "error parse user bet from reverted"
 		}
@@ -142,11 +142,11 @@ func (k msgServer) letsPayToLosers(ctx sdk.Context, id uint64, correctAnswer int
 			for z := 0; z < len(players); z++ {
 				wallet := players[z].Creator
 				userBet := players[z].Amount
-				uB, ok := new(big.Int).SetString(userBet, 10)
+				uB, ok := new(big.Int).SetString(userBet, 0)
 				if !ok {
 					return false, "error parse user bet from letsPayToPlayers"
 				}
-				amount := CalcLoserMint(calcMintedToken, avarageBet, new(big.Int).SetInt64(int64(activePlay)), uB)
+				amount := CalcLoserMint(calcMintedToken, avarageBet, new(big.Int).SetInt64(int64(*activePlay)), uB)
 				ok, err := k.letsMint(ctx, wallet, amount)
 				if !ok {
 					return false, err
@@ -179,18 +179,18 @@ func (k msgServer) letsPayToPlayers(ctx sdk.Context, id uint64, correctAnswer in
 		return false, errMess, zero, zero
 	}
 	avarageBetWin := betAmount.Div(betAmount, new(big.Int).SetInt64(int64(rightPlayLenght)))
-	avarageBet, calcMintedToken := CalcPremiumPubEvent(cm, pool, new(big.Int).SetInt64(int64(activePlay)), mintedToken, new(big.Int).SetInt64(int64(FEtypes.PlayersPersMint)))
+	avarageBet, calcMintedToken := CalcPremiumPubEvent(cm, pool, new(big.Int).SetInt64(int64(*activePlay)), mintedToken, new(big.Int).SetInt64(int64(FEtypes.PlayersPersMint)))
 
 	for i := 0; i < rightPlayLenght; i++ {
 		userBet := rightPlay[i].Amount
 		wallet := rightPlay[i].Creator
-		uB, ok := new(big.Int).SetString(userBet, 10)
+		uB, ok := new(big.Int).SetString(userBet, 0)
 		if !ok {
 			return false, "error parse user bet from letsPayToPlayers", zero, zero
 		}
 		if cm {
 			// mint token to users
-			ok, err := k.letsMint(ctx, wallet, PlayersFormula(calcMintedToken, uB, avarageBet, new(big.Int).SetInt64(int64(activePlay))))
+			ok, err := k.letsMint(ctx, wallet, PlayersFormula(calcMintedToken, uB, avarageBet, new(big.Int).SetInt64(int64(*activePlay))))
 			if !ok {
 				return ok, err, zero, zero
 			}
@@ -487,9 +487,9 @@ func (k msgServer) calcMintedTokens(ctx sdk.Context, id uint64, poll *big.Int) *
 			}
 		}
 		activPlay := k.GetAllPlayAmount(ctx, id)
-		controversy := (100 - CalcPercent(bigValue, activPlay) + CalcPercent(bigValue2, activPlay))
-		averageBet := poll.Div(poll, new(big.Int).SetInt64(int64(activPlay)))
-		mint := averageBet.Mul(averageBet, new(big.Int).SetInt64(int64(activPlay)))
+		controversy := (100 - CalcPercent(bigValue, *activPlay) + CalcPercent(bigValue2, *activPlay))
+		averageBet := poll.Div(poll, new(big.Int).SetInt64(int64(*activPlay)))
+		mint := averageBet.Mul(averageBet, new(big.Int).SetInt64(int64(*activPlay)))
 		mint = mint.Mul(mint, new(big.Int).SetInt64(int64(controversy*FEtypes.GFindex)))
 		return mint.Div(mint, new(big.Int).SetInt64(10000))
 	} else {

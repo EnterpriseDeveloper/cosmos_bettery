@@ -19,7 +19,7 @@ func (k msgServer) CreateCreatePubEvents(goCtx context.Context, msg *types.MsgCr
 	}
 
 	smlNumb := new(big.Int).SetInt64(int64(0))
-	premAmount, ok := new(big.Int).SetString(msg.PremAmount, 10)
+	premAmount, ok := new(big.Int).SetString(msg.PremAmount, 0)
 	if !ok {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("parse big init error, amount: %s, user: %s", msg.Creator, msg.PremAmount))
 	}
@@ -65,7 +65,7 @@ func sendPremTokenToEvent(msg *types.MsgCreateCreatePubEvents, ctx sdk.Context, 
 		return false, err.Error()
 	}
 
-	cehckAmount, ok := new(big.Int).SetString(msg.PremAmount, 10)
+	cehckAmount, ok := new(big.Int).SetString(msg.PremAmount, 0)
 	if !ok {
 		return false, "parse big init error, amount:" + msg.Creator + " , user: " + msg.PremAmount
 	}

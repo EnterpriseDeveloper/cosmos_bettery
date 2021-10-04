@@ -82,7 +82,7 @@ func (k Keeper) GetValidatorsNumber(ctx sdk.Context, id uint64) int64 {
 
 // get premium amount
 func (k Keeper) GetPremAmountPubEvent(ctx sdk.Context, id uint64) (*big.Int, bool) {
-	return new(big.Int).SetString(k.GetCreatePubEvents(ctx, id).PremAmount, 10)
+	return new(big.Int).SetString(k.GetCreatePubEvents(ctx, id).PremAmount, 0)
 }
 
 // calculate validators amount
