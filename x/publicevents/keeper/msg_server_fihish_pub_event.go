@@ -41,9 +41,9 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 		return sendToStorage(ctx, k, msg, correctAnswer, reverted, status, "0")
 	} else {
 		// find looser pool
-		loserPool, mintedToken, reverted, ok, errString := k.findLosersPool(ctx, msg.PubId, correctAnswer)
+		loserPool, mintedToken, reverted, ok, revStatus := k.findLosersPool(ctx, msg.PubId, correctAnswer)
 		if ok {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event from find loser pool, event id %d, error message: %s", msg.PubId, errString))
+			return nil, sdkerrors.Wrap(sdkerrors.ErrKeyNotFound, fmt.Sprintf("event from find loser pool, event id %d, error message: %s", msg.PubId, revStatus))
 		}
 		if reverted {
 			ok, errString := k.PayBackToPlayers(ctx, msg.PubId)
@@ -55,7 +55,7 @@ func (k msgServer) CreateFihishPubEvent(goCtx context.Context, msg *types.MsgCre
 					"pub.event",
 					sdk.NewAttribute("reverted", "true"),
 					sdk.NewAttribute("id", eventId),
-					sdk.NewAttribute("status", errString),
+					sdk.NewAttribute("status", revStatus),
 				),
 			)
 			return sendToStorage(ctx, k, msg, correctAnswer, reverted, errString, mintedToken.String())
