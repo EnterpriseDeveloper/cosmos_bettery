@@ -135,10 +135,12 @@ message QueryAllFihishPubEventResponse {
 }
 message QueryGetValidPubEventsRequest {
 	uint64 id = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryGetValidPubEventsResponse {
-	ValidPubEvents ValidPubEvents = 1;
+	repeated ValidPubEvents ValidPubEvents = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryAllValidPubEventsRequest {
@@ -151,10 +153,12 @@ message QueryAllValidPubEventsResponse {
 }
 message QueryGetPartPubEventsRequest {
 	uint64 id = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryGetPartPubEventsResponse {
-	PartPubEvents PartPubEvents = 1;
+	repeated PartPubEvents PartPubEvents = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryAllPartPubEventsRequest {

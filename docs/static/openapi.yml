@@ -13192,21 +13192,50 @@ paths:
             type: object
             properties:
               PartPrivEvents:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    id:
+                      type: string
+                      format: uint64
+                    privId:
+                      type: string
+                      format: uint64
+                    answer:
+                      type: string
+                    answerIndex:
+                      type: integer
+                      format: int64
+              pagination:
                 type: object
                 properties:
-                  creator:
+                  nextKey:
                     type: string
-                  id:
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
                     type: string
                     format: uint64
-                  privId:
-                    type: string
-                    format: uint64
-                  answer:
-                    type: string
-                  answerIndex:
-                    type: integer
-                    format: int64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
         default:
           description: An unexpected error response.
           schema:
@@ -13231,6 +13260,59 @@ paths:
           required: true
           type: string
           format: uint64
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /VoroshilovMax/bettery/privateevents/validPrivEvents:
@@ -13373,21 +13455,50 @@ paths:
             type: object
             properties:
               ValidPrivEvents:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    id:
+                      type: string
+                      format: uint64
+                    privId:
+                      type: string
+                      format: uint64
+                    answer:
+                      type: string
+                    answerIndex:
+                      type: integer
+                      format: int64
+              pagination:
                 type: object
                 properties:
-                  creator:
+                  nextKey:
                     type: string
-                  id:
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
                     type: string
                     format: uint64
-                  privId:
-                    type: string
-                    format: uint64
-                  answer:
-                    type: string
-                  answerIndex:
-                    type: integer
-                    format: int64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
         default:
           description: An unexpected error response.
           schema:
@@ -13412,6 +13523,59 @@ paths:
           required: true
           type: string
           format: uint64
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /VoroshilovMax/bettery/publicevents/createPubEvents:
@@ -13954,23 +14118,52 @@ paths:
             type: object
             properties:
               PartPubEvents:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    id:
+                      type: string
+                      format: uint64
+                    pubId:
+                      type: string
+                      format: uint64
+                    answers:
+                      type: string
+                    amount:
+                      type: string
+                    answerIndex:
+                      type: integer
+                      format: int64
+              pagination:
                 type: object
                 properties:
-                  creator:
+                  nextKey:
                     type: string
-                  id:
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
                     type: string
                     format: uint64
-                  pubId:
-                    type: string
-                    format: uint64
-                  answers:
-                    type: string
-                  amount:
-                    type: string
-                  answerIndex:
-                    type: integer
-                    format: int64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
         default:
           description: An unexpected error response.
           schema:
@@ -13995,6 +14188,59 @@ paths:
           required: true
           type: string
           format: uint64
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
   /VoroshilovMax/bettery/publicevents/refPubEvents:
@@ -14526,24 +14772,53 @@ paths:
             type: object
             properties:
               ValidPubEvents:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    creator:
+                      type: string
+                    id:
+                      type: string
+                      format: uint64
+                    pubId:
+                      type: string
+                      format: uint64
+                    answers:
+                      type: string
+                    reput:
+                      type: string
+                      format: int64
+                    answerIndex:
+                      type: integer
+                      format: int64
+              pagination:
                 type: object
                 properties:
-                  creator:
+                  nextKey:
                     type: string
-                  id:
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
                     type: string
                     format: uint64
-                  pubId:
-                    type: string
-                    format: uint64
-                  answers:
-                    type: string
-                  reput:
-                    type: string
-                    format: int64
-                  answerIndex:
-                    type: integer
-                    format: int64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
         default:
           description: An unexpected error response.
           schema:
@@ -14568,6 +14843,59 @@ paths:
           required: true
           type: string
           format: uint64
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+          in: query
+          required: false
+          type: boolean
       tags:
         - Query
 definitions:
@@ -22281,40 +22609,94 @@ definitions:
     type: object
     properties:
       PartPrivEvents:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            privId:
+              type: string
+              format: uint64
+            answer:
+              type: string
+            answerIndex:
+              type: integer
+              format: int64
+      pagination:
         type: object
         properties:
-          creator:
+          nextKey:
             type: string
-          id:
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
             type: string
             format: uint64
-          privId:
-            type: string
-            format: uint64
-          answer:
-            type: string
-          answerIndex:
-            type: integer
-            format: int64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   VoroshilovMax.bettery.privateevents.QueryGetValidPrivEventsResponse:
     type: object
     properties:
       ValidPrivEvents:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            privId:
+              type: string
+              format: uint64
+            answer:
+              type: string
+            answerIndex:
+              type: integer
+              format: int64
+      pagination:
         type: object
         properties:
-          creator:
+          nextKey:
             type: string
-          id:
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
             type: string
             format: uint64
-          privId:
-            type: string
-            format: uint64
-          answer:
-            type: string
-          answerIndex:
-            type: integer
-            format: int64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   VoroshilovMax.bettery.privateevents.ValidPrivEvents:
     type: object
     properties:
@@ -22806,23 +23188,50 @@ definitions:
     type: object
     properties:
       PartPubEvents:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            pubId:
+              type: string
+              format: uint64
+            answers:
+              type: string
+            amount:
+              type: string
+            answerIndex:
+              type: integer
+              format: int64
+      pagination:
         type: object
         properties:
-          creator:
+          nextKey:
             type: string
-          id:
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
             type: string
             format: uint64
-          pubId:
-            type: string
-            format: uint64
-          answers:
-            type: string
-          amount:
-            type: string
-          answerIndex:
-            type: integer
-            format: int64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   VoroshilovMax.bettery.publicevents.QueryGetRefPubEventsResponse:
     type: object
     properties:
@@ -22877,24 +23286,51 @@ definitions:
     type: object
     properties:
       ValidPubEvents:
+        type: array
+        items:
+          type: object
+          properties:
+            creator:
+              type: string
+            id:
+              type: string
+              format: uint64
+            pubId:
+              type: string
+              format: uint64
+            answers:
+              type: string
+            reput:
+              type: string
+              format: int64
+            answerIndex:
+              type: integer
+              format: int64
+      pagination:
         type: object
         properties:
-          creator:
+          nextKey:
             type: string
-          id:
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
             type: string
             format: uint64
-          pubId:
-            type: string
-            format: uint64
-          answers:
-            type: string
-          reput:
-            type: string
-            format: int64
-          answerIndex:
-            type: integer
-            format: int64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
   VoroshilovMax.bettery.publicevents.RefPubEvents:
     type: object
     properties:

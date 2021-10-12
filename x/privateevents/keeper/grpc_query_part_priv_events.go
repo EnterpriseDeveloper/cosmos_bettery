@@ -6,7 +6,6 @@ import (
 	"github.com/VoroshilovMax/bettery/x/privateevents/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -45,15 +44,32 @@ func (k Keeper) PartPrivEvents(c context.Context, req *types.QueryGetPartPrivEve
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	var partPrivEvents types.PartPrivEvents
+	var partPrivEventss []*types.PartPrivEvents
 	ctx := sdk.UnwrapSDKContext(c)
 
-	if !k.HasPartPrivEvents(ctx, req.Id) {
-		return nil, sdkerrors.ErrKeyNotFound
+	store := ctx.KVStore(k.storeKey)
+	partPrivEventsStore := prefix.NewStore(store, types.KeyPrefix(types.PartPrivEventsKey))
+
+	pageRes, err := query.Paginate(partPrivEventsStore, req.Pagination, func(key []byte, value []byte) error {
+		var partPrivEvents types.PartPrivEvents
+		if err := k.cdc.Unmarshal(value, &partPrivEvents); err != nil {
+			return err
+		}
+
+		p := &partPrivEvents
+		if p.PrivId == req.Id {
+			partPrivEventss = append(partPrivEventss, &partPrivEvents)
+			return nil
+		} else {
+			return nil
+		}
+	})
+
+	if err != nil {
+		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.PartPrivEventsKey))
-	k.cdc.MustUnmarshal(store.Get(GetPartPrivEventsIDBytes(req.Id)), &partPrivEvents)
+	pageRes.Total = uint64(len(partPrivEventss))
 
-	return &types.QueryGetPartPrivEventsResponse{PartPrivEvents: &partPrivEvents}, nil
+	return &types.QueryGetPartPrivEventsResponse{PartPrivEvents: partPrivEventss, Pagination: pageRes}, nil
 }

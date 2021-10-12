@@ -51,10 +51,12 @@ service Query {
 // this line is used by starport scaffolding # 3
 message QueryGetValidPrivEventsRequest {
 	uint64 id = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryGetValidPrivEventsResponse {
-	ValidPrivEvents ValidPrivEvents = 1;
+	repeated ValidPrivEvents ValidPrivEvents = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryAllValidPrivEventsRequest {
@@ -67,10 +69,12 @@ message QueryAllValidPrivEventsResponse {
 }
 message QueryGetPartPrivEventsRequest {
 	uint64 id = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryGetPartPrivEventsResponse {
-	PartPrivEvents PartPrivEvents = 1;
+	repeated PartPrivEvents PartPrivEvents = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryAllPartPrivEventsRequest {

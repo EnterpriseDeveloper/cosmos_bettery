@@ -6,7 +6,6 @@ import (
 	"github.com/VoroshilovMax/bettery/x/publicevents/types"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -45,15 +44,32 @@ func (k Keeper) ValidPubEvents(c context.Context, req *types.QueryGetValidPubEve
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 
-	var validPubEvents types.ValidPubEvents
+	var validPubEventss []*types.ValidPubEvents
 	ctx := sdk.UnwrapSDKContext(c)
 
-	if !k.HasValidPubEvents(ctx, req.Id) {
-		return nil, sdkerrors.ErrKeyNotFound
+	store := ctx.KVStore(k.storeKey)
+	validPubEventsStore := prefix.NewStore(store, types.KeyPrefix(types.ValidPubEventsKey))
+
+	pageRes, err := query.Paginate(validPubEventsStore, req.Pagination, func(key []byte, value []byte) error {
+		var validPubEvents types.ValidPubEvents
+		if err := k.cdc.Unmarshal(value, &validPubEvents); err != nil {
+			return err
+		}
+
+		v := &validPubEvents
+		if v.PubId == req.Id {
+			validPubEventss = append(validPubEventss, &validPubEvents)
+			return nil
+		} else {
+			return nil
+		}
+	})
+
+	if err != nil {
+		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ValidPubEventsKey))
-	k.cdc.MustUnmarshal(store.Get(GetValidPubEventsIDBytes(req.Id)), &validPubEvents)
+	pageRes.Total = uint64(len(validPubEventss))
 
-	return &types.QueryGetValidPubEventsResponse{ValidPubEvents: &validPubEvents}, nil
+	return &types.QueryGetValidPubEventsResponse{ValidPubEvents: validPubEventss, Pagination: pageRes}, nil
 }
