@@ -18,8 +18,9 @@ func ExpertFormula(from *big.Int, percent *big.Int, reputation *big.Int, allRepu
 	perc := GetPercent(percent, from)
 	b := new(big.Int).SetInt64(int64(0))
 	reput := b.Add(reputation, new(big.Int).SetInt64(int64(1)))
-	perc.Mul(perc, reput)
-	return perc.Div(perc, allReputation)
+	z := new(big.Int).SetInt64(int64(0))
+	z = z.Mul(perc, reput)
+	return z.Div(z, allReputation)
 }
 
 func CalcPayForExpert(percent *big.Int, loserPool *big.Int, reputation *big.Int, allReputation *big.Int, premiumAmount *big.Int, expertPremiumPerc *big.Int) *big.Int {
@@ -36,7 +37,7 @@ func CalcWinPool(playersPers *big.Int, loserPool *big.Int, rightPlay *big.Int) *
 }
 
 func CalcPremiumWin(rightPlay *big.Int, premToken *big.Int, playersPersPremiun *big.Int) *big.Int {
-	if premToken.Cmp(new(big.Int).SetInt64(int64(0))) == 0 {
+	if premToken.Cmp(new(big.Int).SetInt64(int64(0))) == 1 {
 		premiumToken := GetPercent(playersPersPremiun, premToken)
 		return premiumToken.Div(premiumToken, rightPlay)
 	} else {

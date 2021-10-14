@@ -178,7 +178,7 @@ func (k Keeper) GetAllExperReputPubEvent(ctx sdk.Context, id uint64, correctAnsw
 	for ; iterator.Valid(); iterator.Next() {
 		var val types.ValidPubEvents
 		k.cdc.MustUnmarshal(iterator.Value(), &val)
-		if id == val.PubId && correctAnswer == int(val.AnswerIndex) && val.Reput > 0 {
+		if id == val.PubId && correctAnswer == int(val.AnswerIndex) && val.Reput >= 0 {
 			allReputation = allReputation + int(val.Reput+1)
 		}
 	}
