@@ -55,10 +55,12 @@ message QueryAllSwipeBetResponse {
 }
 message QueryGetMintBetRequest {
 	uint64 id = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryGetMintBetResponse {
-	MintBet MintBet = 1;
+	repeated MintBet MintBet = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryAllMintBetRequest {
