@@ -28,19 +28,19 @@ func (gs GenesisState) Validate() error {
 	swipeBetIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.SwipeBetList {
-		if _, ok := swipeBetIdMap[uint64(elem.Id)]; ok {
+		if _, ok := swipeBetIdMap[uint64(elem.UserId)]; ok {
 			return fmt.Errorf("duplicated id for swipeBet")
 		}
-		swipeBetIdMap[uint64(elem.Id)] = true
+		swipeBetIdMap[uint64(elem.UserId)] = true
 	}
 	// Check for duplicated ID in mintBet
 	mintBetIdMap := make(map[uint64]bool)
 
 	for _, elem := range gs.MintBetList {
-		if _, ok := mintBetIdMap[uint64(elem.Id)]; ok {
+		if _, ok := mintBetIdMap[uint64(elem.UserId)]; ok {
 			return fmt.Errorf("duplicated id for mintBet")
 		}
-		mintBetIdMap[uint64(elem.Id)] = true
+		mintBetIdMap[uint64(elem.UserId)] = true
 	}
 
 	return nil
