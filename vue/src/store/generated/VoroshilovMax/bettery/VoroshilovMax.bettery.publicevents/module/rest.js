@@ -217,9 +217,10 @@ export class Api extends HttpClient {
          * @summary Queries a partPubEvents by id.
          * @request GET:/VoroshilovMax/bettery/publicevents/partPubEvents/{id}
          */
-        this.queryPartPubEvents = (id, params = {}) => this.request({
+        this.queryPartPubEvents = (id, query, params = {}) => this.request({
             path: `/VoroshilovMax/bettery/publicevents/partPubEvents/${id}`,
             method: "GET",
+            query: query,
             format: "json",
             ...params,
         });
@@ -304,9 +305,10 @@ export class Api extends HttpClient {
          * @summary Queries a validPubEvents by id.
          * @request GET:/VoroshilovMax/bettery/publicevents/validPubEvents/{id}
          */
-        this.queryValidPubEvents = (id, params = {}) => this.request({
+        this.queryValidPubEvents = (id, query, params = {}) => this.request({
             path: `/VoroshilovMax/bettery/publicevents/validPubEvents/${id}`,
             method: "GET",
+            query: query,
             format: "json",
             ...params,
         });

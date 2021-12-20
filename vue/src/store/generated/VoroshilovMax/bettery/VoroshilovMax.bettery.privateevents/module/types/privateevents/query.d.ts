@@ -1,15 +1,17 @@
 import { Reader, Writer } from 'protobufjs/minimal';
-import { ValidPrivEvents } from '../privateevents/valid_priv_events';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { ValidPrivEvents } from '../privateevents/valid_priv_events';
 import { PartPrivEvents } from '../privateevents/part_priv_events';
 import { CreatePrivEvents } from '../privateevents/create_priv_events';
 export declare const protobufPackage = "VoroshilovMax.bettery.privateevents";
 /** this line is used by starport scaffolding # 3 */
 export interface QueryGetValidPrivEventsRequest {
     id: number;
+    pagination: PageRequest | undefined;
 }
 export interface QueryGetValidPrivEventsResponse {
-    ValidPrivEvents: ValidPrivEvents | undefined;
+    ValidPrivEvents: ValidPrivEvents[];
+    pagination: PageResponse | undefined;
 }
 export interface QueryAllValidPrivEventsRequest {
     pagination: PageRequest | undefined;
@@ -20,9 +22,11 @@ export interface QueryAllValidPrivEventsResponse {
 }
 export interface QueryGetPartPrivEventsRequest {
     id: number;
+    pagination: PageRequest | undefined;
 }
 export interface QueryGetPartPrivEventsResponse {
-    PartPrivEvents: PartPrivEvents | undefined;
+    PartPrivEvents: PartPrivEvents[];
+    pagination: PageResponse | undefined;
 }
 export interface QueryAllPartPrivEventsRequest {
     pagination: PageRequest | undefined;

@@ -105,11 +105,33 @@ export interface PrivateeventsQueryGetCreatePrivEventsResponse {
 }
 
 export interface PrivateeventsQueryGetPartPrivEventsResponse {
-  PartPrivEvents?: PrivateeventsPartPrivEvents;
+  PartPrivEvents?: PrivateeventsPartPrivEvents[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
 }
 
 export interface PrivateeventsQueryGetValidPrivEventsResponse {
-  ValidPrivEvents?: PrivateeventsValidPrivEvents;
+  ValidPrivEvents?: PrivateeventsValidPrivEvents[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
 }
 
 export interface PrivateeventsValidPrivEvents {
@@ -174,6 +196,9 @@ export interface V1Beta1PageRequest {
    * is set.
    */
   countTotal?: boolean;
+
+  /** reverse is set to true if results are to be returned in the descending order. */
+  reverse?: boolean;
 }
 
 /**
@@ -403,6 +428,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -444,6 +470,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -463,10 +490,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @summary Queries a partPrivEvents by id.
    * @request GET:/VoroshilovMax/bettery/privateevents/partPrivEvents/{id}
    */
-  queryPartPrivEvents = (id: string, params: RequestParams = {}) =>
+  queryPartPrivEvents = (
+    id: string,
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
     this.request<PrivateeventsQueryGetPartPrivEventsResponse, RpcStatus>({
       path: `/VoroshilovMax/bettery/privateevents/partPrivEvents/${id}`,
       method: "GET",
+      query: query,
       format: "json",
       ...params,
     });
@@ -485,6 +523,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -504,10 +543,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @summary Queries a validPrivEvents by id.
    * @request GET:/VoroshilovMax/bettery/privateevents/validPrivEvents/{id}
    */
-  queryValidPrivEvents = (id: string, params: RequestParams = {}) =>
+  queryValidPrivEvents = (
+    id: string,
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
     this.request<PrivateeventsQueryGetValidPrivEventsResponse, RpcStatus>({
       path: `/VoroshilovMax/bettery/privateevents/validPrivEvents/${id}`,
       method: "GET",
+      query: query,
       format: "json",
       ...params,
     });

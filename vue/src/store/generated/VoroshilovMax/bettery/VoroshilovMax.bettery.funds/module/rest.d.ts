@@ -42,7 +42,17 @@ export interface FundsQueryAllSwipeBetResponse {
     pagination?: V1Beta1PageResponse;
 }
 export interface FundsQueryGetMintBetResponse {
-    MintBet?: FundsMintBet;
+    MintBet?: FundsMintBet[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
 }
 export interface FundsQueryGetSwipeBetResponse {
     SwipeBet?: FundsSwipeBet;
@@ -98,6 +108,8 @@ export interface V1Beta1PageRequest {
      * is set.
      */
     countTotal?: boolean;
+    /** reverse is set to true if results are to be returned in the descending order. */
+    reverse?: boolean;
 }
 /**
 * PageResponse is to be embedded in gRPC response messages where the
@@ -185,6 +197,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
         "pagination.offset"?: string;
         "pagination.limit"?: string;
         "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
     }, params?: RequestParams) => Promise<HttpResponse<FundsQueryAllMintBetResponse, RpcStatus>>;
     /**
      * No description
@@ -194,7 +207,13 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Queries a mintBet by id.
      * @request GET:/VoroshilovMax/bettery/funds/mintBet/{id}
      */
-    queryMintBet: (id: string, params?: RequestParams) => Promise<HttpResponse<FundsQueryGetMintBetResponse, RpcStatus>>;
+    queryMintBet: (id: string, query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<FundsQueryGetMintBetResponse, RpcStatus>>;
     /**
      * No description
      *
@@ -208,6 +227,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
         "pagination.offset"?: string;
         "pagination.limit"?: string;
         "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
     }, params?: RequestParams) => Promise<HttpResponse<FundsQueryAllSwipeBetResponse, RpcStatus>>;
     /**
      * No description

@@ -62,7 +62,18 @@ export interface FundsQueryAllSwipeBetResponse {
 }
 
 export interface FundsQueryGetMintBetResponse {
-  MintBet?: FundsMintBet;
+  MintBet?: FundsMintBet[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
 }
 
 export interface FundsQueryGetSwipeBetResponse {
@@ -128,6 +139,9 @@ export interface V1Beta1PageRequest {
    * is set.
    */
   countTotal?: boolean;
+
+  /** reverse is set to true if results are to be returned in the descending order. */
+  reverse?: boolean;
 }
 
 /**
@@ -357,6 +371,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -376,10 +391,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @summary Queries a mintBet by id.
    * @request GET:/VoroshilovMax/bettery/funds/mintBet/{id}
    */
-  queryMintBet = (id: string, params: RequestParams = {}) =>
+  queryMintBet = (
+    id: string,
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
     this.request<FundsQueryGetMintBetResponse, RpcStatus>({
       path: `/VoroshilovMax/bettery/funds/mintBet/${id}`,
       method: "GET",
+      query: query,
       format: "json",
       ...params,
     });
@@ -398,6 +424,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>

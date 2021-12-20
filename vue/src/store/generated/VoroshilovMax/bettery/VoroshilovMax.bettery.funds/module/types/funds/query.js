@@ -240,6 +240,9 @@ export const QueryGetMintBetRequest = {
         if (message.id !== 0) {
             writer.uint32(8).uint64(message.id);
         }
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -251,6 +254,9 @@ export const QueryGetMintBetRequest = {
             switch (tag >>> 3) {
                 case 1:
                     message.id = longToNumber(reader.uint64());
+                    break;
+                case 2:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -267,11 +273,18 @@ export const QueryGetMintBetRequest = {
         else {
             message.id = 0;
         }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.id !== undefined && (obj.id = message.id);
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -282,14 +295,23 @@ export const QueryGetMintBetRequest = {
         else {
             message.id = 0;
         }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
         return message;
     }
 };
 const baseQueryGetMintBetResponse = {};
 export const QueryGetMintBetResponse = {
     encode(message, writer = Writer.create()) {
-        if (message.MintBet !== undefined) {
-            MintBet.encode(message.MintBet, writer.uint32(10).fork()).ldelim();
+        for (const v of message.MintBet) {
+            MintBet.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -297,11 +319,15 @@ export const QueryGetMintBetResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryGetMintBetResponse };
+        message.MintBet = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.MintBet = MintBet.decode(reader, reader.uint32());
+                    message.MintBet.push(MintBet.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -312,26 +338,44 @@ export const QueryGetMintBetResponse = {
     },
     fromJSON(object) {
         const message = { ...baseQueryGetMintBetResponse };
+        message.MintBet = [];
         if (object.MintBet !== undefined && object.MintBet !== null) {
-            message.MintBet = MintBet.fromJSON(object.MintBet);
+            for (const e of object.MintBet) {
+                message.MintBet.push(MintBet.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
         }
         else {
-            message.MintBet = undefined;
+            message.pagination = undefined;
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
-        message.MintBet !== undefined && (obj.MintBet = message.MintBet ? MintBet.toJSON(message.MintBet) : undefined);
+        if (message.MintBet) {
+            obj.MintBet = message.MintBet.map((e) => (e ? MintBet.toJSON(e) : undefined));
+        }
+        else {
+            obj.MintBet = [];
+        }
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQueryGetMintBetResponse };
+        message.MintBet = [];
         if (object.MintBet !== undefined && object.MintBet !== null) {
-            message.MintBet = MintBet.fromPartial(object.MintBet);
+            for (const e of object.MintBet) {
+                message.MintBet.push(MintBet.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
         }
         else {
-            message.MintBet = undefined;
+            message.pagination = undefined;
         }
         return message;
     }

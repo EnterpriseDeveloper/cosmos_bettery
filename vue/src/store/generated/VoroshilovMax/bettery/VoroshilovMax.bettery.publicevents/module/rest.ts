@@ -193,7 +193,18 @@ export interface PubliceventsQueryGetFihishPubEventResponse {
 }
 
 export interface PubliceventsQueryGetPartPubEventsResponse {
-  PartPubEvents?: PubliceventsPartPubEvents;
+  PartPubEvents?: PubliceventsPartPubEvents[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
 }
 
 export interface PubliceventsQueryGetRefPubEventsResponse {
@@ -205,7 +216,18 @@ export interface PubliceventsQueryGetRefundPubEventsResponse {
 }
 
 export interface PubliceventsQueryGetValidPubEventsResponse {
-  ValidPubEvents?: PubliceventsValidPubEvents;
+  ValidPubEvents?: PubliceventsValidPubEvents[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
 }
 
 export interface PubliceventsRefPubEvents {
@@ -291,6 +313,9 @@ export interface V1Beta1PageRequest {
    * is set.
    */
   countTotal?: boolean;
+
+  /** reverse is set to true if results are to be returned in the descending order. */
+  reverse?: boolean;
 }
 
 /**
@@ -520,6 +545,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -561,6 +587,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -602,6 +629,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -621,10 +649,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @summary Queries a partPubEvents by id.
    * @request GET:/VoroshilovMax/bettery/publicevents/partPubEvents/{id}
    */
-  queryPartPubEvents = (id: string, params: RequestParams = {}) =>
+  queryPartPubEvents = (
+    id: string,
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
     this.request<PubliceventsQueryGetPartPubEventsResponse, RpcStatus>({
       path: `/VoroshilovMax/bettery/publicevents/partPubEvents/${id}`,
       method: "GET",
+      query: query,
       format: "json",
       ...params,
     });
@@ -643,6 +682,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -684,6 +724,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -725,6 +766,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
     },
     params: RequestParams = {},
   ) =>
@@ -744,10 +786,21 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * @summary Queries a validPubEvents by id.
    * @request GET:/VoroshilovMax/bettery/publicevents/validPubEvents/{id}
    */
-  queryValidPubEvents = (id: string, params: RequestParams = {}) =>
+  queryValidPubEvents = (
+    id: string,
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.countTotal"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
     this.request<PubliceventsQueryGetValidPubEventsResponse, RpcStatus>({
       path: `/VoroshilovMax/bettery/publicevents/validPubEvents/${id}`,
       method: "GET",
+      query: query,
       format: "json",
       ...params,
     });

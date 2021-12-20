@@ -159,9 +159,10 @@ export class Api extends HttpClient {
          * @summary Queries a mintBet by id.
          * @request GET:/VoroshilovMax/bettery/funds/mintBet/{id}
          */
-        this.queryMintBet = (id, params = {}) => this.request({
+        this.queryMintBet = (id, query, params = {}) => this.request({
             path: `/VoroshilovMax/bettery/funds/mintBet/${id}`,
             method: "GET",
+            query: query,
             format: "json",
             ...params,
         });

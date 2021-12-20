@@ -140,7 +140,11 @@ export default {
         async QueryValidPrivEvents({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
             try {
                 const queryClient = await initQueryClient(rootGetters);
-                let value = (await queryClient.queryValidPrivEvents(key.id)).data;
+                let value = (await queryClient.queryValidPrivEvents(key.id, query)).data;
+                while (all && value.pagination && value.pagination.nextKey != null) {
+                    let next_values = (await queryClient.queryValidPrivEvents(key.id, { ...query, 'pagination.key': value.pagination.nextKey })).data;
+                    value = mergeResults(value, next_values);
+                }
                 commit('QUERY', { query: 'ValidPrivEvents', key: { params: { ...key }, query }, value });
                 if (subscribe)
                     commit('SUBSCRIBE', { action: 'QueryValidPrivEvents', payload: { options: { all }, params: { ...key }, query } });
@@ -170,7 +174,11 @@ export default {
         async QueryPartPrivEvents({ commit, rootGetters, getters }, { options: { subscribe, all } = { subscribe: false, all: false }, params: { ...key }, query = null }) {
             try {
                 const queryClient = await initQueryClient(rootGetters);
-                let value = (await queryClient.queryPartPrivEvents(key.id)).data;
+                let value = (await queryClient.queryPartPrivEvents(key.id, query)).data;
+                while (all && value.pagination && value.pagination.nextKey != null) {
+                    let next_values = (await queryClient.queryPartPrivEvents(key.id, { ...query, 'pagination.key': value.pagination.nextKey })).data;
+                    value = mergeResults(value, next_values);
+                }
                 commit('QUERY', { query: 'PartPrivEvents', key: { params: { ...key }, query }, value });
                 if (subscribe)
                     commit('SUBSCRIBE', { action: 'QueryPartPrivEvents', payload: { options: { all }, params: { ...key }, query } });

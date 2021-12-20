@@ -65,10 +65,12 @@ export interface QueryAllFihishPubEventResponse {
 
 export interface QueryGetValidPubEventsRequest {
   id: number
+  pagination: PageRequest | undefined
 }
 
 export interface QueryGetValidPubEventsResponse {
-  ValidPubEvents: ValidPubEvents | undefined
+  ValidPubEvents: ValidPubEvents[]
+  pagination: PageResponse | undefined
 }
 
 export interface QueryAllValidPubEventsRequest {
@@ -82,10 +84,12 @@ export interface QueryAllValidPubEventsResponse {
 
 export interface QueryGetPartPubEventsRequest {
   id: number
+  pagination: PageRequest | undefined
 }
 
 export interface QueryGetPartPubEventsResponse {
-  PartPubEvents: PartPubEvents | undefined
+  PartPubEvents: PartPubEvents[]
+  pagination: PageResponse | undefined
 }
 
 export interface QueryAllPartPubEventsRequest {
@@ -853,6 +857,9 @@ export const QueryGetValidPubEventsRequest = {
     if (message.id !== 0) {
       writer.uint32(8).uint64(message.id)
     }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
     return writer
   },
 
@@ -865,6 +872,9 @@ export const QueryGetValidPubEventsRequest = {
       switch (tag >>> 3) {
         case 1:
           message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
           break
         default:
           reader.skipType(tag & 7)
@@ -881,12 +891,18 @@ export const QueryGetValidPubEventsRequest = {
     } else {
       message.id = 0
     }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
     return message
   },
 
   toJSON(message: QueryGetValidPubEventsRequest): unknown {
     const obj: any = {}
     message.id !== undefined && (obj.id = message.id)
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
     return obj
   },
 
@@ -897,6 +913,11 @@ export const QueryGetValidPubEventsRequest = {
     } else {
       message.id = 0
     }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
     return message
   }
 }
@@ -905,8 +926,11 @@ const baseQueryGetValidPubEventsResponse: object = {}
 
 export const QueryGetValidPubEventsResponse = {
   encode(message: QueryGetValidPubEventsResponse, writer: Writer = Writer.create()): Writer {
-    if (message.ValidPubEvents !== undefined) {
-      ValidPubEvents.encode(message.ValidPubEvents, writer.uint32(10).fork()).ldelim()
+    for (const v of message.ValidPubEvents) {
+      ValidPubEvents.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
     }
     return writer
   },
@@ -915,11 +939,15 @@ export const QueryGetValidPubEventsResponse = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input
     let end = length === undefined ? reader.len : reader.pos + length
     const message = { ...baseQueryGetValidPubEventsResponse } as QueryGetValidPubEventsResponse
+    message.ValidPubEvents = []
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
-          message.ValidPubEvents = ValidPubEvents.decode(reader, reader.uint32())
+          message.ValidPubEvents.push(ValidPubEvents.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
           break
         default:
           reader.skipType(tag & 7)
@@ -931,26 +959,43 @@ export const QueryGetValidPubEventsResponse = {
 
   fromJSON(object: any): QueryGetValidPubEventsResponse {
     const message = { ...baseQueryGetValidPubEventsResponse } as QueryGetValidPubEventsResponse
+    message.ValidPubEvents = []
     if (object.ValidPubEvents !== undefined && object.ValidPubEvents !== null) {
-      message.ValidPubEvents = ValidPubEvents.fromJSON(object.ValidPubEvents)
+      for (const e of object.ValidPubEvents) {
+        message.ValidPubEvents.push(ValidPubEvents.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
     } else {
-      message.ValidPubEvents = undefined
+      message.pagination = undefined
     }
     return message
   },
 
   toJSON(message: QueryGetValidPubEventsResponse): unknown {
     const obj: any = {}
-    message.ValidPubEvents !== undefined && (obj.ValidPubEvents = message.ValidPubEvents ? ValidPubEvents.toJSON(message.ValidPubEvents) : undefined)
+    if (message.ValidPubEvents) {
+      obj.ValidPubEvents = message.ValidPubEvents.map((e) => (e ? ValidPubEvents.toJSON(e) : undefined))
+    } else {
+      obj.ValidPubEvents = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
     return obj
   },
 
   fromPartial(object: DeepPartial<QueryGetValidPubEventsResponse>): QueryGetValidPubEventsResponse {
     const message = { ...baseQueryGetValidPubEventsResponse } as QueryGetValidPubEventsResponse
+    message.ValidPubEvents = []
     if (object.ValidPubEvents !== undefined && object.ValidPubEvents !== null) {
-      message.ValidPubEvents = ValidPubEvents.fromPartial(object.ValidPubEvents)
+      for (const e of object.ValidPubEvents) {
+        message.ValidPubEvents.push(ValidPubEvents.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
     } else {
-      message.ValidPubEvents = undefined
+      message.pagination = undefined
     }
     return message
   }
@@ -1097,6 +1142,9 @@ export const QueryGetPartPubEventsRequest = {
     if (message.id !== 0) {
       writer.uint32(8).uint64(message.id)
     }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim()
+    }
     return writer
   },
 
@@ -1109,6 +1157,9 @@ export const QueryGetPartPubEventsRequest = {
       switch (tag >>> 3) {
         case 1:
           message.id = longToNumber(reader.uint64() as Long)
+          break
+        case 2:
+          message.pagination = PageRequest.decode(reader, reader.uint32())
           break
         default:
           reader.skipType(tag & 7)
@@ -1125,12 +1176,18 @@ export const QueryGetPartPubEventsRequest = {
     } else {
       message.id = 0
     }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
     return message
   },
 
   toJSON(message: QueryGetPartPubEventsRequest): unknown {
     const obj: any = {}
     message.id !== undefined && (obj.id = message.id)
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
     return obj
   },
 
@@ -1141,6 +1198,11 @@ export const QueryGetPartPubEventsRequest = {
     } else {
       message.id = 0
     }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
+    }
     return message
   }
 }
@@ -1149,8 +1211,11 @@ const baseQueryGetPartPubEventsResponse: object = {}
 
 export const QueryGetPartPubEventsResponse = {
   encode(message: QueryGetPartPubEventsResponse, writer: Writer = Writer.create()): Writer {
-    if (message.PartPubEvents !== undefined) {
-      PartPubEvents.encode(message.PartPubEvents, writer.uint32(10).fork()).ldelim()
+    for (const v of message.PartPubEvents) {
+      PartPubEvents.encode(v!, writer.uint32(10).fork()).ldelim()
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim()
     }
     return writer
   },
@@ -1159,11 +1224,15 @@ export const QueryGetPartPubEventsResponse = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input
     let end = length === undefined ? reader.len : reader.pos + length
     const message = { ...baseQueryGetPartPubEventsResponse } as QueryGetPartPubEventsResponse
+    message.PartPubEvents = []
     while (reader.pos < end) {
       const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
-          message.PartPubEvents = PartPubEvents.decode(reader, reader.uint32())
+          message.PartPubEvents.push(PartPubEvents.decode(reader, reader.uint32()))
+          break
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32())
           break
         default:
           reader.skipType(tag & 7)
@@ -1175,26 +1244,43 @@ export const QueryGetPartPubEventsResponse = {
 
   fromJSON(object: any): QueryGetPartPubEventsResponse {
     const message = { ...baseQueryGetPartPubEventsResponse } as QueryGetPartPubEventsResponse
+    message.PartPubEvents = []
     if (object.PartPubEvents !== undefined && object.PartPubEvents !== null) {
-      message.PartPubEvents = PartPubEvents.fromJSON(object.PartPubEvents)
+      for (const e of object.PartPubEvents) {
+        message.PartPubEvents.push(PartPubEvents.fromJSON(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination)
     } else {
-      message.PartPubEvents = undefined
+      message.pagination = undefined
     }
     return message
   },
 
   toJSON(message: QueryGetPartPubEventsResponse): unknown {
     const obj: any = {}
-    message.PartPubEvents !== undefined && (obj.PartPubEvents = message.PartPubEvents ? PartPubEvents.toJSON(message.PartPubEvents) : undefined)
+    if (message.PartPubEvents) {
+      obj.PartPubEvents = message.PartPubEvents.map((e) => (e ? PartPubEvents.toJSON(e) : undefined))
+    } else {
+      obj.PartPubEvents = []
+    }
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined)
     return obj
   },
 
   fromPartial(object: DeepPartial<QueryGetPartPubEventsResponse>): QueryGetPartPubEventsResponse {
     const message = { ...baseQueryGetPartPubEventsResponse } as QueryGetPartPubEventsResponse
+    message.PartPubEvents = []
     if (object.PartPubEvents !== undefined && object.PartPubEvents !== null) {
-      message.PartPubEvents = PartPubEvents.fromPartial(object.PartPubEvents)
+      for (const e of object.PartPubEvents) {
+        message.PartPubEvents.push(PartPubEvents.fromPartial(e))
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination)
     } else {
-      message.PartPubEvents = undefined
+      message.pagination = undefined
     }
     return message
   }

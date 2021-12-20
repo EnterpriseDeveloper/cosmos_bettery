@@ -19,9 +19,11 @@ export interface QueryAllSwipeBetResponse {
 }
 export interface QueryGetMintBetRequest {
     id: number;
+    pagination: PageRequest | undefined;
 }
 export interface QueryGetMintBetResponse {
-    MintBet: MintBet | undefined;
+    MintBet: MintBet[];
+    pagination: PageResponse | undefined;
 }
 export interface QueryAllMintBetRequest {
     pagination: PageRequest | undefined;

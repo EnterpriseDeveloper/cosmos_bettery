@@ -49,9 +49,11 @@ export interface QueryAllFihishPubEventResponse {
 }
 export interface QueryGetValidPubEventsRequest {
     id: number;
+    pagination: PageRequest | undefined;
 }
 export interface QueryGetValidPubEventsResponse {
-    ValidPubEvents: ValidPubEvents | undefined;
+    ValidPubEvents: ValidPubEvents[];
+    pagination: PageResponse | undefined;
 }
 export interface QueryAllValidPubEventsRequest {
     pagination: PageRequest | undefined;
@@ -62,9 +64,11 @@ export interface QueryAllValidPubEventsResponse {
 }
 export interface QueryGetPartPubEventsRequest {
     id: number;
+    pagination: PageRequest | undefined;
 }
 export interface QueryGetPartPubEventsResponse {
-    PartPubEvents: PartPubEvents | undefined;
+    PartPubEvents: PartPubEvents[];
+    pagination: PageResponse | undefined;
 }
 export interface QueryAllPartPubEventsRequest {
     pagination: PageRequest | undefined;

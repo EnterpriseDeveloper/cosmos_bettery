@@ -1,8 +1,8 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from 'protobufjs/minimal';
 import * as Long from 'long';
-import { ValidPrivEvents } from '../privateevents/valid_priv_events';
 import { PageRequest, PageResponse } from '../cosmos/base/query/v1beta1/pagination';
+import { ValidPrivEvents } from '../privateevents/valid_priv_events';
 import { PartPrivEvents } from '../privateevents/part_priv_events';
 import { CreatePrivEvents } from '../privateevents/create_priv_events';
 export const protobufPackage = 'VoroshilovMax.bettery.privateevents';
@@ -11,6 +11,9 @@ export const QueryGetValidPrivEventsRequest = {
     encode(message, writer = Writer.create()) {
         if (message.id !== 0) {
             writer.uint32(8).uint64(message.id);
+        }
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -23,6 +26,9 @@ export const QueryGetValidPrivEventsRequest = {
             switch (tag >>> 3) {
                 case 1:
                     message.id = longToNumber(reader.uint64());
+                    break;
+                case 2:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -39,11 +45,18 @@ export const QueryGetValidPrivEventsRequest = {
         else {
             message.id = 0;
         }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.id !== undefined && (obj.id = message.id);
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -54,14 +67,23 @@ export const QueryGetValidPrivEventsRequest = {
         else {
             message.id = 0;
         }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
         return message;
     }
 };
 const baseQueryGetValidPrivEventsResponse = {};
 export const QueryGetValidPrivEventsResponse = {
     encode(message, writer = Writer.create()) {
-        if (message.ValidPrivEvents !== undefined) {
-            ValidPrivEvents.encode(message.ValidPrivEvents, writer.uint32(10).fork()).ldelim();
+        for (const v of message.ValidPrivEvents) {
+            ValidPrivEvents.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -69,11 +91,15 @@ export const QueryGetValidPrivEventsResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryGetValidPrivEventsResponse };
+        message.ValidPrivEvents = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.ValidPrivEvents = ValidPrivEvents.decode(reader, reader.uint32());
+                    message.ValidPrivEvents.push(ValidPrivEvents.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -84,26 +110,44 @@ export const QueryGetValidPrivEventsResponse = {
     },
     fromJSON(object) {
         const message = { ...baseQueryGetValidPrivEventsResponse };
+        message.ValidPrivEvents = [];
         if (object.ValidPrivEvents !== undefined && object.ValidPrivEvents !== null) {
-            message.ValidPrivEvents = ValidPrivEvents.fromJSON(object.ValidPrivEvents);
+            for (const e of object.ValidPrivEvents) {
+                message.ValidPrivEvents.push(ValidPrivEvents.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
         }
         else {
-            message.ValidPrivEvents = undefined;
+            message.pagination = undefined;
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
-        message.ValidPrivEvents !== undefined && (obj.ValidPrivEvents = message.ValidPrivEvents ? ValidPrivEvents.toJSON(message.ValidPrivEvents) : undefined);
+        if (message.ValidPrivEvents) {
+            obj.ValidPrivEvents = message.ValidPrivEvents.map((e) => (e ? ValidPrivEvents.toJSON(e) : undefined));
+        }
+        else {
+            obj.ValidPrivEvents = [];
+        }
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQueryGetValidPrivEventsResponse };
+        message.ValidPrivEvents = [];
         if (object.ValidPrivEvents !== undefined && object.ValidPrivEvents !== null) {
-            message.ValidPrivEvents = ValidPrivEvents.fromPartial(object.ValidPrivEvents);
+            for (const e of object.ValidPrivEvents) {
+                message.ValidPrivEvents.push(ValidPrivEvents.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
         }
         else {
-            message.ValidPrivEvents = undefined;
+            message.pagination = undefined;
         }
         return message;
     }
@@ -241,6 +285,9 @@ export const QueryGetPartPrivEventsRequest = {
         if (message.id !== 0) {
             writer.uint32(8).uint64(message.id);
         }
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -252,6 +299,9 @@ export const QueryGetPartPrivEventsRequest = {
             switch (tag >>> 3) {
                 case 1:
                     message.id = longToNumber(reader.uint64());
+                    break;
+                case 2:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -268,11 +318,18 @@ export const QueryGetPartPrivEventsRequest = {
         else {
             message.id = 0;
         }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
         return message;
     },
     toJSON(message) {
         const obj = {};
         message.id !== undefined && (obj.id = message.id);
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
         return obj;
     },
     fromPartial(object) {
@@ -283,14 +340,23 @@ export const QueryGetPartPrivEventsRequest = {
         else {
             message.id = 0;
         }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
         return message;
     }
 };
 const baseQueryGetPartPrivEventsResponse = {};
 export const QueryGetPartPrivEventsResponse = {
     encode(message, writer = Writer.create()) {
-        if (message.PartPrivEvents !== undefined) {
-            PartPrivEvents.encode(message.PartPrivEvents, writer.uint32(10).fork()).ldelim();
+        for (const v of message.PartPrivEvents) {
+            PartPrivEvents.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -298,11 +364,15 @@ export const QueryGetPartPrivEventsResponse = {
         const reader = input instanceof Uint8Array ? new Reader(input) : input;
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = { ...baseQueryGetPartPrivEventsResponse };
+        message.PartPrivEvents = [];
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.PartPrivEvents = PartPrivEvents.decode(reader, reader.uint32());
+                    message.PartPrivEvents.push(PartPrivEvents.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -313,26 +383,44 @@ export const QueryGetPartPrivEventsResponse = {
     },
     fromJSON(object) {
         const message = { ...baseQueryGetPartPrivEventsResponse };
+        message.PartPrivEvents = [];
         if (object.PartPrivEvents !== undefined && object.PartPrivEvents !== null) {
-            message.PartPrivEvents = PartPrivEvents.fromJSON(object.PartPrivEvents);
+            for (const e of object.PartPrivEvents) {
+                message.PartPrivEvents.push(PartPrivEvents.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
         }
         else {
-            message.PartPrivEvents = undefined;
+            message.pagination = undefined;
         }
         return message;
     },
     toJSON(message) {
         const obj = {};
-        message.PartPrivEvents !== undefined && (obj.PartPrivEvents = message.PartPrivEvents ? PartPrivEvents.toJSON(message.PartPrivEvents) : undefined);
+        if (message.PartPrivEvents) {
+            obj.PartPrivEvents = message.PartPrivEvents.map((e) => (e ? PartPrivEvents.toJSON(e) : undefined));
+        }
+        else {
+            obj.PartPrivEvents = [];
+        }
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseQueryGetPartPrivEventsResponse };
+        message.PartPrivEvents = [];
         if (object.PartPrivEvents !== undefined && object.PartPrivEvents !== null) {
-            message.PartPrivEvents = PartPrivEvents.fromPartial(object.PartPrivEvents);
+            for (const e of object.PartPrivEvents) {
+                message.PartPrivEvents.push(PartPrivEvents.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
         }
         else {
-            message.PartPrivEvents = undefined;
+            message.pagination = undefined;
         }
         return message;
     }

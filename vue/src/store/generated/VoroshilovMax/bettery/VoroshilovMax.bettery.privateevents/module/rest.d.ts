@@ -76,10 +76,30 @@ export interface PrivateeventsQueryGetCreatePrivEventsResponse {
     CreatePrivEvents?: PrivateeventsCreatePrivEvents;
 }
 export interface PrivateeventsQueryGetPartPrivEventsResponse {
-    PartPrivEvents?: PrivateeventsPartPrivEvents;
+    PartPrivEvents?: PrivateeventsPartPrivEvents[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
 }
 export interface PrivateeventsQueryGetValidPrivEventsResponse {
-    ValidPrivEvents?: PrivateeventsValidPrivEvents;
+    ValidPrivEvents?: PrivateeventsValidPrivEvents[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
 }
 export interface PrivateeventsValidPrivEvents {
     creator?: string;
@@ -134,6 +154,8 @@ export interface V1Beta1PageRequest {
      * is set.
      */
     countTotal?: boolean;
+    /** reverse is set to true if results are to be returned in the descending order. */
+    reverse?: boolean;
 }
 /**
 * PageResponse is to be embedded in gRPC response messages where the
@@ -221,6 +243,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
         "pagination.offset"?: string;
         "pagination.limit"?: string;
         "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
     }, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryAllCreatePrivEventsResponse, RpcStatus>>;
     /**
      * No description
@@ -244,6 +267,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
         "pagination.offset"?: string;
         "pagination.limit"?: string;
         "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
     }, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryAllPartPrivEventsResponse, RpcStatus>>;
     /**
      * No description
@@ -253,7 +277,13 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Queries a partPrivEvents by id.
      * @request GET:/VoroshilovMax/bettery/privateevents/partPrivEvents/{id}
      */
-    queryPartPrivEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryGetPartPrivEventsResponse, RpcStatus>>;
+    queryPartPrivEvents: (id: string, query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryGetPartPrivEventsResponse, RpcStatus>>;
     /**
      * No description
      *
@@ -267,6 +297,7 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
         "pagination.offset"?: string;
         "pagination.limit"?: string;
         "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
     }, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryAllValidPrivEventsResponse, RpcStatus>>;
     /**
      * No description
@@ -276,6 +307,12 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @summary Queries a validPrivEvents by id.
      * @request GET:/VoroshilovMax/bettery/privateevents/validPrivEvents/{id}
      */
-    queryValidPrivEvents: (id: string, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryGetValidPrivEventsResponse, RpcStatus>>;
+    queryValidPrivEvents: (id: string, query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
+    }, params?: RequestParams) => Promise<HttpResponse<PrivateeventsQueryGetValidPrivEventsResponse, RpcStatus>>;
 }
 export {};
